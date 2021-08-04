@@ -8,6 +8,8 @@ commands:
     anunciarevento:
         description: Anunciar un evento por medio de un Title.
         permission: evento.anuntitle.global
+        permission-message: No tienes permiso para usar este comando.
     probarevento:
         description: Probar los anuncios de eventos por Title.
         permission: evento.anuntitle.prueba
+        permission-message: No tienes permiso para usar este comando.

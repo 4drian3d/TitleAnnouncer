@@ -11,11 +11,11 @@ import net.kyori.adventure.text.format.NamedTextColor;
 public class Announcer extends JavaPlugin {
 	//Component to send the server name: Peruviankkit
 	static final TextComponent pvknet = Component.text("Peru", NamedTextColor.DARK_RED)
-	.append(Component.text("vian", NamedTextColor.WHITE))
-	.append(Component.text("kkit", NamedTextColor.DARK_RED)).append(Component.text(" Network", NamedTextColor.GREEN));
+		.append(Component.text("vian", NamedTextColor.WHITE))
+		.append(Component.text("kkit", NamedTextColor.DARK_RED)).append(Component.text(" Network", NamedTextColor.GREEN));
 	//Plugin Name
 	static final TextComponent eventannouncertext = Component.text("Event", NamedTextColor.RED)
-	.append(Component.text("Announcer", NamedTextColor.WHITE));
+		.append(Component.text("Announcer", NamedTextColor.WHITE));
 	//line
 	static final TextComponent linelong = Component.text("----------------------", NamedTextColor.DARK_GRAY);
 	

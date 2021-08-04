@@ -40,7 +40,9 @@ public class AnnouncerCommand implements CommandExecutor {
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle) {
+        //Title Duration
         final Title.Times times = Title.Times.of(Duration.ofMillis(1000), Duration.ofMillis(3000), Duration.ofMillis(1000));
+        //Title Format
         final Title title = Title.title(anuntitle, anunsubtitle, times);
         //Send the title to the specified audience, in this case, the entire server.
         audience.showTitle(title);
@@ -53,8 +55,8 @@ public class AnnouncerCommand implements CommandExecutor {
                     break;
             case 1: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /aevento /warp (nombre de tu evento)", NamedTextColor.WHITE)));
                     break;
-			case 2: sendTitle(Component.text("NUEVO EVENTO", NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true), miniMessageParse(args[0] + " " + args[1]));
-					sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
+            case 2: sendTitle(Component.text("NUEVO EVENTO", NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true), miniMessageParse(args[0] + " " + args[1]));
+                    sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
                     break;
             default: sender.sendMessage(Component.text("Hola Eventor(a), necesitas introducir el solo el /warp y el nombre del warp. Hay posibilidad que te hayas confundido poniendo '<aqua>/pevento <red> /warp &5evento' o parecido. Actualmente solo esta permitido 2 palabras.", NamedTextColor.GRAY));
                     break;
