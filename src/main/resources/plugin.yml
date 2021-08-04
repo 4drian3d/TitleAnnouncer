@@ -2,14 +2,14 @@ name: ${project.artifactId}
 version: ${project.version}
 author: 4drian3d
 main: net.dreamerzero.EventAnnouncer.Announcer
-description: Plugin hecho para anunciar eventos por titles. Hecho para Peruviankkit Network.
+description: Plugin created to send titles to the player and the server in general using the MiniMessage format. Made for Peruviankkit Network.
 api-version: 1.16
 commands:
     anunciarevento:
-        description: Anunciar un evento por medio de un Title.
+        description: Announce a Title to all players.
         permission: evento.anuntitle.global
         permission-message: No tienes permiso para usar este comando.
     probarevento:
-        description: Probar los anuncios de eventos por Title.
+        description: Test the implementation of /announceevent, it will send a title to the player who used the command.
         permission: evento.anuntitle.prueba
         permission-message: No tienes permiso para usar este comando.

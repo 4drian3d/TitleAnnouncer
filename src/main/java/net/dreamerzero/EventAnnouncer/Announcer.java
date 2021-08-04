@@ -22,7 +22,7 @@ public class Announcer extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		Bukkit.getConsoleSender().sendMessage(Component.text("Habilitando ", NamedTextColor.AQUA).append(eventannouncertext));
+		Bukkit.getConsoleSender().sendMessage(Component.text("Enabling ", NamedTextColor.AQUA).append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 		commandRegister();
@@ -31,7 +31,7 @@ public class Announcer extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		Bukkit.getConsoleSender().sendMessage(Component.text("Deshabilitando ", NamedTextColor.AQUA).append(eventannouncertext));
+		Bukkit.getConsoleSender().sendMessage(Component.text("Disabling ", NamedTextColor.AQUA).append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 	}
