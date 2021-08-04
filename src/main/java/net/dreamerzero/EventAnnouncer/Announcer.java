@@ -3,7 +3,7 @@ package net.dreamerzero.EventAnnouncer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.dreamerzero.EventAnnouncer.commands.AnnouncerCommand;
-import net.dreamerzero.EventAnnouncer.commands.PruebaCommand;
+import net.dreamerzero.EventAnnouncer.commands.TestCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -39,7 +39,7 @@ public class Announcer extends JavaPlugin {
 	//Registration of the 2 commands that the plugin has, for the moment.
 	public void commandRegister() {
 		this.getCommand("anunciarevento").setExecutor(new AnnouncerCommand(this));
-		this.getCommand("probarevento").setExecutor(new PruebaCommand(this));
+		this.getCommand("probarevento").setExecutor(new TestCommand(this));
 	}
 
 }
