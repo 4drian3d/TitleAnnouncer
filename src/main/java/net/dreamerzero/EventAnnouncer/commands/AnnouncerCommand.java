@@ -51,11 +51,14 @@ public class AnnouncerCommand implements CommandExecutor {
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         switch(args.length){
-            case 0: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp porfavor", NamedTextColor.GRAY)));
+            case 0: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir los valores necesarios para la ejecución del comando", NamedTextColor.GRAY)));
                     break;
-            case 1: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /aevento /warp (nombre de tu evento)", NamedTextColor.WHITE)));
+            case 1: 
+            case 2:
+            case 3: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /anunciarevento <gradient:red:white>Nuevo <gradient:white:red>Evento <gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
                     break;
-            case 2: sendTitle(Component.text("NUEVO EVENTO", NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true), miniMessageParse(args[0] + " " + args[1]));
+            //Title + SubTitle
+            case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), miniMessageParse(args[2] + " " + args[3]));
                     sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
                     break;
             default: sender.sendMessage(Component.text("Hola Eventor(a), necesitas introducir el solo el /warp y el nombre del warp. Hay posibilidad que te hayas confundido poniendo '<aqua>/pevento <red> /warp &5evento' o parecido. Actualmente solo esta permitido 2 palabras.", NamedTextColor.GRAY));
