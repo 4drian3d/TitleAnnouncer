@@ -1,0 +1,14 @@
+name: ${project.artifactId}
+version: ${project.version}
+author: 4drian3d
+main: net.dreamerzero.EventAnnouncer.Announcer
+description: Plugin hecho para anunciar eventos por titles. Hecho para Peruviankkit Network.
+api-version: 1.16
+depend: [Vault]
+commands:
+    anunciarevento:
+        description: Anunciar un evento por medio de un Title.
+        permission: evento.anuntitle.global
+    probarevento:
+        description: Probar los anuncios de eventos por Title.
+        permission: evento.anuntitle.prueba
