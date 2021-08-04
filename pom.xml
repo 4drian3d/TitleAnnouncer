@@ -79,7 +79,7 @@
                         -->
                         <relocation>
                             <pattern>net.kyori.adventure.text.minimessage</pattern>
-                            <shadedPattern>com.oskarsmc.message.relocated.minimessage</shadedPattern>
+                            <shadedPattern>net.dreamerzero.libs.minimessage</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
