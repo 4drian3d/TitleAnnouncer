@@ -58,6 +58,14 @@ public class TestTitleCommand implements CommandExecutor {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
+
+        StringBuilder titleandsubtitle = new StringBuilder();
+        for (byte i = 0; i < args.length; i++){
+            titleandsubtitle = titleandsubtitle.append(" ");
+            titleandsubtitle = titleandsubtitle.append(args[i]); 
+        }
+        //Convert StringBuilder to String, Component is not compatible :nimodo:
+        String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
         
         if (Announcer.pvkmode) {
             switch(args.length){
@@ -67,7 +75,7 @@ public class TestTitleCommand implements CommandExecutor {
                 case 2:
                 case 3: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /probarevento <gradient:red:white>Nuevo <gradient:white:red>Evento <gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
                         break;
-                case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), miniMessageParse(args[2] + " " + args[3]), sender);
+                case 4: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
                         sender.sendMessage(pvktext.append(Component.text("Mensaje de Prueba Ejecutado Correctamente", NamedTextColor.GREEN)));
                         break;
                 default: sender.sendMessage(Component.text("Hola Eventor(a), necesitas introducir el solo el /warp y el nombre del warp. Hay posibilidad que te hayas confundido poniendo '/pevento <red> /warp <aqua> evento' o parecido. Actualmente solo esta permitido 2 palabras.", NamedTextColor.WHITE));
@@ -81,7 +89,7 @@ public class TestTitleCommand implements CommandExecutor {
                 case 2:
                 case 3: sender.sendMessage(Component.text("You need to enter 2 title arguments and 2 subtitle arguments.", NamedTextColor.RED));
                         break;
-                case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), miniMessageParse(args[2] + " " + args[3]), sender);
+                case 4: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
                         sender.sendMessage(Component.text("TestTitle succesfully sended", NamedTextColor.GREEN));
                         break;
                 default: sender.sendMessage(Component.text("You need to enter only 4 arguments to execute the command. There is a possibility that you got confused by putting '<aqua>/titleevent <network> /warp <aqua>Event' or similar. Currently only 2 words in title and subtitle are allowed.", NamedTextColor.WHITE));

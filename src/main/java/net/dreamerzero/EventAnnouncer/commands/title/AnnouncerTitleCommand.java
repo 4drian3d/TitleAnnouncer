@@ -57,6 +57,13 @@ public class AnnouncerTitleCommand implements CommandExecutor {
     TODO: Implement the StringBuilder of AnnouncerActionBar.java compatible with a title "/titleevent (num) (num) (text) format?""
     */
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        StringBuilder titleandsubtitle = new StringBuilder();
+        for (byte i = 0; i < args.length; i++){
+            titleandsubtitle = titleandsubtitle.append(" ");
+            titleandsubtitle = titleandsubtitle.append(args[i]); 
+        }
+        //Convert StringBuilder to String, Component is not compatible :nimodo:
+        String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
         if(Announcer.pvkmode){
             switch(args.length){
                 case 0: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir los valores necesarios para la ejecución del comando", NamedTextColor.GRAY)));
@@ -66,8 +73,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 case 3: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /anunciarevento <gradient:red:white>Nuevo <gradient:white:red>Evento <gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
                         break;
                 //Title + SubTitle
-                case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), 
-                                miniMessageParse(args[2] + " " + args[3]));
+                case 4: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), 
+                                miniMessageParse(titleandsubtitlefinal[1]));
                     audience.playSound(titlesound);        
                     sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
                         break;
@@ -84,8 +91,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 case 3: sender.sendMessage(Component.text("You need to enter 2 title arguments and 2 subtitle arguments exactly in orden the command to work, in example: /titleevento <gradient:red:white>New <gradient:white:red>Event <gold>/warp <gradient:red:white>Event", NamedTextColor.WHITE));
                         break;
                 //Title + SubTitle
-                case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), 
-                                miniMessageParse(args[2] + " " + args[3]));
+                case 4: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), 
+                                miniMessageParse(titleandsubtitlefinal[1]));
                         audience.playSound(titlesound);
                         sender.sendMessage(Component.text("Title succesfully sended", NamedTextColor.GREEN));
                         break;
