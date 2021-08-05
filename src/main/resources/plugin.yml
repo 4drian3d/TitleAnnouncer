@@ -6,16 +6,20 @@ description: Plugin created to send titles to the player and the server in gener
 api-version: 1.16
 commands:
     titleevento:
+        aliases: [anunciarevento]
         description: Announce a Title to all players.
         permission: announcer.title.global
         permission-message: No tienes permiso para usar este comando.
     titlepevento:
+        aliases: [probarevento]
         description: Test the implementation of /announceevent, it will send a title to the player who used the command.
         permission: announcer.title.test
         permission-message: No tienes permiso para usar este comando.
     actionbarevento:
         description: This will announce a actionbar to all players.
         permission: announcer.actionbar.global
+        permission-message: No tienes permiso para usar este comando.
     actionbarpevento:
         description: This will announce a actionbar to the sender of the command.
         permission: announcer.actionbar.test
+        permission-message: No tienes permiso para usar este comando.

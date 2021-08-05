@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 
 import net.dreamerzero.EventAnnouncer.Announcer;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -38,6 +40,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         return MiniMessage.get().parse(message);
     }
 
+    static final Sound titlesound = Sound.sound(Key.key("ENTITY_EXPERIENCE_ORB_PICKUP"), Sound.Source.MUSIC, 10f, 2f);
+
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle) {
         //Title Duration
@@ -62,8 +66,10 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 case 3: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /anunciarevento <gradient:red:white>Nuevo <gradient:white:red>Evento <gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
                         break;
                 //Title + SubTitle
-                case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), miniMessageParse(args[2] + " " + args[3]));
-                        sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
+                case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), 
+                                miniMessageParse(args[2] + " " + args[3]));
+                    audience.playSound(titlesound);        
+                    sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
                         break;
                 default: sender.sendMessage(Component.text("Hola Eventor(a), necesitas introducir el solo el /warp y el nombre del warp. Hay posibilidad que te hayas confundido poniendo '<aqua>/pevento <red> /warp &5evento' o parecido. Actualmente solo esta permitido 2 palabras.", NamedTextColor.GRAY));
                         break;
@@ -80,6 +86,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 //Title + SubTitle
                 case 4: sendTitle(miniMessageParse(args[0] + " " + args[1]), 
                                 miniMessageParse(args[2] + " " + args[3]));
+                        audience.playSound(titlesound);
                         sender.sendMessage(Component.text("Title succesfully sended", NamedTextColor.GREEN));
                         break;
                 default: sender.sendMessage(Component.text("You need to enter only 4 arguments to execute the command. There is a possibility that you got confused by putting '<aqua>/titleevent <network> /warp <aqua>Event' or similar. Currently only 2 words in title and subtitle are allowed.", NamedTextColor.GRAY));

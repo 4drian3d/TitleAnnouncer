@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -37,6 +39,8 @@ public class TestTitleCommand implements CommandExecutor {
     private static Component miniMessageParse(final String message) {
         return MiniMessage.get().parse(message);
     }
+
+    static final Sound titlesound = Sound.sound(Key.key("ENTITY_EXPERIENCE_ORB_PICKUP"), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle, final Audience target) {
