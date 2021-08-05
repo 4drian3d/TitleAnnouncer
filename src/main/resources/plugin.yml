@@ -5,11 +5,17 @@ main: net.dreamerzero.EventAnnouncer.Announcer
 description: Plugin created to send titles to the player and the server in general using the MiniMessage format. Made for Peruviankkit Network.
 api-version: 1.16
 commands:
-    anunciarevento:
+    titleevento:
         description: Announce a Title to all players.
-        permission: evento.anuntitle.global
+        permission: announcer.title.global
         permission-message: No tienes permiso para usar este comando.
-    probarevento:
+    titlepevento:
         description: Test the implementation of /announceevent, it will send a title to the player who used the command.
-        permission: evento.anuntitle.prueba
+        permission: announcer.title.test
         permission-message: No tienes permiso para usar este comando.
+    actionbarevento:
+        description: This will announce a actionbar to all players.
+        permission: announcer.actionbar.global
+    actionbarpevento:
+        description: This will announce a actionbar to the sender of the command.
+        permission: announcer.actionbar.test

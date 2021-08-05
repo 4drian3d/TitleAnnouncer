@@ -2,8 +2,11 @@ package net.dreamerzero.EventAnnouncer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import net.dreamerzero.EventAnnouncer.commands.AnnouncerCommand;
-import net.dreamerzero.EventAnnouncer.commands.TestCommand;
+
+import net.dreamerzero.EventAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
+import net.dreamerzero.EventAnnouncer.commands.actionbar.TestActionbarCommand;
+import net.dreamerzero.EventAnnouncer.commands.title.AnnouncerTitleCommand;
+import net.dreamerzero.EventAnnouncer.commands.title.TestTitleCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -18,6 +21,8 @@ public class Announcer extends JavaPlugin {
 		.append(Component.text("Announcer", NamedTextColor.WHITE));
 	//line
 	static final TextComponent linelong = Component.text("----------------------", NamedTextColor.DARK_GRAY);
+	//Peruviankkit mode, to make the use of the plugin more general.
+	public static final boolean pvkmode = false;
 	
 	@Override
 	public void onEnable() {
@@ -38,8 +43,10 @@ public class Announcer extends JavaPlugin {
 	
 	//Registration of the 2 commands that the plugin has, for the moment.
 	public void commandRegister() {
-		this.getCommand("anunciarevento").setExecutor(new AnnouncerCommand(this));
-		this.getCommand("probarevento").setExecutor(new TestCommand(this));
+		this.getCommand("titleevento").setExecutor(new AnnouncerTitleCommand(this));
+		this.getCommand("titlepevento").setExecutor(new TestTitleCommand(this));
+		this.getCommand("actionbarevento").setExecutor(new AnnouncerActionbarCommand(this));
+		this.getCommand("actionbarpevento").setExecutor(new TestActionbarCommand(this));
 	}
 
 }
