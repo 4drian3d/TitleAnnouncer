@@ -2,11 +2,11 @@
 Plugin that sends a Title or ActionBar when using a command. Made with Adventure API/MiniMessage.
 
 ## Commands
-### /titleevento (Title1 + Title2) (SubTitle1 + SubTitle2)
+### /announcetitle (Title);(SubTitle)
 Announces a Title to the entire server.
-### /titlepevento (Title1 + Title2) (SubTitle1 + SubTitle2)
+### /testtitle (Title);(SubTitle)
 Send a Title only to the player who has sent it, to test the operation of /titleevent
-### /actionbarevento (message)
+### /announceactionbar (message)
 Announce a actionbar to the entire server.
-### /actionbarpevento (message)
+### /testactionbar (message)
 Send a ActionBar only to the player who has sent it, to test the operation of /actionbarevento
