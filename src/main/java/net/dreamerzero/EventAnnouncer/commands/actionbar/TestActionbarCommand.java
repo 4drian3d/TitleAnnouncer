@@ -27,7 +27,7 @@ public class TestActionbarCommand implements CommandExecutor {
     //The audience that will receive the actionbar will be all the players on the server.
     public Audience audience = Bukkit.getServer();
 
-    static final Sound actionbarsound = Sound.sound(Key.key("ENTITY_EXPERIENCE_ORB_PICKUP"), Sound.Source.MUSIC, 10f, 2f);
+    static final Sound actionbarsound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

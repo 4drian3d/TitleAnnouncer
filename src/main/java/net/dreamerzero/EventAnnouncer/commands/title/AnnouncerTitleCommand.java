@@ -40,7 +40,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         return MiniMessage.get().parse(message);
     }
 
-    static final Sound titlesound = Sound.sound(Key.key("ENTITY_EXPERIENCE_ORB_PICKUP"), Sound.Source.MUSIC, 10f, 2f);
+    static final Sound titlesound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle) {
@@ -53,9 +53,6 @@ public class AnnouncerTitleCommand implements CommandExecutor {
     }
 
     //Command
-    /*
-    TODO: Implement the StringBuilder of AnnouncerActionBar.java compatible with a title "/titleevent (num) (num) (text) format?""
-    */
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         StringBuilder titleandsubtitle = new StringBuilder();
         for (byte i = 0; i < args.length; i++){

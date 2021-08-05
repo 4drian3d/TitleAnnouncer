@@ -40,7 +40,7 @@ public class TestTitleCommand implements CommandExecutor {
         return MiniMessage.get().parse(message);
     }
 
-    static final Sound titlesound = Sound.sound(Key.key("ENTITY_EXPERIENCE_ORB_PICKUP"), Sound.Source.MUSIC, 10f, 2f);
+    static final Sound titlesound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle, final Audience target) {
