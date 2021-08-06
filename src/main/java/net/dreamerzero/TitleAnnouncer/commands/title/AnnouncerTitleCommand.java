@@ -65,35 +65,27 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             switch(args.length){
                 case 0: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir los valores necesarios para la ejecución del comando", NamedTextColor.GRAY)));
                         break;
-                case 1: 
-                case 2:
-                case 3: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /anunciarevento <gradient:red:white>Nuevo <gradient:white:red>Evento <gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
+                case 1: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el titulo y el subtitulo del anuncio junto con el ; para poder enviarlo, o sea /anunciarevento <gradient:red:white>Nuevo <gradient:white:red>Evento;<gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
                         break;
                 //Title + SubTitle
-                case 4: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), 
+                default: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), 
                                 miniMessageParse(titleandsubtitlefinal[1]));
-                    audience.playSound(titlesound);        
-                    sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
-                        break;
-                default: sender.sendMessage(Component.text("Hola Eventor(a), necesitas introducir el solo el /warp y el nombre del warp. Hay posibilidad que te hayas confundido poniendo '<aqua>/pevento <red> /warp &5evento' o parecido. Actualmente solo esta permitido 2 palabras.", NamedTextColor.GRAY));
+                        audience.playSound(titlesound);        
+                        sender.sendMessage(pvktext.append(Component.text("Mensaje Enviado Correctamente", NamedTextColor.GREEN)));
                         break;
             }
             return true;
         } else {
             switch(args.length){
-                case 0: sender.sendMessage(Component.text("You need to enter 2 title arguments and 2 subtitle arguments.", NamedTextColor.GRAY));
+                case 0: sender.sendMessage(Component.text("You need to enter the title and subtitle arguments.", NamedTextColor.GRAY));
                         break;
-                case 1: 
-                case 2:
-                case 3: sender.sendMessage(Component.text("You need to enter 2 title arguments and 2 subtitle arguments exactly in orden the command to work, in example: /titleevento <gradient:red:white>New <gradient:white:red>Event <gold>/warp <gradient:red:white>Event", NamedTextColor.WHITE));
+                case 1: sender.sendMessage(Component.text("You need to enter the title, the subtitle and the separator ';' in orden to send the title for example: /titleevento <gradient:red:white>New <gradient:white:red>Event;<gold>/warp <gradient:red:white>Event", NamedTextColor.WHITE));
                         break;
                 //Title + SubTitle
-                case 4: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), 
+                default: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), 
                                 miniMessageParse(titleandsubtitlefinal[1]));
                         audience.playSound(titlesound);
                         sender.sendMessage(Component.text("Title succesfully sended", NamedTextColor.GREEN));
-                        break;
-                default: sender.sendMessage(Component.text("You need to enter only 4 arguments to execute the command. There is a possibility that you got confused by putting '<aqua>/titleevent <network> /warp <aqua>Event' or similar. Currently only 2 words in title and subtitle are allowed.", NamedTextColor.GRAY));
                         break;
             }
             return true;

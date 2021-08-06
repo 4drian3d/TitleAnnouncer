@@ -1,7 +1,7 @@
 name: ${project.artifactId}
 version: ${project.version}
 author: 4drian3d
-main: net.dreamerzero.EventAnnouncer.Announcer
+main: net.dreamerzero.TitleAnnouncer.Announcer
 description: >
     Plugin created to send titles and actionbar to the player 
     and the server in general using the MiniMessage format. 
