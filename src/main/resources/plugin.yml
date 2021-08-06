@@ -2,26 +2,29 @@ name: ${project.artifactId}
 version: ${project.version}
 author: 4drian3d
 main: net.dreamerzero.EventAnnouncer.Announcer
-description: Plugin created to send titles to the player and the server in general using the MiniMessage format. Made for Peruviankkit Network.
+description: >
+    Plugin created to send titles and actionbar to the player 
+    and the server in general using the MiniMessage format. 
+    Originally made for Peruviankkit Network.
 api-version: 1.16
 commands:
     announcetitle:
         aliases: [anunciarevento, titleevento]
         description: Announce a Title to all players.
         permission: announcer.title.global
-        permission-message: No tienes permiso para usar este comando.
+        permission-message: No tienes permiso para ejecutar este comando.
     testtitle:
         aliases: [probarevento, titlepevento]
-        description: Test the implementation of /announceevent, it will send a title to the player who used the command.
+        description: This will send a title to the player who used the command.
         permission: announcer.title.test
-        permission-message: No tienes permiso para usar este comando.
+        permission-message: No tienes permiso para ejecutar este comando.
     announceactionbar:
         aliases: [actionbarevento]
         description: This will announce a actionbar to all players.
         permission: announcer.actionbar.global
-        permission-message: No tienes permiso para usar este comando.
+        permission-message: No tienes permiso para ejecutar este comando.
     testactionbar:
         aliases: [actionbarpevento]
         description: This will announce a actionbar to the sender of the command.
         permission: announcer.actionbar.test
-        permission-message: No tienes permiso para usar este comando.
+        permission-message: No tienes permiso para ejecutar este comando.
