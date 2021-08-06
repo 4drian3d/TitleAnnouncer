@@ -1,4 +1,4 @@
-package net.dreamerzero.EventAnnouncer.commands.title;
+package net.dreamerzero.TitleAnnouncer.commands.title;
 
 import java.time.Duration;
 
@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
@@ -15,8 +16,6 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
-
-import net.dreamerzero.EventAnnouncer.Announcer;
 
 /*
 This command will be executed as a test of the "/anunciarevento" command. 

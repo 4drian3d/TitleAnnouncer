@@ -1,4 +1,4 @@
-package net.dreamerzero.EventAnnouncer.commands.title;
+package net.dreamerzero.TitleAnnouncer.commands.title;
 
 import java.time.Duration;
 
@@ -7,7 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import net.dreamerzero.EventAnnouncer.Announcer;
+import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;

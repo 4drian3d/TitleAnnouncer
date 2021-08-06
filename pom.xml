@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.dreamerzero.EventAnnouncer</groupId>
-    <artifactId>EventAnnouncer</artifactId>
-    <version>1.1.0</version>
+    <groupId>net.dreamerzero.TitleAnnouncer</groupId>
+    <artifactId>TitleAnnouncer</artifactId>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <properties>
