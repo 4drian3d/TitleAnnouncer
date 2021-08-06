@@ -1,12 +1,12 @@
-# EventAnnouncer
-Plugin that sends a Title or ActionBar when using a command. Made with Adventure API/MiniMessage.
+# TitleAnnouncer
+Plugin that sends a Title or ActionBar when using a command. Made with [Adventure API](https://github.com/KyoriPowered/adventure)/[MiniMessage](https://github.com/KyoriPowered/adventure-text-minimessage).
 
 ## Commands
 ### /announcetitle (Title);(SubTitle)
 Announces a Title to the entire server.
 ### /testtitle (Title);(SubTitle)
-Send a Title only to the player who has sent it, to test the operation of /titleevent
+Send a Title only to the player who has sent it.
 ### /announceactionbar (message)
-Announce a actionbar to the entire server.
+Announce an Actionbar to the entire server.
 ### /testactionbar (message)
-Send a ActionBar only to the player who has sent it, to test the operation of /actionbarevento
+Send a ActionBar only to the player who has sent it.
