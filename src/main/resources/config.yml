@@ -1,0 +1,8 @@
+messages:
+  title:
+    without-argument: "<red>You need to enter the title and subtitle arguments.</red>"
+    single-argument: "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"
+    successfully: "<green>Title succesfully sended</green>"
+    error: "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"
+  actionbar:
+    successfully: "<green>Actionbar succesfully sended</green>"

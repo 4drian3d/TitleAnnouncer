@@ -41,6 +41,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         String actionbartoparse = actionbartext.toString();
         //Send to all
         audience.sendActionBar(miniMessageParse(actionbartoparse));
+        sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.actionbar.successfully")));
         if (Announcer.pvkmode){
             audience.playSound(actionbarsound);
         }

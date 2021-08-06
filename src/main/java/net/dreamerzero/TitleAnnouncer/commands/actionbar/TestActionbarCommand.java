@@ -45,6 +45,7 @@ public class TestActionbarCommand implements CommandExecutor {
         String actionbartoparse = actionbartext.toString();
         //Send to sender
         sender.sendActionBar(miniMessageParse(actionbartoparse));
+        sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.actionbar.successfully")));
         if (Announcer.pvkmode){
             sender.playSound(actionbarsound);
         }

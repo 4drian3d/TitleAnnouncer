@@ -27,13 +27,6 @@ public class TestTitleCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
-    //Static component of the Peruviankkit abbreviation
-    static final TextComponent pvktext = Component.text("[", NamedTextColor.DARK_GRAY)
-        .append(Component.text("P", NamedTextColor.DARK_RED))
-	    .append(Component.text("V", NamedTextColor.WHITE))
-	    .append(Component.text("K", NamedTextColor.DARK_RED))
-        .append(Component.text("] ", NamedTextColor.DARK_GRAY));
-
     //Component that parses the title with the MiniMessage format.
     private static Component miniMessageParse(final String message) {
         return MiniMessage.get().parse(message);
@@ -53,9 +46,16 @@ public class TestTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
+        }
+        if (args.length == 0) {
+            sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.without-argument")));
+            return true;
+        } else if (args.length == 1) {
+            sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.single-argument")));
+            return true;
         }
 
         StringBuilder titleandsubtitle = new StringBuilder();
@@ -63,31 +63,16 @@ public class TestTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
-        //Convert StringBuilder to String, Component is not compatible :nimodo:
-        String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
         
-        if (Announcer.pvkmode) {
-            switch(args.length){
-                case 0: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp porfavor", NamedTextColor.GRAY)));
-                        break;
-                case 1: sender.sendMessage(pvktext.append(Component.text("Hola Eventor(a), necesitas introducir el nombre del warp completo porfavor, o sea /probarevento <gradient:red:white>Nuevo <gradient:white:red>Evento <gold>/warp (nombre de tu evento)", NamedTextColor.WHITE)));
-                        break;
-                default: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
-                        sender.sendMessage(pvktext.append(Component.text("Mensaje de Prueba Ejecutado Correctamente", NamedTextColor.GREEN)));
-                        break;
-            }
+        //Convert StringBuilder to String, Component is not compatible :nimodo:
+        try {
+            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
+            sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.successfully")));
             return true;
-        } else {
-            switch(args.length){
-                case 0: sender.sendMessage(Component.text("You need to enter the title and subtitle arguments.", NamedTextColor.GRAY));
-                        break;
-                case 1: sender.sendMessage(Component.text("You need to enter the title, the subtitle and the separator ';' in orden to send the title for example: /titleevento <gradient:red:white>New <gradient:white:red>Event;<gold>/warp <gradient:red:white>Event", NamedTextColor.WHITE));
-                        break;
-                default: sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
-                        sender.sendMessage(Component.text("TestTitle succesfully sended", NamedTextColor.GREEN));
-                        break;
-            }
-            return true;
+        } catch (Exception e) {
+            sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.error")));
+            return false;
         }
     }
 }

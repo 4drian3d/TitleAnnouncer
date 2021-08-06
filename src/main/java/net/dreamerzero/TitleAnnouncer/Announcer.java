@@ -1,5 +1,7 @@
 package net.dreamerzero.TitleAnnouncer;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,7 +24,7 @@ public class Announcer extends JavaPlugin {
 	//line
 	static final TextComponent linelong = Component.text("----------------------", NamedTextColor.DARK_GRAY);
 	//Peruviankkit mode, to make the use of the plugin more general.
-	public static final boolean pvkmode = false;
+	public static final boolean pvkmode = true;
 	
 	@Override
 	public void onEnable() {
@@ -31,6 +33,7 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 		commandRegister();
+		pluginConfiguration();
 	}
 	
 	@Override
@@ -47,6 +50,14 @@ public class Announcer extends JavaPlugin {
 		this.getCommand("titlepevento").setExecutor(new TestTitleCommand(this));
 		this.getCommand("actionbarevento").setExecutor(new AnnouncerActionbarCommand(this));
 		this.getCommand("actionbarpevento").setExecutor(new TestActionbarCommand(this));
+	}
+
+	public void pluginConfiguration() {
+		File config = new File(this.getDataFolder(), "config.yml");
+		if(!config.exists()) {
+			this.getConfig().options().copyDefaults(true);
+			saveDefaultConfig();
+		}
 	}
 
 }
