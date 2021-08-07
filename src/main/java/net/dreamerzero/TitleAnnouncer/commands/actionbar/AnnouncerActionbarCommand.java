@@ -51,5 +51,4 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         }
         return true;
     }
-
 }

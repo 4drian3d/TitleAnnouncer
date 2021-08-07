@@ -76,6 +76,5 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.error")));
             return false;
         }
-        
     }
 }

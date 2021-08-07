@@ -57,5 +57,4 @@ public class Announcer extends JavaPlugin {
 			saveDefaultConfig();
 		}
 	}
-
 }
