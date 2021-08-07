@@ -13,7 +13,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class AnnouncerActionbarCommand implements CommandExecutor {
-    @SuppressWarnings("unused")
     private Announcer plugin;
 	public AnnouncerActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
