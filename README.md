@@ -1,4 +1,5 @@
 # TitleAnnouncer
+
 Plugin that sends a Title or ActionBar when using a command. Made with [Adventure API](https://github.com/KyoriPowered/adventure)/[MiniMessage](https://github.com/KyoriPowered/adventure-text-minimessage).
 
 ## Compatibility
