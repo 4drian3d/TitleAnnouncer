@@ -30,7 +30,12 @@ public class TestTitleCommand implements CommandExecutor {
         return MiniMessage.get().parse(message);
     }
 
-    static final Sound titlesound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
+    //Configuration paths
+    String configSound = plugin.getConfig().getString("sounds.title");
+    Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+
+    //Sound to play
+    final Sound titlesound = Sound.sound(Key.key(configSound), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle, final Audience target) {
@@ -67,10 +72,16 @@ public class TestTitleCommand implements CommandExecutor {
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.successfully")));
+            //Sound
+            if (soundEnabled) {
+                sender.playSound(titlesound);
+            }
             return true;
         } catch (Exception e) {
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.error")));
             return false;
         }
+
+        
     }
 }

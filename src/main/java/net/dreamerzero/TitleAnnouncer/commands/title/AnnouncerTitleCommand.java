@@ -30,7 +30,12 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         return MiniMessage.get().parse(message);
     }
 
-    static final Sound titlesound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
+    //Configuration paths
+    String soundtitle = plugin.getConfig().getString("sounds.title.id");
+    Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+
+    //Sound to play
+    final Sound titlesound = Sound.sound(Key.key(soundtitle), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle) {
@@ -62,6 +67,10 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]));
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.successfully")));
+            //Sound
+            if (soundEnabled) {
+                audience.playSound(titlesound);
+            }
             return true;
         } catch (Exception e) {
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.error")));

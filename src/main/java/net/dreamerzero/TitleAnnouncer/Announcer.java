@@ -23,8 +23,6 @@ public class Announcer extends JavaPlugin {
 		.append(Component.text("Announcer", NamedTextColor.WHITE));
 	//line
 	static final TextComponent linelong = Component.text("----------------------", NamedTextColor.DARK_GRAY);
-	//Peruviankkit mode, to make the use of the plugin more general.
-	public static final boolean pvkmode = false;
 	
 	@Override
 	public void onEnable() {
