@@ -29,3 +29,9 @@ jobs:
         timeout_minutes: 5
         max_attempts: 2
         command: mvn -B package --file pom.xml
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: TitleAnnouncer
+        path: target/TitleAnnouncer-*.jar
