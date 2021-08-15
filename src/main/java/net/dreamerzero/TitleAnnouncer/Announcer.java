@@ -30,8 +30,8 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(Component.text("Enabling ", NamedTextColor.AQUA).append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		commandRegister();
 		pluginConfiguration();
+		commandRegister();
 	}
 	
 	@Override

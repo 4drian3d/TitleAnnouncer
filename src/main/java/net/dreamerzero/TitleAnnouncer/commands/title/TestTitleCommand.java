@@ -31,11 +31,11 @@ public class TestTitleCommand implements CommandExecutor {
     }
 
     //Configuration paths
-    String configSound = plugin.getConfig().getString("sounds.title");
-    Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+    //String configSound = plugin.getConfig().getString("sounds.title");
+    //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
 
     //Sound to play
-    final Sound titlesound = Sound.sound(Key.key(configSound), Sound.Source.MUSIC, 10f, 2f);
+    final Sound titlesound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle, final Audience target) {
@@ -62,7 +62,7 @@ public class TestTitleCommand implements CommandExecutor {
         }
 
         StringBuilder titleandsubtitle = new StringBuilder();
-        for (byte i = 0; i < args.length; i++){
+        for (byte i = 0; i < args.length; i++) {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
@@ -73,7 +73,7 @@ public class TestTitleCommand implements CommandExecutor {
             sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]), sender);
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.successfully")));
             //Sound
-            if (soundEnabled) {
+            if (true) { //Momentary change, I just don't want to lose the structure.
                 sender.playSound(titlesound);
             }
             return true;

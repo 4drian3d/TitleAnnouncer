@@ -28,21 +28,21 @@ public class TestActionbarCommand implements CommandExecutor {
     public Audience audience = Bukkit.getServer();
 
     //Configuration Paths
-    String configSound = plugin.getConfig().getString("sounds.actionbar.id");
-    Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
+    //String configSound = plugin.getConfig().getString("sounds.actionbar.id");
+    //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
 
     //Sound to play
-    final Sound actionbarsound = Sound.sound(Key.key(configSound), Sound.Source.MUSIC, 10f, 2f);
+    final Sound actionbarsound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
         //Concatenate the arguments provided by the command sent.
         StringBuilder actionbartext = new StringBuilder();
-        for (byte i = 0; i < args.length; i++){
+        for (byte i = 0; i < args.length; i++) {
             actionbartext = actionbartext.append(" ");
             actionbartext = actionbartext.append(args[i]); 
         }
@@ -51,7 +51,7 @@ public class TestActionbarCommand implements CommandExecutor {
         //Send to sender
         sender.sendActionBar(miniMessageParse(actionbartoparse));
         sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.actionbar.successfully")));
-        if (soundEnabled){
+        if (true) { //Momentary change, I just don't want to lose the structure.
             sender.playSound(actionbarsound);
         }
         return true;

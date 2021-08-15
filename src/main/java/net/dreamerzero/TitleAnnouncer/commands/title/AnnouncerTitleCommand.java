@@ -31,11 +31,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
     }
 
     //Configuration paths
-    String soundtitle = plugin.getConfig().getString("sounds.title.id");
-    Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+    //String soundtitle = plugin.getConfig().getString("sounds.title.id");
+    //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
 
     //Sound to play
-    final Sound titlesound = Sound.sound(Key.key(soundtitle), Sound.Source.MUSIC, 10f, 2f);
+    Sound titlesound = Sound.sound(Key.key("entity.experience_orb.pickup"), Sound.Source.MUSIC, 10f, 2f);
 
     //Basic Title sender in Adventure format
     public void sendTitle(final Component anuntitle, final Component anunsubtitle) {
@@ -49,7 +49,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (args.length == 0){
+        if (args.length == 0) {
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.without-argument")));
             return true;
         } else if (args.length == 1) {
@@ -58,7 +58,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         }
 
         StringBuilder titleandsubtitle = new StringBuilder();
-        for (byte i = 0; i < args.length; i++){
+        for (byte i = 0; i < args.length; i++) {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
@@ -68,7 +68,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             sendTitle(miniMessageParse(titleandsubtitlefinal[0]), miniMessageParse(titleandsubtitlefinal[1]));
             sender.sendMessage(miniMessageParse(plugin.getConfig().getString("messages.title.successfully")));
             //Sound
-            if (soundEnabled) {
+            if (true) { //Momentary change, I just don't want to lose the structure.
                 audience.playSound(titlesound);
             }
             return true;
