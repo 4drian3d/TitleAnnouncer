@@ -26,6 +26,6 @@ jobs:
     - name: Build with Maven
       uses: nick-invision/retry@v2.4.1
       with:
-        timeout_minutes: 5
+        timeout_minutes: 4
         max_attempts: 2
         command: mvn -B package --file pom.xml
