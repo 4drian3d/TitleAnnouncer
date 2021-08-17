@@ -29,10 +29,10 @@ messages:
 # Plugin sounds
 # In the ID field you must enter a valid value from: 
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values
-sounds:
-  title:
-    enabled: true 
-    id: "entity.experience_orb.pickup"
-  actionbar: 
-    enabled: true
-    id: "entity.experience_orb.pickup"
+#sounds:
+#  title:
+#    enabled: true 
+#    id: "entity.experience_orb.pickup"
+#  actionbar: 
+#    enabled: true
+#    id: "entity.experience_orb.pickup"
