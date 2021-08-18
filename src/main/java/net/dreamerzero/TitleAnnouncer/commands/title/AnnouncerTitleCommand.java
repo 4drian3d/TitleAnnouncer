@@ -58,7 +58,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                     plugin.getConfig().getString("messages.title.successfully")));
             //Sound
             //if (true) { //Momentary change, I just don't want to lose the structure.
-                SoundUtil.playSound("entity.experience_orb.pickup", audience, 10f, 2f);
+            SoundUtil.playSound(
+                "entity.experience_orb.pickup", 
+                audience, 
+                10f, 
+                2f);
             //}
             return true;
         } catch (Exception e) {
