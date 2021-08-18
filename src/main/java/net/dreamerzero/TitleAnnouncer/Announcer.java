@@ -15,19 +15,33 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 public class Announcer extends JavaPlugin {
 	//Component to send the server name: Peruviankkit
-	static final TextComponent pvknet = Component.text("Peru", NamedTextColor.DARK_RED)
-		.append(Component.text("vian", NamedTextColor.WHITE))
-		.append(Component.text("kkit", NamedTextColor.DARK_RED)).append(Component.text(" Network", NamedTextColor.GREEN));
+	static final TextComponent pvknet = 
+		Component.text("Peru", 
+			NamedTextColor.DARK_RED)
+		.append(Component.text("vian", 
+				NamedTextColor.WHITE))
+		.append(Component.text("kkit", 
+				NamedTextColor.DARK_RED))
+		.append(Component.text(" Network", 
+				NamedTextColor.GREEN));
 	//Plugin Name
-	static final TextComponent eventannouncertext = Component.text("Title", NamedTextColor.RED)
-		.append(Component.text("Announcer", NamedTextColor.WHITE));
+	static final TextComponent eventannouncertext = 
+		Component.text("Title", 
+			NamedTextColor.RED)
+		.append(Component.text("Announcer", 
+			NamedTextColor.WHITE));
 	//line
-	static final TextComponent linelong = Component.text("----------------------", NamedTextColor.DARK_GRAY);
+	static final TextComponent linelong = 
+		Component.text("----------------------", 
+			NamedTextColor.DARK_GRAY);
 	
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		Bukkit.getConsoleSender().sendMessage(Component.text("Enabling ", NamedTextColor.AQUA).append(eventannouncertext));
+		Bukkit.getConsoleSender().sendMessage(
+			Component.text("Enabling ", 
+				NamedTextColor.AQUA)
+			.append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 		pluginConfiguration();
@@ -37,7 +51,10 @@ public class Announcer extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		Bukkit.getConsoleSender().sendMessage(Component.text("Disabling ", NamedTextColor.AQUA).append(eventannouncertext));
+		Bukkit.getConsoleSender().sendMessage(
+			Component.text("Disabling ", 
+				NamedTextColor.AQUA)
+			.append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 	}
