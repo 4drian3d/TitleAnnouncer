@@ -7,8 +7,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.TestActionbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.TestTitleCommand;
+import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -61,16 +63,18 @@ public class Announcer extends JavaPlugin {
 	
 	//Registration of the 2 commands that the plugin has, for the moment.
 	public void commandRegister() {
-		this.getCommand("titleevento").setExecutor(new AnnouncerTitleCommand(this));
-		this.getCommand("titlepevento").setExecutor(new TestTitleCommand(this));
-		this.getCommand("actionbarevento").setExecutor(new AnnouncerActionbarCommand(this));
-		this.getCommand("actionbarpevento").setExecutor(new TestActionbarCommand(this));
+		getCommand("announcetitle").setExecutor(new AnnouncerTitleCommand(this));
+		getCommand("testtitle").setExecutor(new TestTitleCommand(this));
+		getCommand("worldtitle").setExecutor(new WorldTitleCommand(this));
+		getCommand("announceactionbar").setExecutor(new AnnouncerActionbarCommand(this));
+		getCommand("testactionbar").setExecutor(new TestActionbarCommand(this));
+		getCommand("worldactionbar").setExecutor(new WorldActionbarCommand(this));
 	}
 
 	public void pluginConfiguration() {
 		File config = new File(this.getDataFolder(), "config.yml");
 		if(!config.exists()) {
-			this.getConfig().options().copyDefaults(true);
+			getConfig().options().copyDefaults(true);
 			saveDefaultConfig();
 		}
 	}
