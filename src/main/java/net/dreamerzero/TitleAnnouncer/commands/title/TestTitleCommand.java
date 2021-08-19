@@ -26,15 +26,20 @@ public class TestTitleCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        // It will send an title to the one who executes the command, 
+        // it makes no sense for the console to execute it.
         if (!(sender instanceof Player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
+
+        // The command requires arguments to work
         if (args.length == 0) {
             sender.sendMessage(
                 MiniMessageUtil.miniMessageParse(
                     plugin.getConfig().getString("messages.title.without-argument")));
             return true;
+        // The command requires title and subtitle arguments to work properly.
         } else if (args.length == 1) {
             sender.sendMessage(
                 MiniMessageUtil.miniMessageParse(
@@ -42,16 +47,18 @@ public class TestTitleCommand implements CommandExecutor {
             return true;
         }
 
+        // Concatenate the arguments provided by the command sent.
         StringBuilder titleandsubtitle = new StringBuilder();
         for (byte i = 0; i < args.length; i++) {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
         
-        // Convert StringBuilder to String, Component is not compatible :nimodo:
         try {
+            // Convert StringBuilder to String, Component is not compatible :nimodo:
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             
+            // Send the Title
             TitleUtil.sendTitle(
                 MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[0]), 
                 MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[1]), 
@@ -60,11 +67,12 @@ public class TestTitleCommand implements CommandExecutor {
                 3000,
                 1000);
             
+            // Send message to the sender
             sender.sendMessage(
                 MiniMessageUtil.miniMessageParse(
                     plugin.getConfig().getString("messages.title.successfully")));
             
-            //Sound
+            //Play the sound
             SoundUtil.playSound(
                 "entity.experience_orb.pickup", 
                 sender, 
@@ -72,7 +80,10 @@ public class TestTitleCommand implements CommandExecutor {
                 2f);
             
             return true;
+        // In case the command does not contain a separator ";", 
+        // it will catch the error in the console and send an error message to the sender.
         } catch (Exception e) {
+            // Send an error message to the sender using the command
             sender.sendMessage(
                 MiniMessageUtil.miniMessageParse(
                     plugin.getConfig().getString("messages.title.error")));
