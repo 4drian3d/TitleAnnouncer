@@ -24,7 +24,7 @@ public class TestTitleCommand implements CommandExecutor {
     //String configSound = plugin.getConfig().getString("sounds.title");
     //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
 
-    //Command
+    // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             plugin.getLogger().info("The console cannot execute this command.");
@@ -48,9 +48,10 @@ public class TestTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
         
-        //Convert StringBuilder to String, Component is not compatible :nimodo:
+        // Convert StringBuilder to String, Component is not compatible :nimodo:
         try {
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            
             TitleUtil.sendTitle(
                 MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[0]), 
                 MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[1]), 
@@ -58,17 +59,18 @@ public class TestTitleCommand implements CommandExecutor {
                 1000,
                 3000,
                 1000);
+            
             sender.sendMessage(
                 MiniMessageUtil.miniMessageParse(
                     plugin.getConfig().getString("messages.title.successfully")));
+            
             //Sound
-            //if (true) { //Momentary change, I just don't want to lose the structure.
             SoundUtil.playSound(
                 "entity.experience_orb.pickup", 
                 sender, 
                 10f, 
                 2f);
-            //}
+            
             return true;
         } catch (Exception e) {
             sender.sendMessage(

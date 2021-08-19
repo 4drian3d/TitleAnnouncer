@@ -16,7 +16,7 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class Announcer extends JavaPlugin {
-	//Component to send the server name: Peruviankkit
+	// Component to send the server name: Peruviankkit... in color... in console
 	static final TextComponent pvknet = 
 		Component.text("Peru", 
 			NamedTextColor.DARK_RED)
@@ -26,13 +26,13 @@ public class Announcer extends JavaPlugin {
 				NamedTextColor.DARK_RED))
 		.append(Component.text(" Network", 
 				NamedTextColor.GREEN));
-	//Plugin Name
+	// Plugin Name with color
 	static final TextComponent eventannouncertext = 
 		Component.text("Title", 
 			NamedTextColor.RED)
 		.append(Component.text("Announcer", 
 			NamedTextColor.WHITE));
-	//line
+	// Line
 	static final TextComponent linelong = 
 		Component.text("----------------------", 
 			NamedTextColor.DARK_GRAY);
@@ -61,7 +61,7 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(linelong);
 	}
 	
-	//Registration of the 2 commands that the plugin has, for the moment.
+	// Registration of the commands that the plugin provides
 	public void commandRegister() {
 		getCommand("announcetitle").setExecutor(new AnnouncerTitleCommand(this));
 		getCommand("testtitle").setExecutor(new TestTitleCommand(this));

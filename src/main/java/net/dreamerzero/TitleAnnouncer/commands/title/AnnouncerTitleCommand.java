@@ -24,7 +24,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
     //String soundtitle = plugin.getConfig().getString("sounds.title.id");
     //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
 
-    //Command
+    // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
             sender.sendMessage(
@@ -43,9 +43,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
+        
         //Convert StringBuilder to String, Component is not compatible :nimodo:
         try {
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            
             TitleUtil.sendTitle(
                 MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[0]), 
                 MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[1]),
@@ -53,17 +55,18 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 1000, 
                 3000, 
                 1000);
+            
             sender.sendMessage(
                 MiniMessageUtil.miniMessageParse(
                     plugin.getConfig().getString("messages.title.successfully")));
+            
             //Sound
-            //if (true) { //Momentary change, I just don't want to lose the structure.
             SoundUtil.playSound(
                 "entity.experience_orb.pickup", 
                 audience, 
                 10f, 
                 2f);
-            //}
+            
             return true;
         } catch (Exception e) {
             sender.sendMessage(
