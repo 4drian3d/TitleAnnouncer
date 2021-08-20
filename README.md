@@ -1,4 +1,4 @@
-# TitleAnnouncer
+# TitleAnnouncer ![WorkFlow Status](https://img.shields.io/github/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncer%20Maven%20Build?&style=flat-square) ![Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?color=FFF0&style=flat-square)
 
 A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
 
@@ -23,7 +23,7 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
             <td>Announces a Title to the entire server.</td>
         </tr>
         <tr>
-            <td><code>/testitle</code></td>
+            <td><code>/testtitle</code></td>
             <td>(Title); (SubTitle)</td>
             <td>announcer.title.test</td>
             <td>Send a Title only to the player who has sent it.</td>
@@ -56,7 +56,7 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
             <td>Announce an Actionbar to the entire server.</td>
         </tr>
         <tr>
-            <td><code>/tesactionbar</code></td>
+            <td><code>/testactionbar</code></td>
             <td>(Message)</td>
             <td>announcer.actionbar.test</td>
             <td>Send an ActionBar only to the player who has sent it.</td>
