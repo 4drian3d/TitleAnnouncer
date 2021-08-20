@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
-import net.kyori.adventure.audience.Audience;
 
 public class SendActionbarCommand implements CommandExecutor {
     private Announcer plugin;
