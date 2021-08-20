@@ -13,9 +13,9 @@
 # Plugin messages
 messages:
   title:
-    # Message displayed in case the command is executed without arguments
+    # Message displayed in case the command is executed without arguments.
     without-argument: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You need to enter the title and subtitle arguments.</red>"
-    # Message to be sent when executing the /sendtitle command and only the player is specified
+    # Message to be sent when executing the /sendtitle command and only the player is specified.
     only-player: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"
     # Message displayed in case the command is executed with only one argument.
     # In case you want to send a title without a subtitle, 
@@ -28,10 +28,12 @@ messages:
     # Message to send to the player in case he does not have the respective permission.
     no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
   actionbar:
-    # Message displayed when the actionbar has been displayed successfully
+    # Message displayed when the actionbar has been displayed successfully.
     successfully: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <green>Actionbar succesfully sended</green>"
     # Message to send to the player in case he does not have the respective permission.
     no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
+    # Message to be sent when executing the /sendactionbar command and only the player is specified.
+    only-player: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <gray>You must enter the message to be sent after the player's name.</gray>"
 # Plugin sounds
 # In the ID field you must enter a valid value from: 
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values

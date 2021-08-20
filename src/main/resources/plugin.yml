@@ -25,7 +25,7 @@ commands:
         permission: announcer.title.world
     sendtitle:
         aliases: [playertitle]
-        description: It will send a title to the world in which the player is located.
+        description: Sends a title to a specific player.
         permission: announcer.title.send
     # Actionbar Commands
     announceactionbar:
@@ -40,6 +40,10 @@ commands:
         aliases: [mundoactionbar]
         description: It will send an actionbar to the world in which the player is located.
         permission: announcer.actionbar.world
+    sendactionbar:
+        aliases: [playeractionbar]
+        description: Sends an actionbar to a specific player.
+        permission: announcer.actionbar.send
 permissions:
     announcer.*:
         description: A permission that gives access to all plugin commands.
@@ -55,6 +59,7 @@ permissions:
             announcer.title.global: true
             announcer.title.test: true
             announcer.title.world: true
+            announcer.title.send: true
     announcer.title.global:
         description: Announces a Title to the entire server.
         default: false
@@ -75,13 +80,17 @@ permissions:
             announcer.actionbar.global: true
             announcer.actionbar.test: true
             announcer.actionbar.world: true
+            announcer.actionbar.send: true
     announcer.actionbar.global:
-        description: Announce an Actionbar to the entire server.
+        description: Announce an ActionBar to the entire server.
         default: false
     announcer.actionbar.test:
         description: Send an ActionBar only to the player who has sent it.
         default: false
     announcer.actionbar.world:
-        description: Sends an Actionbar to the world in which the command was executed.
+        description: Sends an ActionBar to the world in which the command was executed.
+        default: false
+    announcer.actionbar.send:
+        description: Sends an ActionBar to a specific player.
         default: false
     

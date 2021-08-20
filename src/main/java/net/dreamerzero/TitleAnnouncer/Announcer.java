@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.actionbar.PlayerActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.TestActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
@@ -80,6 +81,8 @@ public class Announcer extends JavaPlugin {
 			.setExecutor(new TestActionbarCommand(this));
 		getCommand("worldactionbar")
 			.setExecutor(new WorldActionbarCommand(this));
+		getCommand("sendactionbar")
+			.setExecutor(new PlayerActionbarCommand(this));
 	}
 
 	public void pluginConfiguration() {

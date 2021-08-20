@@ -34,6 +34,12 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
             <td>announcer.title.world</td>
             <td>Sends a title to the world in which the command was executed.</td>
         </tr>
+        <tr>
+            <td><code>/sendtitle</code></td>
+            <td>(Player) (Title); (SubTitle)</td>
+            <td>announcer.title.send</td>
+            <td>Sends a title to a specific player.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -65,7 +71,13 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
             <td><code>/worldactionbar</code></td>
             <td>(Message)</td>
             <td>announcer.actionbar.world</td>
-            <td>Sends a actionbar to the world in which the command was executed.</td>
+            <td>Sends an actionbar to the world in which the command was executed.</td>
+        </tr>
+        <tr>
+            <td><code>/sendactionbar</code></td>
+            <td>(Player) (Message)</td>
+            <td>announcer.actionbar.send</td>
+            <td>Sends an actionbar to a specific player.</td>
         </tr>
     </tbody>
 </table>
