@@ -36,6 +36,8 @@ messages:
     no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
     # Message to be sent when executing the /sendactionbar command and only the player is specified.
     only-player: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <gray>You must enter the message to be sent after the player's name.</gray>"
+    # This message will be displayed if a player with the name specified in /sendtitle is not found.
+    player-not-found: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Player not found</red>"
 # Plugin sounds
 # In the ID field you must enter a valid value from: 
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values

@@ -42,7 +42,17 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Get the player
-        Audience playerObjetive = Bukkit.getPlayer(args[0]);
+        Player playerObjetive = Bukkit.getPlayer(args[0]);
+
+        var serverplayers = Bukkit.getOnlinePlayers();
+
+        if (!(serverplayers.contains(playerObjetive))){
+            // Send an error message to the sender using the command.
+            sender.sendMessage(
+                MiniMessageUtil.parse(
+                    plugin.getConfig().getString("messages.actionbar.player-not-found")));
+                return false;
+        }
 
         // Concatenate the arguments provided by the command sent.
         StringBuilder actionbartext = new StringBuilder();
@@ -53,7 +63,7 @@ public class SendActionbarCommand implements CommandExecutor {
         
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         String actionbartoparse = actionbartext.toString();
-        
+
         // Send to all
         playerObjetive.sendActionBar(
             MiniMessageUtil.parse(actionbartoparse));
