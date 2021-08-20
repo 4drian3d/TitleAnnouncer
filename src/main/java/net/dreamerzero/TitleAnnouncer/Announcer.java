@@ -9,6 +9,7 @@ import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarComma
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.TestActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
+import net.dreamerzero.TitleAnnouncer.commands.title.PlayerTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.TestTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
 import net.kyori.adventure.text.Component;
@@ -70,6 +71,8 @@ public class Announcer extends JavaPlugin {
 			.setExecutor(new TestTitleCommand(this));
 		getCommand("worldtitle")
 			.setExecutor(new WorldTitleCommand(this));
+		getCommand("sendtitle")
+			.setExecutor(new PlayerTitleCommand(this));
 		// ActionBar Commands
 		getCommand("announceactionbar")
 			.setExecutor(new AnnouncerActionbarCommand(this));

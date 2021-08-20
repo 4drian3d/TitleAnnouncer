@@ -23,6 +23,10 @@ commands:
         aliases: [mundotitle]
         description: It will send a title to the world in which the player is located.
         permission: announcer.title.world
+    sendtitle:
+        aliases: [playertitle]
+        description: It will send a title to the world in which the player is located.
+        permission: announcer.title.send
     # Actionbar Commands
     announceactionbar:
         aliases: [actionbarevento]
@@ -39,7 +43,7 @@ commands:
 permissions:
     announcer.*:
         description: A permission that gives access to all plugin commands.
-        default: false
+        default: op
         children:
             announcer.title.*: true
             announcer.actionbar.*: true
@@ -59,6 +63,9 @@ permissions:
         default: false
     announcer.title.world:
         description: Sends a title to the world in which the command was executed.
+        default: false
+    announcer.title.send:
+        description: Sends a title to a specific player.
         default: false
     # ActionBar Permissions
     announcer.actionbar.*:
