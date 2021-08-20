@@ -26,6 +26,14 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        // Permission Check
+        if (!(sender.hasPermission("announcer.actionbar.global"))){
+            sender.sendMessage(
+                MiniMessageUtil.parse(
+                    plugin.getConfig().getString("messages.title.no-permission")));
+            return true;
+        }
+
         // Concatenate the arguments provided by the command sent.
         StringBuilder actionbartext = new StringBuilder();
         for (byte i = 0; i < args.length; i++) {
@@ -38,9 +46,9 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         
         // Send to all
         audience.sendActionBar(
-            MiniMessageUtil.miniMessageParse(actionbartoparse));
+            MiniMessageUtil.parse(actionbartoparse));
         sender.sendMessage(
-            MiniMessageUtil.miniMessageParse(
+            MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully")));
 
         // Play the sound

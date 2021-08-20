@@ -15,33 +15,27 @@ commands:
         aliases: [anunciarevento, titleevento]
         description: Announce a Title to all players.
         permission: announcer.title.global
-        permission-message: No tienes permiso para ejecutar este comando.
     testtitle:
         aliases: [probarevento, titlepevento]
         description: This will send a title to the player who used the command.
         permission: announcer.title.test
-        permission-message: No tienes permiso para ejecutar este comando.
     worldtitle:
         aliases: [mundotitle]
         description: It will send a title to the world in which the player is located.
         permission: announcer.title.world
-        permission-message: No tienes permiso para ejecutar este comando.
     # Actionbar Commands
     announceactionbar:
         aliases: [actionbarevento]
         description: This will announce a actionbar to all players.
         permission: announcer.actionbar.global
-        permission-message: No tienes permiso para ejecutar este comando.
     testactionbar:
         aliases: [actionbarpevento]
         description: This will announce a actionbar to the sender of the command.
         permission: announcer.actionbar.test
-        permission-message: No tienes permiso para ejecutar este comando.
     worldactionbar:
         aliases: [mundoactionbar]
         description: It will send an actionbar to the world in which the player is located.
         permission: announcer.actionbar.world
-        permission-message: No tienes permiso para ejecutar este comando.
 permissions:
     announcer.*:
         description: A permission that gives access to all plugin commands.

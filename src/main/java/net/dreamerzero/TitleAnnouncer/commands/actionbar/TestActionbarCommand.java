@@ -27,6 +27,14 @@ public class TestActionbarCommand implements CommandExecutor {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
+
+        // Permission Check
+        if (!(sender.hasPermission("announcer.actionbar.test"))){
+            sender.sendMessage(
+                MiniMessageUtil.parse(
+                    plugin.getConfig().getString("messages.title.no-permission")));
+            return true;
+        }
         
         // Concatenate the arguments provided by the command sent.
         StringBuilder actionbartext = new StringBuilder();
@@ -40,9 +48,9 @@ public class TestActionbarCommand implements CommandExecutor {
         
         // Send to sender
         sender.sendActionBar(
-            MiniMessageUtil.miniMessageParse(actionbartoparse));
+            MiniMessageUtil.parse(actionbartoparse));
         sender.sendMessage(
-            MiniMessageUtil.miniMessageParse(
+            MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully")));
 
         // Play the sound

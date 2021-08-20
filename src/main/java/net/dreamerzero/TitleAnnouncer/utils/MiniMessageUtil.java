@@ -8,7 +8,7 @@ public class MiniMessageUtil {
     Component that parses the title or 
     actionbar with the MiniMessage format.
     */
-    public static Component miniMessageParse(
+    public static Component parse(
         final String message) {
 
         return MiniMessage.get().parse(message);

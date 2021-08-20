@@ -19,25 +19,35 @@ public class WorldTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        // It will send an title to the one who executes the command, 
+        // it makes no sense for the console to execute it.
         if (!(sender instanceof Player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
 
-        // Get the world in which the player is located.
+        // Player
         Player player = (Player) sender;
+
+        // Permission Check
+        if (!(player.hasPermission("announcer.title.world"))){
+            sender.sendMessage(plugin.getConfig().getString("messages.title.no-permission"));
+            return true;
+        }
+
+        // Get the world in which the player is located.
         Audience audience = player.getWorld();
         
         // The command requires arguments to work
         if (args.length == 0) {
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.without-argument")));
             return true;
         // The command requires title and subtitle arguments to work properly.
         } else if (args.length == 1) {
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.single-argument")));
             return true;
         }
@@ -55,8 +65,8 @@ public class WorldTitleCommand implements CommandExecutor {
             
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[0]), 
-                MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[1]),
+                MiniMessageUtil.parse(titleandsubtitlefinal[0]), 
+                MiniMessageUtil.parse(titleandsubtitlefinal[1]),
                 audience, 
                 1000, 
                 3000, 
@@ -64,7 +74,7 @@ public class WorldTitleCommand implements CommandExecutor {
             
             // Send message to the sender
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.successfully")));
             
             //Play the sound
@@ -80,7 +90,7 @@ public class WorldTitleCommand implements CommandExecutor {
         } catch (Exception e) {
             // Send an error message to the sender using the command
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.error")));
             return false;
         }

@@ -26,16 +26,24 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        // Permission Check
+        if (!(sender.hasPermission("announcer.title.global"))){
+            sender.sendMessage(
+                MiniMessageUtil.parse(
+                    plugin.getConfig().getString("messages.title.no-permission")));
+            return true;
+        }
+        
         // The command requires arguments to work
         if (args.length == 0) {
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.without-argument")));
             return true;
         // The command requires title and subtitle arguments to work properly.
         } else if (args.length == 1) {
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.single-argument")));
             return true;
         }
@@ -53,8 +61,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[0]), 
-                MiniMessageUtil.miniMessageParse(titleandsubtitlefinal[1]),
+                MiniMessageUtil.parse(titleandsubtitlefinal[0]), 
+                MiniMessageUtil.parse(titleandsubtitlefinal[1]),
                 audience, 
                 1000, 
                 3000, 
@@ -62,7 +70,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             
             // Send message to the sender
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.successfully")));
             
             //Play the sound
@@ -78,7 +86,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         } catch (Exception e) {
             // Send an error message to the sender using the command
             sender.sendMessage(
-                MiniMessageUtil.miniMessageParse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.error")));
             return false;
         }

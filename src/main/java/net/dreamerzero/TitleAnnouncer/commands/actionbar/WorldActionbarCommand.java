@@ -25,8 +25,18 @@ public class WorldActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        // Get the world in which the player is located.
+        // Player
         Player player = (Player) sender;
+
+        // Permission Check
+        if (!(player.hasPermission("announcer.actionbar.world"))){
+            sender.sendMessage(
+                MiniMessageUtil.parse(
+                    plugin.getConfig().getString("messages.title.no-permission")));
+            return true;
+        }
+
+        // Get the world in which the player is located
         Audience audience = player.getWorld();
 
         // Concatenate the arguments provided by the command sent.
@@ -41,9 +51,9 @@ public class WorldActionbarCommand implements CommandExecutor {
         
         // Send to all
         audience.sendActionBar(
-            MiniMessageUtil.miniMessageParse(actionbartoparse));
+            MiniMessageUtil.parse(actionbartoparse));
         sender.sendMessage(
-            MiniMessageUtil.miniMessageParse(
+            MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully")));
 
         // Play the sound
