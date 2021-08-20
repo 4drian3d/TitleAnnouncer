@@ -2,6 +2,14 @@
 
 A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
 
+## Features
+- Ability to send announcements by using titles and actionbars.
+- Send announcements to users in the same world you are in.
+- Send announcements to a specific user.
+- Test the announcement to be sent or simply send the announcement to yourself.
+- Use of the [MiniMessage format](https://docs.adventure.kyori.net/minimessage.html#format) throughout the plugin, allowing the maximum possible customization.
+- The plugin makes use of the Adventure library, allowing a native sending of messages with the best possible performance.
+
 
 ## Commands
 

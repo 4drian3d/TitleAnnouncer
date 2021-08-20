@@ -43,12 +43,20 @@ messages:
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values
 sounds:
   title:
-    enabled: true 
-    sound-id: "entity.experience_orb.pickup"
-    volume: 10
-    pitch: 2
-  actionbar: 
+    # Enable sounds when using titles
     enabled: true
+    # ID of the sound to be used
     sound-id: "entity.experience_orb.pickup"
+    # # Volume of sound
     volume: 10
+    # pitch of the sound
+    pitch: 2
+  actionbar:
+    # Enable sounds when using actionbars 
+    enabled: true
+    # ID of the sound to be used
+    sound-id: "entity.experience_orb.pickup"
+    # Volume of sound
+    volume: 10
+    # Pitch of the sound
     pitch: 2
