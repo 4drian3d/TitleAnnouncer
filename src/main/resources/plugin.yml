@@ -84,4 +84,3 @@ permissions:
         description: Sends an Actionbar to the world in which the command was executed.
         default: false
     
-
