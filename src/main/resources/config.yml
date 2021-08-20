@@ -39,12 +39,16 @@ messages:
     # This message will be displayed if a player with the name specified in /sendtitle is not found.
     player-not-found: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Player not found</red>"
 # Plugin sounds
-# In the ID field you must enter a valid value from: 
+# In the sound-id field you must enter a valid value from: 
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values
-#sounds:
-#  title:
-#    enabled: true 
-#    id: "entity.experience_orb.pickup"
-#  actionbar: 
-#    enabled: true
-#    id: "entity.experience_orb.pickup"
+sounds:
+  title:
+    enabled: true 
+    sound-id: "entity.experience_orb.pickup"
+    volume: 10
+    pitch: 2
+  actionbar: 
+    enabled: true
+    sound-id: "entity.experience_orb.pickup"
+    volume: 10
+    pitch: 2

@@ -15,9 +15,14 @@ public class SelfActionbarCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
-    //Configuration Paths
-    //String configSound = plugin.getConfig().getString("sounds.actionbar.id");
-    //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
+    // Default Sound
+    String soundtoplay = "entity.experience_orb.pickup";
+    // Is Enabled?
+    Boolean soundEnabled = true;
+    // Volume
+    float volume = 10f;
+    // Pitch
+    float pitch = 2f;
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -32,7 +37,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         if (!(sender.hasPermission("announcer.actionbar.test"))){
             sender.sendMessage(
                 MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.no-permission")));
+                    plugin.getConfig().getString("messages.actionbar.no-permission")));
             return true;
         }
         
@@ -53,12 +58,20 @@ public class SelfActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully")));
 
-        // Play the sound
-        SoundUtil.playSound(
-            "entity.experience_orb.pickup", 
-            sender, 
-            10f, 
-            2f);
+        soundtoplay = plugin.getConfig().getString("sounds.actionbar.sound-id");
+        soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
+        volume = plugin.getConfig().getInt("sounds.actionbar.volume");
+        pitch = plugin.getConfig().getInt("sounds.actionbar.pitch");
+
+        if (soundEnabled) {
+            // Play the sound
+            SoundUtil.playSound(
+                soundtoplay, 
+                sender, 
+                volume, 
+                pitch
+            );
+        }
 
         return true;
     }

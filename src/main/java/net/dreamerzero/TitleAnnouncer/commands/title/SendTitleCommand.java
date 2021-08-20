@@ -17,6 +17,15 @@ public class SendTitleCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+    // Default Sound
+    String soundtoplay = "entity.experience_orb.pickup";
+    // Is Enabled?
+    Boolean soundEnabled = true;
+    // Volume
+    float volume = 10f;
+    // Pitch
+    float pitch = 2f;
+
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an title to the one who executes the command, 
@@ -58,6 +67,11 @@ public class SendTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
+
+        soundtoplay = plugin.getConfig().getString("sounds.title.sound-id");
+        soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+        volume = plugin.getConfig().getInt("sounds.title.volume");
+        pitch = plugin.getConfig().getInt("sounds.title.pitch");
         
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
@@ -84,12 +98,15 @@ public class SendTitleCommand implements CommandExecutor {
                     3000, 
                     1000);
 
-                //Play the sound
-                SoundUtil.playSound(
-                    "entity.experience_orb.pickup", 
+                if (soundEnabled) {
+                    //Play the sound
+                    SoundUtil.playSound(
+                    soundtoplay, 
                     playerObjetive, 
-                    10f, 
-                    2f);
+                    volume, 
+                    pitch);
+                }
+
                 // Send message to the sender
                 sender.sendMessage(
                     MiniMessageUtil.parse(

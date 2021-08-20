@@ -16,6 +16,15 @@ public class WorldActionbarCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+    // Default Sound
+    String soundtoplay = "entity.experience_orb.pickup";
+    // Is Enabled?
+    Boolean soundEnabled = true;
+    // Volume
+    float volume = 10f;
+    // Pitch
+    float pitch = 2f;
+
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the world in which the command is executed, 
@@ -56,12 +65,20 @@ public class WorldActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully")));
 
-        // Play the sound
-        SoundUtil.playSound(
-            "entity.experience_orb.pickup", 
-            audience, 
-            10f, 
-            2f);
+        soundtoplay = plugin.getConfig().getString("sounds.actionbar.sound-id");
+        soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
+        volume = plugin.getConfig().getInt("sounds.actionbar.volume");
+        pitch = plugin.getConfig().getInt("sounds.actionbar.pitch");
+                
+        if (soundEnabled) {
+            // Play the sound
+            SoundUtil.playSound(
+                soundtoplay, 
+                audience, 
+                volume, 
+                pitch
+            );
+        }
 
         return true;
     }

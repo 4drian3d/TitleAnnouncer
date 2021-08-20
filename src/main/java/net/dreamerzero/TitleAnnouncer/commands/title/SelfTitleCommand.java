@@ -20,9 +20,14 @@ public class SelfTitleCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
-    //Configuration paths
-    //String configSound = plugin.getConfig().getString("sounds.title");
-    //Boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+    // Default Sound
+    String soundtoplay = "entity.experience_orb.pickup";
+    // Is Enabled?
+    Boolean soundEnabled = true;
+    // Volume
+    float volume = 10f;
+    // Pitch
+    float pitch = 2f;
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -62,6 +67,11 @@ public class SelfTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
         
+        soundtoplay = plugin.getConfig().getString("sounds.title.sound-id");
+        soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
+        volume = plugin.getConfig().getInt("sounds.title.volume");
+        pitch = plugin.getConfig().getInt("sounds.title.pitch");
+
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
@@ -80,12 +90,14 @@ public class SelfTitleCommand implements CommandExecutor {
                 MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.successfully")));
             
-            //Play the sound
-            SoundUtil.playSound(
-                "entity.experience_orb.pickup", 
-                sender, 
-                10f, 
-                2f);
+            if (soundEnabled) {
+                //Play the sound
+                SoundUtil.playSound(
+                    soundtoplay, 
+                    sender, 
+                    volume, 
+                    pitch);
+            }
             
             return true;
         // In case the command does not contain a separator ";", 
