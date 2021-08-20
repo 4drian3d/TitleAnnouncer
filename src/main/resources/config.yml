@@ -27,6 +27,8 @@ messages:
     error: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"
     # Message to send to the player in case he does not have the respective permission.
     no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
+    # This message will be displayed if a player with the name specified in /sendtitle is not found.
+    player-not-found: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Player not found</red>"
   actionbar:
     # Message displayed when the actionbar has been displayed successfully.
     successfully: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <green>Actionbar succesfully sended</green>"

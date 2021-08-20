@@ -10,7 +10,6 @@ import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 import net.dreamerzero.TitleAnnouncer.utils.TitleUtil;
-import net.kyori.adventure.audience.Audience;
 
 public class PlayerTitleCommand implements CommandExecutor {
     private Announcer plugin;
@@ -63,24 +62,23 @@ public class PlayerTitleCommand implements CommandExecutor {
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+			Player playerObjetive = Bukkit.getPlayer(args[0]);
 
             try {
-                Audience playerObjetive = Bukkit.getPlayer(args[0]);
-
                 var serverplayers = Bukkit.getOnlinePlayers();
 
                 if (!(serverplayers.contains(playerObjetive))){
                     // Send an error message to the sender using the command.
                     sender.sendMessage(
                         MiniMessageUtil.parse(
-                            plugin.getConfig().getString("messages.title.error")));
+                            plugin.getConfig().getString("messages.title.player-not-found")));
                     return false;
                 }
-                
+				
                 // Send the title
                 TitleUtil.sendTitle(
-                    MiniMessageUtil.parse(titleandsubtitlefinal[2]), 
-                    MiniMessageUtil.parse(titleandsubtitlefinal[3]),
+                    MiniMessageUtil.parse(titleandsubtitlefinal[0]), 
+                    MiniMessageUtil.parse(titleandsubtitlefinal[1]),
                     playerObjetive, 
                     1000, 
                     3000, 
@@ -92,7 +90,6 @@ public class PlayerTitleCommand implements CommandExecutor {
                     playerObjetive, 
                     10f, 
                     2f);
-                
                 // Send message to the sender
                 sender.sendMessage(
                     MiniMessageUtil.parse(
