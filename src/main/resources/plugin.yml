@@ -1,13 +1,16 @@
 name: ${project.artifactId}
 version: ${project.version}
+prefix: ${project.version}
 author: 4drian3d
 main: net.dreamerzero.TitleAnnouncer.Announcer
+website: https://github.com/4drian3d/TitleAnnouncer
 description: >
     Plugin created to send titles and actionbar to the player 
     and the server in general using the MiniMessage format. 
     Originally made for Peruviankkit Network.
 api-version: 1.16
 commands:
+    # Title Commands
     announcetitle:
         aliases: [anunciarevento, titleevento]
         description: Announce a Title to all players.
@@ -23,6 +26,7 @@ commands:
         description: It will send a title to the world in which the player is located.
         permission: announcer.title.world
         permission-message: No tienes permiso para ejecutar este comando.
+    # Actionbar Commands
     announceactionbar:
         aliases: [actionbarevento]
         description: This will announce a actionbar to all players.
@@ -38,3 +42,46 @@ commands:
         description: It will send an actionbar to the world in which the player is located.
         permission: announcer.actionbar.world
         permission-message: No tienes permiso para ejecutar este comando.
+permissions:
+    announcer.*:
+        description: A permission that gives access to all plugin commands.
+        default: false
+        children:
+            announcer.title.*: true
+            announcer.actionbar.*: true
+    # Title Permissions
+    announcer.title.*:
+        description: Permission giving access to all commands to send titles
+        default: false
+        children:
+            announcer.title.global: true
+            announcer.title.test: true
+            announcer.title.world: true
+    announcer.title.global:
+        description: Announces a Title to the entire server.
+        default: false
+    announcer.title.test:
+        description: Send a Title only to the player who has sent it.
+        default: false
+    announcer.title.world:
+        description: Sends a title to the world in which the command was executed.
+        default: false
+    # ActionBar Permissions
+    announcer.actionbar.*:
+        description: Permission giving access to all commands to send actionbars
+        default: false
+        children:
+            announcer.actionbar.global: true
+            announcer.actionbar.test: true
+            announcer.actionbar.world: true
+    announcer.actionbar.global:
+        description: Announce an Actionbar to the entire server.
+        default: false
+    announcer.actionbar.test:
+        description: Send an ActionBar only to the player who has sent it.
+        default: false
+    announcer.actionbar.world:
+        description: Sends an Actionbar to the world in which the command was executed.
+        default: false
+    
+

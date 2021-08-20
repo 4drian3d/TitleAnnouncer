@@ -64,13 +64,19 @@ public class Announcer extends JavaPlugin {
 	// Registration of the commands that the plugin provides
 	public void commandRegister() {
 		// Title Commands
-		getCommand("announcetitle").setExecutor(new AnnouncerTitleCommand(this));
-		getCommand("testtitle").setExecutor(new TestTitleCommand(this));
-		getCommand("worldtitle").setExecutor(new WorldTitleCommand(this));
+		getCommand("announcetitle")
+			.setExecutor(new AnnouncerTitleCommand(this));
+		getCommand("testtitle")
+			.setExecutor(new TestTitleCommand(this));
+		getCommand("worldtitle")
+			.setExecutor(new WorldTitleCommand(this));
 		// ActionBar Commands
-		getCommand("announceactionbar").setExecutor(new AnnouncerActionbarCommand(this));
-		getCommand("testactionbar").setExecutor(new TestActionbarCommand(this));
-		getCommand("worldactionbar").setExecutor(new WorldActionbarCommand(this));
+		getCommand("announceactionbar")
+			.setExecutor(new AnnouncerActionbarCommand(this));
+		getCommand("testactionbar")
+			.setExecutor(new TestActionbarCommand(this));
+		getCommand("worldactionbar")
+			.setExecutor(new WorldActionbarCommand(this));
 	}
 
 	public void pluginConfiguration() {
