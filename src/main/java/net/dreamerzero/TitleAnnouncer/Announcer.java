@@ -13,6 +13,7 @@ import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.PlayerTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.TestTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
+import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -29,11 +30,9 @@ public class Announcer extends JavaPlugin {
 		.append(Component.text(" Network", 
 				NamedTextColor.GREEN));
 	// Plugin Name with color
-	static final TextComponent eventannouncertext = 
-		Component.text("Title", 
-			NamedTextColor.RED)
-		.append(Component.text("Announcer", 
-			NamedTextColor.WHITE));
+	static final Component eventannouncertext = 
+		MiniMessageUtil.parse(
+			"<gradient:yellow:blue>TitleAnnouncer</gradient>");
 	// Line
 	static final TextComponent linelong = 
 		Component.text("----------------------", 
