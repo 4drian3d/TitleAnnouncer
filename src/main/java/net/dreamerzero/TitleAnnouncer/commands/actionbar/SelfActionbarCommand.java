@@ -9,9 +9,9 @@ import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 
-public class TestActionbarCommand implements CommandExecutor {
+public class SelfActionbarCommand implements CommandExecutor {
     private Announcer plugin;
-	public TestActionbarCommand(Announcer plugin) {
+	public SelfActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
 	}
 

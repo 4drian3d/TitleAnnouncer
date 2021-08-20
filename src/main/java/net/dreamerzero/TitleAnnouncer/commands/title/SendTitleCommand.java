@@ -11,9 +11,9 @@ import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 import net.dreamerzero.TitleAnnouncer.utils.TitleUtil;
 
-public class PlayerTitleCommand implements CommandExecutor {
+public class SendTitleCommand implements CommandExecutor {
     private Announcer plugin;
-	public PlayerTitleCommand(Announcer plugin) {
+	public SendTitleCommand(Announcer plugin) {
 		this.plugin = plugin;
 	}
 
@@ -62,7 +62,7 @@ public class PlayerTitleCommand implements CommandExecutor {
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-			Player playerObjetive = Bukkit.getPlayer(args[0]);
+            Player playerObjetive = Bukkit.getPlayer(args[0]);
 
             try {
                 var serverplayers = Bukkit.getOnlinePlayers();

@@ -14,9 +14,9 @@ import net.dreamerzero.TitleAnnouncer.utils.TitleUtil;
 This command will be executed as a test of the "/anunciarevento" command. 
 It will only be sent for the same player.
 */
-public class TestTitleCommand implements CommandExecutor {
+public class SelfTitleCommand implements CommandExecutor {
     private Announcer plugin;
-	public TestTitleCommand(Announcer plugin) {
+	public SelfTitleCommand(Announcer plugin) {
 		this.plugin = plugin;
 	}
 

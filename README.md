@@ -23,9 +23,9 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
             <td>Announces a Title to the entire server.</td>
         </tr>
         <tr>
-            <td><code>/testtitle</code></td>
+            <td><code>/selftitle</code></td>
             <td>(Title); (SubTitle)</td>
-            <td>announcer.title.test</td>
+            <td>announcer.title.self</td>
             <td>Send a Title only to the player who has sent it.</td>
         </tr>
         <tr>
@@ -62,9 +62,9 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
             <td>Announce an Actionbar to the entire server.</td>
         </tr>
         <tr>
-            <td><code>/testactionbar</code></td>
+            <td><code>/selfactionbar</code></td>
             <td>(Message)</td>
-            <td>announcer.actionbar.test</td>
+            <td>announcer.actionbar.self</td>
             <td>Send an ActionBar only to the player who has sent it.</td>
         </tr>
         <tr>

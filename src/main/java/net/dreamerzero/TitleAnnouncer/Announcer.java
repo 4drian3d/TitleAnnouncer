@@ -6,12 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.PlayerActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.TestActionbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.actionbar.SendActionbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.actionbar.SelfActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.PlayerTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.TestTitleCommand;
+import net.dreamerzero.TitleAnnouncer.commands.title.SendTitleCommand;
+import net.dreamerzero.TitleAnnouncer.commands.title.SelfTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
@@ -68,20 +68,20 @@ public class Announcer extends JavaPlugin {
 		getCommand("announcetitle")
 			.setExecutor(new AnnouncerTitleCommand(this));
 		getCommand("testtitle")
-			.setExecutor(new TestTitleCommand(this));
+			.setExecutor(new SelfTitleCommand(this));
 		getCommand("worldtitle")
 			.setExecutor(new WorldTitleCommand(this));
 		getCommand("sendtitle")
-			.setExecutor(new PlayerTitleCommand(this));
+			.setExecutor(new SendTitleCommand(this));
 		// ActionBar Commands
 		getCommand("announceactionbar")
 			.setExecutor(new AnnouncerActionbarCommand(this));
 		getCommand("testactionbar")
-			.setExecutor(new TestActionbarCommand(this));
+			.setExecutor(new SelfActionbarCommand(this));
 		getCommand("worldactionbar")
 			.setExecutor(new WorldActionbarCommand(this));
 		getCommand("sendactionbar")
-			.setExecutor(new PlayerActionbarCommand(this));
+			.setExecutor(new SendActionbarCommand(this));
 	}
 
 	public void pluginConfiguration() {

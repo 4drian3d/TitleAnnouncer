@@ -11,9 +11,9 @@ import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 
-public class PlayerActionbarCommand implements CommandExecutor {
+public class SendActionbarCommand implements CommandExecutor {
     private Announcer plugin;
-	public PlayerActionbarCommand(Announcer plugin) {
+	public SendActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
 	}
 

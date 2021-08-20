@@ -15,10 +15,10 @@ commands:
         aliases: [anunciarevento, titleevento]
         description: Announce a Title to all players.
         permission: announcer.title.global
-    testtitle:
-        aliases: [probarevento, titlepevento]
+    selftitle:
+        aliases: [probarevento, titlepevento, testtitle]
         description: This will send a title to the player who used the command.
-        permission: announcer.title.test
+        permission: announcer.title.self
     worldtitle:
         aliases: [mundotitle]
         description: It will send a title to the world in which the player is located.
@@ -32,10 +32,10 @@ commands:
         aliases: [actionbarevento]
         description: This will announce a actionbar to all players.
         permission: announcer.actionbar.global
-    testactionbar:
-        aliases: [actionbarpevento]
+    selfactionbar:
+        aliases: [actionbarpevento, testactionbar]
         description: This will announce a actionbar to the sender of the command.
-        permission: announcer.actionbar.test
+        permission: announcer.actionbar.self
     worldactionbar:
         aliases: [mundoactionbar]
         description: It will send an actionbar to the world in which the player is located.
@@ -57,13 +57,13 @@ permissions:
         default: false
         children:
             announcer.title.global: true
-            announcer.title.test: true
+            announcer.title.self: true
             announcer.title.world: true
             announcer.title.send: true
     announcer.title.global:
         description: Announces a Title to the entire server.
         default: false
-    announcer.title.test:
+    announcer.title.self:
         description: Send a Title only to the player who has sent it.
         default: false
     announcer.title.world:
@@ -78,13 +78,13 @@ permissions:
         default: false
         children:
             announcer.actionbar.global: true
-            announcer.actionbar.test: true
+            announcer.actionbar.self: true
             announcer.actionbar.world: true
             announcer.actionbar.send: true
     announcer.actionbar.global:
         description: Announce an ActionBar to the entire server.
         default: false
-    announcer.actionbar.test:
+    announcer.actionbar.self:
         description: Send an ActionBar only to the player who has sent it.
         default: false
     announcer.actionbar.world:
