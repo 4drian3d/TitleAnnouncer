@@ -1,6 +1,6 @@
 name: ${project.artifactId}
 version: ${project.version}
-prefix: ${project.version}
+prefix: ${project.artifactId}
 author: 4drian3d
 main: net.dreamerzero.TitleAnnouncer.Announcer
 website: https://github.com/4drian3d/TitleAnnouncer
