@@ -2,6 +2,9 @@
 
 A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
 
+![Banner](https://i.imgur.com/2TRYkLo.jpg)
+
+
 ## Features
 - Ability to send announcements by using titles and actionbars.
 - Send announcements to users in the same world you are in.
