@@ -1,8 +1,8 @@
-# TitleAnnouncer ![WorkFlow Status](https://img.shields.io/github/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncer%20Maven%20Build?&style=flat-square) ![Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?color=FFF0&style=flat-square)
+# TitleAnnouncer [![WorkFlow Status](https://img.shields.io/github/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncer%20Maven%20Build?&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/actions/workflows/TitleAnnouncerBuild.yml) [![Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?color=FFF0&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/releases)
 
 A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
 
-![Banner](https://i.imgur.com/2TRYkLo.jpg)
+[![Banner](https://i.imgur.com/iI2QNZ6.jpg)](https://polymart.org/resource/titleannouncer.1350)
 
 
 ## Features
@@ -95,6 +95,6 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
 
 
 ## Compatibility
-The plugin works in Paper, Tuinity, Airplane and Purpur 1.16.5 - 1.17.1
+The plugin works in [Paper](https://papermc.io/), [Tuinity](https://github.com/Tuinity/Tuinity), [Airplane](https://github.com/TECHNOVE/Airplane) and [Purpur](https://purpur.pl3x.net/) 1.16.5 - 1.17.1
 
 It does not and will not work in Spigot or CraftBukkit. It will not work in Paper or fork versions 1.16.4 or lower.

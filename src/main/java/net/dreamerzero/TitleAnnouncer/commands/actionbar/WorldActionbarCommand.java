@@ -41,7 +41,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         if (!(player.hasPermission("announcer.actionbar.world"))){
             sender.sendMessage(
                 MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.no-permission")));
+                    plugin.getConfig().getString("messages.actionbar.no-permission")));
             return true;
         }
 

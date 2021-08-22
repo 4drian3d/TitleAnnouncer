@@ -38,7 +38,7 @@ public class SendActionbarCommand implements CommandExecutor {
         if (!(sender.hasPermission("announcer.actionbar.send"))){
             sender.sendMessage(
                 MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.no-permission")));
+                    plugin.getConfig().getString("messages.actionbar.no-permission")));
             return true;
         }
 
