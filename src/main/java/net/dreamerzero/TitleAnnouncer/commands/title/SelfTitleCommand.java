@@ -21,7 +21,7 @@ public class SelfTitleCommand implements CommandExecutor {
 	}
 
     // Default Sound
-    String soundtoplay = "entity.experience_orb.pickup";
+    String soundToPlay = "entity.experience_orb.pickup";
     // Is Enabled?
     Boolean soundEnabled = true;
     // Volume
@@ -67,7 +67,7 @@ public class SelfTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
         
-        soundtoplay = plugin.getConfig().getString("sounds.title.sound-id");
+        soundToPlay = plugin.getConfig().getString("sounds.title.sound-id");
         soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
         volume = plugin.getConfig().getInt("sounds.title.volume");
         pitch = plugin.getConfig().getInt("sounds.title.pitch");
@@ -93,12 +93,11 @@ public class SelfTitleCommand implements CommandExecutor {
             if (soundEnabled) {
                 //Play the sound
                 SoundUtil.playSound(
-                    soundtoplay, 
+                    soundToPlay, 
                     sender, 
                     volume, 
                     pitch);
             }
-            
             return true;
         // In case the command does not contain a separator ";", 
         // it will catch the error in the console and send an error message to the sender.

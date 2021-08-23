@@ -18,7 +18,7 @@ public class SendTitleCommand implements CommandExecutor {
 	}
 
     // Default Sound
-    String soundtoplay = "entity.experience_orb.pickup";
+    String soundToPlay = "entity.experience_orb.pickup";
     // Is Enabled?
     Boolean soundEnabled = true;
     // Volume
@@ -68,7 +68,7 @@ public class SendTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
 
-        soundtoplay = plugin.getConfig().getString("sounds.title.sound-id");
+        soundToPlay = plugin.getConfig().getString("sounds.title.sound-id");
         soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
         volume = plugin.getConfig().getInt("sounds.title.volume");
         pitch = plugin.getConfig().getInt("sounds.title.pitch");
@@ -101,7 +101,7 @@ public class SendTitleCommand implements CommandExecutor {
                 if (soundEnabled) {
                     //Play the sound
                     SoundUtil.playSound(
-                    soundtoplay, 
+                    soundToPlay, 
                     playerObjetive, 
                     volume, 
                     pitch);

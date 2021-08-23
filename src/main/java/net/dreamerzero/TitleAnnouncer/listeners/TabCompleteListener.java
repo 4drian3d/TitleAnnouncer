@@ -15,15 +15,16 @@ public class TabCompleteListener implements Listener {
     public void onTabComplete(AsyncTabCompleteEvent event){
         String buffer = event.getBuffer();
         String input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
-        String[] inputTokens = input.split(" ");
+        String[] tokens = input.split(" ");
 
-        if (inputTokens[0].equalsIgnoreCase("announcer")){
+        if (tokens[0].equalsIgnoreCase("announcer")){
             event.completions().addAll(
                 List.of(
-                    completion("reload", MiniMessageUtil.parse("<rainbow>Reload Command</rainbow>")), 
-                    completion("help", MiniMessageUtil.parse("<rainbow>Help Command</rainbow>"))
-                ));   
+                    completion("reload", 
+                        MiniMessageUtil.parse("<rainbow>Reload Command</rainbow>")), 
+                    completion("help", 
+                        MiniMessageUtil.parse("<rainbow>Help Command</rainbow>"))
+            ));   
         }
-        
     }
 }

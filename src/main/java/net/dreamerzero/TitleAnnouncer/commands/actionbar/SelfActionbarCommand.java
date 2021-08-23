@@ -16,7 +16,7 @@ public class SelfActionbarCommand implements CommandExecutor {
 	}
 
     // Default Sound
-    String soundtoplay = "entity.experience_orb.pickup";
+    String soundToPlay = "entity.experience_orb.pickup";
     // Is Enabled?
     Boolean soundEnabled = true;
     // Volume
@@ -49,16 +49,16 @@ public class SelfActionbarCommand implements CommandExecutor {
         }
         
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        String actionbartoparse = actionbartext.toString();
+        String actionbarToParse = actionbartext.toString();
         
         // Send to sender
         sender.sendActionBar(
-            MiniMessageUtil.parse(actionbartoparse));
+            MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
             MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully")));
 
-        soundtoplay = plugin.getConfig().getString("sounds.actionbar.sound-id");
+        soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id");
         soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
         volume = plugin.getConfig().getInt("sounds.actionbar.volume");
         pitch = plugin.getConfig().getInt("sounds.actionbar.pitch");
@@ -66,13 +66,12 @@ public class SelfActionbarCommand implements CommandExecutor {
         if (soundEnabled) {
             // Play the sound
             SoundUtil.playSound(
-                soundtoplay, 
+                soundToPlay, 
                 sender, 
                 volume, 
                 pitch
             );
         }
-
         return true;
     }
 }
