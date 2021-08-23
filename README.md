@@ -16,6 +16,27 @@ A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
 
 ## Commands
 
+### Main Command
+
+<table>
+    <thead>
+    <tr>
+        <th>Command</th>
+        <th>Argument</th>
+        <th>Permission</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>/announcer</code></td>
+            <td>[help|reload]</td>
+            <td>announcer.command</td>
+            <td>Main Command.</td>
+        </tr>
+    </tbody>
+</table>
+
 ### Title
 <table>
     <thead>

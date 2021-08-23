@@ -5,6 +5,7 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.dreamerzero.TitleAnnouncer.commands.AnnouncerCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.SendActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.SelfActionbarCommand;
@@ -13,6 +14,7 @@ import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.SendTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.SelfTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
+import net.dreamerzero.TitleAnnouncer.listeners.TabCompleteListener;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -49,6 +51,7 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(linelong);
 		pluginConfiguration();
 		commandRegister();
+		listenerRegister();
 	}
 	
 	@Override
@@ -64,6 +67,9 @@ public class Announcer extends JavaPlugin {
 	
 	// Registration of the commands that the plugin provides
 	public void commandRegister() {
+		// Main Command
+		getCommand("announcer")
+			.setExecutor(new AnnouncerCommand(this));
 		// Title Commands
 		getCommand("announcetitle")
 			.setExecutor(new AnnouncerTitleCommand(this));
@@ -82,6 +88,10 @@ public class Announcer extends JavaPlugin {
 			.setExecutor(new WorldActionbarCommand(this));
 		getCommand("sendactionbar")
 			.setExecutor(new SendActionbarCommand(this));
+	}
+
+	public void listenerRegister(){
+		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
 	}
 
 	public void pluginConfiguration() {

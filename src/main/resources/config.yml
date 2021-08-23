@@ -12,6 +12,11 @@
 #
 # Plugin messages
 messages:
+  general:
+    reload-config: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <green>Config Reloaded</green>"
+    no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
+    invalid-command: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Unknown Command</red>"
+    help-message: "<white>Available Commands:</white>"
   title:
     # Message displayed in case the command is executed without arguments.
     without-argument: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You need to enter the title and subtitle arguments.</red>"

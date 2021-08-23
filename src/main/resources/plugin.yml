@@ -10,6 +10,10 @@ description: >
     Originally made for Peruviankkit Network.
 api-version: 1.16
 commands:
+    announcer:
+        aliases: [titleannouncer]
+        description: Main Command
+        permission: announcer.command.show
     # Title Commands
     announcetitle:
         aliases: [anunciarevento, titleevento]
@@ -51,6 +55,17 @@ permissions:
         children:
             announcer.title.*: true
             announcer.actionbar.*: true
+            announcer.command.*: true
+    announce.command.*:
+        children:
+            announcer.command.show: true
+            announcer.command.admin: true
+    announcer.command.show:
+        description: Main Command of the plugin
+        default: true
+    announcer.command.admin:
+        description: Admin Command
+        default: op
     # Title Permissions
     announcer.title.*:
         description: Permission giving access to all commands to send titles
