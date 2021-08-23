@@ -12,10 +12,12 @@ import static com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Complet
 
 public class TabCompleteListener implements Listener {
     @EventHandler
-    public void onTabComplete(AsyncTabCompleteEvent event){
-        String buffer = event.getBuffer();
-        String input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
-        String[] tokens = input.split(" ");
+    public void onTabComplete(
+        final AsyncTabCompleteEvent event){
+            
+        final String buffer = event.getBuffer();
+        final String input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
+        final String[] tokens = input.split(" ");
 
         if (tokens[0].equalsIgnoreCase("announcer")){
             event.completions().addAll(

@@ -10,10 +10,10 @@ public class SoundUtil {
     specified volume and pitch to the specified audience.
     */
     public static void playSound(
-        String sound, 
-        Audience audience, 
-        float volume, 
-        float pitch) {
+        final String sound, 
+        final Audience audience, 
+        final float volume, 
+        final float pitch) {
 
         audience.playSound(
             Sound.sound(
