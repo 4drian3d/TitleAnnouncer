@@ -12,37 +12,40 @@
 #
 # Plugin messages
 messages:
+  prefix:
+    enabled: true
+    line: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "
   general:
-    reload-config: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <green>Config Reloaded</green>"
-    no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
-    invalid-command: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Unknown Command</red>"
+    reload-config: "<green>Config Reloaded</green>"
+    no-permission: "<red>You do not have permission to execute this command</red>"
+    invalid-command: "<red>Unknown Command</red>"
     help-message: "<white>Available Commands:</white>"
   title:
     # Message displayed in case the command is executed without arguments.
-    without-argument: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You need to enter the title and subtitle arguments.</red>"
+    without-argument: "<red>You need to enter the title and subtitle arguments.</red>"
     # Message to be sent when executing the /sendtitle command and only the player is specified.
-    only-player: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"
+    only-player: " <gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"
     # Message displayed in case the command is executed with only one argument.
     # In case you want to send a title without a subtitle, 
     # enter the title you want and in the subtitle field add a color <red> for example.
-    single-argument: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"
+    single-argument: "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"
     # Message displayed when the title has been displayed successfully
-    successfully: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <green>Title succesfully sended</green>"
+    successfully: "<green>Title succesfully sended</green>"
     # Message displayed when an error occurs while sending the title
-    error: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"
+    error: "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"
     # Message to send to the player in case he does not have the respective permission.
-    no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
+    no-permission: "<red>You do not have permission to execute this command</red>"
     # This message will be displayed if a player with the name specified in /sendtitle is not found.
-    player-not-found: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Player not found</red>"
+    player-not-found: "<red>Player not found</red>"
   actionbar:
     # Message displayed when the actionbar has been displayed successfully.
-    successfully: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <green>Actionbar succesfully sended</green>"
+    successfully: "<green>Actionbar succesfully sended</green>"
     # Message to send to the player in case he does not have the respective permission.
-    no-permission: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>You do not have permission to execute this command</red>"
+    no-permission: "<red>You do not have permission to execute this command</red>"
     # Message to be sent when executing the /sendactionbar command and only the player is specified.
-    only-player: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <gray>You must enter the message to be sent after the player's name.</gray>"
+    only-player: "<gray>You must enter the message to be sent after the player's name.</gray>"
     # This message will be displayed if a player with the name specified in /sendtitle is not found.
-    player-not-found: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> <red>Player not found</red>"
+    player-not-found: "<red>Player not found</red>"
 # Plugin sounds
 # In the sound-id field you must enter a valid value from: 
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values

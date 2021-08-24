@@ -3,6 +3,7 @@ package net.dreamerzero.TitleAnnouncer.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
@@ -11,9 +12,11 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class AnnouncerCommand implements CommandExecutor {
-    private Announcer plugin;
+    private final Announcer plugin;
+    private final FileConfiguration config;
 	public AnnouncerCommand(Announcer plugin) {
 		this.plugin = plugin;
+        this.config = plugin.getConfig();
 	}
     static final TextComponent commands = 
         Component.newline()
@@ -52,10 +55,21 @@ public class AnnouncerCommand implements CommandExecutor {
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender.hasPermission("announcer.command.admin"))) {
+        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Component prefix = Component.text("");
+
+        if (enabledPrefix){
+            prefix = MiniMessageUtil.parse(config.getString(
+                "messages.prefix.line", 
+                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
+        }
+
+        if (!(sender.hasPermission("announcer.command.show"))) {
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.general.no-permission")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.general.no-permission", 
+                        "<red>You do not have permission to execute this command</red>"))));
             return false;
         }
         if (!(sender.hasPermission("announcer.command.admin"))){
@@ -66,8 +80,10 @@ public class AnnouncerCommand implements CommandExecutor {
         if(args.length == 0) {
             sender.sendMessage(announce);
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.general.help-message")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.general.help-message", 
+                        "<white>Available Commands:</white>"))));
             sender.sendMessage(commands);
             return true;
         }
@@ -75,19 +91,25 @@ public class AnnouncerCommand implements CommandExecutor {
         if(args[0].equalsIgnoreCase("reload")) {
             plugin.reloadConfig();
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.general.reload-config")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.general.reload-config", 
+                        "<green>Config Reloaded</green>"))));
             return true;
         } else if (args[0].equalsIgnoreCase("help")){
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.general.help-message")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.general.help-message", 
+                        "<white>Available Commands:</white>"))));
             sender.sendMessage(commands);
             return true;
         } else {
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.general.invalid-command")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.general.invalid-command", 
+                        "<red>Unknown Command</red>"))));
         }
         return true;
     }

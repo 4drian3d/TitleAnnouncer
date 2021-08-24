@@ -21,6 +21,7 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class Announcer extends JavaPlugin {
+	private static Announcer instance;
 	// Component to send the server name: Peruviankkit... in color... in console
 	static final TextComponent pvknet = 
 		Component.text("Peru", 
@@ -100,5 +101,9 @@ public class Announcer extends JavaPlugin {
 			getConfig().options().copyDefaults(true);
 			saveDefaultConfig();
 		}
+	}
+
+	public static Announcer getInstance() {
+		return instance;
 	}
 }

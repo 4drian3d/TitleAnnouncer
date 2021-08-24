@@ -4,38 +4,44 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
 
 public class AnnouncerActionbarCommand implements CommandExecutor {
-    private Announcer plugin;
+    @SuppressWarnings("unused")
+    private final Announcer plugin;
+    private final FileConfiguration config;
 	public AnnouncerActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
+        this.config = plugin.getConfig();
 	}
 
     // The audience that will receive the actionbar will be all the players on the server.
     public Audience audience = Bukkit.getServer();
 
-    // Default Sound
-    String soundToPlay = "entity.experience_orb.pickup";
-    // Is Enabled?
-    Boolean soundEnabled = true;
-    // Volume
-    float volume = 10f;
-    // Pitch
-    float pitch = 2f;
-
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Component prefix = Component.text("");
+
+        if (enabledPrefix){
+            prefix = MiniMessageUtil.parse(config.getString(
+                "messages.prefix.line", 
+                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
+        }
         // Permission Check
         if (!(sender.hasPermission("announcer.actionbar.global"))){
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.actionbar.no-permission")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.actionbar.no-permission", 
+                        "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
 
@@ -53,13 +59,15 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         audience.sendActionBar(
             MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
-            MiniMessageUtil.parse(
-                plugin.getConfig().getString("messages.actionbar.successfully")));
+            prefix.append(MiniMessageUtil.parse(
+                config.getString("messages.actionbar.successfully"))));
 
-        soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id");
-        soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
-        volume = plugin.getConfig().getInt("sounds.actionbar.volume");
-        pitch = plugin.getConfig().getInt("sounds.actionbar.pitch");
+        String soundToPlay = config.getString(
+            "sounds.actionbar.sound-id", 
+            "entity.experience_orb.pickup");
+        boolean soundEnabled = config.getBoolean("sounds.actionbar.enabled", true);
+        float volume = config.getInt("sounds.actionbar.volume", 10);
+        float pitch = config.getInt("sounds.actionbar.pitch", 2);
 
         if (soundEnabled) {
             // Play the sound

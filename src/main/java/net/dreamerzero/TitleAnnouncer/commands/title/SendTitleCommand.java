@@ -4,60 +4,69 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 import net.dreamerzero.TitleAnnouncer.utils.TitleUtil;
+import net.kyori.adventure.text.Component;
 
 public class SendTitleCommand implements CommandExecutor {
-    private Announcer plugin;
+    @SuppressWarnings("unused")
+    private final Announcer plugin;
+    private final FileConfiguration config;
+    
 	public SendTitleCommand(Announcer plugin) {
 		this.plugin = plugin;
+        this.config = plugin.getConfig();
 	}
-
-    // Default Sound
-    String soundToPlay = "entity.experience_orb.pickup";
-    // Is Enabled?
-    Boolean soundEnabled = true;
-    // Volume
-    float volume = 10f;
-    // Pitch
-    float pitch = 2f;
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // It will send an title to the one who executes the command, 
-        // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
-            plugin.getLogger().info("The console cannot execute this command.");
-            return false;
+        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Component prefix = Component.text("");
+
+        if (enabledPrefix){
+            prefix = MiniMessageUtil.parse(config.getString(
+                "messages.prefix.line", 
+                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
 
         // Permission Check
         if (!(sender.hasPermission("announcer.title.send"))){
-            sender.sendMessage(plugin.getConfig().getString("messages.title.no-permission"));
+            sender.sendMessage(
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.title.no-permission",
+                        "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
         
         // The command requires arguments to work
         if (args.length == 0) {
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.without-argument")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.title.without-argument",
+                        "<red>You need to enter the title and subtitle arguments.</red>"))));
             return true;
         // The command requires player argument to work.
         } else if (args.length == 1) {
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.only-player")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.title.only-player",
+                        "<gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"))));
             return true;
         // The command requires title and subtitle arguments to work properly.
         } else if (args.length == 2) {
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.single-argument")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.title.single-argument",
+                        "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
             return true;
         }
 
@@ -68,10 +77,12 @@ public class SendTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
 
-        soundToPlay = plugin.getConfig().getString("sounds.title.sound-id");
-        soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled");
-        volume = plugin.getConfig().getInt("sounds.title.volume");
-        pitch = plugin.getConfig().getInt("sounds.title.pitch");
+        String soundToPlay = config.getString(
+            "sounds.title.sound-id", 
+            "entity.experience_orb.pickup");
+        boolean soundEnabled = config.getBoolean("sounds.title.enabled", true);
+        int volume = config.getInt("sounds.title.volume", 10);
+        int pitch = config.getInt("sounds.title.pitch", 2);
         
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
@@ -84,8 +95,10 @@ public class SendTitleCommand implements CommandExecutor {
                 if (!(serverplayers.contains(playerObjetive))){
                     // Send an error message to the sender using the command.
                     sender.sendMessage(
-                        MiniMessageUtil.parse(
-                            plugin.getConfig().getString("messages.title.player-not-found")));
+                        prefix.append(MiniMessageUtil.parse(
+                            config.getString(
+                                "messages.title.player-not-found",
+                                "<red>Player not found</red>"))));
                     return false;
                 }
 				
@@ -109,15 +122,19 @@ public class SendTitleCommand implements CommandExecutor {
 
                 // Send message to the sender
                 sender.sendMessage(
-                    MiniMessageUtil.parse(
-                        plugin.getConfig().getString("messages.title.successfully")));
+                    prefix.append(MiniMessageUtil.parse(
+                        config.getString(
+                            "messages.title.successfully",
+                            "<green>Title succesfully sended</green>"))));
                 
                 return true;
             } catch (Exception e) {
                 // Send an error message to the sender using the command
                 sender.sendMessage(
-                    MiniMessageUtil.parse(
-                        plugin.getConfig().getString("messages.title.error")));
+                    prefix.append(MiniMessageUtil.parse(
+                        config.getString(
+                            "messages.title.error", 
+                            "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
                 return false;
             }
         // In case the command does not contain a separator ";", 
@@ -125,8 +142,10 @@ public class SendTitleCommand implements CommandExecutor {
         } catch (Exception e) {
             // Send an error message to the sender using the command
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.error")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.title.error",
+                        "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
             return false;
         }
     }

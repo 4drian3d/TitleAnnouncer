@@ -5,25 +5,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
+import net.kyori.adventure.text.Component;
 
 public class SendActionbarCommand implements CommandExecutor {
-    private Announcer plugin;
+    private final Announcer plugin;
+    private final FileConfiguration config;
 	public SendActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
+        this.config = plugin.getConfig();
 	}
-
-    // Default Sound
-    String soundToPlay = "entity.experience_orb.pickup";
-    // Is Enabled?
-    Boolean soundEnabled = true;
-    // Volume
-    float volume = 10f;
-    // Pitch
-    float pitch = 2f;
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -34,18 +29,31 @@ public class SendActionbarCommand implements CommandExecutor {
             return false;
         }
 
+        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Component prefix = Component.text("");
+
+        if (enabledPrefix){
+            prefix = MiniMessageUtil.parse(config.getString(
+                "messages.prefix.line", 
+                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
+        }
+
         // Permission Check
         if (!(sender.hasPermission("announcer.actionbar.send"))){
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.actionbar.no-permission")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.actionbar.no-permission", 
+                        "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
 
         if (args.length < 2) {
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.actionbar.only-player")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString(
+                        "messages.actionbar.only-player", 
+                        "<gray>You must enter the message to be sent after the player's name.</gray>"))));
             return false;
         }
 
@@ -57,8 +65,8 @@ public class SendActionbarCommand implements CommandExecutor {
         if (!(serverplayers.contains(playerObjetive))){
             // Send an error message to the sender using the command.
             sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.actionbar.player-not-found")));
+                prefix.append(MiniMessageUtil.parse(
+                    config.getString("messages.actionbar.player-not-found"))));
                 return false;
         }
 
@@ -76,13 +84,13 @@ public class SendActionbarCommand implements CommandExecutor {
         playerObjetive.sendActionBar(
             MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
-            MiniMessageUtil.parse(
-                plugin.getConfig().getString("messages.actionbar.successfully")));
+            prefix.append(MiniMessageUtil.parse(
+                config.getString("messages.actionbar.successfully"))));
 
-        soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id");
-        soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled");
-        volume = plugin.getConfig().getInt("sounds.actionbar.volume");
-        pitch = plugin.getConfig().getInt("sounds.actionbar.pitch");
+        String soundToPlay = config.getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
+        boolean soundEnabled = config.getBoolean("sounds.actionbar.enabled", true);
+        float volume = config.getInt("sounds.actionbar.volume", 10);
+        float pitch = config.getInt("sounds.actionbar.pitch", 2);
         
         if (soundEnabled) {
             // Play the sound
