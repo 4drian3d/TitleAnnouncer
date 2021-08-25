@@ -9,7 +9,9 @@ import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.newline;
+import static net.kyori.adventure.text.Component.space;
 import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
+import static net.kyori.adventure.text.format.NamedTextColor.YELLOW;
 import static net.kyori.adventure.text.format.NamedTextColor.GOLD;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,17 +22,95 @@ public class AnnouncerCommand implements CommandExecutor {
 	    this.plugin = plugin;
 	}
 
-    final static Component helpMessage =
-        text("Title:", AQUA).append(newline()).append(
-        text("/announcetitle [Title]; [Subtitle]", GOLD)).append(newline()).append(
-        text("/selftitle [Title]; [Subtitle]", GOLD)).append(newline()).append(
-        text("/worldtitle [Title]; [Subtitle]", GOLD)).append(newline()).append(
-        text("ActionBar: ", AQUA)).append(newline()).append(
-        text("/announceactionbar [Actionbar]", GOLD)).append(newline()).append(
-        text("/selfactionbar [Actionbar]", GOLD)).append(newline()).append(
-        text("/worldactionbar [Actionbar]", GOLD)).append(newline()).append(
-        text("/sendactionbar [Player] [Actionbar]", GOLD));
-    ;
+    final static Component titleArguments = text("[Title]; [SubTitle]", AQUA);
+    final static Component actionbarArguments = text("[ActionBar]", AQUA);
+
+    final static Component titleHelpMessage = text()
+        .append(text()
+            .append(text("Title", YELLOW))
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/announcetitle", GOLD))
+        )
+        .append(space())
+        .append(text()
+            .append(titleArguments)     
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/selftitle", GOLD))   
+        )
+        .append(space())
+        .append(text()
+            .append(titleArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/worldtitle", GOLD))    
+        )
+        .append(space())
+        .append(text()
+            .append(titleArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/sendtitle", GOLD))
+        )
+        .append(space())
+        .append(text()
+            .append(text("[Player]", AQUA))
+            
+        )
+        .append(space())
+        .append(text()
+            .append(titleArguments)
+        )
+        .build();
+    
+    final static Component actionbarHelpMessage = text()
+        .color(YELLOW)
+        .append(text()
+            .append(text("ActionBar"))
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/announceactionbar", GOLD))    
+        )
+        .append(space())
+        .append(text()
+            .append(actionbarArguments)     
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/selfactionbar", GOLD))     
+        )
+        .append(space())
+        .append(text()
+            .append(actionbarArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/worldactionbar", GOLD))   
+        )
+        .append(space())
+        .append(text()
+            .append(actionbarArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/sendactionbar", GOLD))
+        )
+        .append(space())
+        .append(text()
+            .append(text("[Player]", AQUA))
+            
+        )
+        .append(space())
+        .append(text()
+            .append(actionbarArguments)
+        )
+        .build();
 
     // Main Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
@@ -67,7 +147,8 @@ public class AnnouncerCommand implements CommandExecutor {
                     plugin.getConfig().getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>")));
-            sender.sendMessage(helpMessage);
+            sender.sendMessage(titleHelpMessage);
+            sender.sendMessage(actionbarHelpMessage);
             return true;
         }
 
@@ -87,7 +168,8 @@ public class AnnouncerCommand implements CommandExecutor {
                     plugin.getConfig().getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>")));
-            sender.sendMessage(helpMessage);
+            sender.sendMessage(titleHelpMessage);
+            sender.sendMessage(actionbarHelpMessage);
             return true;
         } else {
             sender.sendMessage(

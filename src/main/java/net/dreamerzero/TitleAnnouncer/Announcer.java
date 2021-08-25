@@ -17,37 +17,45 @@ import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
 import net.dreamerzero.TitleAnnouncer.listeners.TabCompleteListener;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
+import static net.kyori.adventure.text.Component.text;
 import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
+import static net.kyori.adventure.text.Component.space;
+import static net.kyori.adventure.text.format.NamedTextColor.DARK_RED;
+import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;
+import static net.kyori.adventure.text.format.NamedTextColor.WHITE;
+import static net.kyori.adventure.text.format.NamedTextColor.GREEN;
+import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 
 public class Announcer extends JavaPlugin {
 	private static Announcer instance;
 	// Component to send the server name: Peruviankkit... in color... in console
-	private static final TextComponent pvknet = 
-		Component.text("Peru", 
-			NamedTextColor.DARK_RED)
-		.append(Component.text("vian", 
-				NamedTextColor.WHITE))
-		.append(Component.text("kkit", 
-				NamedTextColor.DARK_RED))
-		.append(Component.text(" Network", 
-				NamedTextColor.GREEN));
+	private static final TextComponent pvknet = text()
+		.color(DARK_RED)
+		.append(text("Peru"))
+		.append(text()
+			.append(text("vian", WHITE))
+		)
+		.append(text()
+			.append(text("kkit", DARK_RED))
+		)
+		.append(space())
+		.append(text()
+			.append(text("Network", GREEN))
+		)
+		.build();
+
+
 	// Plugin Name with color
 	private static final Component eventannouncertext = 
 		MiniMessageUtil.parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>");
 	// Line
-	private static final TextComponent linelong = 
-		Component.text("----------------------", 
-			NamedTextColor.DARK_GRAY);
+	private static final TextComponent linelong = text("----------------------", DARK_GRAY);
 	
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		Bukkit.getConsoleSender().sendMessage(
-			Component.text("Enabling ", 
-				NamedTextColor.AQUA)
-			.append(eventannouncertext));
+		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 		pluginConfiguration();
@@ -58,10 +66,7 @@ public class Announcer extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(linelong);
-		Bukkit.getConsoleSender().sendMessage(
-			Component.text("Disabling ", 
-				NamedTextColor.AQUA)
-			.append(eventannouncertext));
+		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
 	}
