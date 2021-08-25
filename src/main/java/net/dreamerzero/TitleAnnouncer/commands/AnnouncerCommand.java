@@ -10,53 +10,41 @@ import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnnouncerCommand implements CommandExecutor {
+
     private final Announcer plugin;
     private final FileConfiguration config;
+    private final List<Component> commands = new ArrayList<>();
+
 	public AnnouncerCommand(Announcer plugin) {
 		this.plugin = plugin;
         this.config = plugin.getConfig();
 	}
-    static final TextComponent commands = 
-        Component.newline()
-        .append(Component.text("Title:", NamedTextColor.AQUA))
-        .append(Component.newline())
-        .append(Component.text("/announcetitle [Title]; [Subtitle]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        .append(Component.text("/selftitle [Title]; [Subtitle]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        .append(Component.text("/worldtitle [Title]; [Subtitle]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        .append(Component.text("/sendtitle [Player] [Title]; [Subtitle]", 
-            NamedTextColor.GOLD))
-        .append(Component.newline())
-        .append(Component.text("ActionBar: ", 
-            NamedTextColor.AQUA))
-            .append(Component.newline())
-        .append(Component.text("/announceactionbar [Actionbar]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        .append(Component.text("/selfactionbar [Actionbar]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        .append(Component.text("/worldactionbar [Actionbar]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        .append(Component.text("/sendactionbar [Player] [Actionbar]", 
-            NamedTextColor.GOLD))
-            .append(Component.newline())
-        ;
-    static final Component announce = MiniMessageUtil.parse(
-        "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>");
 
     // Main Command
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
+        Component announce = MiniMessageUtil.parse(
+                "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"
+        );
+
+        // Help commands of plugin
+        commands.add(Component.text("Title:", NamedTextColor.AQUA));
+        commands.add(Component.text("/announcetitle [Title]; [Subtitle]", NamedTextColor.GOLD));
+        commands.add(Component.text("/selftitle [Title]; [Subtitle]", NamedTextColor.GOLD));
+        commands.add(Component.text("/worldtitle [Title]; [Subtitle]", NamedTextColor.GOLD));
+        commands.add(Component.text("ActionBar: ", NamedTextColor.AQUA));
+        commands.add(Component.text("/announceactionbar [Actionbar]", NamedTextColor.GOLD));
+        commands.add(Component.text("/selfactionbar [Actionbar]", NamedTextColor.GOLD));
+        commands.add(Component.text("/worldactionbar [Actionbar]", NamedTextColor.GOLD));
+        commands.add(Component.text("/sendactionbar [Player] [Actionbar]", NamedTextColor.GOLD));
+
 
         if (enabledPrefix){
             prefix = MiniMessageUtil.parse(config.getString(
@@ -84,7 +72,10 @@ public class AnnouncerCommand implements CommandExecutor {
                     config.getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>"))));
-            sender.sendMessage(commands);
+
+            for (Component component : commands) {
+                sender.sendMessage(component);
+            }
             return true;
         }
 
@@ -102,7 +93,9 @@ public class AnnouncerCommand implements CommandExecutor {
                     config.getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>"))));
-            sender.sendMessage(commands);
+            for (Component component : commands) {
+                sender.sendMessage(component);
+            }
             return true;
         } else {
             sender.sendMessage(
