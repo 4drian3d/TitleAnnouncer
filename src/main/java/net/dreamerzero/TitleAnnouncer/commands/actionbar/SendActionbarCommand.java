@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
@@ -14,10 +13,8 @@ import net.kyori.adventure.text.Component;
 
 public class SendActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
-    private final FileConfiguration config;
 	public SendActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
-        this.config = plugin.getConfig();
 	}
 
     // Command
@@ -29,11 +26,11 @@ public class SendActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
         if (enabledPrefix){
-            prefix = MiniMessageUtil.parse(config.getString(
+            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
@@ -42,7 +39,7 @@ public class SendActionbarCommand implements CommandExecutor {
         if (!(sender.hasPermission("announcer.actionbar.send"))){
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.actionbar.no-permission", 
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
@@ -51,7 +48,7 @@ public class SendActionbarCommand implements CommandExecutor {
         if (args.length < 2) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.actionbar.only-player", 
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
             return false;
@@ -66,7 +63,7 @@ public class SendActionbarCommand implements CommandExecutor {
             // Send an error message to the sender using the command.
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString("messages.actionbar.player-not-found"))));
+                    plugin.getConfig().getString("messages.actionbar.player-not-found"))));
                 return false;
         }
 
@@ -85,12 +82,12 @@ public class SendActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
-                config.getString("messages.actionbar.successfully"))));
+                plugin.getConfig().getString("messages.actionbar.successfully"))));
 
-        String soundToPlay = config.getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
-        boolean soundEnabled = config.getBoolean("sounds.actionbar.enabled", true);
-        float volume = config.getInt("sounds.actionbar.volume", 10);
-        float pitch = config.getInt("sounds.actionbar.pitch", 2);
+        String soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
+        float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
+        float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
         
         if (soundEnabled) {
             // Play the sound
