@@ -7,40 +7,39 @@ import org.bukkit.command.CommandSender;
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.Component.newline;
+import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
+import static net.kyori.adventure.text.format.NamedTextColor.GOLD;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AnnouncerCommand implements CommandExecutor {
     private final Announcer plugin;
-    private final List<Component> commands = new ArrayList<>();
 
 	public AnnouncerCommand(Announcer plugin) {
 	    this.plugin = plugin;
 	}
 
+    final static Component helpMessage =
+        text("Title:", AQUA).append(newline()).append(
+        text("/announcetitle [Title]; [Subtitle]", GOLD)).append(newline()).append(
+        text("/selftitle [Title]; [Subtitle]", GOLD)).append(newline()).append(
+        text("/worldtitle [Title]; [Subtitle]", GOLD)).append(newline()).append(
+        text("ActionBar: ", AQUA)).append(newline()).append(
+        text("/announceactionbar [Actionbar]", GOLD)).append(newline()).append(
+        text("/selfactionbar [Actionbar]", GOLD)).append(newline()).append(
+        text("/worldactionbar [Actionbar]", GOLD)).append(newline()).append(
+        text("/sendactionbar [Player] [Actionbar]", GOLD));
+    ;
+
     // Main Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
   
-        Component prefix = Component.text("");
+        Component prefix = text("");
         Component announce = MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"
         );
-
-        // Help commands of plugin
-        commands.add(Component.text("Title:", NamedTextColor.AQUA));
-        commands.add(Component.text("/announcetitle [Title]; [Subtitle]", NamedTextColor.GOLD));
-        commands.add(Component.text("/selftitle [Title]; [Subtitle]", NamedTextColor.GOLD));
-        commands.add(Component.text("/worldtitle [Title]; [Subtitle]", NamedTextColor.GOLD));
-        commands.add(Component.text("ActionBar: ", NamedTextColor.AQUA));
-        commands.add(Component.text("/announceactionbar [Actionbar]", NamedTextColor.GOLD));
-        commands.add(Component.text("/selfactionbar [Actionbar]", NamedTextColor.GOLD));
-        commands.add(Component.text("/worldactionbar [Actionbar]", NamedTextColor.GOLD));
-        commands.add(Component.text("/sendactionbar [Player] [Actionbar]", NamedTextColor.GOLD));
-
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
@@ -64,14 +63,11 @@ public class AnnouncerCommand implements CommandExecutor {
         if(args.length == 0) {
             sender.sendMessage(announce);
             sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.general.help-message", 
-                        "<white>Available Commands:</white>"))));
-
-            for (Component component : commands) {
-                sender.sendMessage(component);
-            }
+                        "<white>Available Commands:</white>")));
+            sender.sendMessage(helpMessage);
             return true;
         }
 
@@ -85,14 +81,13 @@ public class AnnouncerCommand implements CommandExecutor {
                         "<green>Config Reloaded</green>"))));
             return true;
         } else if (args[0].equalsIgnoreCase("help")) {
+            sender.sendMessage(announce);
             sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
+                MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.general.help-message", 
-                        "<white>Available Commands:</white>"))));
-            for (Component component : commands) {
-                sender.sendMessage(component);
-            }
+                        "<white>Available Commands:</white>")));
+            sender.sendMessage(helpMessage);
             return true;
         } else {
             sender.sendMessage(
@@ -103,4 +98,5 @@ public class AnnouncerCommand implements CommandExecutor {
         }
         return true;
     }
+
 }
