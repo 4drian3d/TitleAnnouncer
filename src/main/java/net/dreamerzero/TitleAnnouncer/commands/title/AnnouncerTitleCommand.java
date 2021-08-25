@@ -91,7 +91,9 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             // Send message to the sender
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.successfully"))));
+                    plugin.getConfig().getString(
+                        "messages.title.successfully",
+                        "<green>Title succesfully sended</green>"))));
             
             if (soundEnabled) {
                 //Play the sound
@@ -109,7 +111,9 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             // Send an error message to the sender using the command
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.error"))));
+                    plugin.getConfig().getString(
+                        "messages.title.error",
+                        "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
             return false;
         }
     }

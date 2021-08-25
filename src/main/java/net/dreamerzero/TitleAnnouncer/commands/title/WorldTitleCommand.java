@@ -43,7 +43,9 @@ public class WorldTitleCommand implements CommandExecutor {
         if (!(player.hasPermission("announcer.title.world"))) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.no-permission", "<red>You do not have permission to execute this command</red>"))));
+                    plugin.getConfig().getString(
+                        "messages.title.no-permission", 
+                        "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
 
@@ -54,13 +56,17 @@ public class WorldTitleCommand implements CommandExecutor {
         if (args.length == 0) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.without-argument", "<red>You need to enter the title and subtitle arguments.</red>"))));
+                    plugin.getConfig().getString(
+                        "messages.title.without-argument", 
+                        "<red>You need to enter the title and subtitle arguments.</red>"))));
             return true;
         // The command requires title and subtitle arguments to work properly.
         } else if (args.length == 1) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.single-argument", "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
+                    plugin.getConfig().getString(
+                        "messages.title.single-argument", 
+                        "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
             return true;
         }
 
@@ -94,7 +100,9 @@ public class WorldTitleCommand implements CommandExecutor {
             // Send message to the sender
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.successfully"))));
+                    plugin.getConfig().getString(
+                        "messages.title.successfully",
+                        "<green>Title succesfully sended</green>"))));
             
             if (soundEnabled) {
                 //Play the sound
@@ -112,7 +120,9 @@ public class WorldTitleCommand implements CommandExecutor {
             // Send an error message to the sender using the command
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.title.error"))));
+                    plugin.getConfig().getString(
+                        "messages.title.error",
+                        "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
             return false;
         }
     }

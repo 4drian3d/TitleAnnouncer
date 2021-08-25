@@ -63,7 +63,9 @@ public class SendActionbarCommand implements CommandExecutor {
             // Send an error message to the sender using the command.
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString("messages.actionbar.player-not-found"))));
+                    plugin.getConfig().getString(
+                        "messages.actionbar.player-not-found",
+                        "<red>Player not found</red>"))));
                 return false;
         }
 
@@ -82,7 +84,9 @@ public class SendActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString("messages.actionbar.successfully"))));
+                plugin.getConfig().getString(
+                    "messages.actionbar.successfully",
+                    "<green>Actionbar succesfully sended</green>"))));
 
         var soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
         var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);

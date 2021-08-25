@@ -56,7 +56,9 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString("messages.actionbar.successfully"))));
+                plugin.getConfig().getString(
+                    "messages.actionbar.successfully",  
+                    "<green>Actionbar succesfully sended</green>"))));
 
         var soundToPlay = plugin.getConfig().getString(
             "sounds.actionbar.sound-id", 
