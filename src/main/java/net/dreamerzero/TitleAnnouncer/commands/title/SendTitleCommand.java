@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
@@ -21,17 +20,17 @@ public class SendTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
-        if (enabledPrefix){
+        if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.title.send"))){
+        if (!(sender.hasPermission("announcer.title.send"))) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -67,28 +66,28 @@ public class SendTitleCommand implements CommandExecutor {
         }
 
         // Concatenate the arguments provided by the command sent.
-        StringBuilder titleandsubtitle = new StringBuilder();
+        var titleandsubtitle = new StringBuilder();
         for (byte i = 1; i < args.length; i++) {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
 
-        String soundToPlay = plugin.getConfig().getString(
+        var soundToPlay = plugin.getConfig().getString(
             "sounds.title.sound-id", 
             "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
+        var soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
         int volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         int pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
         
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-            Player playerObjetive = Bukkit.getPlayer(args[0]);
+            var playerObjetive = Bukkit.getPlayer(args[0]);
 
             try {
                 var serverplayers = Bukkit.getOnlinePlayers();
 
-                if (!(serverplayers.contains(playerObjetive))){
+                if (!(serverplayers.contains(playerObjetive))) {
                     // Send an error message to the sender using the command.
                     sender.sendMessage(
                         prefix.append(MiniMessageUtil.parse(

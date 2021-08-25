@@ -23,7 +23,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 public class Announcer extends JavaPlugin {
 	private static Announcer instance;
 	// Component to send the server name: Peruviankkit... in color... in console
-	static final TextComponent pvknet = 
+	private static final TextComponent pvknet = 
 		Component.text("Peru", 
 			NamedTextColor.DARK_RED)
 		.append(Component.text("vian", 
@@ -33,11 +33,11 @@ public class Announcer extends JavaPlugin {
 		.append(Component.text(" Network", 
 				NamedTextColor.GREEN));
 	// Plugin Name with color
-	static final Component eventannouncertext = 
+	private static final Component eventannouncertext = 
 		MiniMessageUtil.parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>");
 	// Line
-	static final TextComponent linelong = 
+	private static final TextComponent linelong = 
 		Component.text("----------------------", 
 			NamedTextColor.DARK_GRAY);
 	
@@ -91,13 +91,13 @@ public class Announcer extends JavaPlugin {
 			.setExecutor(new SendActionbarCommand(this));
 	}
 
-	public void listenerRegister(){
+	public void listenerRegister() {
 		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
 	}
 
 	public void pluginConfiguration() {
-		File config = new File(this.getDataFolder(), "config.yml");
-		if(!config.exists()) {
+		var config = new File(this.getDataFolder(), "config.yml");
+		if (!config.exists()) {
 			getConfig().options().copyDefaults(true);
 			saveDefaultConfig();
 		}

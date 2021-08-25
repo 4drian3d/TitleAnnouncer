@@ -13,13 +13,13 @@ import static com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Complet
 public class TabCompleteListener implements Listener {
     @EventHandler
     public void onTabComplete(
-        final AsyncTabCompleteEvent event){
+        final AsyncTabCompleteEvent event) {
             
-        final String buffer = event.getBuffer();
-        final String input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
+        final var buffer = event.getBuffer();
+        final var input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
         final String[] tokens = input.split(" ");
 
-        if (tokens[0].equalsIgnoreCase("announcer")){
+        if (tokens[0].equalsIgnoreCase("announcer")) {
             event.completions().addAll(
                 List.of(
                     completion("reload", 

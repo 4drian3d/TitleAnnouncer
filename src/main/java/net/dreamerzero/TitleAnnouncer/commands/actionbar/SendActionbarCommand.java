@@ -26,17 +26,17 @@ public class SendActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
-        if (enabledPrefix){
+        if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.actionbar.send"))){
+        if (!(sender.hasPermission("announcer.actionbar.send"))) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -55,11 +55,11 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Get the player
-        Player playerObjetive = Bukkit.getPlayer(args[0]);
+        var playerObjetive = Bukkit.getPlayer(args[0]);
 
         var serverplayers = Bukkit.getOnlinePlayers();
 
-        if (!(serverplayers.contains(playerObjetive))){
+        if (!(serverplayers.contains(playerObjetive))) {
             // Send an error message to the sender using the command.
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
@@ -68,14 +68,14 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Concatenate the arguments provided by the command sent.
-        StringBuilder actionbartext = new StringBuilder();
+        var actionbartext = new StringBuilder();
         for (byte i = 1; i < args.length; i++) {
             actionbartext = actionbartext.append(" ");
             actionbartext = actionbartext.append(args[i]); 
         }
         
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        String actionbarToParse = actionbartext.toString();
+        var actionbarToParse = actionbartext.toString();
 
         // Send to all
         playerObjetive.sendActionBar(
@@ -84,8 +84,8 @@ public class SendActionbarCommand implements CommandExecutor {
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully"))));
 
-        String soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
+        var soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
+        var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
         

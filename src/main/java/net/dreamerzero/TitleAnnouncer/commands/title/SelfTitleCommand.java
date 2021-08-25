@@ -30,17 +30,17 @@ public class SelfTitleCommand implements CommandExecutor {
             return false;
         }
 
-        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
-        if (enabledPrefix){
+        if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.title.test"))){
+        if (!(sender.hasPermission("announcer.title.test"))) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString("messages.title.no-permission", "<red>You do not have permission to execute this command</red>"))));
@@ -62,14 +62,14 @@ public class SelfTitleCommand implements CommandExecutor {
         }
 
         // Concatenate the arguments provided by the command sent.
-        StringBuilder titleandsubtitle = new StringBuilder();
+        var titleandsubtitle = new StringBuilder();
         for (byte i = 0; i < args.length; i++) {
             titleandsubtitle = titleandsubtitle.append(" ");
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
         
-        String soundToPlay = plugin.getConfig().getString("sounds.title.sound-id", "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
+        var soundToPlay = plugin.getConfig().getString("sounds.title.sound-id", "entity.experience_orb.pickup");
+        var soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
 

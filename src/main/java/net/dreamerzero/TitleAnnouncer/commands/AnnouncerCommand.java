@@ -17,13 +17,13 @@ public class AnnouncerCommand implements CommandExecutor {
     private final Announcer plugin;
     private final List<Component> commands = new ArrayList<>();
 
-	  public AnnouncerCommand(Announcer plugin) {
-		  this.plugin = plugin;
-	  }
+	public AnnouncerCommand(Announcer plugin) {
+	    this.plugin = plugin;
+	}
 
     // Main Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
   
         Component prefix = Component.text("");
         Component announce = MiniMessageUtil.parse(
@@ -42,7 +42,7 @@ public class AnnouncerCommand implements CommandExecutor {
         commands.add(Component.text("/sendactionbar [Player] [Actionbar]", NamedTextColor.GOLD));
 
 
-        if (enabledPrefix){
+        if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
@@ -56,7 +56,7 @@ public class AnnouncerCommand implements CommandExecutor {
                         "<red>You do not have permission to execute this command</red>"))));
             return false;
         }
-        if (!(sender.hasPermission("announcer.command.admin"))){
+        if (!(sender.hasPermission("announcer.command.admin"))) {
             sender.sendMessage(announce);
             return false;
         }
@@ -84,7 +84,7 @@ public class AnnouncerCommand implements CommandExecutor {
                         "messages.general.reload-config", 
                         "<green>Config Reloaded</green>"))));
             return true;
-        } else if (args[0].equalsIgnoreCase("help")){
+        } else if (args[0].equalsIgnoreCase("help")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

@@ -19,20 +19,20 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
 	}
 
     // The audience that will receive the actionbar will be all the players on the server.
-    public Audience audience = Bukkit.getServer();
+    private Audience audience = Bukkit.getServer();
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
-        if (enabledPrefix){
+        if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
         // Permission Check
-        if (!(sender.hasPermission("announcer.actionbar.global"))){
+        if (!(sender.hasPermission("announcer.actionbar.global"))) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -49,7 +49,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        String actionbarToParse = actionbartext.toString();
+        var actionbarToParse = actionbartext.toString();
         
         // Send to all
         audience.sendActionBar(
@@ -58,10 +58,10 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString("messages.actionbar.successfully"))));
 
-        String soundToPlay = plugin.getConfig().getString(
+        var soundToPlay = plugin.getConfig().getString(
             "sounds.actionbar.sound-id", 
             "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
+        var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
 
