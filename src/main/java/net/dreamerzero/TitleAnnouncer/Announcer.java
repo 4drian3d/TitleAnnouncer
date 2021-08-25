@@ -44,7 +44,6 @@ public class Announcer extends JavaPlugin {
 		)
 		.build();
 
-
 	// Plugin Name with color
 	private static final Component eventannouncertext = 
 		MiniMessageUtil.parse(

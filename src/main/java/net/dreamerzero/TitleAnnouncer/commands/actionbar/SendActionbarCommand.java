@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
+import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
 import net.kyori.adventure.text.Component;
 
 public class SendActionbarCommand implements CommandExecutor {
@@ -57,6 +58,7 @@ public class SendActionbarCommand implements CommandExecutor {
         // Get the player
         var playerObjetive = Bukkit.getPlayer(args[0]);
 
+        //Collection of all players in the server
         var serverplayers = Bukkit.getOnlinePlayers();
 
         if (!(serverplayers.contains(playerObjetive))) {
@@ -80,8 +82,14 @@ public class SendActionbarCommand implements CommandExecutor {
         var actionbarToParse = actionbartext.toString();
 
         // Send to all
-        playerObjetive.sendActionBar(
-            MiniMessageUtil.parse(actionbarToParse));
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            playerObjetive.sendActionBar(
+                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player, playerObjetive)));
+        } else {
+            playerObjetive.sendActionBar(
+                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(playerObjetive)));
+        }
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(

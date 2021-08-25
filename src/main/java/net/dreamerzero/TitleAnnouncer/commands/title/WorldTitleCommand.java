@@ -9,6 +9,7 @@ import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 import net.dreamerzero.TitleAnnouncer.utils.TitleUtil;
+import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 
@@ -88,10 +89,9 @@ public class WorldTitleCommand implements CommandExecutor {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             
-            // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(titleandsubtitlefinal[0]), 
-                MiniMessageUtil.parse(titleandsubtitlefinal[1]),
+                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
+                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)),
                 audience, 
                 1000, 
                 3000, 

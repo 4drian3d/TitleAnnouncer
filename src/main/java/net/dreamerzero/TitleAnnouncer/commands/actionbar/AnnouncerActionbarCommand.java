@@ -4,10 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
+import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -52,8 +54,15 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         var actionbarToParse = actionbartext.toString();
         
         // Send to all
-        audience.sendActionBar(
-            MiniMessageUtil.parse(actionbarToParse));
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            audience.sendActionBar(
+                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
+        } else {
+            audience.sendActionBar(
+                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders()));
+        }
+
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(

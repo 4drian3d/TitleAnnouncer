@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
+import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
 import net.kyori.adventure.text.Component;
 
 public class SelfActionbarCommand implements CommandExecutor {
@@ -54,9 +55,10 @@ public class SelfActionbarCommand implements CommandExecutor {
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         var actionbarToParse = actionbartext.toString();
         
+        Player player = (Player)sender;
         // Send to sender
         sender.sendActionBar(
-            MiniMessageUtil.parse(actionbarToParse));
+            MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(

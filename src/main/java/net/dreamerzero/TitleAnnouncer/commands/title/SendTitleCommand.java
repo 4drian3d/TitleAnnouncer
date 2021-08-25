@@ -4,11 +4,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
 import net.dreamerzero.TitleAnnouncer.utils.TitleUtil;
+import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
 import net.kyori.adventure.text.Component;
 
 public class SendTitleCommand implements CommandExecutor {
@@ -96,15 +98,27 @@ public class SendTitleCommand implements CommandExecutor {
                                 "<red>Player not found</red>"))));
                     return false;
                 }
-				
-                // Send the title
-                TitleUtil.sendTitle(
-                    MiniMessageUtil.parse(titleandsubtitlefinal[0]), 
-                    MiniMessageUtil.parse(titleandsubtitlefinal[1]),
-                    playerObjetive, 
-                    1000, 
-                    3000, 
-                    1000);
+
+				if (sender instanceof Player) {
+                    var player = (Player)sender;
+                    // Send the title
+                    TitleUtil.sendTitle(
+                        MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player, playerObjetive)), 
+                        MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player, playerObjetive)),
+                        playerObjetive, 
+                        1000, 
+                        3000, 
+                        1000);
+                } else {
+                    TitleUtil.sendTitle(
+                        MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(playerObjetive)), 
+                        MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(playerObjetive)),
+                        playerObjetive, 
+                        1000, 
+                        3000, 
+                        1000); 
+                }
+                
 
                 if (soundEnabled) {
                     //Play the sound
