@@ -13,12 +13,18 @@
 # Plugin messages
 messages:
   prefix:
+    # Enable prefix?
     enabled: true
+    # This prefix will appear in front of each message in case the enables option is enabled.
     line: "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "
   general:
+    # The message will be displayed when reloading the plugin files.
     reload-config: "<green>Config Reloaded</green>"
+    # No permissions message from the main plugin command
     no-permission: "<red>You do not have permission to execute this command</red>"
+    # Unknown subcommand
     invalid-command: "<red>Unknown Command</red>"
+    # Help command subtitle
     help-message: "<white>Available Commands:</white>"
   title:
     # Message displayed in case the command is executed without arguments.
