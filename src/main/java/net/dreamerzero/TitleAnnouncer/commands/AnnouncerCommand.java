@@ -86,7 +86,7 @@ public class AnnouncerCommand implements CommandExecutor {
         }
 
         if(args[0].equalsIgnoreCase("reload")) {
-			plugin.reloadConfig();
+            plugin.reloadConfig();
 
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
