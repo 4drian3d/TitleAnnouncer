@@ -3,7 +3,6 @@ package net.dreamerzero.TitleAnnouncer.commands.actionbar;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
@@ -13,10 +12,8 @@ import net.kyori.adventure.text.Component;
 
 public class SelfActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
-    private final FileConfiguration config;
 	public SelfActionbarCommand(Announcer plugin) {
 		this.plugin = plugin;
-        this.config = plugin.getConfig();
 	}
 
     //Command
@@ -28,11 +25,11 @@ public class SelfActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
         if (enabledPrefix){
-            prefix = MiniMessageUtil.parse(config.getString(
+            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
@@ -41,7 +38,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         if (!(sender.hasPermission("announcer.actionbar.test"))){
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.actionbar.no-permission", 
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
@@ -62,14 +59,14 @@ public class SelfActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(actionbarToParse));
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
-                config.getString("messages.actionbar.successfully"))));
+                plugin.getConfig().getString("messages.actionbar.successfully"))));
 
-        String soundToPlay = config.getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.actionbar.sound-id", 
             "entity.experience_orb.pickup");
-        boolean soundEnabled = config.getBoolean("sounds.actionbar.enabled", true);
-        float volume = config.getInt("sounds.actionbar.volume", 10);
-        float pitch = config.getInt("sounds.actionbar.pitch", 2);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
+        float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
+        float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
 
         if (soundEnabled) {
             // Play the sound

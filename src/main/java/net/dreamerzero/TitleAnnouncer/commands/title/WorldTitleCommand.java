@@ -3,7 +3,6 @@ package net.dreamerzero.TitleAnnouncer.commands.title;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
@@ -15,10 +14,8 @@ import net.kyori.adventure.text.Component;
 
 public class WorldTitleCommand implements CommandExecutor {
     private final Announcer plugin;
-    private final FileConfiguration config;
 	public WorldTitleCommand(Announcer plugin) {
 		this.plugin = plugin;
-        this.config = plugin.getConfig();
 	}
 
     //Command
@@ -33,11 +30,11 @@ public class WorldTitleCommand implements CommandExecutor {
         // Player
         Player player = (Player) sender;
 
-        Boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        Boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
         if (enabledPrefix){
-            prefix = MiniMessageUtil.parse(config.getString(
+            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
@@ -46,7 +43,7 @@ public class WorldTitleCommand implements CommandExecutor {
         if (!(player.hasPermission("announcer.title.world"))){
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString("messages.title.no-permission", "<red>You do not have permission to execute this command</red>"))));
+                    plugin.getConfig().getString("messages.title.no-permission", "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
 
@@ -57,13 +54,13 @@ public class WorldTitleCommand implements CommandExecutor {
         if (args.length == 0) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString("messages.title.without-argument", "<red>You need to enter the title and subtitle arguments.</red>"))));
+                    plugin.getConfig().getString("messages.title.without-argument", "<red>You need to enter the title and subtitle arguments.</red>"))));
             return true;
         // The command requires title and subtitle arguments to work properly.
         } else if (args.length == 1) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString("messages.title.single-argument", "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
+                    plugin.getConfig().getString("messages.title.single-argument", "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
             return true;
         }
 
@@ -74,12 +71,12 @@ public class WorldTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]); 
         }
         
-        String soundToPlay = config.getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.title.sound-id", 
             "entity.experience_orb.pickup");
-        boolean soundEnabled = config.getBoolean("sounds.title.enabled", true);
-        float volume = config.getInt("sounds.title.volume", 10);
-        float pitch = config.getInt("sounds.title.pitch", 10);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
+        float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
+        float pitch = plugin.getConfig().getInt("sounds.title.pitch", 10);
 
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
@@ -97,7 +94,7 @@ public class WorldTitleCommand implements CommandExecutor {
             // Send message to the sender
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString("messages.title.successfully"))));
+                    plugin.getConfig().getString("messages.title.successfully"))));
             
             if (soundEnabled) {
                 //Play the sound
@@ -115,7 +112,7 @@ public class WorldTitleCommand implements CommandExecutor {
             // Send an error message to the sender using the command
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString("messages.title.error"))));
+                    plugin.getConfig().getString("messages.title.error"))));
             return false;
         }
     }

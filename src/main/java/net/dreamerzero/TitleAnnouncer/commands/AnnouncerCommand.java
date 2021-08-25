@@ -3,7 +3,6 @@ package net.dreamerzero.TitleAnnouncer.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
@@ -15,19 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnouncerCommand implements CommandExecutor {
-
     private final Announcer plugin;
-    private final FileConfiguration config;
     private final List<Component> commands = new ArrayList<>();
 
-	public AnnouncerCommand(Announcer plugin) {
-		this.plugin = plugin;
-        this.config = plugin.getConfig();
-	}
+	  public AnnouncerCommand(Announcer plugin) {
+		  this.plugin = plugin;
+	  }
 
     // Main Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        boolean enabledPrefix = config.getBoolean("messages.prefix.enabled", true);
+        boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+  
         Component prefix = Component.text("");
         Component announce = MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"
@@ -46,7 +43,7 @@ public class AnnouncerCommand implements CommandExecutor {
 
 
         if (enabledPrefix){
-            prefix = MiniMessageUtil.parse(config.getString(
+            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
         }
@@ -54,7 +51,7 @@ public class AnnouncerCommand implements CommandExecutor {
         if (!(sender.hasPermission("announcer.command.show"))) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.general.no-permission", 
                         "<red>You do not have permission to execute this command</red>"))));
             return false;
@@ -68,7 +65,7 @@ public class AnnouncerCommand implements CommandExecutor {
             sender.sendMessage(announce);
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>"))));
 
@@ -80,16 +77,17 @@ public class AnnouncerCommand implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("reload")) {
             plugin.reloadConfig();
+
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.general.reload-config", 
                         "<green>Config Reloaded</green>"))));
             return true;
         } else if (args[0].equalsIgnoreCase("help")){
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>"))));
             for (Component component : commands) {
@@ -99,7 +97,7 @@ public class AnnouncerCommand implements CommandExecutor {
         } else {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
-                    config.getString(
+                    plugin.getConfig().getString(
                         "messages.general.invalid-command", 
                         "<red>Unknown Command</red>"))));
         }
