@@ -31,7 +31,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
+                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
         // Permission Check

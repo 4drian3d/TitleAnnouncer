@@ -45,7 +45,7 @@ public class AnnouncerCommand implements CommandExecutor {
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
                 "messages.prefix.line", 
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray>"));
+                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
         if (!(sender.hasPermission("announcer.command.show"))) {
