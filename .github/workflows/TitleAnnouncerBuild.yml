@@ -11,17 +11,11 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Set up JDK 16
-      uses: actions/setup-java@v2.1.0
+      uses: actions/setup-java@v2.2.0
       with:
         java-version: 16
-        distribution: 'adopt'
-
-    - name: Cache Maven packages
-      uses: actions/cache@v2.1.6
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        distribution: 'temurin'
+        cache: 'maven'
 
     - name: Build with Maven
       uses: nick-invision/retry@v2.4.1
