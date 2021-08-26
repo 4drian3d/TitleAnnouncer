@@ -117,7 +117,7 @@ public class AnnouncerCommand implements CommandExecutor {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
   
         Component prefix = text("");
-        Component announce = MiniMessageUtil.parse(
+        final Component announce = MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"
         );
 

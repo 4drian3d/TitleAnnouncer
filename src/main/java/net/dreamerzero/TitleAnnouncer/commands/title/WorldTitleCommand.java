@@ -29,7 +29,7 @@ public class WorldTitleCommand implements CommandExecutor {
         }
 
         // Player
-        var player = (Player) sender;
+        final var player = (Player) sender;
 
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
@@ -87,7 +87,7 @@ public class WorldTitleCommand implements CommandExecutor {
 
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             
             TitleUtil.sendTitle(
                 MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 

@@ -80,11 +80,11 @@ public class SelfTitleCommand implements CommandExecutor {
         float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
 
-        Player player = (Player) sender;
+        final Player player = (Player) sender;
         
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             
             // Send the Title
             TitleUtil.sendTitle(

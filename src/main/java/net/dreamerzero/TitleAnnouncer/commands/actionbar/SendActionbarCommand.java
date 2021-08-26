@@ -56,10 +56,10 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Get the player
-        var playerObjetive = Bukkit.getPlayer(args[0]);
+        final var playerObjetive = Bukkit.getPlayer(args[0]);
 
         //Collection of all players in the server
-        var serverplayers = Bukkit.getOnlinePlayers();
+        final var serverplayers = Bukkit.getOnlinePlayers();
 
         if (!(serverplayers.contains(playerObjetive))) {
             // Send an error message to the sender using the command.
@@ -79,7 +79,7 @@ public class SendActionbarCommand implements CommandExecutor {
         }
         
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        var actionbarToParse = actionbartext.toString();
+        final var actionbarToParse = actionbartext.toString();
 
         // Send to all
         if (sender instanceof Player) {

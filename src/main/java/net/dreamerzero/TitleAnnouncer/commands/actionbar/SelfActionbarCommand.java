@@ -53,7 +53,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         }
         
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        var actionbarToParse = actionbartext.toString();
+        final var actionbarToParse = actionbartext.toString();
         
         Player player = (Player)sender;
         // Send to sender

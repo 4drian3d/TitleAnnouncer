@@ -21,7 +21,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 	}
 
     //The audience that will receive the title will be all the players on the server.
-    private Audience audience = Bukkit.getServer();
+    private final Audience audience = Bukkit.getServer();
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -33,7 +33,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 "messages.prefix.line", 
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
-        
+
         // Permission Check
         if (!(sender.hasPermission("announcer.title.global"))) {
             sender.sendMessage(
@@ -79,8 +79,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-            if(sender instanceof Player){
+            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 // Send the title
                 TitleUtil.sendTitle(
