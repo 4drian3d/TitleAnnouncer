@@ -19,14 +19,25 @@ public class TabCompleteListener implements Listener {
         final var input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
         final String[] tokens = input.split(" ");
 
-        if (tokens[0].equalsIgnoreCase("announcer")) {
-            event.completions().addAll(
-                List.of(
-                    completion("reload", 
-                        MiniMessageUtil.parse("<rainbow>Reload Command</rainbow>")), 
-                    completion("help", 
-                        MiniMessageUtil.parse("<rainbow>Help Command</rainbow>"))
-            ));   
+        if (tokens[0].equalsIgnoreCase("announcer")){
+            if (tokens.length == 1) {
+                event.completions().addAll(
+                    List.of(
+                        completion("reload", 
+                            MiniMessageUtil.parse("<gradient:#FBB244:#23FDFD>Reload Command</gradient>")), 
+                        completion("help", 
+                            MiniMessageUtil.parse("<gradient:#FBB244:#23FDFD>Help Command</gradient>"))
+                )); 
+            } else if(tokens.length == 2 && tokens[1].equalsIgnoreCase("help")){
+                event.completions().addAll(
+                    List.of(
+                        completion("title", 
+                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>Title Help Command</gradient>")), 
+                        completion("actionbar", 
+                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>ActionBar Help Command</gradient>"))
+                )); 
+            }
         }
+        
     }
 }

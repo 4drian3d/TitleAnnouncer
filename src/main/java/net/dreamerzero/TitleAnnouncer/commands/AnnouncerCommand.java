@@ -140,7 +140,7 @@ public class AnnouncerCommand implements CommandExecutor {
             return false;
         }
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             sender.sendMessage(announce);
             sender.sendMessage(
                 MiniMessageUtil.parse(
@@ -150,9 +150,7 @@ public class AnnouncerCommand implements CommandExecutor {
             sender.sendMessage(titleHelpMessage);
             sender.sendMessage(actionbarHelpMessage);
             return true;
-        }
-
-        if(args[0].equalsIgnoreCase("reload")) {
+        } else if(args[0].equalsIgnoreCase("reload")) {
             plugin.reloadConfig();
 
             sender.sendMessage(
@@ -168,9 +166,22 @@ public class AnnouncerCommand implements CommandExecutor {
                     plugin.getConfig().getString(
                         "messages.general.help-message", 
                         "<white>Available Commands:</white>")));
-            sender.sendMessage(titleHelpMessage);
-            sender.sendMessage(actionbarHelpMessage);
-            return true;
+            if(args.length == 2){    
+                if (args[1].equalsIgnoreCase("title")){
+                    sender.sendMessage(titleHelpMessage);
+                    return true;
+                } else if(args[1].equalsIgnoreCase("actionbar")){
+                    sender.sendMessage(actionbarHelpMessage);
+                    return true;
+                } else {
+                    sender.sendMessage(titleHelpMessage);
+                    sender.sendMessage(actionbarHelpMessage);
+                }
+            } else {
+                sender.sendMessage(titleHelpMessage);
+                sender.sendMessage(actionbarHelpMessage);
+                return true;
+            }
         } else {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
