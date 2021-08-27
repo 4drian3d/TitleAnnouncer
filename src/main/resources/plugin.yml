@@ -49,7 +49,7 @@ commands:
         description: Sends an actionbar to a specific player.
         permission: announcer.actionbar.send
     # Bossbar Commands
-    announceactionbar:
+    announcebossbar:
         aliases: [announcebar]
         description: This will announce a bossbar to all players.
         permission: announcer.bossbar.global
@@ -57,11 +57,11 @@ commands:
         aliases: [selfbar]
         description: This will announce a bossbar to the sender of the command.
         permission: announcer.bossbar.self
-    worldactionbar:
+    worldbossbar:
         aliases: [mundobossbar]
         description: It will send a bossbar to the world in which the player is located.
         permission: announcer.bossbar.world
-    sendactionbar:
+    sendbossbar:
         aliases: [playerbossbar]
         description: Sends a bossbar to a specific player.
         permission: announcer.bossbar.send
