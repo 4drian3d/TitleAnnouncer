@@ -10,6 +10,10 @@ import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarComma
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.SendActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.SelfActionbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.bossbar.AnnouncerBossbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.bossbar.SelfBossbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.bossbar.SendBossbarCommand;
+import net.dreamerzero.TitleAnnouncer.commands.bossbar.WorldBossbarCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.SendTitleCommand;
 import net.dreamerzero.TitleAnnouncer.commands.title.SelfTitleCommand;
@@ -93,6 +97,15 @@ public class Announcer extends JavaPlugin {
 			.setExecutor(new WorldActionbarCommand(this));
 		getCommand("sendactionbar")
 			.setExecutor(new SendActionbarCommand(this));
+		// BossBar Commands
+		getCommand("announcebossbar")
+			.setExecutor(new AnnouncerBossbarCommand(this));
+		getCommand("testbossbar")
+			.setExecutor(new SelfBossbarCommand(this));
+		getCommand("worldbossbar")
+			.setExecutor(new WorldBossbarCommand(this));
+		getCommand("sendbossbar")
+			.setExecutor(new SendBossbarCommand(this));
 	}
 
 	public void listenerRegister() {
