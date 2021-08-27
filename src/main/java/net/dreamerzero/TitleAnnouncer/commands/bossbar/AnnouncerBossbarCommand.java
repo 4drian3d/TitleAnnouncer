@@ -80,7 +80,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         final var bossbarToParse = bossbartext.toString();
-        int time;
+        float time;
         try {
             time = Integer.parseInt(args[0]);
         } catch (Exception e){
@@ -92,13 +92,13 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         BossBar.Overlay overlay;
 
         switch (args[1]){
-            case "RED": color = BossBar.Color.RED; break;
-            case "BLUE": color = BossBar.Color.BLUE; break;
-            case "GREEN": color = BossBar.Color.GREEN; break;
-            case "PINK": color = BossBar.Color.PINK; break;
-            case "PURPLE": color = BossBar.Color.PURPLE; break;
-            case "WHITE": color = BossBar.Color.WHITE; break;
-            case "YELLOW": color = BossBar.Color.YELLOW; break;
+            case "RED": case "red": color = BossBar.Color.RED; break;
+            case "BLUE": case "blue": color = BossBar.Color.BLUE; break;
+            case "GREEN": case "green": color = BossBar.Color.GREEN; break;
+            case "PINK": case "pink": color = BossBar.Color.PINK; break;
+            case "PURPLE": case "purple": color = BossBar.Color.PURPLE; break;
+            case "WHITE": case "white": color = BossBar.Color.WHITE; break;
+            case "YELLOW": case "yellow": color = BossBar.Color.YELLOW; break;
             default: sender.sendMessage(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED)); return false;
         }
         switch (args[2]){
