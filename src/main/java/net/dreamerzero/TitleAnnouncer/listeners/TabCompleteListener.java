@@ -34,7 +34,9 @@ public class TabCompleteListener implements Listener {
                         completion("title", 
                             MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>Title Help Command</gradient>")), 
                         completion("actionbar", 
-                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>ActionBar Help Command</gradient>"))
+                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>ActionBar Help Command</gradient>")),
+                        completion("bossbar", 
+                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>BossBar Help Command</gradient>"))
                 )); 
             }
         }

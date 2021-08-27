@@ -24,6 +24,7 @@ public class AnnouncerCommand implements CommandExecutor {
 
     final static Component titleArguments = text("[Title]; [SubTitle]", AQUA);
     final static Component actionbarArguments = text("[ActionBar]", AQUA);
+    final static Component bossbarArguments = text("[Interval per second] [Color] [Style] [BossBar]", AQUA);
 
     final static Component titleHelpMessage = text()
         .append(text()
@@ -112,6 +113,50 @@ public class AnnouncerCommand implements CommandExecutor {
         )
         .build();
 
+        final static Component bossbarHelpMessage = text()
+        .color(YELLOW)
+        .append(text()
+            .append(text("BossBar"))
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/announcebossbar", GOLD))    
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)     
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/selfbossbar", GOLD))     
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/worldbossbar", GOLD))   
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/sendbossbar", GOLD))
+        )
+        .append(space())
+        .append(text()
+            .append(text("[Player]", AQUA))
+            
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)
+        )
+        .build();
+
     // Main Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
@@ -149,6 +194,7 @@ public class AnnouncerCommand implements CommandExecutor {
                         "<white>Available Commands:</white>")));
             sender.sendMessage(titleHelpMessage);
             sender.sendMessage(actionbarHelpMessage);
+            sender.sendMessage(bossbarHelpMessage);
             return true;
         } else if(args[0].equalsIgnoreCase("reload")) {
             plugin.reloadConfig();
@@ -173,13 +219,18 @@ public class AnnouncerCommand implements CommandExecutor {
                 } else if(args[1].equalsIgnoreCase("actionbar")){
                     sender.sendMessage(actionbarHelpMessage);
                     return true;
+                } else if (args[1].equalsIgnoreCase("bossbar")){
+                    sender.sendMessage(bossbarHelpMessage);
+                    return true;
                 } else {
                     sender.sendMessage(titleHelpMessage);
                     sender.sendMessage(actionbarHelpMessage);
+                    sender.sendMessage(bossbarHelpMessage);
                 }
             } else {
                 sender.sendMessage(titleHelpMessage);
                 sender.sendMessage(actionbarHelpMessage);
+                sender.sendMessage(bossbarHelpMessage);
                 return true;
             }
         } else {
