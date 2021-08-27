@@ -5,9 +5,9 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 
 public class BossBarUtils {
-    BossBar activeBar;
+    public static BossBar activeBar;
 
-    public void showBossBar (
+    public static void sendBossBar (
         final Audience audience,
         final int time,
         final Component content, 
@@ -41,5 +41,9 @@ public class BossBarUtils {
 
         audience.hideBossBar(activeBar);
         activeBar = null;
+    }
+
+    public void updateBossbarName(Component newname){
+        activeBar.name(newname);
     }
 }
