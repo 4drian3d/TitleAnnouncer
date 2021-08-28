@@ -50,8 +50,26 @@ messages:
     no-permission: "<red>You do not have permission to execute this command</red>"
     # Message to be sent when executing the /sendactionbar command and only the player is specified.
     only-player: "<gray>You must enter the message to be sent after the player's name.</gray>"
-    # This message will be displayed if a player with the name specified in /sendtitle is not found.
+    # This message will be displayed if a player with the name specified in /sendactionbar is not found.
     player-not-found: "<red>Player not found</red>"
+  bossbar:
+    # No permissions message
+    no-permission: "<red>You do not have permission to execute this command</red>"
+    # Message to send in case no arguments are specified
+    without-argument: "<red>You need to enter the time, color and message arguments.</red>"
+    # Message to be sent when only the player is specified.
+    only-player: "<gray>You must enter the arguments to be sent after the player's name.</gray>"
+    # Message to be sent in case only the interval is specified
+    only-time: "<gray>You must enter the color and the message arguments.</gray>"
+    # Message to send in case no message is specified
+    without-message: "<gray>You need to enter the message to announce.</gray>"
+    # Message to be sent in case no bossbar type is specified.
+    overlay-missing: "<gray>You must enter the overlay and the message arguments.</gray>"
+    # Message displayed when the bossbar has been displayed successfully.
+    successfully: "<green>Bossbar succesfully sended</green>"
+    # This message will be displayed if a player with the name specified in /sendbossbar is not found.
+    player-not-found: "<red>Player not found</red>"
+
 # Plugin sounds
 # In the sound-id field you must enter a valid value from: 
 # https://minecraft.fandom.com/wiki/Sounds.json/Java_Edition_values
@@ -67,6 +85,15 @@ sounds:
     pitch: 2
   actionbar:
     # Enable sounds when using actionbars 
+    enabled: true
+    # ID of the sound to be used
+    sound-id: "entity.experience_orb.pickup"
+    # Volume of sound
+    volume: 10
+    # Pitch of the sound
+    pitch: 2
+  bossbar:
+    # Enable sounds when using bossbars 
     enabled: true
     # ID of the sound to be used
     sound-id: "entity.experience_orb.pickup"

@@ -51,7 +51,12 @@ public class SendBossbarCommand implements CommandExecutor{
             return false;
         // The command requires time argument to work.
         } else if(args.length == 1){
-            
+            sender.sendMessage(
+                prefix.append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.only-player", 
+                        "<gray>You must enter the message to be sent after the player's name.</gray>"))));
+            return false;
         } else if (args.length == 2) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
@@ -71,7 +76,7 @@ public class SendBossbarCommand implements CommandExecutor{
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.bossbar.single-argument",
+                        "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
             return false;
         }
@@ -104,7 +109,7 @@ public class SendBossbarCommand implements CommandExecutor{
         try {
             time = Integer.parseInt(args[1]);
         } catch (Exception e){
-            sender.sendMessage(Component.text("This is not a number", NamedTextColor.DARK_RED));
+            sender.sendMessage(prefix.append(Component.text("This is not a valid number", NamedTextColor.DARK_RED)));
             return false;
         }
 
@@ -119,7 +124,7 @@ public class SendBossbarCommand implements CommandExecutor{
             case "PURPLE": case "purple": color = BossBar.Color.PURPLE; break;
             case "WHITE": case "white": color = BossBar.Color.WHITE; break;
             case "YELLOW": case "yellow": color = BossBar.Color.YELLOW; break;
-            default: sender.sendMessage(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED)); return false;
+            default: sender.sendMessage(prefix.append(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED))); return false;
         }
         switch (args[3]){
             case "6": overlay = BossBar.Overlay.NOTCHED_6; break;
@@ -127,7 +132,7 @@ public class SendBossbarCommand implements CommandExecutor{
             case "12": overlay = BossBar.Overlay.NOTCHED_12; break;
             case "20": overlay = BossBar.Overlay.NOTCHED_20; break;
             case "full": case "progress": overlay = BossBar.Overlay.PROGRESS; break;
-            default: sender.sendMessage(Component.text("Invalid Argument", NamedTextColor.DARK_RED)); return false;
+            default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return false;
         }
           
         // Send to all

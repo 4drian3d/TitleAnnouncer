@@ -69,7 +69,14 @@ public class WorldBossbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.bossbar.single-argument",
+                        "messages.bossbar.overlay-missing",
+                        "<gray>You must enter the overlay and the message arguments.</gray>"))));
+            return false;
+        } else if (args.length == 3) {
+            sender.sendMessage(
+                prefix.append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
             return false;
         }
@@ -87,7 +94,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         try {
             time = Integer.parseInt(args[0]);
         } catch (Exception e){
-            sender.sendMessage(Component.text("This is not a number", NamedTextColor.DARK_RED));
+            sender.sendMessage(prefix.append(Component.text("This is not a number", NamedTextColor.DARK_RED)));
             return false;
         }
 
@@ -102,7 +109,7 @@ public class WorldBossbarCommand implements CommandExecutor {
             case "PURPLE": case "purple": color = BossBar.Color.PURPLE; break;
             case "WHITE": case "white": color = BossBar.Color.WHITE; break;
             case "YELLOW": case "yellow": color = BossBar.Color.YELLOW; break;
-            default: sender.sendMessage(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED)); return false;
+            default: sender.sendMessage(prefix.append(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED))); return false;
         }
         switch (args[2]){
             case "6": overlay = BossBar.Overlay.NOTCHED_6; break;
@@ -110,7 +117,7 @@ public class WorldBossbarCommand implements CommandExecutor {
             case "12": overlay = BossBar.Overlay.NOTCHED_12; break;
             case "20": overlay = BossBar.Overlay.NOTCHED_20; break;
             case "full": case "progress": overlay = BossBar.Overlay.PROGRESS; break;
-            default: sender.sendMessage(Component.text("Invalid Argument", NamedTextColor.DARK_RED)); return false;
+            default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return false;
         }
           
         final Player player = (Player) sender;
