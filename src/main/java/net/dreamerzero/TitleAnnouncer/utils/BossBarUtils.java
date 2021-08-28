@@ -8,7 +8,6 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 
 public class BossBarUtils {
-    public static BossBar activeBar;
     public static float value = 1f;
 
     public static void sendBossBar (
@@ -27,9 +26,7 @@ public class BossBarUtils {
             finalTime, 
             color, 
             type);
-        activeBar = bar;
-        audience.showBossBar(activeBar);
-        //float toReduce = finalTime/100;
+        audience.showBossBar(bar);
         final float toReduce = finalTime;
 		value = 1f;
         
@@ -38,33 +35,18 @@ public class BossBarUtils {
             @Override
             public void run() {
                 value -= toReduce;
+                if (value <= 0.02) {
+                    audience.hideBossBar(bar);
+					cancel();
+				}
                 try {
 					bar.progress(value);
 				} catch (IllegalArgumentException e) {
-                    audience.hideBossBar(activeBar);
-                    activeBar = null;
-					cancel();
-				}
-				if (bar.progress() <= 0.02) {
-                    audience.hideBossBar(activeBar);
-                    activeBar = null;
-					cancel();
+					// shhh
 				}
             }
         }.runTaskTimer(Announcer.getInstance(), 20, 20);
 
-        activeBar = null;
         
-    }
-
-    public void hideBossBar(
-        final Audience audience) {
-
-        audience.hideBossBar(activeBar);
-        activeBar = null;
-    }
-
-    public void updateBossbarName(Component newname){
-        activeBar.name(newname);
     }
 }
