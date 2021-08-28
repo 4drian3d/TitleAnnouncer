@@ -10,6 +10,17 @@ import net.kyori.adventure.text.Component;
 public class BossBarUtils {
     public static float value = 1f;
 
+    /**
+     * It will send a bossbar to the specified audience, 
+     * with the specified characteristics showing an 
+     * emptying animation according to the specified 
+     * time interval.
+     * @param audience
+     * @param time
+     * @param content
+     * @param color
+     * @param type
+     */
     public static void sendBossBar (
         final Audience audience,
         final float time,
@@ -26,10 +37,10 @@ public class BossBarUtils {
             finalTime, 
             color, 
             type);
+            
         audience.showBossBar(bar);
         final float toReduce = finalTime;
 		value = 1f;
-        
         
         new BukkitRunnable() {
             @Override
@@ -47,6 +58,5 @@ public class BossBarUtils {
             }
         }.runTaskTimer(Announcer.getInstance(), 20, 20);
 
-        
     }
 }
