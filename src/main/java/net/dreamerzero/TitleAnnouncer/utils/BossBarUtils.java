@@ -38,7 +38,7 @@ public class BossBarUtils {
             
         audience.showBossBar(bar);
         final float toReduce = finalTime;
-		value = 1f;
+        value = 1f;
         
         new BukkitRunnable() {
             @Override
