@@ -28,13 +28,11 @@ public class BossBarUtils {
         final BossBar.Color color, 
         final BossBar.Overlay type) {
         
-        float finalTime = time/100;
-        if (finalTime > 1){
-            finalTime = 1;
-        }
+        final float finalTime = 0.1f/time;
+
         final BossBar bar = BossBar.bossBar(
             content, 
-            finalTime, 
+            1, 
             color, 
             type);
             
@@ -53,10 +51,9 @@ public class BossBarUtils {
                 try {
 					bar.progress(value);
 				} catch (IllegalArgumentException e) {
-					// shhh
+					cancel();
 				}
             }
-        }.runTaskTimer(Announcer.getInstance(), 20, 20);
-
+        }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
     }
 }

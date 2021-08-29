@@ -27,7 +27,7 @@ public class AnnouncerCommand implements CommandExecutor {
 
     final static Component titleArguments = text("[Title]; [SubTitle]", AQUA);
     final static Component actionbarArguments = text("[ActionBar]", AQUA);
-    final static Component bossbarArguments = text("[Interval per second] [Color] [Style] [BossBar]", AQUA);
+    final static Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
 
     final static Component titleHelpMessage = text()
         .append(text()
