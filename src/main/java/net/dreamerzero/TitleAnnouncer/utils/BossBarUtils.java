@@ -46,13 +46,13 @@ public class BossBarUtils {
                 value -= toReduce;
                 if (value <= 0.02) {
                     audience.hideBossBar(bar);
-					cancel();
-				}
+                    cancel();
+                }
                 try {
-					bar.progress(value);
-				} catch (IllegalArgumentException e) {
-					cancel();
-				}
+                    bar.progress(value);
+                } catch (IllegalArgumentException e) {
+                    cancel();
+                }
             }
         }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
     }
