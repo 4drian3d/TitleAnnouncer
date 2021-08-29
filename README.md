@@ -1,12 +1,12 @@
 # TitleAnnouncer [![WorkFlow Status](https://img.shields.io/github/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncer%20Maven%20Build?&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/actions/workflows/TitleAnnouncerBuild.yml) [![Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?color=FFF0&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/releases)
 
-A lightweight plugin to send Titles and Actionbars with the MiniMessage format.
+A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessage format.
 
 [![Banner](https://i.imgur.com/iI2QNZ6.jpg)](https://polymart.org/resource/titleannouncer.1350)
 
 
 ## Features
-- Ability to send announcements by using titles and actionbars.
+- Ability to send announcements by using titles, actionbars and bossbars.
 - Send announcements to users in the same world you are in.
 - Send announcements to a specific user.
 - Test the announcement to be sent or simply send the announcement to yourself.
