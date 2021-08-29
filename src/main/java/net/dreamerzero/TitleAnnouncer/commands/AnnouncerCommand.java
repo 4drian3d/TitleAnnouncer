@@ -7,6 +7,9 @@ import org.bukkit.command.CommandSender;
 import net.dreamerzero.TitleAnnouncer.Announcer;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.newline;
 import static net.kyori.adventure.text.Component.space;
@@ -24,6 +27,7 @@ public class AnnouncerCommand implements CommandExecutor {
 
     final static Component titleArguments = text("[Title]; [SubTitle]", AQUA);
     final static Component actionbarArguments = text("[ActionBar]", AQUA);
+    final static Component bossbarArguments = text("[Interval per second] [Color] [Style] [BossBar]", AQUA);
 
     final static Component titleHelpMessage = text()
         .append(text()
@@ -112,6 +116,92 @@ public class AnnouncerCommand implements CommandExecutor {
         )
         .build();
 
+        final static Component bossbarHelpMessage = text()
+        .color(YELLOW)
+        .append(text()
+            .append(text("BossBar"))
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/announcebossbar", GOLD))    
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)     
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/selfbossbar", GOLD))     
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/worldbossbar", GOLD))   
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)       
+        )
+        .append(newline())
+        .append(text()
+            .append(text("/sendbossbar", GOLD))
+        )
+        .append(space())
+        .append(text()
+            .append(text("[Player]", AQUA))
+            
+        )
+        .append(space())
+        .append(text()
+            .append(bossbarArguments)
+        )
+        .build();
+
+        final static Component fullwikilink = text()
+            .append(text()
+                .append(Component.text("Visit full guide on")))
+            .append(space())
+            .append(text()
+                .append(text("WIKI"))
+                .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki"))
+                .hoverEvent(HoverEvent.showText(
+                    MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+            .build();
+        final static Component titlewikilink = text()
+            .append(text()
+                .append(Component.text("Visit full guide on")))
+            .append(space())
+            .append(text()
+                .append(text("WIKI"))
+                .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Title-Commands"))
+                .hoverEvent(HoverEvent.showText(
+                    MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                .build();
+        final static Component actionbarwikilink = text()
+            .append(text()
+                .append(Component.text("Visit full guide on")))
+            .append(space())
+            .append(text()
+                .append(text("WIKI"))
+                .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/ActionBar-Commands"))
+                .hoverEvent(HoverEvent.showText(
+                    MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                .build();
+
+        final static Component bossbarwikilink = text()
+            .append(text()
+                .append(Component.text("Visit full guide on")))
+            .append(space())
+            .append(text()
+                .append(text("WIKI"))
+                .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Bossbar-Commands"))
+                .hoverEvent(HoverEvent.showText(
+                    MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                .build();
+
     // Main Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
@@ -149,6 +239,8 @@ public class AnnouncerCommand implements CommandExecutor {
                         "<white>Available Commands:</white>")));
             sender.sendMessage(titleHelpMessage);
             sender.sendMessage(actionbarHelpMessage);
+            sender.sendMessage(bossbarHelpMessage);
+            sender.sendMessage(fullwikilink);
             return true;
         } else if(args[0].equalsIgnoreCase("reload")) {
             plugin.reloadConfig();
@@ -169,17 +261,27 @@ public class AnnouncerCommand implements CommandExecutor {
             if(args.length == 2){    
                 if (args[1].equalsIgnoreCase("title")){
                     sender.sendMessage(titleHelpMessage);
+                    sender.sendMessage(titlewikilink);
                     return true;
                 } else if(args[1].equalsIgnoreCase("actionbar")){
                     sender.sendMessage(actionbarHelpMessage);
+                    sender.sendMessage(actionbarwikilink);
+                    return true;
+                } else if (args[1].equalsIgnoreCase("bossbar")){
+                    sender.sendMessage(bossbarHelpMessage);
+                    sender.sendMessage(bossbarwikilink);
                     return true;
                 } else {
                     sender.sendMessage(titleHelpMessage);
                     sender.sendMessage(actionbarHelpMessage);
+                    sender.sendMessage(bossbarHelpMessage);
+                    sender.sendMessage(fullwikilink);
                 }
             } else {
                 sender.sendMessage(titleHelpMessage);
                 sender.sendMessage(actionbarHelpMessage);
+                sender.sendMessage(bossbarHelpMessage);
+                sender.sendMessage(fullwikilink);
                 return true;
             }
         } else {

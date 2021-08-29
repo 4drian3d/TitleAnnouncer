@@ -34,11 +34,11 @@ commands:
     # Actionbar Commands
     announceactionbar:
         aliases: [actionbarevento]
-        description: This will announce a actionbar to all players.
+        description: This will announce an actionbar to all players.
         permission: announcer.actionbar.global
     selfactionbar:
         aliases: [actionbarpevento, testactionbar]
-        description: This will announce a actionbar to the sender of the command.
+        description: This will announce an actionbar to the sender of the command.
         permission: announcer.actionbar.self
     worldactionbar:
         aliases: [mundoactionbar]
@@ -48,6 +48,23 @@ commands:
         aliases: [playeractionbar]
         description: Sends an actionbar to a specific player.
         permission: announcer.actionbar.send
+    # Bossbar Commands
+    announcebossbar:
+        aliases: [announcebar]
+        description: This will announce a bossbar to all players.
+        permission: announcer.bossbar.global
+    selfbossbar:
+        aliases: [selfbar]
+        description: This will announce a bossbar to the sender of the command.
+        permission: announcer.bossbar.self
+    worldbossbar:
+        aliases: [mundobossbar]
+        description: It will send a bossbar to the world in which the player is located.
+        permission: announcer.bossbar.world
+    sendbossbar:
+        aliases: [playerbossbar]
+        description: Sends a bossbar to a specific player.
+        permission: announcer.bossbar.send
 permissions:
     announcer.*:
         description: A permission that gives access to all plugin commands.

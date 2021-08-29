@@ -5,17 +5,9 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.dreamerzero.TitleAnnouncer.commands.AnnouncerCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.SendActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.SelfActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.SendTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.SelfTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
 import net.dreamerzero.TitleAnnouncer.listeners.TabCompleteListener;
 import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
+import net.dreamerzero.TitleAnnouncer.utils.RegisterCommands;
 import net.kyori.adventure.text.Component;
 import static net.kyori.adventure.text.Component.text;
 import net.kyori.adventure.text.TextComponent;
@@ -57,6 +49,7 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(eventannouncertext));
 		Bukkit.getConsoleSender().sendMessage(pvknet);
 		Bukkit.getConsoleSender().sendMessage(linelong);
+		instance = this;
 		pluginConfiguration();
 		commandRegister();
 		listenerRegister();
@@ -73,26 +66,13 @@ public class Announcer extends JavaPlugin {
 	// Registration of the commands that the plugin provides
 	public void commandRegister() {
 		// Main Command
-		getCommand("announcer")
-			.setExecutor(new AnnouncerCommand(this));
+		RegisterCommands.registerMainCommand();
 		// Title Commands
-		getCommand("announcetitle")
-			.setExecutor(new AnnouncerTitleCommand(this));
-		getCommand("testtitle")
-			.setExecutor(new SelfTitleCommand(this));
-		getCommand("worldtitle")
-			.setExecutor(new WorldTitleCommand(this));
-		getCommand("sendtitle")
-			.setExecutor(new SendTitleCommand(this));
+		RegisterCommands.registerTitle();
 		// ActionBar Commands
-		getCommand("announceactionbar")
-			.setExecutor(new AnnouncerActionbarCommand(this));
-		getCommand("testactionbar")
-			.setExecutor(new SelfActionbarCommand(this));
-		getCommand("worldactionbar")
-			.setExecutor(new WorldActionbarCommand(this));
-		getCommand("sendactionbar")
-			.setExecutor(new SendActionbarCommand(this));
+		RegisterCommands.registerActionbar();
+		// BossBar Commands
+		RegisterCommands.registerBossbar();
 	}
 
 	public void listenerRegister() {

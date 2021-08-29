@@ -28,13 +28,15 @@ public class TabCompleteListener implements Listener {
                         completion("help", 
                             MiniMessageUtil.parse("<gradient:#FBB244:#23FDFD>Help Command</gradient>"))
                 )); 
-            } else if(tokens.length == 2 && tokens[1].equalsIgnoreCase("help")){
+            } else if(tokens.length == 2 && tokens[1].equalsIgnoreCase("help")) {
                 event.completions().addAll(
                     List.of(
                         completion("title", 
                             MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>Title Help Command</gradient>")), 
                         completion("actionbar", 
-                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>ActionBar Help Command</gradient>"))
+                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>ActionBar Help Command</gradient>")),
+                        completion("bossbar", 
+                            MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>BossBar Help Command</gradient>"))
                 )); 
             }
         }
