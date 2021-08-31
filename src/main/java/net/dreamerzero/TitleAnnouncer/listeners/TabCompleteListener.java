@@ -1,5 +1,7 @@
 package net.dreamerzero.TitleAnnouncer.listeners;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -18,6 +20,8 @@ public class TabCompleteListener implements Listener {
         final var buffer = event.getBuffer();
         final var input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
         final String[] tokens = input.split(" ");
+
+        final var players = Bukkit.getOnlinePlayers();
 
         if (tokens[0].equalsIgnoreCase("announcer")){
             if (tokens.length == 1) {
@@ -38,6 +42,69 @@ public class TabCompleteListener implements Listener {
                         completion("bossbar", 
                             MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>BossBar Help Command</gradient>"))
                 )); 
+            }
+        } else if(tokens[0].equalsIgnoreCase("announcetitle") || 
+            tokens[0].equalsIgnoreCase("worldtitle") || 
+            tokens[0].equalsIgnoreCase("selftitle")) {
+
+                if (!input.contains(";")){
+                    event.completions().addAll(
+                        List.of(
+                            completion("[Title]", 
+                                MiniMessageUtil.parse("<gradient:#41FB6A:#6AA5FD>Title</gradient>")) 
+                    ));
+                } else { 
+                    event.completions().addAll(
+                        List.of(
+                            completion("[SubTitle]", 
+                                MiniMessageUtil.parse("<gradient:#6AA5FD:#41FB6A>SubTitle</gradient>")) 
+                        ));
+                }
+        } else if(tokens[0].equalsIgnoreCase("sendtitle")){
+            if (tokens.length == 1){
+                for (Player player : players) {
+                    event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
+                }
+            } else if (!input.contains(";")){
+                event.completions().add(completion("[Title]", MiniMessageUtil.parse("<gradient:#41FB6A:#6AA5FD>Title</gradient>")));
+            } else { 
+                event.completions().add(completion("[SubTitle]", 
+                            MiniMessageUtil.parse("<gradient:#6AA5FD:#41FB6A>SubTitle</gradient>")));
+            }
+        } else if(tokens[0].equalsIgnoreCase("announceactionbar") || 
+            tokens[0].equalsIgnoreCase("worldactionbar") || 
+            tokens[0].equalsIgnoreCase("selfactionbar")){
+                event.completions().add(
+                    completion("[message]", 
+                    MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
+        } else if (tokens[0].equalsIgnoreCase("sendactionbar")){
+            if (tokens.length == 1){
+                for (Player player : players) {
+                    event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Players in the server</gradient>")));
+                }
+            } else {
+                event.completions().add(
+                    completion("[message]", 
+                    MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
+            }
+        } else if(tokens[0].equalsIgnoreCase("announcebossbar") || 
+            tokens[0].equalsIgnoreCase("worldbossbar") || 
+            tokens[0].equalsIgnoreCase("selfbossbar")){
+
+            switch (tokens.length){
+                case 1: event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>"))); break;
+                case 2: event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>"))); break;
+                case 3: event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>"))); break;
+                case 4: default: event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>"))); break;
+            }
+
+        } else if(tokens[0].equalsIgnoreCase("sendbossbar")) {
+            switch (tokens.length){
+                case 1: for (Player player : players) event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
+                case 2: event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>"))); break;
+                case 3: event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>"))); break;
+                case 4: event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>"))); break;
+                case 5: default: event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>"))); break;
             }
         }
         
