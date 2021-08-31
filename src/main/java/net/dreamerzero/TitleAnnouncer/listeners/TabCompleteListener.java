@@ -43,6 +43,9 @@ public class TabCompleteListener implements Listener {
                             MiniMessageUtil.parse("<gradient:#6486FB:#69FD44>BossBar Help Command</gradient>"))
                 )); 
             }
+        /*
+        Title commands
+        */ 
         } else if(tokens[0].equalsIgnoreCase("announcetitle") || 
             tokens[0].equalsIgnoreCase("worldtitle") || 
             tokens[0].equalsIgnoreCase("selftitle")) {
@@ -61,6 +64,7 @@ public class TabCompleteListener implements Listener {
                         ));
                 }
         } else if(tokens[0].equalsIgnoreCase("sendtitle")){
+
             if (tokens.length == 1){
                 for (Player player : players) {
                     event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
@@ -71,13 +75,19 @@ public class TabCompleteListener implements Listener {
                 event.completions().add(completion("[SubTitle]", 
                             MiniMessageUtil.parse("<gradient:#6AA5FD:#41FB6A>SubTitle</gradient>")));
             }
+        /*
+        Actionbar commands
+        */ 
+        // TODO: Find and set better colors for autocomplete arguments. Although... who cares about that?
         } else if(tokens[0].equalsIgnoreCase("announceactionbar") || 
             tokens[0].equalsIgnoreCase("worldactionbar") || 
-            tokens[0].equalsIgnoreCase("selfactionbar")){
+            tokens[0].equalsIgnoreCase("selfactionbar")) {
+
                 event.completions().add(
                     completion("[message]", 
                     MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
-        } else if (tokens[0].equalsIgnoreCase("sendactionbar")){
+        } else if (tokens[0].equalsIgnoreCase("sendactionbar")) {
+
             if (tokens.length == 1){
                 for (Player player : players) {
                     event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Players in the server</gradient>")));
@@ -87,6 +97,9 @@ public class TabCompleteListener implements Listener {
                     completion("[message]", 
                     MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
             }
+        /*
+        BossBar commands
+        */ 
         } else if(tokens[0].equalsIgnoreCase("announcebossbar") || 
             tokens[0].equalsIgnoreCase("worldbossbar") || 
             tokens[0].equalsIgnoreCase("selfbossbar")){
@@ -99,6 +112,7 @@ public class TabCompleteListener implements Listener {
             }
 
         } else if(tokens[0].equalsIgnoreCase("sendbossbar")) {
+            
             switch (tokens.length){
                 case 1: for (Player player : players) event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
                 case 2: event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>"))); break;
