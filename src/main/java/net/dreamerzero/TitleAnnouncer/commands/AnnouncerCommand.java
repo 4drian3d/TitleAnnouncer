@@ -1,11 +1,11 @@
-package net.dreamerzero.TitleAnnouncer.commands;
+package net.dreamerzero.titleannouncer.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import net.dreamerzero.TitleAnnouncer.Announcer;
-import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;

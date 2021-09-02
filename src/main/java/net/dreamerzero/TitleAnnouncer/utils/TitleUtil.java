@@ -1,4 +1,4 @@
-package net.dreamerzero.TitleAnnouncer.utils;
+package net.dreamerzero.titleannouncer.utils;
 
 import java.time.Duration;
 

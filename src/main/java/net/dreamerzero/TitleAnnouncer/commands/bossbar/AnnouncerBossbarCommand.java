@@ -1,4 +1,6 @@
-package net.dreamerzero.TitleAnnouncer.commands.bossbar;
+package net.dreamerzero.titleannouncer.commands.bossbar;
+
+import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,11 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.dreamerzero.TitleAnnouncer.Announcer;
-import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
-import net.dreamerzero.TitleAnnouncer.utils.BossBarUtils;
-import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
-import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
+import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.BossBarUtils;
+import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;

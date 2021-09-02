@@ -1,11 +1,11 @@
-package net.dreamerzero.TitleAnnouncer.listeners;
+package net.dreamerzero.titleannouncer.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 
 import java.util.List;
 

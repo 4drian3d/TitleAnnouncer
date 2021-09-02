@@ -2,7 +2,7 @@ name: ${project.artifactId}
 version: ${project.version}
 prefix: ${project.artifactId}
 author: 4drian3d
-main: net.dreamerzero.TitleAnnouncer.Announcer
+main: net.dreamerzero.titleannouncer.Announcer
 website: https://github.com/4drian3d/TitleAnnouncer
 description: >
     Plugin created to send titles and actionbar to the player 
@@ -37,28 +37,23 @@ commands:
         description: This will announce an actionbar to all players.
         permission: announcer.actionbar.global
     selfactionbar:
-        aliases: [actionbarpevento, testactionbar]
+        aliases: [actionbarpevento]
         description: This will announce an actionbar to the sender of the command.
         permission: announcer.actionbar.self
     worldactionbar:
-        aliases: [mundoactionbar]
         description: It will send an actionbar to the world in which the player is located.
         permission: announcer.actionbar.world
     sendactionbar:
-        aliases: [playeractionbar]
         description: Sends an actionbar to a specific player.
         permission: announcer.actionbar.send
     # Bossbar Commands
     announcebossbar:
-        aliases: [announcebar]
         description: This will announce a bossbar to all players.
         permission: announcer.bossbar.global
     selfbossbar:
-        aliases: [selfbar]
         description: This will announce a bossbar to the sender of the command.
         permission: announcer.bossbar.self
     worldbossbar:
-        aliases: [mundobossbar]
         description: It will send a bossbar to the world in which the player is located.
         permission: announcer.bossbar.world
     sendbossbar:

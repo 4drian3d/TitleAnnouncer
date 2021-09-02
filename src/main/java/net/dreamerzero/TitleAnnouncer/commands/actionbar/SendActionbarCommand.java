@@ -1,4 +1,6 @@
-package net.dreamerzero.TitleAnnouncer.commands.actionbar;
+package net.dreamerzero.titleannouncer.commands.actionbar;
+
+import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,10 +8,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.dreamerzero.TitleAnnouncer.Announcer;
-import net.dreamerzero.TitleAnnouncer.utils.MiniMessageUtil;
-import net.dreamerzero.TitleAnnouncer.utils.SoundUtil;
-import static net.dreamerzero.TitleAnnouncer.utils.PlaceholderUtil.replacePlaceholders;
+import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.text.Component;
 
 public class SendActionbarCommand implements CommandExecutor {

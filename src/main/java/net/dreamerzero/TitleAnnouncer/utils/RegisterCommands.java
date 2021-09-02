@@ -1,19 +1,19 @@
-package net.dreamerzero.TitleAnnouncer.utils;
+package net.dreamerzero.titleannouncer.utils;
 
-import net.dreamerzero.TitleAnnouncer.Announcer;
-import net.dreamerzero.TitleAnnouncer.commands.AnnouncerCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.AnnouncerActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.SelfActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.SendActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.actionbar.WorldActionbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.bossbar.AnnouncerBossbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.bossbar.SelfBossbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.bossbar.SendBossbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.bossbar.WorldBossbarCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.AnnouncerTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.SelfTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.SendTitleCommand;
-import net.dreamerzero.TitleAnnouncer.commands.title.WorldTitleCommand;
+import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.commands.AnnouncerCommand;
+import net.dreamerzero.titleannouncer.commands.actionbar.AnnouncerActionbarCommand;
+import net.dreamerzero.titleannouncer.commands.actionbar.SelfActionbarCommand;
+import net.dreamerzero.titleannouncer.commands.actionbar.SendActionbarCommand;
+import net.dreamerzero.titleannouncer.commands.actionbar.WorldActionbarCommand;
+import net.dreamerzero.titleannouncer.commands.bossbar.AnnouncerBossbarCommand;
+import net.dreamerzero.titleannouncer.commands.bossbar.SelfBossbarCommand;
+import net.dreamerzero.titleannouncer.commands.bossbar.SendBossbarCommand;
+import net.dreamerzero.titleannouncer.commands.bossbar.WorldBossbarCommand;
+import net.dreamerzero.titleannouncer.commands.title.AnnouncerTitleCommand;
+import net.dreamerzero.titleannouncer.commands.title.SelfTitleCommand;
+import net.dreamerzero.titleannouncer.commands.title.SendTitleCommand;
+import net.dreamerzero.titleannouncer.commands.title.WorldTitleCommand;
 
 public class RegisterCommands {
     public static void registerBossbar() {

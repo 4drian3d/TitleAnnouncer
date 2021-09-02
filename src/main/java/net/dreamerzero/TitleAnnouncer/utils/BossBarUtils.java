@@ -1,8 +1,8 @@
-package net.dreamerzero.TitleAnnouncer.utils;
+package net.dreamerzero.titleannouncer.utils;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.dreamerzero.TitleAnnouncer.Announcer;
+import net.dreamerzero.titleannouncer.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;

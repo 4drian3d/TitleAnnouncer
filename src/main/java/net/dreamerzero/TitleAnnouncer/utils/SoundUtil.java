@@ -1,4 +1,4 @@
-package net.dreamerzero.TitleAnnouncer.utils;
+package net.dreamerzero.titleannouncer.utils;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.key.Key;
