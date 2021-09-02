@@ -36,7 +36,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!(sender.hasPermission("announcer.bossbar.global"))) {
+        if (!sender.hasPermission("announcer.bossbar.global")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -118,8 +118,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         }
           
         // Send to all
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             BossBarUtils.sendBossBar(
                 audience,
                 time,

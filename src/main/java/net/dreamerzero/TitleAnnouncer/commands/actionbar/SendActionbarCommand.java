@@ -37,7 +37,7 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.actionbar.send"))) {
+        if (!sender.hasPermission("announcer.actionbar.send")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -61,7 +61,7 @@ public class SendActionbarCommand implements CommandExecutor {
         //Collection of all players in the server
         final var serverplayers = Bukkit.getOnlinePlayers();
 
-        if (!(serverplayers.contains(playerObjetive))) {
+        if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
@@ -82,8 +82,7 @@ public class SendActionbarCommand implements CommandExecutor {
         final var actionbarToParse = actionbartext.toString();
 
         // Send to all
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             playerObjetive.sendActionBar(
                 MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player, playerObjetive)));
         } else {

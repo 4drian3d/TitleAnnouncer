@@ -32,7 +32,7 @@ public class SendTitleCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.title.send"))) {
+        if (!sender.hasPermission("announcer.title.send")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -89,7 +89,7 @@ public class SendTitleCommand implements CommandExecutor {
             try {
                 final var serverplayers = Bukkit.getOnlinePlayers();
 
-                if (!(serverplayers.contains(playerObjetive))) {
+                if (!serverplayers.contains(playerObjetive)) {
                     // Send an error message to the sender using the command.
                     sender.sendMessage(
                         prefix.append(MiniMessageUtil.parse(
@@ -99,8 +99,7 @@ public class SendTitleCommand implements CommandExecutor {
                     return false;
                 }
 
-				if (sender instanceof Player) {
-                    final var player = (Player) sender;
+				if (sender instanceof Player player) {
                     // Send the title
                     TitleUtil.sendTitle(
                         MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player, playerObjetive)), 

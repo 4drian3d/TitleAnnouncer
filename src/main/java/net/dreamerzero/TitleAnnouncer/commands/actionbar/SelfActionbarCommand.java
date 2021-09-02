@@ -36,7 +36,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.actionbar.test"))) {
+        if (!sender.hasPermission("announcer.actionbar.test")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

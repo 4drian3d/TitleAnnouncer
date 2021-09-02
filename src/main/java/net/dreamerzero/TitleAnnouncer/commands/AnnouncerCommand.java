@@ -217,7 +217,7 @@ public class AnnouncerCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
-        if (!(sender.hasPermission("announcer.command.show"))) {
+        if (!sender.hasPermission("announcer.command.show")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -225,7 +225,7 @@ public class AnnouncerCommand implements CommandExecutor {
                         "<red>You do not have permission to execute this command</red>"))));
             return false;
         }
-        if (!(sender.hasPermission("announcer.command.admin"))) {
+        if (!sender.hasPermission("announcer.command.admin")) {
             sender.sendMessage(announce);
             return false;
         }

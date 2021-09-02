@@ -32,7 +32,7 @@ public class SendBossbarCommand implements CommandExecutor{
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!(sender.hasPermission("announcer.bossbar.send"))) {
+        if (!sender.hasPermission("announcer.bossbar.send")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -86,7 +86,7 @@ public class SendBossbarCommand implements CommandExecutor{
         //Collection of all players in the server
         final var serverplayers = Bukkit.getOnlinePlayers();
 
-        if (!(serverplayers.contains(playerObjetive))) {
+        if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
@@ -136,8 +136,7 @@ public class SendBossbarCommand implements CommandExecutor{
         }
           
         // Send to all
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             BossBarUtils.sendBossBar(
                 playerObjetive,
                 time,

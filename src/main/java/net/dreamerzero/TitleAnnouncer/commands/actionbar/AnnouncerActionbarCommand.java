@@ -34,7 +34,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!(sender.hasPermission("announcer.actionbar.global"))) {
+        if (!sender.hasPermission("announcer.actionbar.global")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -54,8 +54,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         final var actionbarToParse = actionbartext.toString();
         
         // Send to all
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             audience.sendActionBar(
                 MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
         } else {

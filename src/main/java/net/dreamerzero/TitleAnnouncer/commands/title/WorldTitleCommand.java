@@ -41,7 +41,7 @@ public class WorldTitleCommand implements CommandExecutor {
         }
         
         // Permission Check
-        if (!(player.hasPermission("announcer.title.world"))) {
+        if (!player.hasPermission("announcer.title.world")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

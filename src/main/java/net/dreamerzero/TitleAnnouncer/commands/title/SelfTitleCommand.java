@@ -41,7 +41,7 @@ public class SelfTitleCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.title.test"))) {
+        if (!sender.hasPermission("announcer.title.test")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

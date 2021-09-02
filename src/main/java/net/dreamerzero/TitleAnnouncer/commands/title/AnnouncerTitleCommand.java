@@ -35,7 +35,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!(sender.hasPermission("announcer.title.global"))) {
+        if (!sender.hasPermission("announcer.title.global")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -80,8 +80,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
+            if (sender instanceof Player player) {
                 // Send the title
                 TitleUtil.sendTitle(
                     MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 

@@ -39,7 +39,7 @@ public class WorldBossbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!(sender.hasPermission("announcer.bossbar.world"))) {
+        if (!sender.hasPermission("announcer.bossbar.world")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

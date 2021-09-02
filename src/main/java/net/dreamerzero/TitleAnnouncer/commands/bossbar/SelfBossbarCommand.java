@@ -39,7 +39,7 @@ public class SelfBossbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!(sender.hasPermission("announcer.bossbar.self"))) {
+        if (!sender.hasPermission("announcer.bossbar.self")) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
