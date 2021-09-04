@@ -17,9 +17,9 @@ import net.kyori.adventure.text.Component;
 public class SendTitleCommand implements CommandExecutor {
     private final Announcer plugin;
 
-	public SendTitleCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public SendTitleCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

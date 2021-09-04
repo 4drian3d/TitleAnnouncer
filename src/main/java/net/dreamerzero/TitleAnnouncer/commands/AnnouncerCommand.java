@@ -21,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
 public class AnnouncerCommand implements CommandExecutor {
     private final Announcer plugin;
 
-	public AnnouncerCommand(Announcer plugin) {
-	    this.plugin = plugin;
-	}
+    public AnnouncerCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     final static Component titleArguments = text("[Title]; [SubTitle]", AQUA);
     final static Component actionbarArguments = text("[ActionBar]", AQUA);

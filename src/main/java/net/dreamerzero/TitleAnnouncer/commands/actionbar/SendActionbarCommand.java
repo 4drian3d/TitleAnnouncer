@@ -15,9 +15,9 @@ import net.kyori.adventure.text.Component;
 
 public class SendActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
-	public SendActionbarCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public SendActionbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

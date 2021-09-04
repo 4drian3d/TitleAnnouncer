@@ -19,9 +19,9 @@ It will only be sent for the same player.
 */
 public class SelfTitleCommand implements CommandExecutor {
     private final Announcer plugin;
-	public SelfTitleCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public SelfTitleCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -86,7 +86,7 @@ public class SelfTitleCommand implements CommandExecutor {
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
             final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-            
+
             // Send the Title
             TitleUtil.sendTitle(
                 MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 

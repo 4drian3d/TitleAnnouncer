@@ -15,9 +15,9 @@ import net.kyori.adventure.text.Component;
 
 public class WorldActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
-	public WorldActionbarCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public WorldActionbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

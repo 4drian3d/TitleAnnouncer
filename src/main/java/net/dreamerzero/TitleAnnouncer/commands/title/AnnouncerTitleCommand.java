@@ -17,9 +17,9 @@ import net.kyori.adventure.text.Component;
 
 public class AnnouncerTitleCommand implements CommandExecutor {
     private final Announcer plugin;
-	public AnnouncerTitleCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public AnnouncerTitleCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     //The audience that will receive the title will be all the players on the server.
     private final Audience audience = Bukkit.getServer();

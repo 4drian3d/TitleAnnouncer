@@ -19,9 +19,9 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 public class AnnouncerBossbarCommand implements CommandExecutor {
     private final Announcer plugin;
-	public AnnouncerBossbarCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public AnnouncerBossbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // The audience that will receive the bossbar will be all the players on the server.
     private Audience audience = Bukkit.getServer();
@@ -99,24 +99,10 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         BossBar.Color color;
         BossBar.Overlay overlay;
 
-        switch (args[1]){
-            case "RED": case "red": color = BossBar.Color.RED; break;
-            case "BLUE": case "blue": color = BossBar.Color.BLUE; break;
-            case "GREEN": case "green": color = BossBar.Color.GREEN; break;
-            case "PINK": case "pink": color = BossBar.Color.PINK; break;
-            case "PURPLE": case "purple": color = BossBar.Color.PURPLE; break;
-            case "WHITE": case "white": color = BossBar.Color.WHITE; break;
-            case "YELLOW": case "yellow": color = BossBar.Color.YELLOW; break;
-            default: sender.sendMessage(prefix.append(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED))); return false;
-        }
-        switch (args[2]){
-            case "6": overlay = BossBar.Overlay.NOTCHED_6; break;
-            case "10": overlay = BossBar.Overlay.NOTCHED_10; break;
-            case "12": overlay = BossBar.Overlay.NOTCHED_12; break;
-            case "20": overlay = BossBar.Overlay.NOTCHED_20; break;
-            case "full": case "progress": overlay = BossBar.Overlay.PROGRESS; break;
-            default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return false;
-        }
+        color = BossBarUtils.bossbarColor(args[1], sender, prefix);
+        overlay = BossBarUtils.bossbarOverlay(args[2], sender, prefix);
+
+        if (color == null || overlay == null) return false;
 
         // Send to all
         if (sender instanceof Player player) {

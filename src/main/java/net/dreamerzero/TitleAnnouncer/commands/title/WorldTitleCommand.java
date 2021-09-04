@@ -16,9 +16,9 @@ import net.kyori.adventure.text.Component;
 
 public class WorldTitleCommand implements CommandExecutor {
     private final Announcer plugin;
-	public WorldTitleCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public WorldTitleCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

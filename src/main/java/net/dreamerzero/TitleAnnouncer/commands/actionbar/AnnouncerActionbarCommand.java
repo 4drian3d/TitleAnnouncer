@@ -16,9 +16,9 @@ import net.kyori.adventure.text.Component;
 
 public class AnnouncerActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
-	public AnnouncerActionbarCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public AnnouncerActionbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // The audience that will receive the actionbar will be all the players on the server.
     private Audience audience = Bukkit.getServer();

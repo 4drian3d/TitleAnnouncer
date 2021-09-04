@@ -18,10 +18,11 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 public class SendBossbarCommand implements CommandExecutor{
     private final Announcer plugin;
-	public SendBossbarCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
-        // Command
+    public SendBossbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
+
+    // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
@@ -81,7 +82,7 @@ public class SendBossbarCommand implements CommandExecutor{
             return false;
         }
 
-        final Player playerObjetive = Bukkit.getPlayer(args[0]);
+        final var playerObjetive = Bukkit.getPlayer(args[0]);
 
         //Collection of all players in the server
         final var serverplayers = Bukkit.getOnlinePlayers();
@@ -116,24 +117,10 @@ public class SendBossbarCommand implements CommandExecutor{
         BossBar.Color color;
         BossBar.Overlay overlay;
 
-        switch (args[2]){
-            case "RED": case "red": color = BossBar.Color.RED; break;
-            case "BLUE": case "blue": color = BossBar.Color.BLUE; break;
-            case "GREEN": case "green": color = BossBar.Color.GREEN; break;
-            case "PINK": case "pink": color = BossBar.Color.PINK; break;
-            case "PURPLE": case "purple": color = BossBar.Color.PURPLE; break;
-            case "WHITE": case "white": color = BossBar.Color.WHITE; break;
-            case "YELLOW": case "yellow": color = BossBar.Color.YELLOW; break;
-            default: sender.sendMessage(prefix.append(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED))); return false;
-        }
-        switch (args[3]){
-            case "6": overlay = BossBar.Overlay.NOTCHED_6; break;
-            case "10": overlay = BossBar.Overlay.NOTCHED_10; break;
-            case "12": overlay = BossBar.Overlay.NOTCHED_12; break;
-            case "20": overlay = BossBar.Overlay.NOTCHED_20; break;
-            case "full": case "progress": overlay = BossBar.Overlay.PROGRESS; break;
-            default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return false;
-        }
+        color = BossBarUtils.bossbarColor(args[2], sender, prefix);
+        overlay = BossBarUtils.bossbarOverlay(args[3], sender, prefix);
+
+        if (color == null || overlay == null) return false;
 
         // Send to all
         if (sender instanceof Player player) {

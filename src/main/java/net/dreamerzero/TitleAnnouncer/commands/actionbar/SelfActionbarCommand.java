@@ -14,9 +14,9 @@ import net.kyori.adventure.text.Component;
 
 public class SelfActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
-	public SelfActionbarCommand(Announcer plugin) {
-		this.plugin = plugin;
-	}
+    public SelfActionbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
