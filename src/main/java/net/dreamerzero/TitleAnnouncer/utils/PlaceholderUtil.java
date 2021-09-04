@@ -36,7 +36,7 @@ public class PlaceholderUtil {
         final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 
         final List<Template> templates = List.of(
-            Template.of("name", text(player.getName())), 
+            Template.of("name", text(player.getName())),
             Template.of("ping", text(player.getPing())),
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
             Template.of("world", text(player.getWorld().getName())),
@@ -55,9 +55,9 @@ public class PlaceholderUtil {
     public static List<Template> replacePlaceholders(Player player, Player otherPlayer) {
         final String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
         final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
-        
+
         final List<Template> templates = List.of(
-            Template.of("name", text(player.getName())), 
+            Template.of("name", text(player.getName())),
             Template.of("ping", text(player.getPing())),
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
             Template.of("world", text(player.getWorld().getName())),

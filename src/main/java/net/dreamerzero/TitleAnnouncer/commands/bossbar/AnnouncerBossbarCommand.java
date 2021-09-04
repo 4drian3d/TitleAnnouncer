@@ -33,7 +33,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
@@ -41,7 +41,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.bossbar.no-permission", 
+                        "messages.bossbar.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
@@ -83,7 +83,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         StringBuilder bossbartext = new StringBuilder();
         for (byte i = 3; i < args.length; i++) {
             bossbartext = bossbartext.append(" ");
-            bossbartext = bossbartext.append(args[i]); 
+            bossbartext = bossbartext.append(args[i]);
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
@@ -117,7 +117,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             case "full": case "progress": overlay = BossBar.Overlay.PROGRESS; break;
             default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return false;
         }
-          
+
         // Send to all
         if (sender instanceof Player player) {
             BossBarUtils.sendBossBar(
@@ -138,11 +138,11 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(
-                    "messages.bossbar.successfully",  
+                    "messages.bossbar.successfully",
                     "<green>Bossbar succesfully sended</green>"))));
 
         var soundToPlay = plugin.getConfig().getString(
-            "sounds.bossbar.sound-id", 
+            "sounds.bossbar.sound-id",
             "entity.experience_orb.pickup");
         var soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.bossbar.volume", 10);
@@ -151,9 +151,9 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         if (soundEnabled) {
             // Play the sound
             SoundUtil.playSound(
-                soundToPlay, 
-                audience, 
-                volume, 
+                soundToPlay,
+                audience,
+                volume,
                 pitch
             );
         }

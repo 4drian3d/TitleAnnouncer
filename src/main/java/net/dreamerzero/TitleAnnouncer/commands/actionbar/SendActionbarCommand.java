@@ -21,7 +21,7 @@ public class SendActionbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // It will send an actionbar to the world in which the command is executed, 
+        // It will send an actionbar to the world in which the command is executed,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player)) {
             plugin.getLogger().info("The console cannot execute this command.");
@@ -33,7 +33,7 @@ public class SendActionbarCommand implements CommandExecutor {
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
@@ -42,7 +42,7 @@ public class SendActionbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.actionbar.no-permission", 
+                        "messages.actionbar.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
@@ -51,7 +51,7 @@ public class SendActionbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.actionbar.only-player", 
+                        "messages.actionbar.only-player",
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
             return false;
         }
@@ -76,9 +76,9 @@ public class SendActionbarCommand implements CommandExecutor {
         var actionbartext = new StringBuilder();
         for (byte i = 1; i < args.length; i++) {
             actionbartext = actionbartext.append(" ");
-            actionbartext = actionbartext.append(args[i]); 
+            actionbartext = actionbartext.append(args[i]);
         }
-        
+
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         final var actionbarToParse = actionbartext.toString();
 
@@ -100,13 +100,13 @@ public class SendActionbarCommand implements CommandExecutor {
         var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
-        
+
         if (soundEnabled) {
             // Play the sound
             SoundUtil.playSound(
-                soundToPlay, 
-                playerObjetive, 
-                volume, 
+                soundToPlay,
+                playerObjetive,
+                volume,
                 pitch
             );
         }

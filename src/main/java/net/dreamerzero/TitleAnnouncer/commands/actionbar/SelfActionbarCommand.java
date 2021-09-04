@@ -32,7 +32,7 @@ public class SelfActionbarCommand implements CommandExecutor {
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
@@ -41,21 +41,21 @@ public class SelfActionbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.actionbar.no-permission", 
+                        "messages.actionbar.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
 
         // Concatenate the arguments provided by the command sent.
         var actionbartext = new StringBuilder();
-        for (byte i = 0; i < args.length; i++) {
+        for (String argument : args) {
             actionbartext = actionbartext.append(" ");
-            actionbartext = actionbartext.append(args[i]); 
+            actionbartext = actionbartext.append(argument);
         }
-        
+
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         final var actionbarToParse = actionbartext.toString();
-        
+
         Player player = (Player)sender;
         // Send to sender
         sender.sendActionBar(
@@ -63,11 +63,11 @@ public class SelfActionbarCommand implements CommandExecutor {
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(
-                    "messages.actionbar.successfully", 
+                    "messages.actionbar.successfully",
                     "<green>Actionbar succesfully sended</green>"))));
 
         var soundToPlay = plugin.getConfig().getString(
-            "sounds.actionbar.sound-id", 
+            "sounds.actionbar.sound-id",
             "entity.experience_orb.pickup");
         var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
@@ -76,9 +76,9 @@ public class SelfActionbarCommand implements CommandExecutor {
         if (soundEnabled) {
             // Play the sound
             SoundUtil.playSound(
-                soundToPlay, 
-                sender, 
-                volume, 
+                soundToPlay,
+                sender,
+                volume,
                 pitch
             );
         }

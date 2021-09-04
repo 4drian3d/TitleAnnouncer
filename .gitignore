@@ -9,10 +9,10 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# Visual Studio Code 
+# Visual Studio Code
 
 .settings/
 .classpath
 .factorypath
 .project
-.vscode/ 
+.vscode/

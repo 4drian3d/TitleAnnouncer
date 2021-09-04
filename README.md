@@ -45,7 +45,7 @@ A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessag
         <th>Argument</th>
         <th>Permission</th>
         <th>Description</th>
-    </tr>    
+    </tr>
     </thead>
     <tbody>
         <tr>
@@ -84,7 +84,7 @@ A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessag
         <th>Argument</th>
         <th>Permission</th>
         <th>Description</th>
-    </tr>    
+    </tr>
     </thead>
     <tbody>
         <tr>
@@ -122,7 +122,7 @@ A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessag
         <th>Argument</th>
         <th>Permission</th>
         <th>Description</th>
-    </tr>    
+    </tr>
     </thead>
     <tbody>
         <tr>

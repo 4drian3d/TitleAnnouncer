@@ -34,7 +34,7 @@ public class SelfBossbarCommand implements CommandExecutor {
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
@@ -42,7 +42,7 @@ public class SelfBossbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.bossbar.no-permission", 
+                        "messages.bossbar.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
@@ -84,7 +84,7 @@ public class SelfBossbarCommand implements CommandExecutor {
         StringBuilder bossbartext = new StringBuilder();
         for (byte i = 4; i < args.length; i++) {
             bossbartext = bossbartext.append(" ");
-            bossbartext = bossbartext.append(args[i]); 
+            bossbartext = bossbartext.append(args[i]);
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
@@ -130,11 +130,11 @@ public class SelfBossbarCommand implements CommandExecutor {
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(
-                    "messages.bossbar.successfully",  
+                    "messages.bossbar.successfully",
                     "<green>Bossbar succesfully sended</green>"))));
 
         var soundToPlay = plugin.getConfig().getString(
-            "sounds.bossbar.sound-id", 
+            "sounds.bossbar.sound-id",
             "entity.experience_orb.pickup");
         var soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.bossbar.volume", 10);
@@ -143,9 +143,9 @@ public class SelfBossbarCommand implements CommandExecutor {
         if (soundEnabled) {
             // Play the sound
             SoundUtil.playSound(
-                soundToPlay, 
-                sender, 
-                volume, 
+                soundToPlay,
+                sender,
+                volume,
                 pitch
             );
         }

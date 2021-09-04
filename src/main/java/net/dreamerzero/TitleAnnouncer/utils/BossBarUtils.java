@@ -11,9 +11,9 @@ public class BossBarUtils {
     public static float value = 1f;
 
     /**
-     * It will send a bossbar to the specified audience, 
-     * with the specified characteristics showing an 
-     * emptying animation according to the specified 
+     * It will send a bossbar to the specified audience,
+     * with the specified characteristics showing an
+     * emptying animation according to the specified
      * time interval.
      * @param audience
      * @param time
@@ -24,22 +24,22 @@ public class BossBarUtils {
     public static void sendBossBar (
         final Audience audience,
         final float time,
-        final Component content, 
-        final BossBar.Color color, 
+        final Component content,
+        final BossBar.Color color,
         final BossBar.Overlay type) {
-        
+
         final float finalTime = 0.1f/time;
 
         final BossBar bar = BossBar.bossBar(
-            content, 
-            1, 
-            color, 
+            content,
+            1,
+            color,
             type);
-            
+
         audience.showBossBar(bar);
         final float toReduce = finalTime;
         value = 1f;
-        
+
         new BukkitRunnable() {
             @Override
             public void run() {

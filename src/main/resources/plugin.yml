@@ -5,8 +5,8 @@ author: 4drian3d
 main: net.dreamerzero.titleannouncer.Announcer
 website: https://github.com/4drian3d/TitleAnnouncer
 description: >
-    Plugin created to send titles, actionbars and bossbars to the 
-    player and the server in general using the MiniMessage format. 
+    Plugin created to send titles, actionbars and bossbars to the
+    player and the server in general using the MiniMessage format.
     Originally made for Peruviankkit Network.
 api-version: 1.16
 commands:
@@ -120,4 +120,3 @@ permissions:
     announcer.actionbar.send:
         description: Sends an ActionBar to a specific player.
         default: false
-    

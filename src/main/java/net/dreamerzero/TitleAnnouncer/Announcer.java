@@ -42,7 +42,7 @@ public class Announcer extends JavaPlugin {
 		commandRegister();
 		listenerRegister();
 	}
-	
+
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
@@ -63,7 +63,7 @@ public class Announcer extends JavaPlugin {
 			).build());
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 	}
-	
+
 	// Registration of the commands that the plugin provides
 	public void commandRegister() {
 		// Main Command

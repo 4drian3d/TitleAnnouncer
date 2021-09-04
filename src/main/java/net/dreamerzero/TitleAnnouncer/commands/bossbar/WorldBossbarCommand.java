@@ -30,13 +30,13 @@ public class WorldBossbarCommand implements CommandExecutor {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
-        
+
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
@@ -44,7 +44,7 @@ public class WorldBossbarCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.bossbar.no-permission", 
+                        "messages.bossbar.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
@@ -86,7 +86,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         StringBuilder bossbartext = new StringBuilder();
         for (byte i = 3; i < args.length; i++) {
             bossbartext = bossbartext.append(" ");
-            bossbartext = bossbartext.append(args[i]); 
+            bossbartext = bossbartext.append(args[i]);
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
@@ -120,8 +120,8 @@ public class WorldBossbarCommand implements CommandExecutor {
             case "full": case "progress": overlay = BossBar.Overlay.PROGRESS; break;
             default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return false;
         }
-          
-        final Player player = (Player) sender;
+
+        final var player = (Player) sender;
         // The audience that will receive the bossbar will be all the players on the server.
         final Audience audience = player.getWorld();
         BossBarUtils.sendBossBar(
@@ -134,11 +134,11 @@ public class WorldBossbarCommand implements CommandExecutor {
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(
-                    "messages.bossbar.successfully",  
+                    "messages.bossbar.successfully",
                     "<green>Bossbar succesfully sended</green>"))));
 
         var soundToPlay = plugin.getConfig().getString(
-            "sounds.bossbar.sound-id", 
+            "sounds.bossbar.sound-id",
             "entity.experience_orb.pickup");
         var soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.bossbar.volume", 10);
@@ -147,9 +147,9 @@ public class WorldBossbarCommand implements CommandExecutor {
         if (soundEnabled) {
             // Play the sound
             SoundUtil.playSound(
-                soundToPlay, 
-                audience, 
-                volume, 
+                soundToPlay,
+                audience,
+                volume,
                 pitch
             );
         }

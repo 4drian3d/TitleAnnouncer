@@ -31,7 +31,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
@@ -40,17 +40,17 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.title.no-permission", 
+                        "messages.title.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return true;
         }
-         
+
         // The command requires arguments to work
         if (args.length == 0) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.title.without-argument", 
+                        "messages.title.without-argument",
                         "<red>You need to enter the title and subtitle arguments.</red>"))));
             return true;
         // The command requires title and subtitle arguments to work properly.
@@ -58,7 +58,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.title.single-argument", 
+                        "messages.title.single-argument",
                         "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
             return true;
         }
@@ -67,12 +67,12 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         var titleandsubtitle = new StringBuilder();
         for (byte i = 0; i < args.length; i++) {
             titleandsubtitle = titleandsubtitle.append(" ");
-            titleandsubtitle = titleandsubtitle.append(args[i]); 
+            titleandsubtitle = titleandsubtitle.append(args[i]);
         }
-        
+
         // Get sound from config
         var soundToPlay = plugin.getConfig().getString(
-            "sounds.title.sound-id", 
+            "sounds.title.sound-id",
             "entity.experience_orb.pickup");
         var soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
@@ -86,39 +86,39 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 TitleUtil.sendTitle(
                     MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
                     MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)),
-                    audience, 
-                    1000, 
-                    3000, 
+                    audience,
+                    1000,
+                    3000,
                     1000);
             } else {
                 // Send the title
                 TitleUtil.sendTitle(
                     MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders()), 
                     MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders()),
-                    audience, 
-                    1000, 
-                    3000, 
+                    audience,
+                    1000,
+                    3000,
                     1000);
             }
-            
+
             // Send message to the sender
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.title.successfully",
                         "<green>Title succesfully sended</green>"))));
-            
+
             if (soundEnabled) {
                 //Play the sound
                 SoundUtil.playSound(
-                    soundToPlay, 
-                    audience, 
-                    volume, 
+                    soundToPlay,
+                    audience,
+                    volume,
                     pitch);
             }
-            
+
             return true;
-        // In case the command does not contain a separator ";", 
+        // In case the command does not contain a separator ";",
         // it will catch the error in the console and send an error message to the sender.
         } catch (Exception e) {
             // Send an error message to the sender using the command
