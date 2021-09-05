@@ -3,7 +3,6 @@ package net.dreamerzero.titleannouncer.utils;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import static net.kyori.adventure.text.Component.text;
 import net.kyori.adventure.text.minimessage.Template;
@@ -31,7 +30,8 @@ public class PlaceholderUtil {
      * @param player
      * @return Placeholders for sender player
      */
-    public static List<Template> replacePlaceholders(Player player) {
+    public static List<Template> replacePlaceholders(org.bukkit.entity.Player player) {
+
         final String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
         final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 
@@ -52,7 +52,10 @@ public class PlaceholderUtil {
      * @param otherPlayer
      * @return Placeholders for sender player and the playerobjetive
      */
-    public static List<Template> replacePlaceholders(Player player, Player otherPlayer) {
+    public static List<Template> replacePlaceholders(
+            org.bukkit.entity.Player player,
+            org.bukkit.entity.Player otherPlayer) {
+
         final String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
         final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 

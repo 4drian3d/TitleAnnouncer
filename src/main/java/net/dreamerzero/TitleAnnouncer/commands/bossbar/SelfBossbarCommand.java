@@ -107,7 +107,7 @@ public class SelfBossbarCommand implements CommandExecutor {
         if (color == null || overlay == null) return false;
 
         final var player = (Player) sender;
-        BossBarUtils.sendBossBar(
+        BossBarUtils.sendBukkitBossBar(
                 player,
                 time,
                 MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),

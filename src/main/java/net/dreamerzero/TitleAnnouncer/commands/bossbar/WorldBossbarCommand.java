@@ -110,7 +110,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         final var player = (Player) sender;
         // The audience that will receive the bossbar will be all the players on the server.
         final Audience audience = player.getWorld();
-        BossBarUtils.sendBossBar(
+        BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
                 MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),

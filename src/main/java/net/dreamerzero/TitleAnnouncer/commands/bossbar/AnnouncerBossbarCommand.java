@@ -106,14 +106,14 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
 
         // Send to all
         if (sender instanceof Player player) {
-            BossBarUtils.sendBossBar(
+            BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
                 MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
                 color,
                 overlay);
         } else {
-            BossBarUtils.sendBossBar(
+            BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
                 MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),

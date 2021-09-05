@@ -1,6 +1,5 @@
 package net.dreamerzero.titleannouncer.utils;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import net.dreamerzero.titleannouncer.Announcer;
@@ -23,7 +22,7 @@ public class BossBarUtils {
      * @param color
      * @param type
      */
-    public static void sendBossBar (
+    public static void sendBukkitBossBar (
         final Audience audience,
         final float time,
         final Component content,
@@ -59,7 +58,7 @@ public class BossBarUtils {
         }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
     }
 
-    public static BossBar.Color bossbarColor(String color, CommandSender sender, Component prefix) {
+    public static BossBar.Color bossbarColor(String color, Audience sender, Component prefix) {
         switch (color) {
             case "RED": case "red": return BossBar.Color.RED;
             case "BLUE": case "blue": return BossBar.Color.BLUE;
@@ -72,7 +71,7 @@ public class BossBarUtils {
         }
     }
 
-    public static BossBar.Overlay bossbarOverlay(String overlay, CommandSender sender, Component prefix){
+    public static BossBar.Overlay bossbarOverlay(String overlay, Audience sender, Component prefix){
         switch (overlay){
             case "6": return BossBar.Overlay.NOTCHED_6;
             case "10": return BossBar.Overlay.NOTCHED_10;
