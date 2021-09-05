@@ -16,7 +16,6 @@ import static net.kyori.adventure.text.Component.space;
 import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 import static net.kyori.adventure.text.format.NamedTextColor.YELLOW;
 import static net.kyori.adventure.text.format.NamedTextColor.GOLD;
-import org.jetbrains.annotations.NotNull;
 
 public class AnnouncerCommand implements CommandExecutor {
     private final Announcer plugin;
