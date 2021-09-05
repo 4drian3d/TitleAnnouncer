@@ -201,7 +201,7 @@ public class AnnouncerCommand implements CommandExecutor {
                 .build();
 
     // Main Command
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
 
         Component prefix = text("");
