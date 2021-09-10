@@ -14,8 +14,8 @@ public class PlaceholderUtil {
      * @return Placeholders for console
      */
     public static List<Template> replacePlaceholders() {
-        final String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
-        final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
+        String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
+        String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 
         final List<Template> templates = List.of(
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
@@ -32,8 +32,8 @@ public class PlaceholderUtil {
      */
     public static List<Template> replacePlaceholders(org.bukkit.entity.Player player) {
 
-        final String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
-        final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
+        String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
+        String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 
         final List<Template> templates = List.of(
             Template.of("name", text(player.getName())),
@@ -56,8 +56,8 @@ public class PlaceholderUtil {
             org.bukkit.entity.Player player,
             org.bukkit.entity.Player otherPlayer) {
 
-        final String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
-        final String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
+        String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
+        String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 
         final List<Template> templates = List.of(
             Template.of("name", text(player.getName())),

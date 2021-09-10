@@ -25,7 +25,7 @@ public class SelfBossbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the one who executes the command, 
         // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
@@ -88,7 +88,7 @@ public class SelfBossbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var bossbarToParse = bossbartext.toString();
+        var bossbarToParse = bossbartext.toString();
 
         int time;
         try {
@@ -106,13 +106,12 @@ public class SelfBossbarCommand implements CommandExecutor {
 
         if (color == null || overlay == null) return false;
 
-        final var player = (Player) sender;
         BossBarUtils.sendBukkitBossBar(
-                player,
-                time,
-                MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
-                color,
-                overlay);
+            player,
+            time,
+            MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
+            color,
+            overlay);
 
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(

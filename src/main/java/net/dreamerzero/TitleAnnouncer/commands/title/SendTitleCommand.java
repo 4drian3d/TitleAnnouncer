@@ -84,11 +84,11 @@ public class SendTitleCommand implements CommandExecutor {
 
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-            final var playerObjetive = Bukkit.getPlayer(args[0]);
+            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            var playerObjetive = Bukkit.getPlayer(args[0]);
 
             try {
-                final var serverplayers = Bukkit.getOnlinePlayers();
+                var serverplayers = Bukkit.getOnlinePlayers();
 
                 if (!serverplayers.contains(playerObjetive)) {
                     // Send an error message to the sender using the command.

@@ -22,7 +22,7 @@ public class SelfActionbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the one who executes the command, 
         // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
@@ -54,9 +54,8 @@ public class SelfActionbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var actionbarToParse = actionbartext.toString();
+        var actionbarToParse = actionbartext.toString();
 
-        Player player = (Player)sender;
         // Send to sender
         sender.sendActionBar(
             MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));

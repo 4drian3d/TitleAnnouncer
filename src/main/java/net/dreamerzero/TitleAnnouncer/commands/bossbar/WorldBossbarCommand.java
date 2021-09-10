@@ -26,7 +26,7 @@ public class WorldBossbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the world in which the command is executed, 
         // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
@@ -90,7 +90,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var bossbarToParse = bossbartext.toString();
+        var bossbarToParse = bossbartext.toString();
         int time;
         try {
             time = Integer.parseInt(args[0]);
@@ -107,9 +107,8 @@ public class WorldBossbarCommand implements CommandExecutor {
 
         if (color == null || overlay == null) return false;
 
-        final var player = (Player) sender;
         // The audience that will receive the bossbar will be all the players on the server.
-        final Audience audience = player.getWorld();
+        Audience audience = player.getWorld();
         BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,

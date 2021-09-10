@@ -87,7 +87,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var bossbarToParse = bossbartext.toString();
+        var bossbarToParse = bossbartext.toString();
         float time;
         try {
             time = Integer.parseInt(args[0]);

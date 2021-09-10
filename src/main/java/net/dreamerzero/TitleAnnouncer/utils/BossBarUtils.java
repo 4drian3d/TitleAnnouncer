@@ -29,9 +29,9 @@ public class BossBarUtils {
         final BossBar.Color color,
         final BossBar.Overlay type) {
 
-        final float finalTime = 0.1f/time;
+        float finalTime = 0.1f/time;
 
-        final BossBar bar = BossBar.bossBar(
+        BossBar bar = BossBar.bossBar(
             content,
             1,
             color,

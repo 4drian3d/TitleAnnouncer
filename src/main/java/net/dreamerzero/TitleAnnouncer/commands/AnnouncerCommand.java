@@ -204,13 +204,13 @@ public class AnnouncerCommand implements CommandExecutor {
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
 
         Component prefix = text("");
-        final Component announce = MiniMessageUtil.parse(
+        Component announce = MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"
         );
 
         if (enabledPrefix) {
             prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line", 
+                "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
@@ -218,7 +218,7 @@ public class AnnouncerCommand implements CommandExecutor {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.general.no-permission", 
+                        "messages.general.no-permission",
                         "<red>You do not have permission to execute this command</red>"))));
             return false;
         }

@@ -23,13 +23,10 @@ public class WorldActionbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the world in which the command is executed,
         // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
-
-        // Player
-        final var player = (Player) sender;
 
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
@@ -51,7 +48,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         }
 
         // Get the world in which the player is located
-        final Audience audience = player.getWorld();
+        Audience audience = player.getWorld();
 
         // Concatenate the arguments provided by the command sent.
         var actionbartext = new StringBuilder();
@@ -61,7 +58,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var actionbarToParse = actionbartext.toString();
+        var actionbarToParse = actionbartext.toString();
 
         // Send to all
         audience.sendActionBar(

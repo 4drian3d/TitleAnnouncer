@@ -22,7 +22,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
     }
 
     //The audience that will receive the title will be all the players on the server.
-    private final Audience audience = Bukkit.getServer();
+    Audience audience = Bukkit.getServer();
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -80,7 +80,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
             if (sender instanceof Player player) {
                 // Send the title
                 TitleUtil.sendTitle(

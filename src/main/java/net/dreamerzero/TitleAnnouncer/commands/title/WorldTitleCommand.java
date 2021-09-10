@@ -24,13 +24,10 @@ public class WorldTitleCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
-
-        // Player
-        final var player = (Player) sender;
 
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
@@ -52,7 +49,7 @@ public class WorldTitleCommand implements CommandExecutor {
         }
 
         // Get the world in which the player is located.
-        final Audience audience = player.getWorld();
+        Audience audience = player.getWorld();
 
         // The command requires arguments to work
         if (args.length == 0) {
@@ -88,7 +85,7 @@ public class WorldTitleCommand implements CommandExecutor {
 
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
 
             TitleUtil.sendTitle(
                 MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)),

@@ -14,14 +14,12 @@ import static com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Complet
 
 public class TabCompleteListener implements Listener {
     @EventHandler
-    public void onTabComplete(
-        final AsyncTabCompleteEvent event) {
+    public void onTabComplete(final AsyncTabCompleteEvent event) {
+        var buffer = event.getBuffer();
+        var input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
+        String[] tokens = input.split(" ");
 
-        final var buffer = event.getBuffer();
-        final var input = buffer.startsWith("/") ? buffer.substring(1) : buffer;
-        final String[] tokens = input.split(" ");
-
-        final var players = Bukkit.getOnlinePlayers();
+        var players = Bukkit.getOnlinePlayers();
 
         if (tokens[0].equalsIgnoreCase("announcer")){
             if (tokens.length == 1) {

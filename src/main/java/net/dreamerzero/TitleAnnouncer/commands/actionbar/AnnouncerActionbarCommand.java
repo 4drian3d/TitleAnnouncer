@@ -51,7 +51,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var actionbarToParse = actionbartext.toString();
+        var actionbarToParse = actionbartext.toString();
 
         // Send to all
         if (sender instanceof Player player) {

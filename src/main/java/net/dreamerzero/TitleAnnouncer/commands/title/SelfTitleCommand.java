@@ -27,7 +27,7 @@ public class SelfTitleCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
             return false;
         }
@@ -81,11 +81,9 @@ public class SelfTitleCommand implements CommandExecutor {
         float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
 
-        final Player player = (Player) sender;
-
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            final String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
+            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
 
             // Send the Title
             TitleUtil.sendTitle(

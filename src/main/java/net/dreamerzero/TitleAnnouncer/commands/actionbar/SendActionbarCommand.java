@@ -21,13 +21,6 @@ public class SendActionbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // It will send an actionbar to the world in which the command is executed,
-        // it makes no sense for the console to execute it.
-        if (!(sender instanceof Player)) {
-            plugin.getLogger().info("The console cannot execute this command.");
-            return false;
-        }
-
         var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
@@ -57,10 +50,10 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Get the player
-        final var playerObjetive = Bukkit.getPlayer(args[0]);
+        var playerObjetive = Bukkit.getPlayer(args[0]);
 
         //Collection of all players in the server
-        final var serverplayers = Bukkit.getOnlinePlayers();
+        var serverplayers = Bukkit.getOnlinePlayers();
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
@@ -80,7 +73,7 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var actionbarToParse = actionbartext.toString();
+        var actionbarToParse = actionbartext.toString();
 
         // Send to all
         if (sender instanceof Player player) {
