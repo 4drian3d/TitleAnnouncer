@@ -101,10 +101,13 @@ public class SelfBossbarCommand implements CommandExecutor {
         BossBar.Color color;
         BossBar.Overlay overlay;
 
-        color = BossBarUtils.bossbarColor(args[1], sender, prefix);
-        overlay = BossBarUtils.bossbarOverlay(args[2], sender, prefix);
+        color = BossBarUtils.bossbarColor(args[1], prefix);
+        overlay = BossBarUtils.bossbarOverlay(args[2], prefix);
 
-        if (color == null || overlay == null) return false;
+        if (color == null || overlay == null) {
+            sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            return false;
+        }
 
         BossBarUtils.sendBukkitBossBar(
             player,

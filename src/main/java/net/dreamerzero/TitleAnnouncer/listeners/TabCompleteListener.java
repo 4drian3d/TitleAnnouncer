@@ -101,21 +101,25 @@ public class TabCompleteListener implements Listener {
             tokens[0].equalsIgnoreCase("worldbossbar") ||
             tokens[0].equalsIgnoreCase("selfbossbar")){
 
-            switch (tokens.length){
-                case 1: event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>"))); break;
-                case 2: event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>"))); break;
-                case 3: event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>"))); break;
-                case 4: default: event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>"))); break;
+            switch (tokens.length) {
+                case 1 -> event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>")));
+                case 2 -> event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>")));
+                case 3 -> event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>")));
+                default -> event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
             }
 
         } else if(tokens[0].equalsIgnoreCase("sendbossbar")) {
 
             switch (tokens.length){
-                case 1: for (Player player : players) event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
-                case 2: event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>"))); break;
-                case 3: event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>"))); break;
-                case 4: event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>"))); break;
-                case 5: default: event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>"))); break;
+                case 1 -> {
+                    for (Player player : players) {
+                        event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
+                    }
+                }
+                case 2 -> event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>")));
+                case 3 -> event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>")));
+                case 4 -> event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>")));
+                default -> event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
             }
         }
     }

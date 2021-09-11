@@ -6,7 +6,6 @@ import net.dreamerzero.titleannouncer.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 public class BossBarUtils {
     public static float value = 1f;
@@ -58,27 +57,27 @@ public class BossBarUtils {
         }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
     }
 
-    public static BossBar.Color bossbarColor(String color, Audience sender, Component prefix) {
-        switch (color) {
-            case "RED": case "red": return BossBar.Color.RED;
-            case "BLUE": case "blue": return BossBar.Color.BLUE;
-            case "GREEN": case "green": return BossBar.Color.GREEN;
-            case "PINK": case "pink": return BossBar.Color.PINK;
-            case "PURPLE": case "purple": return BossBar.Color.PURPLE;
-            case "WHITE": case "white": return BossBar.Color.WHITE;
-            case "YELLOW": case "yellow": return BossBar.Color.YELLOW;
-            default: sender.sendMessage(prefix.append(Component.text("Invalid Color Argument", NamedTextColor.DARK_RED))); return null;
-        }
+    public static BossBar.Color bossbarColor(String color, Component prefix) {
+        return switch (color) {
+            case "RED", "red" -> BossBar.Color.RED;
+            case "BLUE", "blue" -> BossBar.Color.BLUE;
+            case "GREEN", "green" -> BossBar.Color.GREEN;
+            case "PINK", "pink" -> BossBar.Color.PINK;
+            case "PURPLE", "purple" -> BossBar.Color.PURPLE;
+            case "WHITE", "white" -> BossBar.Color.WHITE;
+            case "YELLOW", "yellow" -> BossBar.Color.YELLOW;
+            default -> null;
+        };
     }
 
-    public static BossBar.Overlay bossbarOverlay(String overlay, Audience sender, Component prefix){
-        switch (overlay){
-            case "6": return BossBar.Overlay.NOTCHED_6;
-            case "10": return BossBar.Overlay.NOTCHED_10;
-            case "12": return BossBar.Overlay.NOTCHED_12;
-            case "20": return BossBar.Overlay.NOTCHED_20;
-            case "full": case "progress": return BossBar.Overlay.PROGRESS;
-            default: sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED))); return null;
-        }
+    public static BossBar.Overlay bossbarOverlay(String overlay, Component prefix){
+        return switch (overlay){
+            case "6" -> BossBar.Overlay.NOTCHED_6;
+            case "10" -> BossBar.Overlay.NOTCHED_10;
+            case "12" -> BossBar.Overlay.NOTCHED_12;
+            case "20" -> BossBar.Overlay.NOTCHED_20;
+            case "full", "progress" -> BossBar.Overlay.PROGRESS;
+            default -> null;
+        };
     }
 }

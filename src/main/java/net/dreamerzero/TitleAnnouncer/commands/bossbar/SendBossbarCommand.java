@@ -117,10 +117,13 @@ public class SendBossbarCommand implements CommandExecutor{
         BossBar.Color color;
         BossBar.Overlay overlay;
 
-        color = BossBarUtils.bossbarColor(args[2], sender, prefix);
-        overlay = BossBarUtils.bossbarOverlay(args[3], sender, prefix);
+        color = BossBarUtils.bossbarColor(args[2], prefix);
+        overlay = BossBarUtils.bossbarOverlay(args[3], prefix);
 
-        if (color == null || overlay == null) return false;
+        if (color == null || overlay == null) {
+            sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            return false;
+        }
 
         // Send to all
         if (sender instanceof Player player) {
