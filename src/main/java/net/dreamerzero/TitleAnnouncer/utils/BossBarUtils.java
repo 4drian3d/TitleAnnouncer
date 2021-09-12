@@ -57,21 +57,21 @@ public class BossBarUtils {
         }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
     }
 
-    public static BossBar.Color bossbarColor(String color, Component prefix) {
-        return switch (color) {
-            case "RED", "red" -> BossBar.Color.RED;
-            case "BLUE", "blue" -> BossBar.Color.BLUE;
-            case "GREEN", "green" -> BossBar.Color.GREEN;
-            case "PINK", "pink" -> BossBar.Color.PINK;
-            case "PURPLE", "purple" -> BossBar.Color.PURPLE;
-            case "WHITE", "white" -> BossBar.Color.WHITE;
-            case "YELLOW", "yellow" -> BossBar.Color.YELLOW;
+    public static BossBar.Color bossbarColor(String color) {
+        return switch (color.toLowerCase()) {
+            case "red" -> BossBar.Color.RED;
+            case "blue" -> BossBar.Color.BLUE;
+            case "green" -> BossBar.Color.GREEN;
+            case "pink" -> BossBar.Color.PINK;
+            case "purple" -> BossBar.Color.PURPLE;
+            case "white" -> BossBar.Color.WHITE;
+            case "yellow" -> BossBar.Color.YELLOW;
             default -> null;
         };
     }
 
-    public static BossBar.Overlay bossbarOverlay(String overlay, Component prefix){
-        return switch (overlay){
+    public static BossBar.Overlay bossbarOverlay(String overlay){
+        return switch (overlay.toLowerCase()){
             case "6" -> BossBar.Overlay.NOTCHED_6;
             case "10" -> BossBar.Overlay.NOTCHED_10;
             case "12" -> BossBar.Overlay.NOTCHED_12;

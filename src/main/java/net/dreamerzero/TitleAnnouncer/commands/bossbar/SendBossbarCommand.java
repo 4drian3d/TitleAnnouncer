@@ -117,8 +117,8 @@ public class SendBossbarCommand implements CommandExecutor{
         BossBar.Color color;
         BossBar.Overlay overlay;
 
-        color = BossBarUtils.bossbarColor(args[2], prefix);
-        overlay = BossBarUtils.bossbarOverlay(args[3], prefix);
+        color = BossBarUtils.bossbarColor(args[2]);
+        overlay = BossBarUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));

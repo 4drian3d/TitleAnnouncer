@@ -101,8 +101,8 @@ public class SelfBossbarCommand implements CommandExecutor {
         BossBar.Color color;
         BossBar.Overlay overlay;
 
-        color = BossBarUtils.bossbarColor(args[1], prefix);
-        overlay = BossBarUtils.bossbarOverlay(args[2], prefix);
+        color = BossBarUtils.bossbarColor(args[1]);
+        overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
