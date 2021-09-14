@@ -232,63 +232,73 @@ public class AnnouncerCommand implements CommandExecutor {
             sender.sendMessage(
                 MiniMessageUtil.parse(
                     plugin.getConfig().getString(
-                        "messages.general.help-message", 
+                        "messages.general.help-message",
                         "<white>Available Commands:</white>")));
             sender.sendMessage(titleHelpMessage);
             sender.sendMessage(actionbarHelpMessage);
             sender.sendMessage(bossbarHelpMessage);
             sender.sendMessage(fullwikilink);
             return true;
-        } else if(args[0].equalsIgnoreCase("reload")) {
-            plugin.reloadConfig();
-
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.general.reload-config", 
-                        "<green>Config Reloaded</green>"))));
-            return true;
-        } else if (args[0].equalsIgnoreCase("help")) {
-            sender.sendMessage(announce);
-            sender.sendMessage(
-                MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.general.help-message", 
-                        "<white>Available Commands:</white>")));
-            if(args.length == 2){    
-                if (args[1].equalsIgnoreCase("title")){
-                    sender.sendMessage(titleHelpMessage);
-                    sender.sendMessage(titlewikilink);
-                    return true;
-                } else if(args[1].equalsIgnoreCase("actionbar")){
-                    sender.sendMessage(actionbarHelpMessage);
-                    sender.sendMessage(actionbarwikilink);
-                    return true;
-                } else if (args[1].equalsIgnoreCase("bossbar")){
-                    sender.sendMessage(bossbarHelpMessage);
-                    sender.sendMessage(bossbarwikilink);
-                    return true;
+        }
+        switch (args[0].toLowerCase()) {
+            case "reload" -> {
+                plugin.reloadConfig();
+                sender.sendMessage(
+                    prefix.append(MiniMessageUtil.parse(
+                        plugin.getConfig().getString(
+                            "messages.general.reload-config", 
+                            "<green>Config Reloaded</green>"))));
+                return true;
+            }
+            case "help" -> {
+                sender.sendMessage(announce);
+                sender.sendMessage(
+                    MiniMessageUtil.parse(
+                        plugin.getConfig().getString(
+                            "messages.general.help-message", 
+                            "<white>Available Commands:</white>")));
+                if(args.length == 2){
+                    switch (args[1].toLowerCase()) {
+                        case "title" -> {
+                            sender.sendMessage(titleHelpMessage);
+                            sender.sendMessage(titlewikilink);
+                            return true;
+                        }
+                        case "actionbar" -> {
+                            sender.sendMessage(actionbarHelpMessage);
+                            sender.sendMessage(actionbarwikilink);
+                            return true;
+                        }
+                        case "bossbar" -> {
+                            sender.sendMessage(bossbarHelpMessage);
+                            sender.sendMessage(bossbarwikilink);
+                            return true;
+                        }
+                        default -> {
+                            sender.sendMessage(titleHelpMessage);
+                            sender.sendMessage(actionbarHelpMessage);
+                            sender.sendMessage(bossbarHelpMessage);
+                            sender.sendMessage(fullwikilink);
+                            return true;
+                        }
+                    }
                 } else {
                     sender.sendMessage(titleHelpMessage);
                     sender.sendMessage(actionbarHelpMessage);
                     sender.sendMessage(bossbarHelpMessage);
                     sender.sendMessage(fullwikilink);
+                    return true;
                 }
-            } else {
-                sender.sendMessage(titleHelpMessage);
-                sender.sendMessage(actionbarHelpMessage);
-                sender.sendMessage(bossbarHelpMessage);
-                sender.sendMessage(fullwikilink);
-                return true;
             }
-        } else {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.general.invalid-command", 
-                        "<red>Unknown Command</red>"))));
+            default -> {
+                sender.sendMessage(
+                    prefix.append(MiniMessageUtil.parse(
+                        plugin.getConfig().getString(
+                            "messages.general.invalid-command",
+                            "<red>Unknown Command</red>"))));
+                return false;
+            }
         }
-        return true;
     }
 
 }

@@ -47,17 +47,9 @@ public class TabCompleteListener implements Listener {
             // Title Commands
             case "announcetitle", "worldtitle", "selftitle" -> {
                 if (!input.contains(";")){
-                    event.completions().addAll(
-                        List.of(
-                            completion("[Title]",
-                                MiniMessageUtil.parse("<gradient:#41FB6A:#6AA5FD>Title</gradient>"))
-                    ));
+                    event.completions().add(completion("[Title]", MiniMessageUtil.parse("<gradient:#41FB6A:#6AA5FD>Title</gradient>")));
                 } else {
-                    event.completions().addAll(
-                        List.of(
-                            completion("[SubTitle]",
-                                MiniMessageUtil.parse("<gradient:#6AA5FD:#41FB6A>SubTitle</gradient>"))
-                        ));
+                    event.completions().add(completion("[SubTitle]", MiniMessageUtil.parse("<gradient:#6AA5FD:#41FB6A>SubTitle</gradient>")));
                 }
             }
             case "sendtitle" -> {
@@ -87,12 +79,12 @@ public class TabCompleteListener implements Listener {
             }
             // Bossbar Commands
             case "announcebossbar", "worldbossbar", "selfbossbar" -> {
-                switch (tokens.length) {
-                    case 1 -> event.completions().add(completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>")));
-                    case 2 -> event.completions().add(completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>")));
-                    case 3 -> event.completions().add(completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>")));
-                    default -> event.completions().add(completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>")));
-                }
+                event.completions().add(switch (tokens.length) {
+                    case 1 -> completion("[Time]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar display time</gradient>"));
+                    case 2 -> completion("[Color]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar color</gradient>"));
+                    case 3 -> completion("[Type]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Bossbar style</gradient>"));
+                    default -> completion("[message]", MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Message to announce</gradient>"));
+                });
             }
             case "sendbossbar" -> {
                 switch (tokens.length){
