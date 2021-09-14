@@ -43,46 +43,51 @@ public class SendBossbarCommand implements CommandExecutor{
         }
 
         // The command requires arguments to work
-        if (args.length == 0) {
-            sender.sendMessage(
+        // It is not necessary to include this in BossbarUtils as it will only be used once.
+        switch (args.length) {
+            case 0 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
-            return false;
-        // The command requires time argument to work.
-        } else if(args.length == 1){
-            sender.sendMessage(
+                return false;
+            }
+            case 1 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.bossbar.only-player",
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
-            return false;
-        } else if (args.length == 2) {
-            sender.sendMessage(
+                return false;
+            }
+            case 2 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
-            return false;
-        // The command requires message arguments to work properly.
-        } else if (args.length == 3) {
-            sender.sendMessage(
+                return false;
+            }
+            case 3 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
             return false;
-        } else if(args.length == 4){
-            sender.sendMessage(
+            }
+            case 4 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
-            return false;
+                return false;
+            }
         }
 
-        final var playerObjetive = Bukkit.getPlayer(args[0]);
+        Player playerObjetive = Bukkit.getPlayer(args[0]);
 
         //Collection of all players in the server
         final var serverplayers = Bukkit.getOnlinePlayers();

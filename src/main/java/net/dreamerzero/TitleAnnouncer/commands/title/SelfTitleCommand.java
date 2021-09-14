@@ -52,21 +52,23 @@ public class SelfTitleCommand implements CommandExecutor {
         }
 
         // The command requires arguments to work
-        if (args.length == 0) {
-            sender.sendMessage(
+        switch (args.length) {
+            case 0 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.title.without-argument",
                         "<red>You need to enter the title and subtitle arguments.</red>"))));
-            return true;
-        // The command requires title and subtitle arguments to work properly.
-        } else if (args.length == 1) {
-            sender.sendMessage(
+                return true;
+            }
+            case 1 -> {
+                sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
                         "messages.title.single-argument",
                         "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
-            return true;
+                return true;
+            }
         }
 
         // Concatenate the arguments provided by the command sent.
@@ -81,35 +83,11 @@ public class SelfTitleCommand implements CommandExecutor {
         float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
 
+        String titleandsubtitlefinal[];
+
         try {
             // Convert StringBuilder to String, Component is not compatible :nimodo:
-            String titleandsubtitlefinal[] = titleandsubtitle.toString().split(";");
-
-            // Send the Title
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
-                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)), 
-                sender,
-                1000,
-                3000,
-                1000);
-
-            // Send message to the sender
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.successfully",
-                        "<green>Title succesfully sended</green>"))));
-
-            if (soundEnabled) {
-                //Play the sound
-                SoundUtil.playSound(
-                    soundToPlay,
-                    sender,
-                    volume,
-                    pitch);
-            }
-            return true;
+            titleandsubtitlefinal = titleandsubtitle.toString().split(";");
         // In case the command does not contain a separator ";",
         // it will catch the error in the console and send an error message to the sender.
         } catch (Exception e) {
@@ -121,5 +99,31 @@ public class SelfTitleCommand implements CommandExecutor {
                         "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
             return false;
         }
+
+        // Send the Title
+        TitleUtil.sendTitle(
+            MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
+            MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)), 
+            sender,
+            1000,
+            3000,
+            1000);
+
+        // Send message to the sender
+        sender.sendMessage(
+            prefix.append(MiniMessageUtil.parse(
+                plugin.getConfig().getString(
+                    "messages.title.successfully",
+                    "<green>Title succesfully sended</green>"))));
+
+        if (soundEnabled) {
+            //Play the sound
+            SoundUtil.playSound(
+                soundToPlay,
+                sender,
+                volume,
+                pitch);
+        }
+        return true;
     }
 }
