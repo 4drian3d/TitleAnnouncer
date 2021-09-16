@@ -20,8 +20,8 @@ public class PlaceholderUtil {
         final List<Template> templates = List.of(
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
             Template.of("player", text("CONSOLA")),
-            Template.of("mspt", text(String.valueOf(mspt))),
-            Template.of("tps", text(String.valueOf(tps))));
+            Template.of("mspt", text(mspt)),
+            Template.of("tps", text(tps)));
         return templates;
     }
     /**
@@ -37,12 +37,12 @@ public class PlaceholderUtil {
 
         final List<Template> templates = List.of(
             Template.of("name", text(player.getName())),
-            Template.of("ping", text(player.getPing())),
+            Template.of("ping", text(String.valueOf(player.getPing()))),
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
             Template.of("world", text(player.getWorld().getName())),
             Template.of("player", text(player.getName())),
-            Template.of("mspt", text(String.valueOf(mspt))),
-            Template.of("tps", text(String.valueOf(tps))));
+            Template.of("mspt", text(mspt)),
+            Template.of("tps", text(tps)));
         return templates;
     }
     /**
@@ -61,14 +61,14 @@ public class PlaceholderUtil {
 
         final List<Template> templates = List.of(
             Template.of("name", text(player.getName())),
-            Template.of("ping", text(player.getPing())),
+            Template.of("ping", text(String.valueOf(player.getPing()))),
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
             Template.of("world", text(player.getWorld().getName())),
             Template.of("othername", text(otherPlayer.getName())),
             Template.of("otherping", text(otherPlayer.getPing())),
             Template.of("otherworld", text(otherPlayer.getName())),
-            Template.of("mspt", text(String.valueOf(mspt))),
-            Template.of("tps", text(String.valueOf(tps))));
+            Template.of("mspt", text(mspt)),
+            Template.of("tps", text(tps)));
         return templates;
     }
 }
