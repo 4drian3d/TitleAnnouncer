@@ -77,10 +77,10 @@ public class SendTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(args[i]);
         }
 
-        var soundToPlay = plugin.getConfig().getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.title.sound-id",
             "entity.experience_orb.pickup");
-        var soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
         int volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         int pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
 

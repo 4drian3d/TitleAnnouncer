@@ -78,10 +78,10 @@ public class WorldTitleCommand implements CommandExecutor {
             titleandsubtitle = titleandsubtitle.append(argument);
         }
 
-        var soundToPlay = plugin.getConfig().getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.title.sound-id",
             "entity.experience_orb.pickup");
-        var soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.title.pitch", 10);
 

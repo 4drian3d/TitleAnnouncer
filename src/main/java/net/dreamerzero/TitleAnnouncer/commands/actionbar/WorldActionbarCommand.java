@@ -69,10 +69,10 @@ public class WorldActionbarCommand implements CommandExecutor {
                     "messages.actionbar.successfully",
                     "<green>Actionbar succesfully sended</green>"))));
 
-        var soundToPlay = plugin.getConfig().getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.actionbar.sound-id",
             "entity.experience_orb.pickup");
-        var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
 

@@ -9,11 +9,7 @@ import net.dreamerzero.titleannouncer.listeners.TabCompleteListener;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.RegisterCommands;
 import static net.kyori.adventure.text.Component.text;
-import static net.kyori.adventure.text.Component.space;
-import static net.kyori.adventure.text.format.NamedTextColor.DARK_RED;
 import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;
-import static net.kyori.adventure.text.format.NamedTextColor.WHITE;
-import static net.kyori.adventure.text.format.NamedTextColor.GREEN;
 import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 
 public class Announcer extends JavaPlugin {
@@ -23,19 +19,6 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(MiniMessageUtil.parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
-		Bukkit.getConsoleSender().sendMessage(text()
-			.color(DARK_RED)
-			.append(text("Peru"))
-			.append(text()
-				.append(text("vian", WHITE))
-			)
-			.append(text()
-				.append(text("kkit", DARK_RED))
-			)
-			.append(space())
-			.append(text()
-			.append(text("Network", GREEN))
-			).build());
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		instance = this;
 		pluginConfiguration();
@@ -48,19 +31,6 @@ public class Announcer extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(MiniMessageUtil.parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
-		Bukkit.getConsoleSender().sendMessage(text()
-			.color(DARK_RED)
-			.append(text("Peru"))
-			.append(text()
-				.append(text("vian", WHITE))
-			)
-			.append(text()
-				.append(text("kkit", DARK_RED))
-			)
-			.append(space())
-			.append(text()
-				.append(text("Network", GREEN))
-			).build());
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 	}
 

@@ -31,7 +31,7 @@ public class WorldBossbarCommand implements CommandExecutor {
             return false;
         }
 
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
+        boolean enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
         Component prefix = Component.text("");
 
         if (enabledPrefix) {
@@ -62,7 +62,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        var bossbarToParse = bossbartext.toString();
+        String bossbarToParse = bossbartext.toString();
         int time;
         try {
             time = Integer.parseInt(args[0]);
@@ -97,10 +97,10 @@ public class WorldBossbarCommand implements CommandExecutor {
                     "messages.bossbar.successfully",
                     "<green>Bossbar succesfully sended</green>"))));
 
-        var soundToPlay = plugin.getConfig().getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.bossbar.sound-id",
             "entity.experience_orb.pickup");
-        var soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.bossbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.bossbar.pitch", 2);
 

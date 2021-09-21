@@ -153,10 +153,10 @@ public class SendBossbarCommand implements CommandExecutor{
                     "messages.bossbar.successfully",
                     "<green>Bossbar succesfully sended</green>"))));
 
-        var soundToPlay = plugin.getConfig().getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.bossbar.sound-id",
             "entity.experience_orb.pickup");
-        var soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.bossbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.bossbar.pitch", 2);
 

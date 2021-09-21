@@ -21,7 +21,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
     }
 
     // The audience that will receive the actionbar will be all the players on the server.
-    private Audience audience = Bukkit.getServer();
+    Audience audience = Bukkit.getServer();
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -68,10 +68,10 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
                     "messages.actionbar.successfully",
                     "<green>Actionbar succesfully sended</green>"))));
 
-        var soundToPlay = plugin.getConfig().getString(
+        String soundToPlay = plugin.getConfig().getString(
             "sounds.actionbar.sound-id",
             "entity.experience_orb.pickup");
-        var soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
+        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
         float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
         float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
 
