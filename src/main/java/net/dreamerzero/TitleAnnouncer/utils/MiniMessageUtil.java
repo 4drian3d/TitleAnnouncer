@@ -11,7 +11,6 @@ actionbar with the MiniMessage format.
 */
 public class MiniMessageUtil {
 
-
     /**
      * Will format the delivered text
      * @param message

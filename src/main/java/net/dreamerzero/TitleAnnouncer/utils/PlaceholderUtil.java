@@ -19,7 +19,6 @@ public class PlaceholderUtil {
 
         final List<Template> templates = List.of(
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
-            Template.of("player", text("CONSOLA")),
             Template.of("mspt", text(mspt)),
             Template.of("tps", text(tps)));
         return templates;

@@ -8,7 +8,7 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 
 public class BossBarUtils {
-    public static float value = 1f;
+    private static float value = 1f;
 
     /**
      * It will send a bossbar to the specified audience,
@@ -57,6 +57,12 @@ public class BossBarUtils {
         }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
     }
 
+    /**
+     * Based on the argument given in the command, 
+     * it will return the color of the specified bossbar.
+     * @param color
+     * @return the color of the specified bossbar.
+     */
     public static BossBar.Color bossbarColor(String color) {
         return switch (color.toLowerCase()) {
             case "red" -> BossBar.Color.RED;
@@ -70,6 +76,12 @@ public class BossBarUtils {
         };
     }
 
+    /**
+     * Based on the argument given in the command,
+     * it will return the overlay/style of the specified bossbar.
+     * @param overlay
+     * @return the style of the bossbar
+     */
     public static BossBar.Overlay bossbarOverlay(String overlay){
         return switch (overlay.toLowerCase()){
             case "6" -> BossBar.Overlay.NOTCHED_6;
@@ -81,6 +93,7 @@ public class BossBarUtils {
         };
     }
 
+    // It will return if the given arguments are correct for the command to work correctly.
     public static boolean regularBossbarArgs(int length, Audience sender, Component prefix) {
         // The command requires arguments to work
         switch (length) {

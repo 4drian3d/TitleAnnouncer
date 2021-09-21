@@ -24,6 +24,8 @@ public class SoundUtil {
                 Key.key(sound),
                 Sound.Source.MUSIC,
                 volume,
-                pitch));
+                pitch
+            )
+        );
     }
 }
