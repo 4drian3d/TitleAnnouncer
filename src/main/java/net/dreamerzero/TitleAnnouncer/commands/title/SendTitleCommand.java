@@ -117,29 +117,49 @@ public class SendTitleCommand implements CommandExecutor {
         String title;
         String subtitle;
 
-		if (sender instanceof Player player) {
-            title = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
-            subtitle = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
-            // Send the title
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(title, replacePlaceholders(player, playerObjetive)),
-                MiniMessageUtil.parse(subtitle, replacePlaceholders(player, playerObjetive)),
-                playerObjetive,
-                1000,
-                3000,
-                1000);
+        if(PlaceholderUtil.placeholderAPIHook()){
+            if (sender instanceof Player player) {
+                title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
+                subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
+                // Send the title
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(title, replacePlaceholders(player, playerObjetive)),
+                    MiniMessageUtil.parse(subtitle, replacePlaceholders(player, playerObjetive)),
+                    playerObjetive,
+                    1000,
+                    3000,
+                    1000);
+            } else {
+                title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]));
+                subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]));
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(title, replacePlaceholders(playerObjetive)),
+                    MiniMessageUtil.parse(subtitle, replacePlaceholders(playerObjetive)),
+                    playerObjetive,
+                    1000,
+                    3000,
+                    1000);
+            }
         } else {
-            title = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]));
-            subtitle = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]));
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(title, replacePlaceholders(playerObjetive)),
-                MiniMessageUtil.parse(subtitle, replacePlaceholders(playerObjetive)),
-                playerObjetive,
-                1000,
-                3000,
-                1000);
+            if (sender instanceof Player player) {
+                // Send the title
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player, playerObjetive)),
+                    MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player, playerObjetive)),
+                    playerObjetive,
+                    1000,
+                    3000,
+                    1000);
+            } else {
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(playerObjetive)),
+                    MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(playerObjetive)),
+                    playerObjetive,
+                    1000,
+                    3000,
+                    1000);
+            }
         }
-
 
         if (soundEnabled) {
             //Play the sound

@@ -60,12 +60,20 @@ public class WorldActionbarCommand implements CommandExecutor {
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        var actionbarToParse = actionbartext.toString();
+        String actionbarToParse = actionbartext.toString();
 
-        String announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
-        // Send to all
-        audience.sendActionBar(
-            MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
+        if(PlaceholderUtil.placeholderAPIHook()){
+            String announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
+            // Send to all
+            audience.sendActionBar(
+                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
+        } else {
+            // Send to all
+            audience.sendActionBar(
+                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
+        }
+
+        
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(

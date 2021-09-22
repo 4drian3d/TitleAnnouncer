@@ -81,24 +81,42 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             return false;
         }
         String announceToSend;
-
-        // Send to all
-        if (sender instanceof Player player) {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
-            BossBarUtils.sendBukkitBossBar(
+        if(PlaceholderUtil.placeholderAPIHook()){
+            // Send to all
+            if (sender instanceof Player player) {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
+                BossBarUtils.sendBukkitBossBar(
                 audience,
-                time,
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
-                color,
-                overlay);
+                    time,
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
+                    color,
+                    overlay);
+            } else {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbarToParse));
+                BossBarUtils.sendBukkitBossBar(
+                    audience,
+                    time,
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
+                    color,
+                    overlay);
+            }
         } else {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbarToParse));
-            BossBarUtils.sendBukkitBossBar(
+            // Send to all
+            if (sender instanceof Player player) {
+                BossBarUtils.sendBukkitBossBar(
                 audience,
-                time,
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
-                color,
-                overlay);
+                    time,
+                    MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
+                    color,
+                    overlay);
+            } else {
+                BossBarUtils.sendBukkitBossBar(
+                    audience,
+                    time,
+                    MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),
+                    color,
+                    overlay);
+            }
         }
 
         sender.sendMessage(

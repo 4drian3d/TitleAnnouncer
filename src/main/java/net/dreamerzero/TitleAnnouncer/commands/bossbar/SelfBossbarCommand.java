@@ -82,13 +82,23 @@ public class SelfBossbarCommand implements CommandExecutor {
             sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
-        String announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
-        BossBarUtils.sendBukkitBossBar(
-            player,
-            time,
-            MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
-            color,
-            overlay);
+
+        if(PlaceholderUtil.placeholderAPIHook()){
+            String announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
+            BossBarUtils.sendBukkitBossBar(
+                player,
+                time,
+                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
+                color,
+                overlay);
+        } else {
+            BossBarUtils.sendBukkitBossBar(
+                player,
+                time,
+                MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
+                color,
+                overlay);
+        }
 
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(

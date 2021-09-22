@@ -5,8 +5,10 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.dreamerzero.titleannouncer.listeners.PluginDisableListener;
 import net.dreamerzero.titleannouncer.listeners.TabCompleteListener;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.RegisterCommands;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;
@@ -24,6 +26,7 @@ public class Announcer extends JavaPlugin {
 		pluginConfiguration();
 		commandRegister();
 		listenerRegister();
+		PlaceholderUtil.placeholderAPICheck();
 	}
 
 	@Override
@@ -48,6 +51,7 @@ public class Announcer extends JavaPlugin {
 
 	public void listenerRegister() {
 		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
+		getServer().getPluginManager().registerEvents(new PluginDisableListener(), this);
 	}
 
 	public void pluginConfiguration() {

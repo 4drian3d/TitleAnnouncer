@@ -103,16 +103,26 @@ public class WorldTitleCommand implements CommandExecutor {
                         "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
             return false;
         }
-
-        String title = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
-        String subtitle = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(title, replacePlaceholders(player)),
-            MiniMessageUtil.parse(subtitle, replacePlaceholders(player)),
-            audience,
-            1000,
-            3000,
-            1000);
+        if(PlaceholderUtil.placeholderAPIHook()){
+            String title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
+            String subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
+            TitleUtil.sendTitle(
+                MiniMessageUtil.parse(title, replacePlaceholders(player)),
+                MiniMessageUtil.parse(subtitle, replacePlaceholders(player)),
+                audience,
+                1000,
+                3000,
+                1000);
+        } else {
+            TitleUtil.sendTitle(
+                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)),
+                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)),
+                audience,
+                1000,
+                3000,
+                1000);
+        }
+        
 
         // Send message to the sender
         sender.sendMessage(

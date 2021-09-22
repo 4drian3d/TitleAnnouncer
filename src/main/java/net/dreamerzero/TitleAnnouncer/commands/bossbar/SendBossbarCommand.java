@@ -112,7 +112,7 @@ public class SendBossbarCommand implements CommandExecutor{
         }
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
-        final var bossbarToParse = bossbartext.toString();
+        String bossbarToParse = bossbartext.toString();
         int time;
         try {
             time = Integer.parseInt(args[1]);
@@ -133,23 +133,40 @@ public class SendBossbarCommand implements CommandExecutor{
         }
         String announceToSend;
 
-        // Send to all
-        if (sender instanceof Player player) {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
-            BossBarUtils.sendBukkitBossBar(
-                playerObjetive,
-                time,
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player, playerObjetive)),
-                color,
-                overlay);
+        if(PlaceholderUtil.placeholderAPIHook()){
+            if (sender instanceof Player player) {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
+                BossBarUtils.sendBukkitBossBar(
+                    playerObjetive,
+                    time,
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player, playerObjetive)),
+                    color,
+                    overlay);
+            } else {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbarToParse));
+                BossBarUtils.sendBukkitBossBar(
+                    playerObjetive,
+                    time,
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(playerObjetive)),
+                    color,
+                    overlay);
+            }
         } else {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbarToParse));
-            BossBarUtils.sendBukkitBossBar(
-                playerObjetive,
-                time,
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(playerObjetive)),
-                color,
-                overlay);
+            if (sender instanceof Player player) {
+                BossBarUtils.sendBukkitBossBar(
+                    playerObjetive,
+                    time,
+                    MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player, playerObjetive)),
+                    color,
+                    overlay);
+            } else {
+                BossBarUtils.sendBukkitBossBar(
+                    playerObjetive,
+                    time,
+                    MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(playerObjetive)),
+                    color,
+                    overlay);
+            }
         }
 
         sender.sendMessage(

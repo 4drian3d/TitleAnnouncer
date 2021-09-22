@@ -5,9 +5,12 @@ import java.util.List;
 import org.bukkit.Bukkit;
 
 import static net.kyori.adventure.text.Component.text;
+
+import net.dreamerzero.titleannouncer.Announcer;
 import net.kyori.adventure.text.minimessage.Template;
 
 public class PlaceholderUtil {
+    private static boolean isPlaceholderAPIPresent;
     /**
      * Replace Placeholders in Title/ActionBar
      * for the context of Console
@@ -71,27 +74,21 @@ public class PlaceholderUtil {
         return templates;
     }
 
-    public static String replaceLegacy(String legacyText){
-        String newText = legacyText
-            .replaceAll("&1", "<dark_blue>")
-            .replaceAll("&2", "<dark_green>")
-            .replaceAll("&3", "<dark_aqua>")
-            .replaceAll("&4", "<dark_red>")
-            .replaceAll("&5", "<dark_purple>")
-            .replaceAll("&6", "<gold>")
-            .replaceAll("&7", "<gray>")
-            .replaceAll("&8", "<dark_gray>")
-            .replaceAll("&9", "<blue>")
-            .replaceAll("&a", "<green>")
-            .replaceAll("&b", "<aqua>")
-            .replaceAll("&c", "<red>")
-            .replaceAll("&d", "<light_purple>")
-            .replaceAll("&e", "<yellow>")
-            .replaceAll("&f", "<white>")
-            .replaceAll("&l", "<bold>")
-            .replaceAll("&k", "<obfuscated>")
-            .replaceAll("&m", "<strikethrough>")
-            .replaceAll("&n", "<underline>");
-            return newText;
+    public static void setPAPIStatus(boolean status){
+        isPlaceholderAPIPresent = status;
     }
+
+    public static boolean placeholderAPIHook(){
+        return isPlaceholderAPIPresent;
+    }
+
+    public static void placeholderAPICheck(){
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+			Announcer.getInstance().getLogger().info("PlaceholderAPI founded. Enabling integration.");
+            isPlaceholderAPIPresent = true;
+		} else {
+			Announcer.getInstance().getLogger().info("PlaceholderAPI integration disabled.");
+			isPlaceholderAPIPresent = false;
+		}
+	}
 }

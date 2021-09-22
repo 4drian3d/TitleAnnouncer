@@ -84,16 +84,26 @@ public class WorldBossbarCommand implements CommandExecutor {
             return false;
         }
 
-        String announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
-
         // The audience that will receive the bossbar will be all the players on the server.
         Audience audience = player.getWorld();
-        BossBarUtils.sendBukkitBossBar(
+
+        if(PlaceholderUtil.placeholderAPIHook()){
+            String announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
+
+            BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
                 MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
                 color,
                 overlay);
+        } else {
+            BossBarUtils.sendBukkitBossBar(
+                audience,
+                time,
+                MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),
+                color,
+                overlay);
+        }
 
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(

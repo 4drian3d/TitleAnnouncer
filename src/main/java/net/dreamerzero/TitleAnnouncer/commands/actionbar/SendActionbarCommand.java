@@ -76,18 +76,30 @@ public class SendActionbarCommand implements CommandExecutor {
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         String actionbarToParse = actionbartext.toString();
+
         String announceToSend;
 
         // Send to all
-        if (sender instanceof Player player) {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(playerObjetive, actionbarToParse));
-            playerObjetive.sendActionBar(
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player, playerObjetive)));
+        if(PlaceholderUtil.placeholderAPIHook()){
+            if (sender instanceof Player player) {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(playerObjetive, actionbarToParse));
+                playerObjetive.sendActionBar(
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player, playerObjetive)));
+            } else {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(playerObjetive, actionbarToParse));
+                playerObjetive.sendActionBar(
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(playerObjetive)));
+            }
         } else {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(playerObjetive, actionbarToParse));
-            playerObjetive.sendActionBar(
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(playerObjetive)));
+            if (sender instanceof Player player) {
+                playerObjetive.sendActionBar(
+                    MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player, playerObjetive)));
+            } else {
+                playerObjetive.sendActionBar(
+                    MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(playerObjetive)));
+            }
         }
+        
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(

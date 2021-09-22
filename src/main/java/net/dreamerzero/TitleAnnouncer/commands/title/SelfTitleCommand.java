@@ -101,16 +101,28 @@ public class SelfTitleCommand implements CommandExecutor {
                         "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
             return false;
         }
-        String title = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
-        String subtitle = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
-        // Send the Title
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(title, replacePlaceholders(player)), 
-            MiniMessageUtil.parse(subtitle, replacePlaceholders(player)), 
-            sender,
-            1000,
-            3000,
-            1000);
+        if(PlaceholderUtil.placeholderAPIHook()){
+            String title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
+            String subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
+            // Send the Title
+            TitleUtil.sendTitle(
+                MiniMessageUtil.parse(title, replacePlaceholders(player)), 
+                MiniMessageUtil.parse(subtitle, replacePlaceholders(player)), 
+                sender,
+                1000,
+                3000,
+                1000);
+        } else {
+            // Send the Title
+            TitleUtil.sendTitle(
+                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
+                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)), 
+                sender,
+                1000,
+                3000,
+                1000);
+        }
+        
 
         // Send message to the sender
         sender.sendMessage(

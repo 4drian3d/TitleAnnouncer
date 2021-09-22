@@ -58,15 +58,26 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
         String announceToSend;
 
         // Send to all
-        if (sender instanceof Player player) {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
-            audience.sendActionBar(
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
+        if(PlaceholderUtil.placeholderAPIHook()){
+            if (sender instanceof Player player) {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
+                audience.sendActionBar(
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
+            } else {
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, actionbarToParse));
+                audience.sendActionBar(
+                    MiniMessageUtil.parse(announceToSend, replacePlaceholders()));
+            }
         } else {
-            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, actionbarToParse));
-            audience.sendActionBar(
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders()));
+            if (sender instanceof Player player) {
+                audience.sendActionBar(
+                    MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
+            } else {
+                audience.sendActionBar(
+                    MiniMessageUtil.parse(actionbarToParse, replacePlaceholders()));
+            }
         }
+        
 
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(

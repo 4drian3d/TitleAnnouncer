@@ -102,26 +102,50 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         String title;
         String subtitle;
 
-        if (sender instanceof Player player) {
-            title = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
-            subtitle = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
-            // Send the title
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(title, replacePlaceholders(player)), 
-                MiniMessageUtil.parse(subtitle, replacePlaceholders(player)),
-                audience,
-                1000,
-                3000,
-                1000);
+        if(PlaceholderUtil.placeholderAPIHook()){
+            if (sender instanceof Player player) {
+                title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
+                subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
+                // Send the title
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(title, replacePlaceholders(player)), 
+                    MiniMessageUtil.parse(subtitle, replacePlaceholders(player)),
+                    audience,
+                    1000,
+                    3000,
+                    1000);
+            } else {
+                title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]));
+                subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]));
+                // Send the title
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(title, replacePlaceholders()), 
+                    MiniMessageUtil.parse(subtitle, replacePlaceholders()),
+                    audience,
+                    1000,
+                    3000,
+                    1000);
+            }
         } else {
-            // Send the title
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders()), 
-                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders()),
-                audience,
-                1000,
-                3000,
-                1000);
+            if (sender instanceof Player player) {
+                // Send the title
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
+                    MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)),
+                    audience,
+                    1000,
+                    3000,
+                    1000);
+            } else {
+                // Send the title
+                TitleUtil.sendTitle(
+                    MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders()), 
+                    MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders()),
+                    audience,
+                    1000,
+                    3000,
+                    1000);
+            }
         }
 
         // Send message to the sender

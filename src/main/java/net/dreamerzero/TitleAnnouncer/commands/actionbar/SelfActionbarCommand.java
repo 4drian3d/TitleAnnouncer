@@ -57,16 +57,27 @@ public class SelfActionbarCommand implements CommandExecutor {
 
         // Convert StringBuilder to String, Component is not compatible :nimodo:
         String actionbarToParse = actionbartext.toString();
-        String announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
 
-        // Send to sender
-        sender.sendActionBar(
-            MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
-        sender.sendMessage(
-            prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString(
-                    "messages.actionbar.successfully",
-                    "<green>Actionbar succesfully sended</green>"))));
+        if(PlaceholderUtil.placeholderAPIHook()){
+            String announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
+            // Send to sender
+            sender.sendActionBar(
+                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
+                sender.sendMessage(
+                    prefix.append(MiniMessageUtil.parse(
+                        plugin.getConfig().getString(
+                            "messages.actionbar.successfully",
+                            "<green>Actionbar succesfully sended</green>"))));
+        } else {
+            // Send to sender
+            sender.sendActionBar(
+                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
+                sender.sendMessage(
+                    prefix.append(MiniMessageUtil.parse(
+                        plugin.getConfig().getString(
+                            "messages.actionbar.successfully",
+                            "<green>Actionbar succesfully sended</green>"))));
+        }
 
         String soundToPlay = plugin.getConfig().getString(
             "sounds.actionbar.sound-id",
