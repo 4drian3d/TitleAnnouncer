@@ -7,9 +7,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
 import net.dreamerzero.titleannouncer.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
@@ -82,12 +84,14 @@ public class WorldBossbarCommand implements CommandExecutor {
             return false;
         }
 
+        String announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
+
         // The audience that will receive the bossbar will be all the players on the server.
         Audience audience = player.getWorld();
         BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
-                MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),
+                MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
                 color,
                 overlay);
 

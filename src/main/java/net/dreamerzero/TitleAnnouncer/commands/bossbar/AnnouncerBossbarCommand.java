@@ -8,9 +8,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
 import net.dreamerzero.titleannouncer.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
@@ -78,20 +80,23 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
+        String announceToSend;
 
         // Send to all
         if (sender instanceof Player player) {
+            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
             BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
-                MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
+                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
                 color,
                 overlay);
         } else {
+            announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbarToParse));
             BossBarUtils.sendBukkitBossBar(
                 audience,
                 time,
-                MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),
+                MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
                 color,
                 overlay);
         }

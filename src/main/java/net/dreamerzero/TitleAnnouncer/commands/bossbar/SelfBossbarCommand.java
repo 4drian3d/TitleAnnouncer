@@ -7,9 +7,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
 import net.dreamerzero.titleannouncer.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -80,11 +82,11 @@ public class SelfBossbarCommand implements CommandExecutor {
             sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
-
+        String announceToSend = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
         BossBarUtils.sendBukkitBossBar(
             player,
             time,
-            MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
+            MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
             color,
             overlay);
 

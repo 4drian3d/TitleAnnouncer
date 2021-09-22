@@ -8,8 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.dreamerzero.titleannouncer.utils.TitleUtil;
 import net.kyori.adventure.audience.Audience;
@@ -97,11 +99,16 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             return false;
         }
 
+        String title;
+        String subtitle;
+
         if (sender instanceof Player player) {
+            title = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
+            subtitle = PlaceholderUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)), 
-                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)),
+                MiniMessageUtil.parse(title, replacePlaceholders(player)), 
+                MiniMessageUtil.parse(subtitle, replacePlaceholders(player)),
                 audience,
                 1000,
                 3000,
