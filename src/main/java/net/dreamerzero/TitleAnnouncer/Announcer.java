@@ -5,7 +5,7 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.dreamerzero.titleannouncer.listeners.PluginDisableListener;
+import net.dreamerzero.titleannouncer.listeners.PluginListener;
 import net.dreamerzero.titleannouncer.listeners.TabCompleteListener;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
@@ -51,7 +51,7 @@ public class Announcer extends JavaPlugin {
 
 	public void listenerRegister() {
 		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
-		getServer().getPluginManager().registerEvents(new PluginDisableListener(), this);
+		getServer().getPluginManager().registerEvents(new PluginListener(), this);
 	}
 
 	public void pluginConfiguration() {

@@ -8,7 +8,7 @@ description: >
     Plugin created to send titles, actionbars and bossbars to the
     player and the server in general using the MiniMessage format.
 api-version: 1.16
-soft-depend: [PlaceholderAPI]
+softdepend: [PlaceholderAPI]
 commands:
     announcer:
         aliases: [titleannouncer]
