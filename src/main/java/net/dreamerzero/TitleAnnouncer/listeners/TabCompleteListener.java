@@ -53,7 +53,7 @@ public class TabCompleteListener implements Listener {
                 }
             }
             case "sendtitle" -> {
-                if (tokens.length == 1){
+                if (tokens.length <= 2){
                     for (Player player : players) {
                         event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#94EFFB:#D3FDAA>Player in the server</gradient>")));
                     }
@@ -67,7 +67,7 @@ public class TabCompleteListener implements Listener {
             case "announceactionbar", "worldactionbar", "selfactionbar" -> event.completions().add(completion("[message]",
                     MiniMessageUtil.parse("<gradient:#FB5DB2:#B3FD14>Message to announce</gradient>")));
             case "sendactionbar" -> {
-                if (tokens.length == 1){
+                if (tokens.length <= 2){
                     for (Player player : players) {
                         event.completions().add(completion(player.getName(), MiniMessageUtil.parse("<gradient:#99FB1C:#D3FDAA>Players in the server</gradient>")));
                     }
