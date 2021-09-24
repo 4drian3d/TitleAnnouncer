@@ -19,13 +19,13 @@ public class RegisterCommands {
     public static void registerBossbar() {
         final var plugin = Announcer.getInstance();
         plugin.getCommand("announcebossbar")
-			.setExecutor(new AnnouncerBossbarCommand(plugin));
+			.setExecutor(new AnnouncerBossbarCommand());
 		plugin.getCommand("selfbossbar")
 			.setExecutor(new SelfBossbarCommand(plugin));
 		plugin.getCommand("worldbossbar")
 			.setExecutor(new WorldBossbarCommand(plugin));
 		plugin.getCommand("sendbossbar")
-			.setExecutor(new SendBossbarCommand(plugin));
+			.setExecutor(new SendBossbarCommand());
     }
     public static void registerTitle() {
         final var plugin = Announcer.getInstance();

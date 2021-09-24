@@ -10,7 +10,7 @@ public class ConfigUtils {
     private static final Announcer plugin = Announcer.getInstance();
     private static FileConfiguration config = plugin.getConfig();
 
-    private static Component getPrefix(){
+    public static Component getPrefix(){
         if (config.getBoolean("messages.prefix.enabled", true)) {
             return MiniMessageUtil.parse(config.getString(
                 "messages.prefix.line",
@@ -156,4 +156,87 @@ public class ConfigUtils {
         }
     }
 
+    /*-----------------------------
+    BOSSBAR CONFIGURATION
+    -----------------------------*/
+
+    public static void sendNoBossbarPermission(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.bossbar.no-permission",
+                "<red>You do not have permission to execute this command</red>"))));
+    }
+
+    public static void sendBossbarConfirmation(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.bossbar.successfully",
+                "<green>Bossbar succesfully sended</green>"))));
+    }
+
+    public static void bossbarPlayerNotFoundMessage(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.bossbar.player-not-found",
+                "<red>Player not found</red>"))));
+    }
+
+    public static String getBossbarSound(){
+        return config.getString(
+            "sounds.bossbar.sound-id",
+            "entity.experience_orb.pickup");
+    }
+
+    public static boolean isBossbarSoundEnabled(){
+        return config.getBoolean("sounds.bossbar.enabled", true);
+    }
+
+    static float getBossbarSoundVolume(){
+        return config.getInt("sounds.bossbar.volume", 10);
+    }
+
+    static float getBossbarSoundPitch(){
+        return config.getInt("sounds.bossbar.pitch", 2);
+    }
+
+    public static void playBossbarSound(Audience audience){
+        if(isBossbarSoundEnabled()){
+            SoundUtil.playSound(
+                getBossbarSound(),
+                audience,
+                getBossbarSoundVolume(),
+                getBossbarSoundPitch());
+        }
+    }
+
+    /*
+    GENERAL CONFIGURATION
+    */
+    public static void sendNoMainPermission(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.general.no-permission",
+                "<red>You do not have permission to execute this command</red>"))));
+    }
+
+    public static void reloadMessage(Audience sender){
+        sender.sendMessage(MiniMessageUtil.parse(
+            config.getString(
+                "messages.general.help-message", 
+                "<white>Available Commands:</white>")));
+    }
+
+    public static void invalidCommand(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.general.invalid-command",
+                "<red>Unknown Command</red>"))));
+    }
+
+    public static void helpPrefix(Audience sender){
+        sender.sendMessage(MiniMessageUtil.parse(
+            config.getString(
+                "messages.general.help-message", 
+                "<white>Available Commands:</white>")));
+    }
 }

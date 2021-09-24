@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.dreamerzero.titleannouncer.Announcer;
 import net.dreamerzero.titleannouncer.utils.BossBarUtils;
+import net.dreamerzero.titleannouncer.utils.ConfigUtils;
+import net.dreamerzero.titleannouncer.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -21,54 +21,32 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.util.TriState;
 
 public class AnnouncerBossbarCommand implements CommandExecutor {
-    private final Announcer plugin;
-    public AnnouncerBossbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public AnnouncerBossbarCommand() {}
 
     // The audience that will receive the bossbar will be all the players on the server.
-    private Audience audience = Bukkit.getServer();
+    Audience audience = Bukkit.getServer();
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
-        Component prefix = Component.text("");
-
-        if (enabledPrefix) {
-            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line",
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
-        }
         // Permission Check
         if (sender.permissionValue("announcer.bossbar.global") != TriState.TRUE) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.bossbar.no-permission",
-                        "<red>You do not have permission to execute this command</red>"))));
+            ConfigUtils.sendNoBossbarPermission(sender);
             return true;
         }
 
         // The command requires arguments to work
-        if (!BossBarUtils.regularBossbarArgs(args.length, sender, prefix)) {
+        if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        StringBuilder bossbartext = new StringBuilder();
-        for (byte i = 3; i < args.length; i++) {
-            bossbartext = bossbartext.append(" ");
-            bossbartext = bossbartext.append(args[i]);
-        }
+        String bossbartext = GeneralUtils.getCommandString(args, 3);
 
-        // Convert StringBuilder to String, Component is not compatible :nimodo:
-        var bossbarToParse = bossbartext.toString();
         float time;
-        try {
-            time = Integer.parseInt(args[0]);
-        } catch (Exception e){
-            sender.sendMessage(prefix.append(Component.text("This is not a valid number", NamedTextColor.DARK_RED)));
+        if(BossBarUtils.validBossbarNumber(args[0], sender) == 0.1f){
             return false;
+        } else {
+            time = BossBarUtils.validBossbarNumber(args[0], sender);
         }
 
         BossBar.Color color;
@@ -78,28 +56,34 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(prefix.append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
         String announceToSend;
         if(PlaceholderUtil.placeholderAPIHook()){
             // Send to all
             if (sender instanceof Player player) {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbarToParse));
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbartext));
                 BossBarUtils.sendBukkitBossBar(
                 audience,
                     time,
                     MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
                     color,
                     overlay);
+                ConfigUtils.sendBossbarConfirmation(sender);
+                ConfigUtils.playBossbarSound(audience);
+                return true;
             } else {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbarToParse));
+                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbartext));
                 BossBarUtils.sendBukkitBossBar(
                     audience,
                     time,
                     MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
                     color,
                     overlay);
+                ConfigUtils.sendBossbarConfirmation(sender);
+                ConfigUtils.playBossbarSound(audience);
+                return true;
             }
         } else {
             // Send to all
@@ -107,41 +91,23 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
                 BossBarUtils.sendBukkitBossBar(
                 audience,
                     time,
-                    MiniMessageUtil.parse(bossbarToParse, replacePlaceholders(player)),
+                    MiniMessageUtil.parse(bossbartext, replacePlaceholders(player)),
                     color,
                     overlay);
+                ConfigUtils.sendBossbarConfirmation(sender);
+                ConfigUtils.playBossbarSound(audience);
+                return true;
             } else {
                 BossBarUtils.sendBukkitBossBar(
                     audience,
                     time,
-                    MiniMessageUtil.parse(bossbarToParse, replacePlaceholders()),
+                    MiniMessageUtil.parse(bossbartext, replacePlaceholders()),
                     color,
                     overlay);
+                ConfigUtils.sendBossbarConfirmation(sender);
+                ConfigUtils.playBossbarSound(audience);
+                return true;
             }
         }
-
-        sender.sendMessage(
-            prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString(
-                    "messages.bossbar.successfully",
-                    "<green>Bossbar succesfully sended</green>"))));
-
-        String soundToPlay = plugin.getConfig().getString(
-            "sounds.bossbar.sound-id",
-            "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.bossbar.enabled", true);
-        float volume = plugin.getConfig().getInt("sounds.bossbar.volume", 10);
-        float pitch = plugin.getConfig().getInt("sounds.bossbar.pitch", 2);
-
-        if (soundEnabled) {
-            // Play the sound
-            SoundUtil.playSound(
-                soundToPlay,
-                audience,
-                volume,
-                pitch
-            );
-        }
-        return true;
     }
 }

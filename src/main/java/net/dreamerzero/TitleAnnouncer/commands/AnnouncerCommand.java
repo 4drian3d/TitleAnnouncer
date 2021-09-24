@@ -5,11 +5,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.util.TriState;
 
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.newline;
@@ -202,39 +202,25 @@ public class AnnouncerCommand implements CommandExecutor {
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
-
-        Component prefix = text("");
-        Component announce = MiniMessageUtil.parse(
-                "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"
-        );
-
-        if (enabledPrefix) {
-            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line",
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
-        }
-
-        if (sender.permissionValue("announcer.command.show") != TriState.TRUE) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.general.no-permission",
-                        "<red>You do not have permission to execute this command</red>"))));
-            return false;
-        }
-        if (sender.permissionValue("announcer.command.admin") != TriState.TRUE) {
-            sender.sendMessage(announce);
-            return false;
+        switch (sender.permissionValue("announcer.command.show")){
+            case NOT_SET -> {
+                sender.sendMessage(
+                    MiniMessageUtil.parse(
+                    "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
+                return true;
+            }
+            case FALSE -> {
+                ConfigUtils.sendNoMainPermission(sender);
+                return true;
+            }
+            case TRUE -> {}
         }
 
         if (args.length == 0) {
-            sender.sendMessage(announce);
             sender.sendMessage(
                 MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.general.help-message",
-                        "<white>Available Commands:</white>")));
+                "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
+            ConfigUtils.helpPrefix(sender);
             sender.sendMessage(titleHelpMessage);
             sender.sendMessage(actionbarHelpMessage);
             sender.sendMessage(bossbarHelpMessage);
@@ -244,20 +230,14 @@ public class AnnouncerCommand implements CommandExecutor {
         switch (args[0].toLowerCase()) {
             case "reload" -> {
                 plugin.reloadConfig();
-                sender.sendMessage(
-                    prefix.append(MiniMessageUtil.parse(
-                        plugin.getConfig().getString(
-                            "messages.general.reload-config", 
-                            "<green>Config Reloaded</green>"))));
+                ConfigUtils.reloadMessage(sender);
                 return true;
             }
             case "help" -> {
-                sender.sendMessage(announce);
                 sender.sendMessage(
                     MiniMessageUtil.parse(
-                        plugin.getConfig().getString(
-                            "messages.general.help-message", 
-                            "<white>Available Commands:</white>")));
+                    "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
+                ConfigUtils.helpPrefix(sender);
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
@@ -292,11 +272,7 @@ public class AnnouncerCommand implements CommandExecutor {
                 }
             }
             default -> {
-                sender.sendMessage(
-                    prefix.append(MiniMessageUtil.parse(
-                        plugin.getConfig().getString(
-                            "messages.general.invalid-command",
-                            "<red>Unknown Command</red>"))));
+                ConfigUtils.invalidCommand(sender);
                 return false;
             }
         }

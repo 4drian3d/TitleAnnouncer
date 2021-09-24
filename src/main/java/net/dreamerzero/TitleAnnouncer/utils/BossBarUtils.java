@@ -94,12 +94,12 @@ public class BossBarUtils {
     }
 
     // It will return if the given arguments are correct for the command to work correctly.
-    public static boolean regularBossbarArgs(int length, Audience sender, Component prefix) {
+    public static boolean regularBossbarArgs(int length, Audience sender) {
         // The command requires arguments to work
         switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
                     Announcer.getInstance().getConfig().getString(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
@@ -107,7 +107,7 @@ public class BossBarUtils {
             }
             case 1 -> {
                 sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
+                    ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
                     Announcer.getInstance().getConfig().getString(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color and the message arguments.</gray>"))));
@@ -115,7 +115,7 @@ public class BossBarUtils {
             }
             case 2 -> {
                 sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
+                    ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
                     Announcer.getInstance().getConfig().getString(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
@@ -123,13 +123,71 @@ public class BossBarUtils {
             }
             case 3 -> {
                 sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
+                    ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
                     Announcer.getInstance().getConfig().getString(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
                 return false;
             }
             default -> {return true;}
+        }
+    }
+
+    public static boolean sendBossbarArgs(int length, Audience sender) {
+        var plugin = Announcer.getInstance();
+        return switch (length) {
+            case 0 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.without-argument",
+                        "<red>You need to enter the time, color and message arguments.</red>"))));
+                yield false;
+            }
+            case 1 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.only-player",
+                        "<gray>You must enter the message to be sent after the player's name.</gray>"))));
+                yield false;
+            }
+            case 2 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.only-time",
+                        "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
+                yield false;
+            }
+            case 3 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.overlay-missing",
+                        "<gray>You must enter the overlay and the message arguments.</gray>"))));
+                yield false;
+            }
+            case 4 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    plugin.getConfig().getString(
+                        "messages.bossbar.without-message",
+                        "<gray>You need to enter the message to announce.</gray>"))));
+                yield false;
+            }
+            default -> true;
+        };
+    }
+
+    public static float validBossbarNumber(String number, Audience sender){
+        try {
+            return Integer.parseInt(number);
+        } catch (Exception e){
+            sender.sendMessage(
+                ConfigUtils.getPrefix().append(
+                    MiniMessageUtil.parse("<dark_red>This is not a valid number")));
+            return 0.1f;
         }
     }
 }
