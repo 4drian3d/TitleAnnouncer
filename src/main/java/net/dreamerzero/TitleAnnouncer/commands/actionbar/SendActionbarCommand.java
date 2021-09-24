@@ -14,6 +14,7 @@ import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.util.TriState;
 
 public class SendActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -33,7 +34,7 @@ public class SendActionbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!sender.hasPermission("announcer.actionbar.send")) {
+        if (sender.permissionValue("announcer.actionbar.send") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

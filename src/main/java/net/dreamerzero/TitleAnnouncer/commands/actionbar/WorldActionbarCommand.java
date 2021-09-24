@@ -14,6 +14,7 @@ import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.util.TriState;
 
 public class WorldActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -40,7 +41,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (!player.hasPermission("announcer.actionbar.world")) {
+        if (player.permissionValue("announcer.actionbar.world") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -73,7 +74,6 @@ public class WorldActionbarCommand implements CommandExecutor {
                 MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
         }
 
-        
         sender.sendMessage(
             prefix.append(MiniMessageUtil.parse(
                 plugin.getConfig().getString(

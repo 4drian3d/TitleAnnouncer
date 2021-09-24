@@ -9,6 +9,7 @@ import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.util.TriState;
 
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.newline;
@@ -214,7 +215,7 @@ public class AnnouncerCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
-        if (!sender.hasPermission("announcer.command.show")) {
+        if (sender.permissionValue("announcer.command.show") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -222,7 +223,7 @@ public class AnnouncerCommand implements CommandExecutor {
                         "<red>You do not have permission to execute this command</red>"))));
             return false;
         }
-        if (!sender.hasPermission("announcer.command.admin")) {
+        if (sender.permissionValue("announcer.command.admin") != TriState.TRUE) {
             sender.sendMessage(announce);
             return false;
         }

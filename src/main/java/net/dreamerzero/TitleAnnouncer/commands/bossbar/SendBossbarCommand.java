@@ -17,6 +17,7 @@ import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.util.TriState;
 
 public class SendBossbarCommand implements CommandExecutor{
     private final Announcer plugin;
@@ -35,7 +36,7 @@ public class SendBossbarCommand implements CommandExecutor{
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!sender.hasPermission("announcer.bossbar.send")) {
+        if (sender.permissionValue("announcer.bossbar.send") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
@@ -92,7 +93,7 @@ public class SendBossbarCommand implements CommandExecutor{
         Player playerObjetive = Bukkit.getPlayer(args[0]);
 
         //Collection of all players in the server
-        final var serverplayers = Bukkit.getOnlinePlayers();
+        var serverplayers = Bukkit.getOnlinePlayers();
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.

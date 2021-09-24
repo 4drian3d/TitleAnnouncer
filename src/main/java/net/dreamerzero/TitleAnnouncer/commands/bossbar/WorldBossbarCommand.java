@@ -17,6 +17,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.util.TriState;
 
 public class WorldBossbarCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -42,7 +43,7 @@ public class WorldBossbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!sender.hasPermission("announcer.bossbar.world")) {
+        if (sender.permissionValue("announcer.bossbar.world") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

@@ -16,6 +16,7 @@ import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.util.TriState;
 
 public class SelfBossbarCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -40,7 +41,7 @@ public class SelfBossbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!sender.hasPermission("announcer.bossbar.self")) {
+        if (sender.permissionValue("announcer.bossbar.self") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

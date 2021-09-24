@@ -15,6 +15,7 @@ import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.util.TriState;
 
 public class AnnouncerActionbarCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -36,7 +37,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
         // Permission Check
-        if (!sender.hasPermission("announcer.actionbar.global")) {
+        if (sender.permissionValue("announcer.actionbar.global") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(
