@@ -36,7 +36,7 @@ public class RegisterCommands {
 		plugin.getCommand("worldtitle")
 			.setExecutor(new WorldTitleCommand(plugin));
 		plugin.getCommand("sendtitle")
-			.setExecutor(new SendTitleCommand(plugin));
+			.setExecutor(new SendTitleCommand());
     }
     public static void registerActionbar() {
         final var plugin = Announcer.getInstance();

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.utils.ConfigUtils;
+import net.dreamerzero.titleannouncer.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.TitleUtil;
@@ -36,7 +37,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         }
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = TitleUtil.getCommandString(args);
+        String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         if(!titleandsubtitle.contains(";")){
             if(PlaceholderUtil.placeholderAPIHook()){
@@ -73,7 +74,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                     TitleUtil.sendOnlyTitle(
                         MiniMessageUtil.parse(
                         MiniMessageUtil.replaceLegacy(
-                            titleandsubtitle.toString()), replacePlaceholders()),
+                            titleandsubtitle), replacePlaceholders()),
                             audience, 1000, 3000, 1000);
                     ConfigUtils.sendTitleConfirmation(sender);
                     ConfigUtils.playTitleSound(audience);

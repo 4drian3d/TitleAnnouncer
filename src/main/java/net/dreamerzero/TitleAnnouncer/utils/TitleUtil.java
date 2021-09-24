@@ -88,17 +88,6 @@ public class TitleUtil {
         audience.sendTitlePart(TitlePart.TIMES, times);
     }
 
-    public static String getCommandString(String[] args){
-        // Concatenate the arguments provided by the command sent.
-        var titleandsubtitle = new StringBuilder();
-        for (String argument : args) {
-            titleandsubtitle = titleandsubtitle.append(" ");
-            titleandsubtitle = titleandsubtitle.append(argument);
-        }
-
-        return titleandsubtitle.toString();
-    }
-
     public static String[] getTitleAndSubtitle(String string, Audience sender) {
         try {
             String newString[] = string.split(";");

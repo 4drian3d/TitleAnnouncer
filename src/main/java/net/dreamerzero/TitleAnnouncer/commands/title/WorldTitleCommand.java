@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
 import net.dreamerzero.titleannouncer.utils.ConfigUtils;
+import net.dreamerzero.titleannouncer.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.TitleUtil;
@@ -47,7 +48,7 @@ public class WorldTitleCommand implements CommandExecutor {
         }
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = TitleUtil.getCommandString(args);
+        String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         if(!titleandsubtitle.contains(";")){
             if(PlaceholderUtil.placeholderAPIHook()){

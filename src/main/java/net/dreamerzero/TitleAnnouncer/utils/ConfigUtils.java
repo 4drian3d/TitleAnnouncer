@@ -25,32 +25,45 @@ public class ConfigUtils {
     -----------------------------*/
 
     public static void sendTitleError(Audience sender){
-        sender.sendMessage(
-            getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
-                    "messages.title.error",
-                    "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.title.error",
+                "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
     }
 
     public static void sendTitleConfirmation(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
-                    "messages.title.successfully",
-                    "<green>Title succesfully sended</green>"))));
+            config.getString(
+                "messages.title.successfully",
+                "<green>Title succesfully sended</green>"))));
     }
 
     public static void sendNoTitlePermission(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
-                    "messages.title.no-permission",
-                    "<red>You do not have permission to execute this command</red>"))));
+            config.getString(
+                "messages.title.no-permission",
+                "<red>You do not have permission to execute this command</red>"))));
     }
 
     public static void sendNoArgumentMessage(Audience sender) {
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
-                    "messages.title.without-argument",
-                    "<red>You need to enter the title and subtitle arguments.</red>"))));
+            config.getString(
+                "messages.title.without-argument",
+                "<red>You need to enter the title and subtitle arguments.</red>"))));
+    }
+
+    public static void noPlayerArgumentProvided(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.title.only-player",
+                "<gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"))));
+    }
+
+    public static void playerNotFoundMessage(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.title.player-not-found",
+                "<red>Player not found</red>"))));
     }
 
     public static String getTitleSound(){

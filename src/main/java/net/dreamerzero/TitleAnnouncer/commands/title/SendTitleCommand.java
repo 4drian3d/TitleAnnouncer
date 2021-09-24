@@ -9,112 +9,97 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.ConfigUtils;
+import net.dreamerzero.titleannouncer.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.dreamerzero.titleannouncer.utils.TitleUtil;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.util.TriState;
 
 public class SendTitleCommand implements CommandExecutor {
-    private final Announcer plugin;
-
-    public SendTitleCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public SendTitleCommand() {}
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
-        Component prefix = Component.text("");
-
-        if (enabledPrefix) {
-            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line",
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
-        }
-
-        //TODO: Finish implementation for titlepart
-
         // Permission Check
         if (sender.permissionValue("announcer.title.send") != TriState.TRUE) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.no-permission",
-                        "<red>You do not have permission to execute this command</red>"))));
+            ConfigUtils.sendNoTitlePermission(sender);
             return true;
         }
 
         // The command requires arguments to work
         switch (args.length) {
             case 0 -> {
-                sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.without-argument",
-                        "<red>You need to enter the title and subtitle arguments.</red>"))));
+                ConfigUtils.sendNoArgumentMessage(sender);
                 return true;
             }
             case 1 -> {
-                sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.only-player",
-                        "<gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"))));
-                return true;
-            }
-            case 2 -> {
-                sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.single-argument",
-                        "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
+                ConfigUtils.noPlayerArgumentProvided(sender);
                 return true;
             }
         }
 
         // Concatenate the arguments provided by the command sent.
-        var titleandsubtitle = new StringBuilder();
-        for (byte i = 1; i < args.length; i++) {
-            titleandsubtitle = titleandsubtitle.append(" ");
-            titleandsubtitle = titleandsubtitle.append(args[i]);
-        }
+        var titleandsubtitle = GeneralUtils.getCommandString(args, 1);
 
-        String soundToPlay = plugin.getConfig().getString(
-            "sounds.title.sound-id",
-            "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
-        int volume = plugin.getConfig().getInt("sounds.title.volume", 10);
-        int pitch = plugin.getConfig().getInt("sounds.title.pitch", 2);
-
-        String titleandsubtitlefinal[];
-
-        try {
-            // Convert StringBuilder to String, Component is not compatible :nimodo:
-            titleandsubtitlefinal = titleandsubtitle.toString().split(";");
-        // In case the command does not contain a separator ";",
-        // it will catch the error in the console and send an error message to the sender.
-        } catch (Exception e) {
-            // Send an error message to the sender using the command
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.error",
-                        "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
-            return false;
-        }
         var serverplayers = Bukkit.getOnlinePlayers();
         Player playerObjetive = Bukkit.getPlayer(args[0]);
 
+        if(!titleandsubtitle.contains(";")){
+            if(PlaceholderUtil.placeholderAPIHook()){
+                if(sender instanceof Player player){
+                    TitleUtil.sendOnlyTitle(
+                        MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            PlaceholderAPI.setPlaceholders(player, titleandsubtitle)), replacePlaceholders(player, playerObjetive)),
+                            playerObjetive, 1000, 3000, 1000);
+                    ConfigUtils.sendTitleConfirmation(sender);
+                    ConfigUtils.playTitleSound(playerObjetive);
+                    return true;
+                } else {
+                    TitleUtil.sendOnlyTitle(
+                        MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle)), replacePlaceholders(playerObjetive)),
+                            playerObjetive, 1000, 3000, 1000);
+                    ConfigUtils.sendTitleConfirmation(sender);
+                    ConfigUtils.playTitleSound(playerObjetive);
+                    return true;
+                }
+            } else {
+                if(sender instanceof Player player){
+                    TitleUtil.sendOnlyTitle(
+                        MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            titleandsubtitle), replacePlaceholders(player, playerObjetive)),
+                            playerObjetive, 1000, 3000, 1000);
+                    ConfigUtils.sendTitleConfirmation(sender);
+                    ConfigUtils.playTitleSound(playerObjetive);
+                    return true;
+                } else {
+                    TitleUtil.sendOnlyTitle(
+                        MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            titleandsubtitle), replacePlaceholders(playerObjetive)),
+                            playerObjetive, 1000, 3000, 1000);
+                    ConfigUtils.sendTitleConfirmation(sender);
+                    ConfigUtils.playTitleSound(playerObjetive);
+                    return true;
+                }
+            }
+        }
+
+        String titleandsubtitlefinal[];
+
+        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null){
+            return false;
+        } else {
+            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        }
+
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.player-not-found",
-                        "<red>Player not found</red>"))));
+            ConfigUtils.playerNotFoundMessage(sender);
             return false;
         }
         String title;
@@ -132,6 +117,9 @@ public class SendTitleCommand implements CommandExecutor {
                     1000,
                     3000,
                     1000);
+                ConfigUtils.playTitleSound(playerObjetive);
+                ConfigUtils.sendTitleConfirmation(sender);
+                return true;
             } else {
                 title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]));
                 subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]));
@@ -142,6 +130,9 @@ public class SendTitleCommand implements CommandExecutor {
                     1000,
                     3000,
                     1000);
+                ConfigUtils.playTitleSound(playerObjetive);
+                ConfigUtils.sendTitleConfirmation(sender);
+                return true;
             }
         } else {
             if (sender instanceof Player player) {
@@ -153,6 +144,9 @@ public class SendTitleCommand implements CommandExecutor {
                     1000,
                     3000,
                     1000);
+                ConfigUtils.playTitleSound(playerObjetive);
+                ConfigUtils.sendTitleConfirmation(sender);
+                return true;
             } else {
                 TitleUtil.sendTitle(
                     MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(playerObjetive)),
@@ -161,25 +155,10 @@ public class SendTitleCommand implements CommandExecutor {
                     1000,
                     3000,
                     1000);
+                ConfigUtils.playTitleSound(playerObjetive);
+                ConfigUtils.sendTitleConfirmation(sender);
+                return true;
             }
         }
-
-        if (soundEnabled) {
-            //Play the sound
-            SoundUtil.playSound(
-            soundToPlay,
-            playerObjetive,
-            volume,
-            pitch);
-        }
-
-        // Send message to the sender
-        sender.sendMessage(
-            prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString(
-                    "messages.title.successfully",
-                    "<green>Title succesfully sended</green>"))));
-
-        return true;
     }
 }
