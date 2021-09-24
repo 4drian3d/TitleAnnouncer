@@ -15,6 +15,7 @@ import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.dreamerzero.titleannouncer.utils.TitleUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.util.TriState;
 
 public class SendTitleCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -34,8 +35,10 @@ public class SendTitleCommand implements CommandExecutor {
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         }
 
+        //TODO: Finish implementation for titlepart
+
         // Permission Check
-        if (!sender.hasPermission("announcer.title.send")) {
+        if (sender.permissionValue("announcer.title.send") != TriState.TRUE) {
             sender.sendMessage(
                 prefix.append(MiniMessageUtil.parse(
                     plugin.getConfig().getString(

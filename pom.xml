@@ -6,7 +6,7 @@
 
     <groupId>net.dreamerzero.titleannouncer</groupId>
     <artifactId>TitleAnnouncer</artifactId>
-    <version>1.16.0</version>
+    <version>1.17.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -48,7 +48,6 @@
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.2.0-SNAPSHOT</version>
             <exclusions>
-                <!--Paper now includes Adventure-API-->
                 <exclusion>
                     <groupId>net.kyori</groupId>
                     <artifactId>adventure-api</artifactId>

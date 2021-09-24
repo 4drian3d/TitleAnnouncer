@@ -9,12 +9,12 @@ import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.dreamerzero.titleannouncer.utils.TitleUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.util.TriState;
 
 public class WorldTitleCommand implements CommandExecutor {
     private final Announcer plugin;
@@ -31,22 +31,9 @@ public class WorldTitleCommand implements CommandExecutor {
             return false;
         }
 
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
-        Component prefix = Component.text("");
-
-        if (enabledPrefix) {
-            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line",
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
-        }
-
         // Permission Check
-        if (!player.hasPermission("announcer.title.world")) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.no-permission",
-                        "<red>You do not have permission to execute this command</red>"))));
+        if (player.permissionValue("announcer.title.world") != TriState.TRUE) {
+            ConfigUtils.sendNoTitlePermission(sender);
             return true;
         }
 
@@ -54,55 +41,44 @@ public class WorldTitleCommand implements CommandExecutor {
         Audience audience = player.getWorld();
 
         // The command requires arguments to work
-        switch (args.length) {
-            case 0 -> {
-                sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.without-argument",
-                        "<red>You need to enter the title and subtitle arguments.</red>"))));
-                return true;
-            }
-            case 1 -> {
-                sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.single-argument",
-                        "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"))));
-                return true;
-            }
+        if(args.length == 0){
+            ConfigUtils.sendNoArgumentMessage(sender);
+            return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        var titleandsubtitle = new StringBuilder();
-        for (String argument : args) {
-            titleandsubtitle = titleandsubtitle.append(" ");
-            titleandsubtitle = titleandsubtitle.append(argument);
-        }
+        String titleandsubtitle = TitleUtil.getCommandString(args);
 
-        String soundToPlay = plugin.getConfig().getString(
-            "sounds.title.sound-id",
-            "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.title.enabled", true);
-        float volume = plugin.getConfig().getInt("sounds.title.volume", 10);
-        float pitch = plugin.getConfig().getInt("sounds.title.pitch", 10);
+        if(!titleandsubtitle.contains(";")){
+            if(PlaceholderUtil.placeholderAPIHook()){
+                TitleUtil.sendOnlyTitle(
+                    MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        PlaceholderAPI.setPlaceholders(player, titleandsubtitle)), replacePlaceholders(player)),
+                        sender, 1000, 3000, 1000);
+                ConfigUtils.sendTitleConfirmation(sender);
+                ConfigUtils.playTitleSound(sender);
+                return true;
+            } else {
+                TitleUtil.sendOnlyTitle(
+                    MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        titleandsubtitle), replacePlaceholders(player)),
+                        sender, 1000, 3000, 1000);
+                    ConfigUtils.sendTitleConfirmation(sender);
+                    ConfigUtils.playTitleSound(sender);
+                    return true;
+            }
+        }
 
         String titleandsubtitlefinal[];
 
-        try {
-            // Convert StringBuilder to String, Component is not compatible :nimodo:
-            titleandsubtitlefinal = titleandsubtitle.toString().split(";");
-        // In case the command does not contain a separator ";",
-        // it will catch the error in the console and send an error message to the sender.
-        } catch (Exception e) {
-            // Send an error message to the sender using the command
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.title.error",
-                        "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
+        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null){
             return false;
+        } else {
+            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
         }
+
         if(PlaceholderUtil.placeholderAPIHook()){
             String title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
             String subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
@@ -113,6 +89,9 @@ public class WorldTitleCommand implements CommandExecutor {
                 1000,
                 3000,
                 1000);
+            ConfigUtils.playTitleSound(audience);
+            ConfigUtils.sendTitleConfirmation(sender);
+            return true;
         } else {
             TitleUtil.sendTitle(
                 MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)),
@@ -121,25 +100,10 @@ public class WorldTitleCommand implements CommandExecutor {
                 1000,
                 3000,
                 1000);
-        }
-        
-
-        // Send message to the sender
-        sender.sendMessage(
-            prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString(
-                    "messages.title.successfully",
-                    "<green>Title succesfully sended</green>"))));
-
-        if (soundEnabled) {
-            //Play the sound
-            SoundUtil.playSound(
-                soundToPlay,
-                audience,
-                volume,
-                pitch);
+            ConfigUtils.playTitleSound(audience);
+            ConfigUtils.sendTitleConfirmation(sender);
+            return true;
         }
 
-        return true;
     }
 }

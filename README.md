@@ -154,6 +154,8 @@ A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessag
 
 
 ## Compatibility
-The plugin works in [Paper](https://papermc.io/), [Tuinity](https://github.com/Tuinity/Tuinity), [Airplane](https://github.com/TECHNOVE/Airplane) and [Purpur](https://purpur.pl3x.net/) 1.16.5 - 1.17.1
+The plugin works in [Paper](https://papermc.io/), [Airplane](https://github.com/TECHNOVE/Airplane) and [Purpur](https://purpur.pl3x.net/) 1.17.1
 
 It does not and will not work in Spigot or CraftBukkit. It will not work in Paper or fork versions 1.16.4 or lower.
+
+For Paper and forks 1.16.5, use plugin version 1.16.0

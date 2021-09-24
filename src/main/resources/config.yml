@@ -32,8 +32,6 @@ messages:
     # Message to be sent when executing the /sendtitle command and only the player is specified.
     only-player: " <gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"
     # Message displayed in case the command is executed with only one argument.
-    # In case you want to send a title without a subtitle,
-    # enter the title you want and in the subtitle field add a color <red> for example.
     single-argument: "<gray>You need to enter the title, the subtitle and the separator ';' in orden to send the title.</gray>"
     # Message displayed when the title has been displayed successfully
     successfully: "<green>Title succesfully sended</green>"

@@ -7,7 +7,7 @@ website: https://github.com/4drian3d/TitleAnnouncer
 description: >
     Plugin created to send titles, actionbars and bossbars to the
     player and the server in general using the MiniMessage format.
-api-version: 1.16
+api-version: 1.17
 softdepend: [PlaceholderAPI]
 commands:
     announcer:

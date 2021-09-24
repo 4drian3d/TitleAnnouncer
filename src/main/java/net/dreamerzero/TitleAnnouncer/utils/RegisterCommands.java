@@ -30,7 +30,7 @@ public class RegisterCommands {
     public static void registerTitle() {
         final var plugin = Announcer.getInstance();
         plugin.getCommand("announcetitle")
-			.setExecutor(new AnnouncerTitleCommand(plugin));
+			.setExecutor(new AnnouncerTitleCommand());
 		plugin.getCommand("selftitle")
 			.setExecutor(new SelfTitleCommand(plugin));
 		plugin.getCommand("worldtitle")
