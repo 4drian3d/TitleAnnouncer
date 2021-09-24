@@ -34,7 +34,7 @@ public class SendTitleCommand implements CommandExecutor {
                 return true;
             }
             case 1 -> {
-                ConfigUtils.noPlayerArgumentProvided(sender);
+                ConfigUtils.noTitlePlayerArgumentProvided(sender);
                 return true;
             }
         }
@@ -99,7 +99,7 @@ public class SendTitleCommand implements CommandExecutor {
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            ConfigUtils.playerNotFoundMessage(sender);
+            ConfigUtils.titlePlayerNotFoundMessage(sender);
             return false;
         }
         String title;

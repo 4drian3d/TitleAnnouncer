@@ -52,14 +52,14 @@ public class ConfigUtils {
                 "<red>You need to enter the title and subtitle arguments.</red>"))));
     }
 
-    public static void noPlayerArgumentProvided(Audience sender){
+    public static void noTitlePlayerArgumentProvided(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
             config.getString(
                 "messages.title.only-player",
                 "<gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"))));
     }
 
-    public static void playerNotFoundMessage(Audience sender){
+    public static void titlePlayerNotFoundMessage(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
             config.getString(
                 "messages.title.player-not-found",
@@ -91,6 +91,68 @@ public class ConfigUtils {
                 audience,
                 getTitleSoundVolume(),
                 getTitleSoundPitch());
+        }
+    }
+
+    /*-----------------------------
+    ACTIONBAR CONFIGURATION
+    -----------------------------*/
+    public static void sendNoActionbarPermission(Audience sender){
+        sender.sendMessage(
+            getPrefix().append(MiniMessageUtil.parse(
+                config.getString(
+                    "messages.actionbar.no-permission",
+                    "<red>You do not have permission to execute this command</red>"))));
+    }
+
+    public static void sendActionbarConfirmation(Audience sender){
+        sender.sendMessage(
+            getPrefix().append(MiniMessageUtil.parse(
+                config.getString(
+                    "messages.actionbar.successfully",
+                    "<green>Actionbar succesfully sended</green>"))));
+    }
+
+    public static void noActionbarPlayerArgumentProvided(Audience sender){
+        sender.sendMessage(
+            getPrefix().append(MiniMessageUtil.parse(
+                config.getString(
+                    "messages.actionbar.only-player",
+                    "<gray>You must enter the message to be sent after the player's name.</gray>"))));
+    }
+
+    public static void actionbarPlayerNotFoundMessage(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getString(
+                "messages.actionbar.player-not-found",
+                "<red>Player not found</red>"))));
+    }
+
+    public static String getActionbarSound(){
+        return config.getString(
+            "sounds.actionbar.sound-id",
+            "entity.experience_orb.pickup");
+    }
+
+    public static boolean isActionbarSoundEnabled(){
+        return config.getBoolean("sounds.actionbar.enabled", true);
+    }
+
+    static float getActionbarSoundVolume(){
+        return config.getInt("sounds.actionbar.volume", 10);
+    }
+
+    static float getActionbarSoundPitch(){
+        return config.getInt("sounds.actionbar.pitch", 2);
+    }
+
+    public static void playActionbarSound(Audience audience){
+        if(isActionbarSoundEnabled()){
+            SoundUtil.playSound(
+                getActionbarSound(),
+                audience,
+                getActionbarSoundVolume(),
+                getActionbarSoundPitch());
         }
     }
 

@@ -9,118 +9,76 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.ConfigUtils;
+import net.dreamerzero.titleannouncer.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.utils.SoundUtil;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.util.TriState;
 
 public class SendActionbarCommand implements CommandExecutor {
-    private final Announcer plugin;
-    public SendActionbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public SendActionbarCommand() {}
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
-        Component prefix = Component.text("");
-
-        if (enabledPrefix) {
-            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line",
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
-        }
-
         // Permission Check
         if (sender.permissionValue("announcer.actionbar.send") != TriState.TRUE) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.actionbar.no-permission",
-                        "<red>You do not have permission to execute this command</red>"))));
+            ConfigUtils.sendNoActionbarPermission(sender);
             return true;
         }
 
         if (args.length < 2) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.actionbar.only-player",
-                        "<gray>You must enter the message to be sent after the player's name.</gray>"))));
+            ConfigUtils.noActionbarPlayerArgumentProvided(sender);
             return false;
         }
 
         // Get the player
-        var playerObjetive = Bukkit.getPlayer(args[0]);
+        Player playerObjetive = Bukkit.getPlayer(args[0]);
 
         //Collection of all players in the server
         var serverplayers = Bukkit.getOnlinePlayers();
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.actionbar.player-not-found",
-                        "<red>Player not found</red>"))));
-                return false;
+            ConfigUtils.actionbarPlayerNotFoundMessage(sender);
+            return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        var actionbartext = new StringBuilder();
-        for (byte i = 1; i < args.length; i++) {
-            actionbartext = actionbartext.append(" ");
-            actionbartext = actionbartext.append(args[i]);
-        }
-
-        // Convert StringBuilder to String, Component is not compatible :nimodo:
-        String actionbarToParse = actionbartext.toString();
-
-        String announceToSend;
+        String actionbartext = GeneralUtils.getCommandString(args, 1);
 
         // Send to all
         if(PlaceholderUtil.placeholderAPIHook()){
             if (sender instanceof Player player) {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(playerObjetive, actionbarToParse));
                 playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player, playerObjetive)));
+                    MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext)), replacePlaceholders(player, playerObjetive)));
+                ConfigUtils.playActionbarSound(playerObjetive);
+                ConfigUtils.sendActionbarConfirmation(sender);
+                return true;
             } else {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(playerObjetive, actionbarToParse));
                 playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(playerObjetive)));
+                    MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext)), replacePlaceholders(playerObjetive)));
+                ConfigUtils.playActionbarSound(playerObjetive);
+                ConfigUtils.sendActionbarConfirmation(sender);
+                return true;
             }
         } else {
             if (sender instanceof Player player) {
                 playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player, playerObjetive)));
+                    MiniMessageUtil.parse(actionbartext, replacePlaceholders(player, playerObjetive)));
+                ConfigUtils.playActionbarSound(playerObjetive);
+                ConfigUtils.sendActionbarConfirmation(sender);
+                return true;
             } else {
                 playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(playerObjetive)));
+                    MiniMessageUtil.parse(actionbartext, replacePlaceholders(playerObjetive)));
+                ConfigUtils.playActionbarSound(playerObjetive);
+                ConfigUtils.sendActionbarConfirmation(sender);
+                return true;
             }
         }
-        
-        sender.sendMessage(
-            prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString(
-                    "messages.actionbar.successfully",
-                    "<green>Actionbar succesfully sended</green>"))));
-
-        String soundToPlay = plugin.getConfig().getString("sounds.actionbar.sound-id", "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
-        float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
-        float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
-
-        if (soundEnabled) {
-            // Play the sound
-            SoundUtil.playSound(
-                soundToPlay,
-                playerObjetive,
-                volume,
-                pitch
-            );
-        }
-        return true;
     }
 }

@@ -41,13 +41,13 @@ public class RegisterCommands {
     public static void registerActionbar() {
         final var plugin = Announcer.getInstance();
         plugin.getCommand("announceactionbar")
-			.setExecutor(new AnnouncerActionbarCommand(plugin));
+			.setExecutor(new AnnouncerActionbarCommand());
 		plugin.getCommand("selfactionbar")
 			.setExecutor(new SelfActionbarCommand(plugin));
 		plugin.getCommand("worldactionbar")
 			.setExecutor(new WorldActionbarCommand(plugin));
 		plugin.getCommand("sendactionbar")
-			.setExecutor(new SendActionbarCommand(plugin));
+			.setExecutor(new SendActionbarCommand());
     }
     public static void registerMainCommand(){
         final var plugin = Announcer.getInstance();

@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.Announcer;
+import net.dreamerzero.titleannouncer.utils.ConfigUtils;
+import net.dreamerzero.titleannouncer.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.utils.SoundUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.util.TriState;
 
 public class WorldActionbarCommand implements CommandExecutor {
@@ -31,22 +31,9 @@ public class WorldActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        var enabledPrefix = plugin.getConfig().getBoolean("messages.prefix.enabled", true);
-        Component prefix = Component.text("");
-
-        if (enabledPrefix) {
-            prefix = MiniMessageUtil.parse(plugin.getConfig().getString(
-                "messages.prefix.line",
-                "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
-        }
-
         // Permission Check
         if (player.permissionValue("announcer.actionbar.world") != TriState.TRUE) {
-            sender.sendMessage(
-                prefix.append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
-                        "messages.actionbar.no-permission",
-                        "<red>You do not have permission to execute this command</red>"))));
+            ConfigUtils.sendNoActionbarPermission(sender);
             return true;
         }
 
@@ -54,48 +41,24 @@ public class WorldActionbarCommand implements CommandExecutor {
         Audience audience = player.getWorld();
 
         // Concatenate the arguments provided by the command sent.
-        var actionbartext = new StringBuilder();
-        for (String argument : args) {
-            actionbartext = actionbartext.append(" ");
-            actionbartext = actionbartext.append(argument);
-        }
-
-        // Convert StringBuilder to String, Component is not compatible :nimodo:
-        String actionbarToParse = actionbartext.toString();
+        var actionbartext = GeneralUtils.getCommandString(args);
 
         if(PlaceholderUtil.placeholderAPIHook()){
-            String announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbarToParse));
             // Send to all
             audience.sendActionBar(
-                MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        PlaceholderAPI.setPlaceholders(player, actionbartext)), replacePlaceholders(player)));
+            ConfigUtils.sendActionbarConfirmation(sender);
+            ConfigUtils.playActionbarSound(audience);
+            return true;
         } else {
             // Send to all
             audience.sendActionBar(
-                MiniMessageUtil.parse(actionbarToParse, replacePlaceholders(player)));
+                MiniMessageUtil.parse(actionbartext, replacePlaceholders(player)));
+            ConfigUtils.sendActionbarConfirmation(sender);
+            ConfigUtils.playActionbarSound(audience);
+            return true;
         }
-
-        sender.sendMessage(
-            prefix.append(MiniMessageUtil.parse(
-                plugin.getConfig().getString(
-                    "messages.actionbar.successfully",
-                    "<green>Actionbar succesfully sended</green>"))));
-
-        String soundToPlay = plugin.getConfig().getString(
-            "sounds.actionbar.sound-id",
-            "entity.experience_orb.pickup");
-        boolean soundEnabled = plugin.getConfig().getBoolean("sounds.actionbar.enabled", true);
-        float volume = plugin.getConfig().getInt("sounds.actionbar.volume", 10);
-        float pitch = plugin.getConfig().getInt("sounds.actionbar.pitch", 2);
-
-        if (soundEnabled) {
-            // Play the sound
-            SoundUtil.playSound(
-                soundToPlay,
-                audience,
-                volume,
-                pitch
-            );
-        }
-        return true;
     }
 }
