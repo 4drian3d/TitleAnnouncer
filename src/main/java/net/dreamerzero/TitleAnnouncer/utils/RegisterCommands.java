@@ -16,8 +16,8 @@ import net.dreamerzero.titleannouncer.commands.title.SendTitleCommand;
 import net.dreamerzero.titleannouncer.commands.title.WorldTitleCommand;
 
 public class RegisterCommands {
+	static final Announcer plugin = Announcer.getInstance();
     public static void registerBossbar() {
-        final var plugin = Announcer.getInstance();
         plugin.getCommand("announcebossbar")
 			.setExecutor(new AnnouncerBossbarCommand());
 		plugin.getCommand("selfbossbar")
@@ -28,7 +28,6 @@ public class RegisterCommands {
 			.setExecutor(new SendBossbarCommand());
     }
     public static void registerTitle() {
-        final var plugin = Announcer.getInstance();
         plugin.getCommand("announcetitle")
 			.setExecutor(new AnnouncerTitleCommand());
 		plugin.getCommand("selftitle")
@@ -39,7 +38,6 @@ public class RegisterCommands {
 			.setExecutor(new SendTitleCommand());
     }
     public static void registerActionbar() {
-        final var plugin = Announcer.getInstance();
         plugin.getCommand("announceactionbar")
 			.setExecutor(new AnnouncerActionbarCommand());
 		plugin.getCommand("selfactionbar")
@@ -50,7 +48,6 @@ public class RegisterCommands {
 			.setExecutor(new SendActionbarCommand());
     }
     public static void registerMainCommand(){
-        final var plugin = Announcer.getInstance();
         plugin.getCommand("announcer")
 			.setExecutor(new AnnouncerCommand(plugin));
     }

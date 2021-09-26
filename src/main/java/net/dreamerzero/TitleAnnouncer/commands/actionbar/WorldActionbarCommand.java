@@ -41,7 +41,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         Audience audience = player.getWorld();
 
         // Concatenate the arguments provided by the command sent.
-        var actionbartext = GeneralUtils.getCommandString(args);
+        String actionbartext = GeneralUtils.getCommandString(args);
 
         if(PlaceholderUtil.placeholderAPIHook()){
             // Send to all

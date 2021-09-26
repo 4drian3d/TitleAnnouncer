@@ -134,7 +134,7 @@ public class BossBarUtils {
     }
 
     public static boolean sendBossbarArgs(int length, Audience sender) {
-        var plugin = Announcer.getInstance();
+        Announcer plugin = Announcer.getInstance();
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(

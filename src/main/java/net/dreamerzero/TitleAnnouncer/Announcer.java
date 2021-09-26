@@ -55,7 +55,7 @@ public class Announcer extends JavaPlugin {
 	}
 
 	public void pluginConfiguration() {
-		var config = new File(this.getDataFolder(), "config.yml");
+		File config = new File(this.getDataFolder(), "config.yml");
 		if (!config.exists()) {
 			getConfig().options().copyDefaults(true);
 			saveDefaultConfig();

@@ -59,26 +59,28 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
-        String announceToSend;
+
         if(PlaceholderUtil.placeholderAPIHook()){
             // Send to all
             if (sender instanceof Player player) {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, bossbartext));
                 BossBarUtils.sendBukkitBossBar(
                 audience,
                     time,
-                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)),
+                    MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            PlaceholderAPI.setPlaceholders(player, bossbartext)), replacePlaceholders(player)),
                     color,
                     overlay);
                 ConfigUtils.sendBossbarConfirmation(sender);
                 ConfigUtils.playBossbarSound(audience);
                 return true;
             } else {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, bossbartext));
                 BossBarUtils.sendBukkitBossBar(
                     audience,
                     time,
-                    MiniMessageUtil.parse(announceToSend, replacePlaceholders()),
+                    MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(
+                            PlaceholderAPI.setPlaceholders(null, bossbartext)), replacePlaceholders()),
                     color,
                     overlay);
                 ConfigUtils.sendBossbarConfirmation(sender);

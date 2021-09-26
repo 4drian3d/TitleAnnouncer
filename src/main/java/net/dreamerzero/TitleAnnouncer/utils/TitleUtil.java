@@ -91,13 +91,16 @@ public class TitleUtil {
     public static String[] getTitleAndSubtitle(String string, Audience sender) {
         try {
             String newString[] = string.split(";");
+            if(newString.length > 2) {
+                String fixedString[] = {newString[0], newString[1]};
+                return fixedString;
+            }
             return newString;
         // In case the command does not contain a separator ";",
         // it will catch the error in the console and send an error message to the sender.
         } catch (Exception e) {
             // Send an error message to the sender using the command
             ConfigUtils.sendTitleError(sender);
-            sender.sendMessage(Component.text("Error: " + e));
             return null;
         }
     }
