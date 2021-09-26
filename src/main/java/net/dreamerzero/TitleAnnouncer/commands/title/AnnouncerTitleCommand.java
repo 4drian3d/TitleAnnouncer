@@ -1,7 +1,5 @@
 package net.dreamerzero.titleannouncer.commands.title;
 
-import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,7 +45,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
-                        replacePlaceholders(player)),
+                        PlaceholderUtil.replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
                 ConfigUtils.playTitleSound(audience);
@@ -57,7 +55,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
-                        replacePlaceholders()),
+                        PlaceholderUtil.replacePlaceholders()),
                         audience, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
                 ConfigUtils.playTitleSound(audience);
@@ -79,11 +77,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 MiniMessageUtil.parse(
                     placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
                         PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
-                replacePlaceholders(player)),
+                    PlaceholderUtil.replacePlaceholders(player)),
                 MiniMessageUtil.parse(
                     placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
                         PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
-                replacePlaceholders(player)),
+                    PlaceholderUtil.replacePlaceholders(player)),
                 audience,
                 1000,
                 3000,
@@ -97,11 +95,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 MiniMessageUtil.parse(
                     PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(
                         PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0],
-                replacePlaceholders()),
+                        PlaceholderUtil.replacePlaceholders()),
                 MiniMessageUtil.parse(
                     PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(
                         PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1],
-                replacePlaceholders()),
+                        PlaceholderUtil.replacePlaceholders()),
                 audience,
                 1000,
                 3000,

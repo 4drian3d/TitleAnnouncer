@@ -1,7 +1,5 @@
 package net.dreamerzero.titleannouncer.commands.bossbar;
 
-import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -73,7 +71,7 @@ public class SendBossbarCommand implements CommandExecutor{
                 MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
-                        replacePlaceholders(playerObjetive)),
+                        PlaceholderUtil.replacePlaceholders(playerObjetive)),
                 color,
                 overlay);
             ConfigUtils.sendBossbarConfirmation(sender);
@@ -86,7 +84,7 @@ public class SendBossbarCommand implements CommandExecutor{
                 MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
-                        replacePlaceholders(playerObjetive)),
+                        PlaceholderUtil.replacePlaceholders(playerObjetive)),
                 color,
                 overlay);
             ConfigUtils.sendBossbarConfirmation(sender);

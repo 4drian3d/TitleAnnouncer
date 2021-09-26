@@ -1,7 +1,5 @@
 package net.dreamerzero.titleannouncer.commands.title;
 
-import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -57,7 +55,7 @@ public class WorldTitleCommand implements CommandExecutor {
                 MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(placeholderAPISupport ?
                     PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
-                    replacePlaceholders(player)),
+                    PlaceholderUtil.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
             ConfigUtils.sendTitleConfirmation(sender);
             ConfigUtils.playTitleSound(sender);
@@ -74,9 +72,11 @@ public class WorldTitleCommand implements CommandExecutor {
 
         TitleUtil.sendTitle(
             MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
-                placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]): titleandsubtitlefinal[0]), replacePlaceholders(player)),
+                placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]): titleandsubtitlefinal[0]), 
+                PlaceholderUtil.replacePlaceholders(player)),
             MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
-                placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), replacePlaceholders(player)),
+                placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
+                PlaceholderUtil.replacePlaceholders(player)),
             audience,
             1000,
             3000,

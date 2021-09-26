@@ -1,7 +1,5 @@
 package net.dreamerzero.titleannouncer.commands.bossbar;
 
-import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -68,7 +66,7 @@ public class SelfBossbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(
                     PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    replacePlaceholders(player)),
+                    PlaceholderUtil.replacePlaceholders(player)),
             color,
             overlay);
         ConfigUtils.playBossbarSound(sender);

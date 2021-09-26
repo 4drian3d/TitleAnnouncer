@@ -1,7 +1,5 @@
 package net.dreamerzero.titleannouncer.commands.actionbar;
 
-import static net.dreamerzero.titleannouncer.utils.PlaceholderUtil.replacePlaceholders;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -50,7 +48,7 @@ public class SendActionbarCommand implements CommandExecutor {
             MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(
                     PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
-                    replacePlaceholders(playerObjetive)));
+                    PlaceholderUtil.replacePlaceholders(playerObjetive)));
         ConfigUtils.playActionbarSound(playerObjetive);
         ConfigUtils.sendActionbarConfirmation(sender);
         return true;
