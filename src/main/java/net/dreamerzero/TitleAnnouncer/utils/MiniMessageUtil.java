@@ -19,7 +19,7 @@ public class MiniMessageUtil {
     public static Component parse(
         final String message) {
 
-        return MiniMessage.get().parse(message);
+        return MiniMessage.miniMessage().deserialize(message);
     }
 
     /**
@@ -32,7 +32,7 @@ public class MiniMessageUtil {
     public static Component parse(
         final String message, Template template) {
 
-        return MiniMessage.get().parse(message, template);
+        return MiniMessage.miniMessage().parse(message, template);
     }
 
     /**
@@ -45,7 +45,7 @@ public class MiniMessageUtil {
     public static Component parse(
         final String message, List<Template> template) {
 
-        return MiniMessage.get().parse(message, template);
+        return MiniMessage.miniMessage().parse(message, template);
     }
 
     public static String replaceLegacy(String legacyText){
