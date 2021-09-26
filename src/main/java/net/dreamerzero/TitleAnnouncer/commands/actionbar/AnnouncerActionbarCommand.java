@@ -30,42 +30,28 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
             return true;
         }
 
+        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 
-        String announceToSend;
-
         // Send to all
-        if(PlaceholderUtil.placeholderAPIHook()){
-            if (sender instanceof Player player) {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, actionbartext));
-                audience.sendActionBar(
-                    MiniMessageUtil.parse(announceToSend, replacePlaceholders(player)));
-                ConfigUtils.playActionbarSound(audience);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            } else {
-                announceToSend = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, actionbartext));
-                audience.sendActionBar(
-                    MiniMessageUtil.parse(announceToSend, replacePlaceholders()));
-                ConfigUtils.playActionbarSound(audience);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            }
+        if (sender instanceof Player player) {
+            audience.sendActionBar(MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
+                    replacePlaceholders(player)));
+            ConfigUtils.playActionbarSound(audience);
+            ConfigUtils.sendActionbarConfirmation(sender);
+            return true;
         } else {
-            if (sender instanceof Player player) {
-                audience.sendActionBar(
-                    MiniMessageUtil.parse(actionbartext, replacePlaceholders(player)));
-                ConfigUtils.playActionbarSound(audience);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            } else {
-                audience.sendActionBar(
-                    MiniMessageUtil.parse(actionbartext, replacePlaceholders()));
-                ConfigUtils.playActionbarSound(audience);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            }
+            audience.sendActionBar(MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, actionbartext) : actionbartext),
+                    replacePlaceholders()));
+            ConfigUtils.playActionbarSound(audience);
+            ConfigUtils.sendActionbarConfirmation(sender);
+            return true;
         }
     }
 }

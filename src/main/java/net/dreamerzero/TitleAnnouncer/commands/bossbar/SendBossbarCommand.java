@@ -46,9 +46,6 @@ public class SendBossbarCommand implements CommandExecutor{
             return false;
         }
 
-        // Concatenate the arguments provided by the command sent.
-        String bossbartext = GeneralUtils.getCommandString(args, 5);
-
         float time;
         if(BossBarUtils.validBossbarNumber(args[1], sender) == 0.1f){
             return false;
@@ -56,65 +53,45 @@ public class SendBossbarCommand implements CommandExecutor{
             time = BossBarUtils.validBossbarNumber(args[1], sender);
         }
 
-        BossBar.Color color;
-        BossBar.Overlay overlay;
-
-        color = BossBarUtils.bossbarColor(args[2]);
-        overlay = BossBarUtils.bossbarOverlay(args[3]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
-        if(PlaceholderUtil.placeholderAPIHook()){
-            if (sender instanceof Player player) {
-                BossBarUtils.sendBukkitBossBar(
-                    playerObjetive,
-                    time,
-                    MiniMessageUtil.parse(
-                        MiniMessageUtil.replaceLegacy(
-                            PlaceholderAPI.setPlaceholders(player, bossbartext)), replacePlaceholders(player, playerObjetive)),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(playerObjetive);
-                return true;
-            } else {
-                BossBarUtils.sendBukkitBossBar(
-                    playerObjetive,
-                    time,
-                    MiniMessageUtil.parse(
-                        MiniMessageUtil.replaceLegacy(
-                            PlaceholderAPI.setPlaceholders(null, bossbartext)), replacePlaceholders(playerObjetive)),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(playerObjetive);
-                return true;
-            }
+        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+
+        // Concatenate the arguments provided by the command sent.
+        String bossbartext = GeneralUtils.getCommandString(args, 5);
+
+        if (sender instanceof Player player) {
+            BossBarUtils.sendBukkitBossBar(
+                playerObjetive,
+                time,
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
+                        replacePlaceholders(playerObjetive)),
+                color,
+                overlay);
+            ConfigUtils.sendBossbarConfirmation(sender);
+            ConfigUtils.playBossbarSound(playerObjetive);
+            return true;
         } else {
-            if (sender instanceof Player player) {
-                BossBarUtils.sendBukkitBossBar(
-                    playerObjetive,
-                    time,
-                    MiniMessageUtil.parse(bossbartext, replacePlaceholders(player, playerObjetive)),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(playerObjetive);
-                return true;
-            } else {
-                BossBarUtils.sendBukkitBossBar(
-                    playerObjetive,
-                    time,
-                    MiniMessageUtil.parse(bossbartext, replacePlaceholders(playerObjetive)),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(playerObjetive);
-                return true;
-            }
+            BossBarUtils.sendBukkitBossBar(
+                playerObjetive,
+                time,
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
+                        replacePlaceholders(playerObjetive)),
+                color,
+                overlay);
+            ConfigUtils.sendBossbarConfirmation(sender);
+            ConfigUtils.playBossbarSound(playerObjetive);
+            return true;
         }
     }
 }

@@ -47,29 +47,21 @@ public class WorldTitleCommand implements CommandExecutor {
             return false;
         }
 
+        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         if(!titleandsubtitle.contains(";")){
-            if(PlaceholderUtil.placeholderAPIHook()){
-                TitleUtil.sendOnlyTitle(
-                    MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(player, titleandsubtitle)), replacePlaceholders(player)),
-                        sender, 1000, 3000, 1000);
-                ConfigUtils.sendTitleConfirmation(sender);
-                ConfigUtils.playTitleSound(sender);
-                return true;
-            } else {
-                TitleUtil.sendOnlyTitle(
-                    MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitle), replacePlaceholders(player)),
-                        sender, 1000, 3000, 1000);
-                    ConfigUtils.sendTitleConfirmation(sender);
-                    ConfigUtils.playTitleSound(sender);
-                    return true;
-            }
+            TitleUtil.sendOnlyTitle(
+                MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(placeholderAPISupport ?
+                    PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
+                    replacePlaceholders(player)),
+                    sender, 1000, 3000, 1000);
+            ConfigUtils.sendTitleConfirmation(sender);
+            ConfigUtils.playTitleSound(sender);
+            return true;
         }
 
         String titleandsubtitlefinal[];
@@ -80,31 +72,17 @@ public class WorldTitleCommand implements CommandExecutor {
             titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
         }
 
-        if(PlaceholderUtil.placeholderAPIHook()){
-            String title = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]));
-            String subtitle = MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]));
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(title, replacePlaceholders(player)),
-                MiniMessageUtil.parse(subtitle, replacePlaceholders(player)),
-                audience,
-                1000,
-                3000,
-                1000);
-            ConfigUtils.playTitleSound(audience);
-            ConfigUtils.sendTitleConfirmation(sender);
-            return true;
-        } else {
-            TitleUtil.sendTitle(
-                MiniMessageUtil.parse(titleandsubtitlefinal[0], replacePlaceholders(player)),
-                MiniMessageUtil.parse(titleandsubtitlefinal[1], replacePlaceholders(player)),
-                audience,
-                1000,
-                3000,
-                1000);
-            ConfigUtils.playTitleSound(audience);
-            ConfigUtils.sendTitleConfirmation(sender);
-            return true;
-        }
-
+        TitleUtil.sendTitle(
+            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]): titleandsubtitlefinal[0]), replacePlaceholders(player)),
+            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), replacePlaceholders(player)),
+            audience,
+            1000,
+            3000,
+            1000);
+        ConfigUtils.playTitleSound(audience);
+        ConfigUtils.sendTitleConfirmation(sender);
+        return true;
     }
 }

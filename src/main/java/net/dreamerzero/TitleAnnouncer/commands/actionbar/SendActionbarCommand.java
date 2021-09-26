@@ -46,39 +46,13 @@ public class SendActionbarCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args, 1);
 
-        // Send to all
-        if(PlaceholderUtil.placeholderAPIHook()){
-            if (sender instanceof Player player) {
-                playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(
-                        MiniMessageUtil.replaceLegacy(
-                            PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext)), replacePlaceholders(player, playerObjetive)));
-                ConfigUtils.playActionbarSound(playerObjetive);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            } else {
-                playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(
-                        MiniMessageUtil.replaceLegacy(
-                            PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext)), replacePlaceholders(playerObjetive)));
-                ConfigUtils.playActionbarSound(playerObjetive);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            }
-        } else {
-            if (sender instanceof Player player) {
-                playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(actionbartext, replacePlaceholders(player, playerObjetive)));
-                ConfigUtils.playActionbarSound(playerObjetive);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            } else {
-                playerObjetive.sendActionBar(
-                    MiniMessageUtil.parse(actionbartext, replacePlaceholders(playerObjetive)));
-                ConfigUtils.playActionbarSound(playerObjetive);
-                ConfigUtils.sendActionbarConfirmation(sender);
-                return true;
-            }
-        }
+        playerObjetive.sendActionBar(
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(
+                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
+                    replacePlaceholders(playerObjetive)));
+        ConfigUtils.playActionbarSound(playerObjetive);
+        ConfigUtils.sendActionbarConfirmation(sender);
+        return true;
     }
 }

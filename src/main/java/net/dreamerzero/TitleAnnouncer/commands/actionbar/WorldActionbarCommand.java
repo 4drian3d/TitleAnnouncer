@@ -43,22 +43,13 @@ public class WorldActionbarCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 
-        if(PlaceholderUtil.placeholderAPIHook()){
-            // Send to all
-            audience.sendActionBar(
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(player, actionbartext)), replacePlaceholders(player)));
-            ConfigUtils.sendActionbarConfirmation(sender);
-            ConfigUtils.playActionbarSound(audience);
-            return true;
-        } else {
-            // Send to all
-            audience.sendActionBar(
-                MiniMessageUtil.parse(actionbartext, replacePlaceholders(player)));
-            ConfigUtils.sendActionbarConfirmation(sender);
-            ConfigUtils.playActionbarSound(audience);
-            return true;
-        }
+        audience.sendActionBar(
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(
+                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
+                    replacePlaceholders(player)));
+        ConfigUtils.sendActionbarConfirmation(sender);
+        ConfigUtils.playActionbarSound(audience);
+        return true;
     }
 }

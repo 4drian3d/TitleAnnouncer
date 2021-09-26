@@ -53,7 +53,10 @@ public class PlaceholderUtil {
      * @param player
      * @param otherPlayer
      * @return Placeholders for sender player and the playerobjetive
+     * @deprecated Very confusing to use, 
+     * since the placeholders must point to the target player and not to the one sending it
      */
+    @Deprecated
     public static List<Template> replacePlaceholders(
             org.bukkit.entity.Player player,
             org.bukkit.entity.Player otherPlayer) {

@@ -36,6 +36,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             return true;
         }
 
+        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
@@ -44,7 +46,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 TitleUtil.sendOnlyTitle(
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
-                        PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
+                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
                         replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
@@ -54,7 +56,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 TitleUtil.sendOnlyTitle(
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
-                        PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
+                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
                         replacePlaceholders()),
                         audience, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
@@ -74,9 +76,13 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         if (sender instanceof Player player) {
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
+                MiniMessageUtil.parse(
+                    placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+                        PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
                 replacePlaceholders(player)),
-                MiniMessageUtil.parse(PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
+                MiniMessageUtil.parse(
+                    placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+                        PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
                 replacePlaceholders(player)),
                 audience,
                 1000,
@@ -88,9 +94,13 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         } else {
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
+                MiniMessageUtil.parse(
+                    PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(
+                        PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0],
                 replacePlaceholders()),
-                MiniMessageUtil.parse(PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
+                MiniMessageUtil.parse(
+                    PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(
+                        PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1],
                 replacePlaceholders()),
                 audience,
                 1000,

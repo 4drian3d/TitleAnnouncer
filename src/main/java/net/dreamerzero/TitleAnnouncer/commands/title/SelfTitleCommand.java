@@ -47,6 +47,8 @@ public class SelfTitleCommand implements CommandExecutor {
             return true;
         }
 
+        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
@@ -54,7 +56,7 @@ public class SelfTitleCommand implements CommandExecutor {
             TitleUtil.sendOnlyTitle(
                 MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(
-                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
                     replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
             ConfigUtils.sendTitleConfirmation(sender);
@@ -72,9 +74,11 @@ public class SelfTitleCommand implements CommandExecutor {
 
         // Send the Title
         TitleUtil.sendTitle(
-            MiniMessageUtil.parse(PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
+            MiniMessageUtil.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+                PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
             replacePlaceholders(player)),
-            MiniMessageUtil.parse(PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
+            MiniMessageUtil.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+                PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
             replacePlaceholders(player)),
             sender,
             1000,

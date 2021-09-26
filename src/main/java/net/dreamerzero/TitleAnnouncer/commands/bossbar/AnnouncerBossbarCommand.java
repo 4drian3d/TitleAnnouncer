@@ -49,67 +49,43 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             time = BossBarUtils.validBossbarNumber(args[0], sender);
         }
 
-        BossBar.Color color;
-        BossBar.Overlay overlay;
-
-        color = BossBarUtils.bossbarColor(args[1]);
-        overlay = BossBarUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
-        if(PlaceholderUtil.placeholderAPIHook()){
-            // Send to all
-            if (sender instanceof Player player) {
-                BossBarUtils.sendBukkitBossBar(
+        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+
+        // Send to all
+        if (sender instanceof Player player) {
+            BossBarUtils.sendBukkitBossBar(
                 audience,
-                    time,
-                    MiniMessageUtil.parse(
-                        MiniMessageUtil.replaceLegacy(
-                            PlaceholderAPI.setPlaceholders(player, bossbartext)), replacePlaceholders(player)),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(audience);
-                return true;
-            } else {
-                BossBarUtils.sendBukkitBossBar(
-                    audience,
-                    time,
-                    MiniMessageUtil.parse(
-                        MiniMessageUtil.replaceLegacy(
-                            PlaceholderAPI.setPlaceholders(null, bossbartext)), replacePlaceholders()),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(audience);
-                return true;
-            }
+                time,
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
+                        replacePlaceholders(player)),
+                color,
+                overlay);
+            ConfigUtils.sendBossbarConfirmation(sender);
+            ConfigUtils.playBossbarSound(audience);
+            return true;
         } else {
-            // Send to all
-            if (sender instanceof Player player) {
-                BossBarUtils.sendBukkitBossBar(
+            BossBarUtils.sendBukkitBossBar(
                 audience,
-                    time,
-                    MiniMessageUtil.parse(bossbartext, replacePlaceholders(player)),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(audience);
-                return true;
-            } else {
-                BossBarUtils.sendBukkitBossBar(
-                    audience,
-                    time,
-                    MiniMessageUtil.parse(bossbartext, replacePlaceholders()),
-                    color,
-                    overlay);
-                ConfigUtils.sendBossbarConfirmation(sender);
-                ConfigUtils.playBossbarSound(audience);
-                return true;
-            }
+                time,
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(
+                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
+                        replacePlaceholders()),
+                color,
+                overlay);
+            ConfigUtils.sendBossbarConfirmation(sender);
+            ConfigUtils.playBossbarSound(audience);
+            return true;
         }
     }
 }

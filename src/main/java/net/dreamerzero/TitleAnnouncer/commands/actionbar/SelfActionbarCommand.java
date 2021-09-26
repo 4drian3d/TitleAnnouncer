@@ -23,7 +23,7 @@ public class SelfActionbarCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // It will send an actionbar to the one who executes the command, 
+        // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
             plugin.getLogger().info("The console cannot execute this command.");
@@ -39,22 +39,14 @@ public class SelfActionbarCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 
-        if(PlaceholderUtil.placeholderAPIHook()){
-            // Send to sender
-            sender.sendActionBar(
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(player, actionbartext)), replacePlaceholders(player)));
-            ConfigUtils.sendActionbarConfirmation(sender);
-            ConfigUtils.playActionbarSound(sender);
-            return true;
-        } else {
-            // Send to sender
-            sender.sendActionBar(
-                MiniMessageUtil.parse(actionbartext, replacePlaceholders(player)));
-            ConfigUtils.sendActionbarConfirmation(sender);
-            ConfigUtils.playActionbarSound(sender);
-            return true;
-        }
+        // Send to sender
+        sender.sendActionBar(
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(
+                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
+                    replacePlaceholders(player)));
+        ConfigUtils.sendActionbarConfirmation(sender);
+        ConfigUtils.playActionbarSound(sender);
+    return true;
     }
 }
