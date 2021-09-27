@@ -12,6 +12,7 @@ import net.dreamerzero.titleannouncer.velocity.commands.AnnouncerCommand;
 public class Announcer {
     private final ProxyServer server;
     private final Logger logger;
+    private static ProxyServer proxy;
 
     @Inject
     public Announcer(final ProxyServer server, final Logger logger) {
@@ -26,5 +27,10 @@ public class Announcer {
         ConfigManager.createConfig();
 		ConfigManager.defaultConfig();
         server.getCommandManager().register("vannouncer", new AnnouncerCommand());
+        proxy = server;
+    }
+
+    public static ProxyServer getProxyServer(){
+        return proxy;
     }
 }
