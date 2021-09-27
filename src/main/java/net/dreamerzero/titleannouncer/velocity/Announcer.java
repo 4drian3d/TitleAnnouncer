@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.velocity.commands.AnnouncerCommand;
 import net.dreamerzero.titleannouncer.velocity.commands.title.AnnouncerTitleCommand;
+import net.dreamerzero.titleannouncer.velocity.commands.title.SelfTitleCommand;
+import net.dreamerzero.titleannouncer.velocity.commands.title.SendTitleCommand;
+import net.dreamerzero.titleannouncer.velocity.commands.title.ServerTitleCommand;
 
 public class Announcer {
     private final ProxyServer server;
@@ -29,6 +32,9 @@ public class Announcer {
 		ConfigManager.defaultConfig();
         server.getCommandManager().register("vannouncer", new AnnouncerCommand());
         server.getCommandManager().register("vannouncetitle", new AnnouncerTitleCommand(server));
+        server.getCommandManager().register("vselftitle", new SelfTitleCommand());
+        server.getCommandManager().register("vsendtitle", new SendTitleCommand(server));
+        server.getCommandManager().register("vservertitle", new ServerTitleCommand(server));
         proxy = server;
     }
 

@@ -95,7 +95,7 @@ public class PlaceholderUtil {
             Template.of("client", player.getClientBrand()),
             Template.of("locale", player.getEffectiveLocale().getDisplayLanguage()),
             Template.of("server", player.getCurrentServer().get().getServerInfo().getName()),
-            Template.of("version", String.valueOf(player.getProtocolVersion().getMostRecentSupportedVersion())));
+            Template.of("version", player.getProtocolVersion().getMostRecentSupportedVersion()));
         if(player.getModInfo().isPresent()) {
             templates.add(Template.of("mods", player.getModInfo().get().getMods().toString()));
         }
