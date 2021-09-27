@@ -1,8 +1,16 @@
 package net.dreamerzero.titleannouncer.common.utils;
 
+import java.util.UUID;
+
+import com.velocitypowered.api.proxy.ProxyServer;
+
+import dev.simplix.protocolize.api.Protocolize;
+import dev.simplix.protocolize.api.SoundCategory;
+import dev.simplix.protocolize.api.player.ProtocolizePlayer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
+import static dev.simplix.protocolize.data.Sound.*;
 
 public class SoundUtil {
     /**
@@ -27,5 +35,39 @@ public class SoundUtil {
                 pitch
             )
         );
+    }
+
+    public static void playProxySound(
+        com.velocitypowered.api.proxy.Player player, 
+        String sound,
+        float volume,
+        float pitch){
+
+        ProxyServer proxy = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
+
+        if(proxy.getPluginManager().isLoaded("protocolize")){
+            UUID playeruuid = player.getUniqueId();
+            ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
+            protocolizePlayer.playSound(
+                getSoundFromString(sound),
+                SoundCategory.MASTER, volume, pitch);
+        }
+
+    }
+
+    static dev.simplix.protocolize.data.Sound getSoundFromString(String sound){
+        return switch(sound){
+            case "ambient.cave" -> AMBIENT_CAVE;
+            case "ambient.underwater.enter" -> AMBIENT_UNDERWATER_ENTER;
+            case "ambient.underwater.exit" -> AMBIENT_UNDERWATER_EXIT;
+            case "ambient.underwater.loop" -> AMBIENT_UNDERWATER_LOOP;
+            case "ambient.underwater.loop.additions" -> AMBIENT_UNDERWATER_LOOP_ADDITIONS;
+            case "ambient.underwater.loop.additions.rare" -> AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE;
+            case "ambient.underwater.loop.additions.ultra.rare" -> AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE;
+            case "block.anvil.break" -> BLOCK_ANVIL_BREAK;
+            case "block.anvil.destroy" -> BLOCK_ANVIL_DESTROY;
+            case "block.anvil.fall" -> BLOCK_ANVIL_FALL;
+            default -> ENTITY_EXPERIENCE_ORB_PICKUP;
+        };
     }
 }

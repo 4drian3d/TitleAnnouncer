@@ -15,7 +15,6 @@ public class AnnouncerCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource source = invocation.source();
         String[] args = invocation.arguments();
-        source.sendMessage(MiniMessageUtil.parse("Holaaaaaaaaaaaaaaaaaa"));
 
         if (args.length == 0) {
             source.sendMessage(
