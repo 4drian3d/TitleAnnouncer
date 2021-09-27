@@ -1,0 +1,11 @@
+{
+    "id": "titleannouncer",
+    "name": "${project.artifactId}",
+    "version": "${project.version}",
+    "description": "Plugin created to send titles, actionbars and bossbars to the player and the proxy using the MiniMessage format.",
+    "authors": [
+      "4drian3d"
+    ],
+    "dependencies": [],
+    "main": "net.dreamerzero.titleannouncer.velocity.Announcer"
+  }
