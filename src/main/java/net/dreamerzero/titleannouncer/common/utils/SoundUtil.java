@@ -118,6 +118,32 @@ public class SoundUtil {
         }
     }
 
+    public static void playProxyBossbarSound(com.velocitypowered.api.proxy.Player player){
+            playProxySound(
+                player,
+                ConfigUtils.getBossbarSound(),
+                ConfigUtils.getBossbarSoundVolume(),
+                ConfigUtils.getBossbarSoundPitch());
+    }
+
+    public static void playProxyActionbarSound(com.velocitypowered.api.proxy.Player player){
+        playProxySound(
+            player,
+            ConfigUtils.getActionbarSound(),
+            ConfigUtils.getActionbarSoundVolume(),
+            ConfigUtils.getActionbarSoundPitch());
+    }
+
+    public static void playToServerProxyActionbarSound(RegisteredServer server){
+        for(com.velocitypowered.api.proxy.Player player : server.getPlayersConnected()){
+            playProxySound(
+                player,
+                ConfigUtils.getActionbarSound(),
+                ConfigUtils.getActionbarSoundVolume(),
+                ConfigUtils.getActionbarSoundPitch());
+        }
+    }
+
     public static void playToAllProxyTitleSound(){
         playProxySound(
             ConfigUtils.getTitleSound(),
@@ -130,5 +156,12 @@ public class SoundUtil {
             ConfigUtils.getBossbarSound(),
             ConfigUtils.getBossbarSoundVolume(),
             ConfigUtils.getBossbarSoundPitch());
+    }
+
+    public static void playToAllProxyActionbarSound(){
+        playProxySound(
+            ConfigUtils.getActionbarSound(),
+            ConfigUtils.getActionbarSoundVolume(),
+            ConfigUtils.getActionbarSoundPitch());
     }
 }
