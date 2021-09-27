@@ -3,6 +3,7 @@ package net.dreamerzero.titleannouncer.common.utils;
 import java.util.UUID;
 
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.SoundCategory;
@@ -70,8 +71,8 @@ public class SoundUtil {
                     SoundCategory.MASTER, volume, pitch);
             }
         }
-
     }
+
     //TODO: Finish this
     static dev.simplix.protocolize.data.Sound getSoundFromString(String sound){
         return switch(sound){
@@ -95,6 +96,17 @@ public class SoundUtil {
             ConfigUtils.getTitleSound(),
             ConfigUtils.getTitleSoundVolume(),
             ConfigUtils.getTitleSoundPitch());
+    }
+
+    public static void playToServerProxyTitleSound(RegisteredServer server){
+        for(com.velocitypowered.api.proxy.Player player : server.getPlayersConnected()){
+            playProxySound(
+                player,
+                ConfigUtils.getTitleSound(),
+                ConfigUtils.getTitleSoundVolume(),
+                ConfigUtils.getTitleSoundPitch());
+        }
+        
     }
 
     public static void playToAllProxyTitleSound(){
