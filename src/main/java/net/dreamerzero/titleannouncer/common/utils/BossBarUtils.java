@@ -1,5 +1,10 @@
 package net.dreamerzero.titleannouncer.common.utils;
 
+import java.util.concurrent.TimeUnit;
+
+import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.scheduler.ScheduledTask;
+
 import org.bukkit.scheduler.BukkitRunnable;
 
 import net.dreamerzero.titleannouncer.paper.Announcer;
@@ -55,6 +60,50 @@ public class BossBarUtils {
                 }
             }
         }.runTaskTimerAsynchronously(Announcer.getInstance(), 20, 2);
+    }
+
+    public static void sendVelocityBossbar(
+        final Audience audience,
+        final float time,
+        final Component content,
+        final BossBar.Color color,
+        final BossBar.Overlay type){
+
+        float finalTime = 0.1f/time;
+
+        BossBar bar = BossBar.bossBar(
+            content,
+            1,
+            color,
+            type);
+
+        audience.showBossBar(bar);
+        final float toReduce = finalTime;
+        value = 1f;
+
+        ProxyServer server = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
+
+        ScheduledTask scheduler = server.getScheduler()
+        .buildTask(net.dreamerzero.titleannouncer.velocity.Announcer.getVInstance(), () -> {
+            value -= toReduce;
+                if (value <= 0.02) {
+                    audience.hideBossBar(bar);
+                    return;
+                }
+                try {
+                    bar.progress(value);
+                } catch (IllegalArgumentException e) {
+                    return;
+                }
+        })
+        .repeat(2000L, TimeUnit.MILLISECONDS)
+        .schedule();
+        //scheduler.cancel();
+
+    }
+
+    public static void cancelTask(ScheduledTask task){
+        task.cancel();
     }
 
     /**

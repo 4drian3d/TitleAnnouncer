@@ -38,6 +38,7 @@ public class ServerTitleCommand implements SimpleCommand {
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
+            //TODO: Server not found
             ConfigUtils.playerNotFoundMessage(sender);
             return;
         }
