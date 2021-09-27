@@ -17,6 +17,7 @@ public class Announcer {
     private final ProxyServer server;
     private final Logger logger;
     private static ProxyServer proxy;
+    private static Announcer instance;
 
     @Inject
     public Announcer(final ProxyServer server, final Logger logger) {
@@ -36,9 +37,14 @@ public class Announcer {
         server.getCommandManager().register("vsendtitle", new SendTitleCommand(server));
         server.getCommandManager().register("vservertitle", new ServerTitleCommand(server));
         proxy = server;
+        instance = this;
     }
 
     public static ProxyServer getProxyServer(){
         return proxy;
+    }
+
+    public static Announcer getVInstance(){
+        return instance;
     }
 }

@@ -106,7 +106,16 @@ public class SoundUtil {
                 ConfigUtils.getTitleSoundVolume(),
                 ConfigUtils.getTitleSoundPitch());
         }
-        
+    }
+
+    public static void playToServerProxyBossbarSound(RegisteredServer server){
+        for(com.velocitypowered.api.proxy.Player player : server.getPlayersConnected()){
+            playProxySound(
+                player,
+                ConfigUtils.getBossbarSound(),
+                ConfigUtils.getBossbarSoundVolume(),
+                ConfigUtils.getBossbarSoundPitch());
+        }
     }
 
     public static void playToAllProxyTitleSound(){
@@ -114,5 +123,12 @@ public class SoundUtil {
             ConfigUtils.getTitleSound(),
             ConfigUtils.getTitleSoundVolume(),
             ConfigUtils.getTitleSoundPitch());
+    }
+
+    public static void playToAllProxyBossbarSound(){
+        playProxySound(
+            ConfigUtils.getBossbarSound(),
+            ConfigUtils.getBossbarSoundVolume(),
+            ConfigUtils.getBossbarSoundPitch());
     }
 }

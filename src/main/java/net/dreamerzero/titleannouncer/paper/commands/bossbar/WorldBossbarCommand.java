@@ -50,11 +50,8 @@ public class WorldBossbarCommand implements CommandExecutor {
             time = BossBarUtils.validBossbarNumber(args[0], sender);
         }
 
-        BossBar.Color color;
-        BossBar.Overlay overlay;
-
-        color = BossBarUtils.bossbarColor(args[1]);
-        overlay = BossBarUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
