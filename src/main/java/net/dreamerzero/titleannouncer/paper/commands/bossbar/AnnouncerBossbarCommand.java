@@ -28,7 +28,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
         if (sender.permissionValue("announcer.bossbar.global") != TriState.TRUE) {
-            ConfigUtils.sendNoBossbarPermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

@@ -11,7 +11,6 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -19,23 +18,20 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.util.TriState;
 
 public class WorldBossbarCommand implements CommandExecutor {
-    private final Announcer plugin;
-    public WorldBossbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public WorldBossbarCommand() {}
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the world in which the command is executed, 
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            plugin.getLogger().info("The console cannot execute this command.");
+            sender.sendMessage("The console cannot execute this command.");
             return false;
         }
 
         // Permission Check
         if (sender.permissionValue("announcer.bossbar.world") != TriState.TRUE) {
-            ConfigUtils.sendNoBossbarPermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

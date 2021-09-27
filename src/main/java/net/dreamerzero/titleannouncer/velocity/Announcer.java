@@ -6,6 +6,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.event.Subscribe;
 import org.slf4j.Logger;
 
+import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.velocity.commands.AnnouncerCommand;
 
 public class Announcer {
@@ -21,7 +22,9 @@ public class Announcer {
     @Subscribe
     public void onProxyInitialization(final ProxyInitializeEvent event) {
         // :)
-        logger.info("ChatRegulator has started, have a very nice day.");
-        server.getCommandManager().register("announcer", new AnnouncerCommand());
+        logger.info("TitleAnnouncer has started, have a very nice day.");
+        ConfigManager.createConfig();
+		ConfigManager.defaultConfig();
+        server.getCommandManager().register("vannouncer", new AnnouncerCommand());
     }
 }

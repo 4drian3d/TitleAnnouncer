@@ -21,7 +21,7 @@ public class SendTitleCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
         if (sender.permissionValue("announcer.title.send") != TriState.TRUE) {
-            ConfigUtils.sendNoTitlePermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 
@@ -67,7 +67,7 @@ public class SendTitleCommand implements CommandExecutor {
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            ConfigUtils.titlePlayerNotFoundMessage(sender);
+            ConfigUtils.playerNotFoundMessage(sender);
             return false;
         }
 

@@ -24,7 +24,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
         if (sender.permissionValue("announcer.actionbar.global") != TriState.TRUE) {
-            ConfigUtils.sendNoActionbarPermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

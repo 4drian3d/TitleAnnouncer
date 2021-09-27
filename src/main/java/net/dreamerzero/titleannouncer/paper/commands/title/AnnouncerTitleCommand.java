@@ -25,7 +25,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
         if (sender.permissionValue("announcer.title.global") != TriState.TRUE) {
-            ConfigUtils.sendNoTitlePermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

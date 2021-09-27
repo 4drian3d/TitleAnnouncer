@@ -11,7 +11,6 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.kyori.adventure.util.TriState;
 
 /*
@@ -19,23 +18,20 @@ This command will be executed as a test of the "/anunciarevento" command.
 It will only be sent for the same player.
 */
 public class SelfTitleCommand implements CommandExecutor {
-    private final Announcer plugin;
-    public SelfTitleCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public SelfTitleCommand() {}
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            plugin.getLogger().info("The console cannot execute this command.");
+            sender.sendMessage("The console cannot execute this command.");
             return false;
         }
 
         // Permission Check
         if (sender.permissionValue("announcer.title.test") != TriState.TRUE) {
-            ConfigUtils.sendNoTitlePermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

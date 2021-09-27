@@ -1,18 +1,15 @@
 package net.dreamerzero.titleannouncer.common.utils;
 
-import org.bukkit.configuration.file.FileConfiguration;
-
-import net.dreamerzero.titleannouncer.paper.Announcer;
+import de.leonhard.storage.Yaml;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 
 public class ConfigUtils {
-    private static final Announcer plugin = Announcer.getInstance();
-    private static FileConfiguration config = plugin.getConfig();
+    private static Yaml config = ConfigManager.getConfig();
 
     public static Component getPrefix(){
-        if (config.getBoolean("messages.prefix.enabled", true)) {
-            return MiniMessageUtil.parse(config.getString(
+        if (config.getOrDefault("messages.prefix.enabled", true)) {
+            return MiniMessageUtil.parse(config.getOrDefault(
                 "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         } else {
@@ -26,62 +23,48 @@ public class ConfigUtils {
 
     public static void sendTitleError(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.title.error",
                 "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
     }
 
     public static void sendTitleConfirmation(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.title.successfully",
                 "<green>Title succesfully sended</green>"))));
     }
 
-    public static void sendNoTitlePermission(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
-                "messages.title.no-permission",
-                "<red>You do not have permission to execute this command</red>"))));
-    }
-
     public static void sendNoArgumentMessage(Audience sender) {
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.title.without-argument",
                 "<red>You need to enter the title and subtitle arguments.</red>"))));
     }
 
     public static void noTitlePlayerArgumentProvided(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.title.only-player",
                 "<gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"))));
     }
 
-    public static void titlePlayerNotFoundMessage(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
-                "messages.title.player-not-found",
-                "<red>Player not found</red>"))));
-    }
-
     public static String getTitleSound(){
-        return config.getString(
+        return config.getOrDefault(
             "sounds.title.sound-id",
             "entity.experience_orb.pickup");
     }
 
     public static boolean isTitleSoundEnabled(){
-        return config.getBoolean("sounds.title.enabled", true);
+        return config.getOrDefault("sounds.title.enabled", true);
     }
 
     static float getTitleSoundVolume(){
-        return config.getInt("sounds.title.volume", 10);
+        return config.getOrDefault("sounds.title.volume", 10);
     }
 
     static float getTitleSoundPitch(){
-        return config.getInt("sounds.title.pitch", 2);
+        return config.getOrDefault("sounds.title.pitch", 2);
     }
 
     public static void playTitleSound(Audience audience){
@@ -97,18 +80,11 @@ public class ConfigUtils {
     /*-----------------------------
     ACTIONBAR CONFIGURATION
     -----------------------------*/
-    public static void sendNoActionbarPermission(Audience sender){
-        sender.sendMessage(
-            getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
-                    "messages.actionbar.no-permission",
-                    "<red>You do not have permission to execute this command</red>"))));
-    }
 
     public static void sendActionbarConfirmation(Audience sender){
         sender.sendMessage(
             getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
+                config.getOrDefault(
                     "messages.actionbar.successfully",
                     "<green>Actionbar succesfully sended</green>"))));
     }
@@ -116,34 +92,27 @@ public class ConfigUtils {
     public static void noActionbarPlayerArgumentProvided(Audience sender){
         sender.sendMessage(
             getPrefix().append(MiniMessageUtil.parse(
-                config.getString(
+                config.getOrDefault(
                     "messages.actionbar.only-player",
                     "<gray>You must enter the message to be sent after the player's name.</gray>"))));
     }
 
-    public static void actionbarPlayerNotFoundMessage(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
-                "messages.actionbar.player-not-found",
-                "<red>Player not found</red>"))));
-    }
-
     public static String getActionbarSound(){
-        return config.getString(
+        return config.getOrDefault(
             "sounds.actionbar.sound-id",
             "entity.experience_orb.pickup");
     }
 
     public static boolean isActionbarSoundEnabled(){
-        return config.getBoolean("sounds.actionbar.enabled", true);
+        return config.getOrDefault("sounds.actionbar.enabled", true);
     }
 
     static float getActionbarSoundVolume(){
-        return config.getInt("sounds.actionbar.volume", 10);
+        return config.getOrDefault("sounds.actionbar.volume", 10);
     }
 
     static float getActionbarSoundPitch(){
-        return config.getInt("sounds.actionbar.pitch", 2);
+        return config.getOrDefault("sounds.actionbar.pitch", 2);
     }
 
     public static void playActionbarSound(Audience audience){
@@ -160,43 +129,29 @@ public class ConfigUtils {
     BOSSBAR CONFIGURATION
     -----------------------------*/
 
-    public static void sendNoBossbarPermission(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
-                "messages.bossbar.no-permission",
-                "<red>You do not have permission to execute this command</red>"))));
-    }
-
     public static void sendBossbarConfirmation(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.bossbar.successfully",
                 "<green>Bossbar succesfully sended</green>"))));
     }
 
-    public static void bossbarPlayerNotFoundMessage(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
-                "messages.bossbar.player-not-found",
-                "<red>Player not found</red>"))));
-    }
-
     public static String getBossbarSound(){
-        return config.getString(
+        return config.getOrDefault(
             "sounds.bossbar.sound-id",
             "entity.experience_orb.pickup");
     }
 
     public static boolean isBossbarSoundEnabled(){
-        return config.getBoolean("sounds.bossbar.enabled", true);
+        return config.getOrDefault("sounds.bossbar.enabled", true);
     }
 
     static float getBossbarSoundVolume(){
-        return config.getInt("sounds.bossbar.volume", 10);
+        return config.getOrDefault("sounds.bossbar.volume", 10);
     }
 
     static float getBossbarSoundPitch(){
-        return config.getInt("sounds.bossbar.pitch", 2);
+        return config.getOrDefault("sounds.bossbar.pitch", 2);
     }
 
     public static void playBossbarSound(Audience audience){
@@ -214,29 +169,36 @@ public class ConfigUtils {
     */
     public static void sendNoMainPermission(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.general.no-permission",
                 "<red>You do not have permission to execute this command</red>"))));
     }
 
     public static void reloadMessage(Audience sender){
         sender.sendMessage(MiniMessageUtil.parse(
-            config.getString(
-                "messages.general.help-message", 
-                "<white>Available Commands:</white>")));
+            config.getOrDefault(
+                "messages.general.reload-config",
+                "<green>Config Reloaded</green>")));
     }
 
     public static void invalidCommand(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getString(
+            config.getOrDefault(
                 "messages.general.invalid-command",
                 "<red>Unknown Command</red>"))));
     }
 
     public static void helpPrefix(Audience sender){
         sender.sendMessage(MiniMessageUtil.parse(
-            config.getString(
-                "messages.general.help-message", 
+            config.getOrDefault(
+                "messages.general.help-message",
                 "<white>Available Commands:</white>")));
+    }
+
+    public static void playerNotFoundMessage(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getOrDefault(
+                "messages.general.player-not-found",
+                "<red>Player not found</red>"))));
     }
 }

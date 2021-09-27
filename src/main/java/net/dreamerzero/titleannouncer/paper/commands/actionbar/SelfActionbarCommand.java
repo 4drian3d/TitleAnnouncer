@@ -10,27 +10,23 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.kyori.adventure.util.TriState;
 
 public class SelfActionbarCommand implements CommandExecutor {
-    private final Announcer plugin;
-    public SelfActionbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public SelfActionbarCommand() {}
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            plugin.getLogger().info("The console cannot execute this command.");
+            sender.sendMessage("The console cannot execute this command.");
             return false;
         }
 
         // Permission Check
         if (sender.permissionValue("announcer.actionbar.test") != TriState.TRUE) {
-            ConfigUtils.sendNoActionbarPermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

@@ -1,10 +1,9 @@
 package net.dreamerzero.titleannouncer.paper;
 
-import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.RegisterCommands;
@@ -24,7 +23,8 @@ public class Announcer extends JavaPlugin {
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		instance = this;
-		pluginConfiguration();
+		ConfigManager.createConfig();
+		ConfigManager.defaultConfig();
 		commandRegister();
 		listenerRegister();
 		PlaceholderUtil.placeholderAPICheck();
@@ -53,14 +53,6 @@ public class Announcer extends JavaPlugin {
 	public void listenerRegister() {
 		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
 		getServer().getPluginManager().registerEvents(new PluginListener(), this);
-	}
-
-	public void pluginConfiguration() {
-		File config = new File(this.getDataFolder(), "config.yml");
-		if (!config.exists()) {
-			getConfig().options().copyDefaults(true);
-			saveDefaultConfig();
-		}
 	}
 
 	public static Announcer getInstance() {
