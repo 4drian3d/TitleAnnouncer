@@ -52,9 +52,27 @@ public class SoundUtil {
                 getSoundFromString(sound),
                 SoundCategory.MASTER, volume, pitch);
         }
-
     }
 
+    public static void playProxySound(
+        String sound,
+        float volume,
+        float pitch){
+
+        ProxyServer proxy = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
+
+        if(proxy.getPluginManager().isLoaded("protocolize")){
+            for(com.velocitypowered.api.proxy.Player player : proxy.getAllPlayers()){
+                UUID playeruuid = player.getUniqueId();
+                ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
+                protocolizePlayer.playSound(
+                    getSoundFromString(sound),
+                    SoundCategory.MASTER, volume, pitch);
+            }
+        }
+
+    }
+    //TODO: Finish this
     static dev.simplix.protocolize.data.Sound getSoundFromString(String sound){
         return switch(sound){
             case "ambient.cave" -> AMBIENT_CAVE;
@@ -69,5 +87,20 @@ public class SoundUtil {
             case "block.anvil.fall" -> BLOCK_ANVIL_FALL;
             default -> ENTITY_EXPERIENCE_ORB_PICKUP;
         };
+    }
+
+    public static void playProxyTitleSound(com.velocitypowered.api.proxy.Player player){
+        playProxySound(
+            player,
+            ConfigUtils.getTitleSound(),
+            ConfigUtils.getTitleSoundVolume(),
+            ConfigUtils.getTitleSoundPitch());
+    }
+
+    public static void playToAllProxyTitleSound(){
+        playProxySound(
+            ConfigUtils.getTitleSound(),
+            ConfigUtils.getTitleSoundVolume(),
+            ConfigUtils.getTitleSoundPitch());
     }
 }
