@@ -2,6 +2,8 @@ package net.dreamerzero.titleannouncer.common.utils;
 
 import java.util.List;
 
+import com.velocitypowered.api.proxy.ProxyServer;
+
 import org.bukkit.Bukkit;
 
 import static net.kyori.adventure.text.Component.text;
@@ -74,6 +76,29 @@ public class PlaceholderUtil {
             Template.of("otherworld", text(otherPlayer.getName())),
             Template.of("mspt", text(mspt)),
             Template.of("tps", text(tps)));
+        return templates;
+    }
+
+    public static Template replaceProxyPlaceholders(){
+        ProxyServer server = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
+        return Template.of("online", String.valueOf(server.getPlayerCount()));
+    }
+
+    public static List<Template> replaceProxyPlaceholders(
+        com.velocitypowered.api.proxy.Player player){
+
+        ProxyServer server = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
+        List<Template> templates = List.of(
+            Template.of("online", String.valueOf(server.getPlayerCount())),
+            Template.of("name", player.getUsername()),
+            Template.of("ping", String.valueOf(player.getPing())),
+            Template.of("client", player.getClientBrand()),
+            Template.of("locale", player.getEffectiveLocale().getDisplayLanguage()),
+            Template.of("server", player.getCurrentServer().get().getServerInfo().getName()),
+            Template.of("version", String.valueOf(player.getProtocolVersion().getMostRecentSupportedVersion())));
+        if(player.getModInfo().isPresent()) {
+            templates.add(Template.of("mods", player.getModInfo().get().getMods().toString()));
+        }
         return templates;
     }
 
