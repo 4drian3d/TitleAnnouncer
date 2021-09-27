@@ -20,7 +20,7 @@ public class SendActionbarCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
         if (sender.permissionValue("announcer.actionbar.send") != TriState.TRUE) {
-            ConfigUtils.sendNoActionbarPermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 
@@ -37,7 +37,7 @@ public class SendActionbarCommand implements CommandExecutor {
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            ConfigUtils.actionbarPlayerNotFoundMessage(sender);
+            ConfigUtils.playerNotFoundMessage(sender);
             return false;
         }
 

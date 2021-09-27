@@ -11,28 +11,24 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.util.TriState;
 
 public class WorldTitleCommand implements CommandExecutor {
-    private final Announcer plugin;
-    public WorldTitleCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+    public WorldTitleCommand() {}
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            plugin.getLogger().info("The console cannot execute this command.");
+            sender.sendMessage("The console cannot execute this command.");
             return false;
         }
 
         // Permission Check
         if (player.permissionValue("announcer.title.world") != TriState.TRUE) {
-            ConfigUtils.sendNoTitlePermission(sender);
+            ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
 

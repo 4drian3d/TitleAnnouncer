@@ -100,7 +100,7 @@ public class BossBarUtils {
             case 0 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    Announcer.getInstance().getConfig().getString(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
                 return false;
@@ -108,15 +108,15 @@ public class BossBarUtils {
             case 1 -> {
                 sender.sendMessage(
                     ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    Announcer.getInstance().getConfig().getString(
-                        "messages.bossbar.only-time",
-                        "<gray>You must enter the color and the message arguments.</gray>"))));
+                        ConfigManager.getConfig().getOrDefault(
+                            "messages.bossbar.only-time",
+                            "<gray>You must enter the color and the message arguments.</gray>"))));
                 return false;
             }
             case 2 -> {
                 sender.sendMessage(
                     ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    Announcer.getInstance().getConfig().getString(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
                 return false;
@@ -124,7 +124,7 @@ public class BossBarUtils {
             case 3 -> {
                 sender.sendMessage(
                     ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    Announcer.getInstance().getConfig().getString(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
                 return false;
@@ -134,12 +134,11 @@ public class BossBarUtils {
     }
 
     public static boolean sendBossbarArgs(int length, Audience sender) {
-        Announcer plugin = Announcer.getInstance();
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
                 yield false;
@@ -147,7 +146,7 @@ public class BossBarUtils {
             case 1 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.only-player",
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
                 yield false;
@@ -155,7 +154,7 @@ public class BossBarUtils {
             case 2 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
                 yield false;
@@ -163,7 +162,7 @@ public class BossBarUtils {
             case 3 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
                 yield false;
@@ -171,7 +170,7 @@ public class BossBarUtils {
             case 4 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
-                    plugin.getConfig().getString(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
                 yield false;

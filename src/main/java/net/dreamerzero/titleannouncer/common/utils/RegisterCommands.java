@@ -21,9 +21,9 @@ public class RegisterCommands {
         plugin.getCommand("announcebossbar")
 			.setExecutor(new AnnouncerBossbarCommand());
 		plugin.getCommand("selfbossbar")
-			.setExecutor(new SelfBossbarCommand(plugin));
+			.setExecutor(new SelfBossbarCommand());
 		plugin.getCommand("worldbossbar")
-			.setExecutor(new WorldBossbarCommand(plugin));
+			.setExecutor(new WorldBossbarCommand());
 		plugin.getCommand("sendbossbar")
 			.setExecutor(new SendBossbarCommand());
     }
@@ -31,9 +31,9 @@ public class RegisterCommands {
         plugin.getCommand("announcetitle")
 			.setExecutor(new AnnouncerTitleCommand());
 		plugin.getCommand("selftitle")
-			.setExecutor(new SelfTitleCommand(plugin));
+			.setExecutor(new SelfTitleCommand());
 		plugin.getCommand("worldtitle")
-			.setExecutor(new WorldTitleCommand(plugin));
+			.setExecutor(new WorldTitleCommand());
 		plugin.getCommand("sendtitle")
 			.setExecutor(new SendTitleCommand());
     }
@@ -41,14 +41,14 @@ public class RegisterCommands {
         plugin.getCommand("announceactionbar")
 			.setExecutor(new AnnouncerActionbarCommand());
 		plugin.getCommand("selfactionbar")
-			.setExecutor(new SelfActionbarCommand(plugin));
+			.setExecutor(new SelfActionbarCommand());
 		plugin.getCommand("worldactionbar")
-			.setExecutor(new WorldActionbarCommand(plugin));
+			.setExecutor(new WorldActionbarCommand());
 		plugin.getCommand("sendactionbar")
 			.setExecutor(new SendActionbarCommand());
     }
     public static void registerMainCommand(){
         plugin.getCommand("announcer")
-			.setExecutor(new AnnouncerCommand(plugin));
+			.setExecutor(new AnnouncerCommand());
     }
 }
