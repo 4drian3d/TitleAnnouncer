@@ -2,7 +2,7 @@ name: ${project.artifactId}
 version: ${project.version}
 prefix: ${project.artifactId}
 author: 4drian3d
-main: net.dreamerzero.titleannouncer.Announcer
+main: net.dreamerzero.titleannouncer.paper.Announcer
 website: https://github.com/4drian3d/TitleAnnouncer
 description: >
     Plugin created to send titles, actionbars and bossbars to the
