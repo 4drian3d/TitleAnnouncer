@@ -79,9 +79,9 @@ public class PlaceholderUtil {
         return templates;
     }
 
-    public static Template replaceProxyPlaceholders(){
+    public static List<Template> replaceProxyPlaceholders(){
         ProxyServer server = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
-        return Template.of("online", String.valueOf(server.getPlayerCount()));
+        return List.of(Template.of("online", String.valueOf(server.getPlayerCount())));
     }
 
     public static List<Template> replaceProxyPlaceholders(

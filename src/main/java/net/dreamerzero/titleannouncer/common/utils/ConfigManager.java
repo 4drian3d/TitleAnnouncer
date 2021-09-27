@@ -76,6 +76,12 @@ public class ConfigManager {
         """);
         config.setReloadSettings(ReloadSettings.MANUALLY);
     }
+    //TODO: Proxy config
+    public static void defaultProxyConfig(){
+        config.setDefault(
+            "messages.general.server-not-found",
+            "<red>Server not found</red>");
+    }
 
     public static void createConfig(){
         config = new Yaml("config", "plugins/titleannouncer");
