@@ -55,7 +55,7 @@ public class ServerActionbarCommand implements SimpleCommand {
 
     @Override
     public List<String> suggest(final Invocation invocation) {
-        if(invocation.arguments().length == 0){
+        if(invocation.arguments().length <= 1){
             List<String> servers = List.of("");
             Announcer.getProxyServer().getAllServers().forEach(server ->
                 servers.add(server.getServerInfo().getName()));

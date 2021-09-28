@@ -71,7 +71,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
                 MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         bossbartext),
-                        PlaceholderUtil.replacePlaceholders()),
+                        PlaceholderUtil.replaceProxyPlaceholders()),
                 color,
                 overlay);
             ConfigUtils.sendBossbarConfirmation(sender);
