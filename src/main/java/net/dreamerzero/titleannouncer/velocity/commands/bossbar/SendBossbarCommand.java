@@ -67,4 +67,6 @@ public class SendBossbarCommand implements SimpleCommand{
         ConfigUtils.playBossbarSound(playerObjetive);
         return;
     }
+
+    //TODO: Add Bossbar tab complete
 }

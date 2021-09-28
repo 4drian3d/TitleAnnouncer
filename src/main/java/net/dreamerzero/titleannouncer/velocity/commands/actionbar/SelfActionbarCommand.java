@@ -1,5 +1,7 @@
 package net.dreamerzero.titleannouncer.velocity.commands.actionbar;
 
+import java.util.List;
+
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
@@ -29,5 +31,15 @@ public class SelfActionbarCommand implements SimpleCommand{
         SoundUtil.playProxyActionbarSound(player);
         ConfigUtils.sendActionbarConfirmation(sender);
         return;
+    }
+
+    @Override
+    public List<String> suggest(final Invocation invocation) {
+        return List.of("[message]");
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("titleannouncer.actionbar.self");
     }
 }
