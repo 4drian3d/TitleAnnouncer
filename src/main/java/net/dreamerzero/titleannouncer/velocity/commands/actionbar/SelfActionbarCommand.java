@@ -17,7 +17,7 @@ public class SelfActionbarCommand implements SimpleCommand{
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         if(!(sender instanceof Player player)){
-            sender.sendMessage(MiniMessageUtil.parse("The console cannot execute this command."));
+            ConfigUtils.onlyPlayerExecute(sender);
             return;
         }
         // Concatenate the arguments provided by the command sent.

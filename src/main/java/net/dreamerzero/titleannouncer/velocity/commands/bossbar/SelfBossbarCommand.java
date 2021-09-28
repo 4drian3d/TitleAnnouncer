@@ -19,7 +19,7 @@ public class SelfBossbarCommand implements SimpleCommand {
         String[] args = invocation.arguments();
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(MiniMessageUtil.parse("The console cannot execute this command."));
+            ConfigUtils.onlyPlayerExecute(sender);
             return;
         }
 

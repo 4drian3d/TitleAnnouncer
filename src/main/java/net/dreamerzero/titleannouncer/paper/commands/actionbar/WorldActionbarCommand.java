@@ -21,7 +21,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         // It will send an actionbar to the world in which the command is executed,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("The console cannot execute this command.");
+            ConfigUtils.onlyPlayerExecute(sender);
             return false;
         }
 

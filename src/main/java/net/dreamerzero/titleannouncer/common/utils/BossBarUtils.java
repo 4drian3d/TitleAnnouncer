@@ -83,7 +83,7 @@ public class BossBarUtils {
 
         ProxyServer server = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
 
-        ScheduledTask scheduler = server.getScheduler()
+        server.getScheduler()
         .buildTask(net.dreamerzero.titleannouncer.velocity.Announcer.getVInstance(), () -> {
             value -= toReduce;
                 if (value <= 0.02) {
@@ -198,6 +198,52 @@ public class BossBarUtils {
                     ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.only-player",
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
+                yield false;
+            }
+            case 2 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    ConfigManager.getConfig().getOrDefault(
+                        "messages.bossbar.only-time",
+                        "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
+                yield false;
+            }
+            case 3 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    ConfigManager.getConfig().getOrDefault(
+                        "messages.bossbar.overlay-missing",
+                        "<gray>You must enter the overlay and the message arguments.</gray>"))));
+                yield false;
+            }
+            case 4 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    ConfigManager.getConfig().getOrDefault(
+                        "messages.bossbar.without-message",
+                        "<gray>You need to enter the message to announce.</gray>"))));
+                yield false;
+            }
+            default -> true;
+        };
+    }
+
+    public static boolean proxyBossbarArgs(int length, Audience sender) {
+        return switch (length) {
+            case 0 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    ConfigManager.getConfig().getOrDefault(
+                        "messages.bossbar.without-argument",
+                        "<red>You need to enter the time, color and message arguments.</red>"))));
+                yield false;
+            }
+            case 1 -> {
+                sender.sendMessage(
+                ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
+                    ConfigManager.getConfig().getOrDefault(
+                        "messages.general.no-server-provided",
+                        "<red>No server provided to send the message</red>"))));
                 yield false;
             }
             case 2 -> {

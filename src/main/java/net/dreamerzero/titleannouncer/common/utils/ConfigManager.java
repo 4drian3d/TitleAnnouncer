@@ -64,6 +64,7 @@ public class ConfigManager {
         config.setDefault("messages.general.help-message", "<white>Available Commands:</white>");
         config.setDefault("messages.general.invalid-command", "<red>Unknown Command</red>");
         config.setDefault("messages.general.reload-config", "<green>Config Reloaded</green>");
+        config.setDefault("messages.general.no-console", "<red>The console cannot execute this command</red>");
         config.setDefault("messages.prefix.line", "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> ");
         config.setHeader("""
         TitleAnnouncer | by 4drian3d
@@ -76,11 +77,13 @@ public class ConfigManager {
         """);
         config.setReloadSettings(ReloadSettings.MANUALLY);
     }
-    //TODO: Proxy config
     public static void defaultProxyConfig(){
         config.setDefault(
             "messages.general.server-not-found",
             "<red>Server not found</red>");
+        config.setDefault(
+            "messages.general.no-server-provided",
+            "<red>No server provided to send the message</red>");
     }
 
     public static void createConfig(){
