@@ -8,24 +8,18 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
+import net.kyori.adventure.util.TriState;
 
 public class AnnouncerCommand implements CommandExecutor {
     public AnnouncerCommand() {}
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        switch (sender.permissionValue("titleannouncer.command.show")){
-            case NOT_SET -> {
-                sender.sendMessage(
-                    MiniMessageUtil.parse(
-                    "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-                return true;
-            }
-            case FALSE -> {
-                ConfigUtils.sendNoMainPermission(sender);
-                return true;
-            }
-            case TRUE -> {}
+        if (sender.permissionValue("titleannouncer.command.show") == TriState.NOT_SET){
+            sender.sendMessage(
+                MiniMessageUtil.parse(
+                "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
+            return true;
         }
 
         if (args.length == 0) {

@@ -82,6 +82,7 @@ public class RegisterCommands {
 			plugin.getCommand("announcer"));
 
 		commands.forEach(command -> {
+			//Waiting for https://github.com/PaperMC/Paper/pull/6676
 			command.setPermissionMessage(
 				LegacyComponentSerializer.legacyAmpersand().serialize(
 					ConfigUtils.getPrefix().append(

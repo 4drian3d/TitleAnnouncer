@@ -17,7 +17,6 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.util.TriState;
 
 public class AnnouncerBossbarCommand implements CommandExecutor {
     public AnnouncerBossbarCommand() {}
@@ -27,12 +26,6 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.bossbar.global") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
-        }
-
         // The command requires arguments to work
         if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
             return false;

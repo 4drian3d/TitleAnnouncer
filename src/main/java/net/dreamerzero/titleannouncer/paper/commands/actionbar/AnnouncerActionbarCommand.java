@@ -12,7 +12,6 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.util.TriState;
 
 public class AnnouncerActionbarCommand implements CommandExecutor {
     public AnnouncerActionbarCommand() {}
@@ -22,12 +21,6 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // Permission Check TODO: Check if this really works
-        if (sender.permissionValue("titleannouncer.actionbar.global") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
-        }
-
         if(args.length == 0) {
             ConfigUtils.noActionbarArgumentProvided(sender);
             return false;

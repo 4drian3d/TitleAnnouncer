@@ -90,7 +90,7 @@ public class ConfigManager {
     }
 
     public static void createConfig(){
-        config = new Yaml("config", "plugins/titleannouncer");
+        config = new Yaml("config", "plugins/TitleAnnouncer");
     }
 
     public static Yaml getConfig(){

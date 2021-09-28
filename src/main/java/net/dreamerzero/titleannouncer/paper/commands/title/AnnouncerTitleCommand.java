@@ -13,7 +13,6 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.util.TriState;
 
 public class AnnouncerTitleCommand implements CommandExecutor {
     public AnnouncerTitleCommand() {}
@@ -23,12 +22,6 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.title.global") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
-        }
-
         if(args.length == 0) {
             ConfigUtils.sendNoArgumentMessage(sender);
             return true;

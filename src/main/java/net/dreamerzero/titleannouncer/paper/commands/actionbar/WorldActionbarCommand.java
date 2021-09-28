@@ -11,7 +11,6 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.util.TriState;
 
 public class WorldActionbarCommand implements CommandExecutor {
     public WorldActionbarCommand() {}
@@ -23,12 +22,6 @@ public class WorldActionbarCommand implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             ConfigUtils.onlyPlayerExecute(sender);
             return false;
-        }
-
-        // Permission Check
-        if (player.permissionValue("titleannouncer.actionbar.world") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
         }
 
         if(args.length == 0) {
@@ -43,10 +36,9 @@ public class WorldActionbarCommand implements CommandExecutor {
         String actionbartext = GeneralUtils.getCommandString(args);
 
         audience.sendActionBar(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
-                    PlaceholderUtil.replacePlaceholders(player)));
+            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
+                PlaceholderUtil.replacePlaceholders(player)));
         ConfigUtils.sendActionbarConfirmation(sender);
         ConfigUtils.playActionbarSound(audience);
         return true;

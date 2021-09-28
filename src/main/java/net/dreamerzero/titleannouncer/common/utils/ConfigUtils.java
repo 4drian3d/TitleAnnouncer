@@ -175,6 +175,7 @@ public class ConfigUtils {
     /*
     GENERAL CONFIGURATION
     */
+    @Deprecated
     public static void sendNoMainPermission(Audience sender){
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
             config.getOrDefault(

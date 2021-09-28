@@ -11,7 +11,6 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
-import net.kyori.adventure.util.TriState;
 
 /*
 This command will be executed as a test of the "/anunciarevento" command.
@@ -27,12 +26,6 @@ public class SelfTitleCommand implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             ConfigUtils.onlyPlayerExecute(sender);
             return false;
-        }
-
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.title.self") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
         }
 
         // The command requires arguments to work

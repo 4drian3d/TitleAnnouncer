@@ -15,7 +15,6 @@ import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.util.TriState;
 
 public class SelfBossbarCommand implements CommandExecutor {
     public SelfBossbarCommand() {}
@@ -27,11 +26,6 @@ public class SelfBossbarCommand implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             ConfigUtils.onlyPlayerExecute(sender);
             return false;
-        }
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.bossbar.self") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
         }
 
         // The command requires arguments to work

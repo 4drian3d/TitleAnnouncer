@@ -12,19 +12,12 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
-import net.kyori.adventure.util.TriState;
 
 public class SendTitleCommand implements CommandExecutor {
     public SendTitleCommand() {}
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.title.send") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
-        }
-
         // The command requires arguments to work
         switch (args.length) {
             case 0 -> {
