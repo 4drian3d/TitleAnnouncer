@@ -28,6 +28,11 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
             return true;
         }
 
+        if(args.length == 0) {
+            ConfigUtils.noActionbarArgumentProvided(sender);
+            return false;
+        }
+
         boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.

@@ -31,6 +31,11 @@ public class WorldActionbarCommand implements CommandExecutor {
             return true;
         }
 
+        if(args.length == 0) {
+            ConfigUtils.noActionbarArgumentProvided(sender);
+            return false;
+        }
+
         // Get the world in which the player is located
         Audience audience = player.getWorld();
 

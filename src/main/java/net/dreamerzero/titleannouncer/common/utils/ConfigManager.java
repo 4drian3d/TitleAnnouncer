@@ -28,6 +28,9 @@ public class ConfigManager {
             "messages.actionbar.successfully",
             "<green>Actionbar succesfully sended</green>");
         config.setDefault(
+            "messages.actionbar.without-argument",
+            "<red>You need to enter the message to announce.</red>");
+        config.setDefault(
             "messages.actionbar.only-player",
             "<gray>You must enter the message to be sent after the player's name.</gray>");
         config.setDefault("sounds.actionbar.enabled", true);
