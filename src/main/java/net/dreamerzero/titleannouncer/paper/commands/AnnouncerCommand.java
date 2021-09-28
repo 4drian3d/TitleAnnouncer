@@ -14,7 +14,7 @@ public class AnnouncerCommand implements CommandExecutor {
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        switch (sender.permissionValue("announcer.command.show")){
+        switch (sender.permissionValue("titleannouncer.command.show")){
             case NOT_SET -> {
                 sender.sendMessage(
                     MiniMessageUtil.parse(

@@ -6,9 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.common.utils.RegisterCommands;
 import net.dreamerzero.titleannouncer.paper.listeners.PluginListener;
 import net.dreamerzero.titleannouncer.paper.listeners.TabCompleteListener;
+import net.dreamerzero.titleannouncer.paper.utils.RegisterCommands;
 
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;

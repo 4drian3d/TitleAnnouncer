@@ -26,7 +26,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (player.permissionValue("announcer.actionbar.world") != TriState.TRUE) {
+        if (player.permissionValue("titleannouncer.actionbar.world") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }

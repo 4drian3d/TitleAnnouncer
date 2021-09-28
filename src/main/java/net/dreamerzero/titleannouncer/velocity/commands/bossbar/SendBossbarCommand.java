@@ -13,6 +13,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 
 public class SendBossbarCommand implements SimpleCommand{
@@ -55,7 +56,7 @@ public class SendBossbarCommand implements SimpleCommand{
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 5);
 
-        BossBarUtils.sendVelocityBossbar(
+        VelocityBossbar.sendVelocityBossbar(
             playerObjetive,
             time,
             MiniMessageUtil.parse(

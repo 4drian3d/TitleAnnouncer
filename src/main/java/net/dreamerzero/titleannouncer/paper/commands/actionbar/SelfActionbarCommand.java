@@ -25,7 +25,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (sender.permissionValue("announcer.actionbar.test") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.actionbar.self") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }

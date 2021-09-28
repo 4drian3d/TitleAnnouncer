@@ -11,6 +11,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -30,7 +31,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (sender.permissionValue("announcer.bossbar.world") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.bossbar.world") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
@@ -61,7 +62,7 @@ public class WorldBossbarCommand implements CommandExecutor {
         // The audience that will receive the bossbar will be all the players on the server.
         Audience audience = player.getWorld();
 
-        BossBarUtils.sendBukkitBossBar(
+        PaperBossBar.sendBukkitBossBar(
             audience,
             time,
             MiniMessageUtil.parse(

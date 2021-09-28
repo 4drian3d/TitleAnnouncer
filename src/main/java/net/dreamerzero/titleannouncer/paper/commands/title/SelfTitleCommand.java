@@ -30,7 +30,7 @@ public class SelfTitleCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (sender.permissionValue("announcer.title.test") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.title.self") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }

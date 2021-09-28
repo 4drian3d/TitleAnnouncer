@@ -60,16 +60,17 @@ public class SoundUtil {
         float volume,
         float pitch){
 
+
         ProxyServer proxy = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
 
-        if(proxy.getPluginManager().isLoaded("protocolize")){
-            for(com.velocitypowered.api.proxy.Player player : proxy.getAllPlayers()){
-                UUID playeruuid = player.getUniqueId();
-                ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
-                protocolizePlayer.playSound(
-                    getSoundFromString(sound),
-                    SoundCategory.MASTER, volume, pitch);
-            }
+        if(!proxy.getPluginManager().isLoaded("protocolize")) return;
+
+        for(com.velocitypowered.api.proxy.Player player : proxy.getAllPlayers()){
+            UUID playeruuid = player.getUniqueId();
+            ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
+            protocolizePlayer.playSound(
+                getSoundFromString(sound),
+                SoundCategory.MASTER, volume, pitch);
         }
     }
 
