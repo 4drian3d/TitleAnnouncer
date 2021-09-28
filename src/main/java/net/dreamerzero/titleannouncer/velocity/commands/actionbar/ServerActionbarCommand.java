@@ -1,5 +1,6 @@
 package net.dreamerzero.titleannouncer.velocity.commands.actionbar;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.velocitypowered.api.command.CommandSource;
@@ -12,6 +13,7 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.SoundUtil;
+import net.dreamerzero.titleannouncer.velocity.Announcer;
 
 public class ServerActionbarCommand implements SimpleCommand {
     private ProxyServer server;
@@ -46,5 +48,21 @@ public class ServerActionbarCommand implements SimpleCommand {
         SoundUtil.playToServerProxyActionbarSound(serverObjetive);
         ConfigUtils.sendActionbarConfirmation(sender);
         return;
+    }
+
+    @Override
+    public List<String> suggest(final Invocation invocation) {
+        if(invocation.arguments().length == 0){
+            List<String> servers = List.of("");
+            Announcer.getProxyServer().getAllServers().forEach(server ->
+                servers.add(server.getServerInfo().getName()));
+            return servers;
+        }
+        return List.of("[message]");
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("titleannouncer.actionbar.server");
     }
 }

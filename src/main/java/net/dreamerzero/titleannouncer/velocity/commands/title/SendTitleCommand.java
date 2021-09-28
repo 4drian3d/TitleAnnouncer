@@ -82,4 +82,6 @@ public class SendTitleCommand implements SimpleCommand {
         SoundUtil.playProxyTitleSound(playerObjetive);
         ConfigUtils.sendTitleConfirmation(sender);
     }
+
+    //TODO: Add Title Tab Complete
 }
