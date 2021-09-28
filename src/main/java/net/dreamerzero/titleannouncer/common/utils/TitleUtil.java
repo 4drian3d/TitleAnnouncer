@@ -104,4 +104,11 @@ public class TitleUtil {
             return null;
         }
     }
+
+    public static boolean containsComma(String[] args){
+        for(int i = 0; i <= args.length; i++){
+            if(args[i].contains(";")) return true;
+        }
+        return false;
+    }
 }

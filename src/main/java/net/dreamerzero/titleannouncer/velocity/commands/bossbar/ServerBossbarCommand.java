@@ -1,5 +1,6 @@
 package net.dreamerzero.titleannouncer.velocity.commands.bossbar;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.velocitypowered.api.command.CommandSource;
@@ -67,5 +68,25 @@ public class ServerBossbarCommand implements SimpleCommand {
         ConfigUtils.sendBossbarConfirmation(sender);
         SoundUtil.playToServerProxyBossbarSound(serverObjetive);
         return;
+    }
+
+    @Override
+    public List<String> suggest(final Invocation invocation) {
+        return switch (invocation.arguments().length) {
+            case 1 -> {
+                List<String> servers = List.of("");
+                server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
+                yield servers;
+            }
+            case 2 -> List.of("[Time]");
+            case 3 -> List.of("[Color]");
+            case 4 -> List.of("[Type]");
+            default -> List.of("[message]");
+        };
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("titleannouncer.bossbar.server");
     }
 }
