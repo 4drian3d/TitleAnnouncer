@@ -11,19 +11,12 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.kyori.adventure.util.TriState;
 
 public class SendActionbarCommand implements CommandExecutor {
     public SendActionbarCommand() {}
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.actionbar.send") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
-        }
-
         if(args.length == 0) {
             ConfigUtils.noActionbarArgumentProvided(sender);
             return false;

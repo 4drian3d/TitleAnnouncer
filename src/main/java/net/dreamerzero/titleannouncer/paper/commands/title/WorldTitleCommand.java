@@ -12,7 +12,6 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.util.TriState;
 
 public class WorldTitleCommand implements CommandExecutor {
     public WorldTitleCommand() {}
@@ -24,12 +23,6 @@ public class WorldTitleCommand implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             ConfigUtils.onlyPlayerExecute(sender);
             return false;
-        }
-
-        // Permission Check
-        if (player.permissionValue("titleannouncer.title.world") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
         }
 
         // Get the world in which the player is located.

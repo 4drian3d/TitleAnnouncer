@@ -10,7 +10,6 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.kyori.adventure.util.TriState;
 
 public class SelfActionbarCommand implements CommandExecutor {
     public SelfActionbarCommand() {}
@@ -24,12 +23,6 @@ public class SelfActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        // Permission Check
-        if (sender.permissionValue("titleannouncer.actionbar.self") != TriState.TRUE) {
-            ConfigUtils.sendNoMainPermission(sender);
-            return true;
-        }
-
         if(args.length == 0) {
             ConfigUtils.noActionbarArgumentProvided(sender);
             return false;
@@ -40,12 +33,12 @@ public class SelfActionbarCommand implements CommandExecutor {
 
         // Send to sender
         sender.sendActionBar(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
-                    PlaceholderUtil.replacePlaceholders(player)));
+        MiniMessageUtil.parse(
+            MiniMessageUtil.replaceLegacy(
+                PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
+                PlaceholderUtil.replacePlaceholders(player)));
         ConfigUtils.sendActionbarConfirmation(sender);
         ConfigUtils.playActionbarSound(sender);
-    return true;
+        return true;
     }
 }

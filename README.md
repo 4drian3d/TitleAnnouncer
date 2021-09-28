@@ -146,25 +146,25 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
         <tr>
             <td><code>/announcebossbar</code></td>
             <td>(Time) (Color) (Type) (Message)</td>
-            <td>announcer.bossbar.global</td>
+            <td>titleannouncer.bossbar.global</td>
             <td>Announce a Bossbar to the entire server.</td>
         </tr>
         <tr>
             <td><code>/selfbossbar</code></td>
             <td>(Time) (Color) (Type) (Message)</td>
-            <td>announcer.bossbar.self</td>
+            <td>titleannouncer.bossbar.self</td>
             <td>Send a Bossbar only to the player who has sent it.</td>
         </tr>
         <tr>
             <td><code>/worldbossbar</code></td>
             <td>(Time) (Color) (Type) (Message)</td>
-            <td>announcer.bossbar.world</td>
+            <td>titleannouncer.bossbar.world</td>
             <td>Sends a Bossbar to the world in which the command was executed.</td>
         </tr>
         <tr>
             <td><code>/sendbossbar</code></td>
             <td>(Player) (Time) (Color) (Type) (Message)</td>
-            <td>announcer.bossbar.send</td>
+            <td>titleannouncer.bossbar.send</td>
             <td>Sends an Bossbar to a specific player.</td>
         </tr>
         <tr>
