@@ -87,6 +87,9 @@ public class SoundUtil {
             case "block.anvil.break" -> BLOCK_ANVIL_BREAK;
             case "block.anvil.destroy" -> BLOCK_ANVIL_DESTROY;
             case "block.anvil.fall" -> BLOCK_ANVIL_FALL;
+            case "block.anvil.hit" -> BLOCK_ANVIL_HIT;
+            case "block.anvil.land" -> BLOCK_ANVIL_LAND;
+            case "block.anvil.place" -> BLOCK_ANVIL_PLACE;
             default -> ENTITY_EXPERIENCE_ORB_PICKUP;
         };
     }

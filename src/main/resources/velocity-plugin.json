@@ -6,6 +6,9 @@
     "authors": [
       "4drian3d"
     ],
-    "dependencies": [{"id":"protocolize","optional":true}],
+    "dependencies": [
+      {"id":"protocolize","optional":true},
+      {"id":"protocolizelegacysupport","optional":true}
+    ],
     "main": "net.dreamerzero.titleannouncer.velocity.Announcer"
   }
