@@ -24,7 +24,10 @@ public class SendActionbarCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length < 2) {
+        if(args.length == 0) {
+            ConfigUtils.noActionbarArgumentProvided(sender);
+            return false;
+        } else if (args.length < 2) {
             ConfigUtils.noActionbarPlayerArgumentProvided(sender);
             return false;
         }

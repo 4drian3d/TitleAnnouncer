@@ -25,7 +25,7 @@ public class SendActionbarCommand implements SimpleCommand {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         if(args.length == 0) {
-            ConfigUtils.sendNoArgumentMessage(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return;
         }else if (args.length < 2) {
             ConfigUtils.noActionbarPlayerArgumentProvided(sender);

@@ -30,6 +30,11 @@ public class SelfActionbarCommand implements CommandExecutor {
             return true;
         }
 
+        if(args.length == 0) {
+            ConfigUtils.noActionbarArgumentProvided(sender);
+            return false;
+        }
+
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 

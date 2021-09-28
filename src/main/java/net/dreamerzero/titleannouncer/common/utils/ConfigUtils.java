@@ -89,6 +89,14 @@ public class ConfigUtils {
                     "<green>Actionbar succesfully sended</green>"))));
     }
 
+    public static void noActionbarArgumentProvided(Audience sender){
+        sender.sendMessage(
+            getPrefix().append(MiniMessageUtil.parse(
+                config.getOrDefault(
+                    "messages.actionbar.without-argument",
+                    "<red>You need to enter the message to announce.</red>"))));
+    }
+
     public static void noActionbarPlayerArgumentProvided(Audience sender){
         sender.sendMessage(
             getPrefix().append(MiniMessageUtil.parse(

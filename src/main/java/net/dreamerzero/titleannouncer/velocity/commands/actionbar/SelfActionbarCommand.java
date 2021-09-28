@@ -23,7 +23,7 @@ public class SelfActionbarCommand implements SimpleCommand{
             return;
         }
         if(args.length == 0) {
-            ConfigUtils.sendNoArgumentMessage(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return;
         }
         // Concatenate the arguments provided by the command sent.
