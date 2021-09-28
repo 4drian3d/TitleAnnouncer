@@ -43,7 +43,7 @@ public class VelocityBossbar {
                     return;
                 }
         })
-        .repeat(2000L, TimeUnit.MILLISECONDS)
+        .repeat(200L, TimeUnit.MILLISECONDS)
         .schedule();
     }
 }
