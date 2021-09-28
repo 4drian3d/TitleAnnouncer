@@ -38,12 +38,8 @@ public class SendBossbarCommand implements CommandExecutor{
             return false;
         }
 
-        float time;
-        if(BossBarUtils.validBossbarNumber(args[1], sender) == 0.1f){
-            return false;
-        } else {
-            time = BossBarUtils.validBossbarNumber(args[1], sender);
-        }
+        float time = BossBarUtils.validBossbarNumber(args[1], sender);
+        if(time == 0.1f) return false;
 
         BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
         BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);

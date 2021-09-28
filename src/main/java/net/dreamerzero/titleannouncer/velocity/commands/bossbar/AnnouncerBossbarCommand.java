@@ -33,12 +33,8 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 3);
 
-        float time;
-        if(BossBarUtils.validBossbarNumber(args[0], sender) == 0.1f){
-            return;
-        } else {
-            time = BossBarUtils.validBossbarNumber(args[0], sender);
-        }
+        float time = BossBarUtils.validBossbarNumber(args[0], sender);
+        if(time == 0.1f) return;
 
         BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
         BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);

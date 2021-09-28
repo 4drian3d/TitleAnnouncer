@@ -13,11 +13,11 @@ commands:
     announcer:
         aliases: [titleannouncer]
         description: Main Command
-        permission: announcer.command.show
+        permission: titleannouncer.command.show
     # Title Commands
     announcetitle:
         description: Announce a Title to all players.
-        permission: announcer.title.global
+        permission: titleannouncer.title.global
     selftitle:
         description: This will send a title to the player who used the command.
         permission: titleannouncer.title.self
