@@ -25,7 +25,10 @@ public class ServerActionbarCommand implements SimpleCommand {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
 
-        if (args.length < 2) {
+        if(args.length == 0) {
+            ConfigUtils.sendNoArgumentMessage(sender);
+            return;
+        }else if (args.length < 2) {
             ConfigUtils.noServerArgumentProvided(sender);
             return;
         }

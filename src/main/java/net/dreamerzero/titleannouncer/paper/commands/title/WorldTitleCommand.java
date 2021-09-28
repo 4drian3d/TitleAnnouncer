@@ -47,7 +47,7 @@ public class WorldTitleCommand implements CommandExecutor {
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlyTitle(
+            TitleUtil.sendOnlySubtitle(
                 MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(placeholderAPISupport ?
                     PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),

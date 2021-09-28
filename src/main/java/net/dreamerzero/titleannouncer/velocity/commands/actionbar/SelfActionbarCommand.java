@@ -22,6 +22,10 @@ public class SelfActionbarCommand implements SimpleCommand{
             ConfigUtils.onlyPlayerExecute(sender);
             return;
         }
+        if(args.length == 0) {
+            ConfigUtils.sendNoArgumentMessage(sender);
+            return;
+        }
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 

@@ -46,7 +46,7 @@ public class SendTitleCommand implements CommandExecutor {
         Player playerObjetive = Bukkit.getPlayer(args[0]);
 
         if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlyTitle(
+            TitleUtil.sendOnlySubtitle(
                 MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle) : titleandsubtitle), 
