@@ -86,7 +86,7 @@ public class ServerTitleCommand implements SimpleCommand {
 
     @Override
     public List<String> suggest(final Invocation invocation) {
-        if (invocation.arguments().length <= 2){
+        if (invocation.arguments().length <= 1){
             List<String> servers = List.of("");
             server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
             return servers;

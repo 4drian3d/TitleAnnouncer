@@ -26,6 +26,7 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
         String actionbartext = GeneralUtils.getCommandString(args);
 
         if(args.length == 0) {
+            //TODO: proper no argument actionbar message
             ConfigUtils.sendNoArgumentMessage(sender);
             return;
         }

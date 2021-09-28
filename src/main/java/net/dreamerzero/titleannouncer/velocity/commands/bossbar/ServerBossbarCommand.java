@@ -74,7 +74,7 @@ public class ServerBossbarCommand implements SimpleCommand {
     @Override
     public List<String> suggest(final Invocation invocation) {
         return switch (invocation.arguments().length) {
-            case 1 -> {
+            case 0, 1 -> {
                 List<String> servers = List.of("");
                 server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
                 yield servers;
