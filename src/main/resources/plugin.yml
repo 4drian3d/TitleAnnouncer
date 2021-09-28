@@ -61,13 +61,6 @@ commands:
         description: Sends a bossbar to a specific player.
         permission: announcer.bossbar.send
 permissions:
-    announcer.*:
-        description: A permission that gives access to all plugin commands.
-        default: op
-        children:
-            announcer.title.*: true
-            announcer.actionbar.*: true
-            announcer.command.*: true
     announce.command.*:
         children:
             announcer.command.show: true
@@ -79,14 +72,6 @@ permissions:
         description: Admin Command
         default: op
     # Title Permissions
-    announcer.title.*:
-        description: Permission giving access to all commands to send titles
-        default: false
-        children:
-            announcer.title.global: true
-            announcer.title.self: true
-            announcer.title.world: true
-            announcer.title.send: true
     announcer.title.global:
         description: Announces a Title to the entire server.
         default: false
@@ -100,14 +85,6 @@ permissions:
         description: Sends a title to a specific player.
         default: false
     # ActionBar Permissions
-    announcer.actionbar.*:
-        description: Permission giving access to all commands to send actionbars
-        default: false
-        children:
-            announcer.actionbar.global: true
-            announcer.actionbar.self: true
-            announcer.actionbar.world: true
-            announcer.actionbar.send: true
     announcer.actionbar.global:
         description: Announce an ActionBar to the entire server.
         default: false

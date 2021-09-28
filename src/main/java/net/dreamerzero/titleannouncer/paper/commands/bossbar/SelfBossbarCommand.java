@@ -11,6 +11,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -28,7 +29,7 @@ public class SelfBossbarCommand implements CommandExecutor {
             return false;
         }
         // Permission Check
-        if (sender.permissionValue("announcer.bossbar.self") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.bossbar.self") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
@@ -56,7 +57,7 @@ public class SelfBossbarCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 4);
 
-        BossBarUtils.sendBukkitBossBar(
+        PaperBossBar.sendBukkitBossBar(
             player,
             time,
             MiniMessageUtil.parse(

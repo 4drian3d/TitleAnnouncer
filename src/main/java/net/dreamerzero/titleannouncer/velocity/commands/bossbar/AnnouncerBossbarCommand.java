@@ -7,6 +7,7 @@ import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
@@ -51,7 +52,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
 
         // Send to all
         if (sender instanceof Player player) {
-            BossBarUtils.sendVelocityBossbar(
+            VelocityBossbar.sendVelocityBossbar(
                 server,
                 time,
                 MiniMessageUtil.parse(
@@ -64,7 +65,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
             SoundUtil.playToAllProxyBossbarSound();
             return;
         } else {
-            BossBarUtils.sendVelocityBossbar(
+            VelocityBossbar.sendVelocityBossbar(
                 server,
                 time,
                 MiniMessageUtil.parse(

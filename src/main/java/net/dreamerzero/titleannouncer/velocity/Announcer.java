@@ -7,7 +7,7 @@ import com.velocitypowered.api.event.Subscribe;
 import org.slf4j.Logger;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
-import net.dreamerzero.titleannouncer.common.utils.RegisterCommands;
+import net.dreamerzero.titleannouncer.velocity.utils.RegisterCommands;
 
 public class Announcer {
     private final ProxyServer server;

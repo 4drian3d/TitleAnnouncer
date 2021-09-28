@@ -2,6 +2,7 @@ package net.dreamerzero.titleannouncer.velocity.commands;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
+import com.velocitypowered.api.permission.Tristate;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
@@ -82,18 +83,9 @@ public class AnnouncerCommand implements SimpleCommand {
 
     @Override
     public boolean hasPermission(final Invocation invocation) {
-        return switch (invocation.source().getPermissionValue("announcer.command.show")){
-            case FALSE -> {
-                invocation.source().sendMessage(
-                    MiniMessageUtil.parse(
-                    "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-                yield false;
-            }
-            case UNDEFINED -> {
-                ConfigUtils.sendNoMainPermission(invocation.source());
-                yield false;
-            }
-            default -> true;
-        };
+        if (invocation.source().getPermissionValue("titleannouncer.command.show") != Tristate.TRUE){
+            return false;
+        }
+        return true;
     }
 }

@@ -20,7 +20,7 @@ public class SendTitleCommand implements CommandExecutor {
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
-        if (sender.permissionValue("announcer.title.send") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.title.send") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }

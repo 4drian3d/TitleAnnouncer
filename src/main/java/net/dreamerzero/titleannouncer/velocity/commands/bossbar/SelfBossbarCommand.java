@@ -12,6 +12,7 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.SoundUtil;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 
 public class SelfBossbarCommand implements SimpleCommand {
@@ -51,7 +52,7 @@ public class SelfBossbarCommand implements SimpleCommand {
         }
 
         // Send to all
-        BossBarUtils.sendVelocityBossbar(
+        VelocityBossbar.sendVelocityBossbar(
             sender,
             time,
             MiniMessageUtil.parse(

@@ -12,6 +12,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -27,7 +28,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
-        if (sender.permissionValue("announcer.bossbar.global") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.bossbar.global") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
@@ -59,7 +60,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
 
         // Send to all
         if (sender instanceof Player player) {
-            BossBarUtils.sendBukkitBossBar(
+            PaperBossBar.sendBukkitBossBar(
                 audience,
                 time,
                 MiniMessageUtil.parse(
@@ -72,7 +73,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             ConfigUtils.playBossbarSound(audience);
             return true;
         } else {
-            BossBarUtils.sendBukkitBossBar(
+            PaperBossBar.sendBukkitBossBar(
                 audience,
                 time,
                 MiniMessageUtil.parse(

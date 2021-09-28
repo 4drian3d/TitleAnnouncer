@@ -19,7 +19,7 @@ public class SendActionbarCommand implements CommandExecutor {
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // Permission Check
-        if (sender.permissionValue("announcer.actionbar.send") != TriState.TRUE) {
+        if (sender.permissionValue("titleannouncer.actionbar.send") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }

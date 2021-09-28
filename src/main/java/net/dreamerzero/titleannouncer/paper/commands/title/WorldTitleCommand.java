@@ -27,7 +27,7 @@ public class WorldTitleCommand implements CommandExecutor {
         }
 
         // Permission Check
-        if (player.permissionValue("announcer.title.world") != TriState.TRUE) {
+        if (player.permissionValue("titleannouncer.title.world") != TriState.TRUE) {
             ConfigUtils.sendNoMainPermission(sender);
             return true;
         }
