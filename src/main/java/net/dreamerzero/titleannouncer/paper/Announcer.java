@@ -28,6 +28,7 @@ public class Announcer extends JavaPlugin {
 		commandRegister();
 		listenerRegister();
 		PlaceholderUtil.placeholderAPICheck();
+		RegisterCommands.setCustomNoPermissionMessage();
 	}
 
 	@Override
