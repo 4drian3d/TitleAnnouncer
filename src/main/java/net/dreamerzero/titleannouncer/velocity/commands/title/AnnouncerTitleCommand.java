@@ -34,7 +34,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
 
         if(!titleandsubtitle.contains(";")){
             if(sender instanceof Player player){
-                TitleUtil.sendOnlyTitle(
+                TitleUtil.sendOnlySubtitle(
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         titleandsubtitle),
@@ -44,7 +44,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 SoundUtil.playToAllProxyTitleSound();
                 return;
             } else {
-                TitleUtil.sendOnlyTitle(
+                TitleUtil.sendOnlySubtitle(
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         titleandsubtitle),

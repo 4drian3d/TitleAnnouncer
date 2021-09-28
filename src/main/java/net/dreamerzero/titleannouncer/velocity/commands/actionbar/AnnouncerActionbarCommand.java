@@ -25,6 +25,11 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 
+        if(args.length == 0) {
+            ConfigUtils.sendNoArgumentMessage(sender);
+            return;
+        }
+
         // Send to all
         server.sendActionBar(MiniMessageUtil.parse(
             MiniMessageUtil.replaceLegacy(

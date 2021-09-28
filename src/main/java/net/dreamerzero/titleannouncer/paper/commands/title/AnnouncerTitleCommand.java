@@ -41,7 +41,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
         if(!titleandsubtitle.contains(";")){
             if(sender instanceof Player player){
-                TitleUtil.sendOnlyTitle(
+                TitleUtil.sendOnlySubtitle(
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
@@ -51,7 +51,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 ConfigUtils.playTitleSound(audience);
                 return true;
             } else {
-                TitleUtil.sendOnlyTitle(
+                TitleUtil.sendOnlySubtitle(
                     MiniMessageUtil.parse(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 

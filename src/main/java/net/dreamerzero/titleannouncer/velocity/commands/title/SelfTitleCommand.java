@@ -34,7 +34,7 @@ public class SelfTitleCommand implements SimpleCommand {
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlyTitle(
+            TitleUtil.sendOnlySubtitle(
                 MiniMessageUtil.parse(
                 MiniMessageUtil.replaceLegacy(
                     titleandsubtitle),
