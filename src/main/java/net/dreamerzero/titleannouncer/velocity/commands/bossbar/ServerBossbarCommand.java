@@ -39,12 +39,8 @@ public class ServerBossbarCommand implements SimpleCommand {
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
 
-        float time;
-        if(BossBarUtils.validBossbarNumber(args[1], sender) == 0.1f){
-            return;
-        } else {
-            time = BossBarUtils.validBossbarNumber(args[1], sender);
-        }
+        float time = BossBarUtils.validBossbarNumber(args[1], sender);
+        if(time == 0.1f) return;
 
         BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
         BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);

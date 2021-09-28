@@ -15,7 +15,7 @@ public class AnnouncerCommand implements CommandExecutor {
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender.permissionValue("titleannouncer.command.show") == TriState.NOT_SET){
+        if (sender.permissionValue("titleannouncer.command.admin") != TriState.TRUE){
             sender.sendMessage(
                 MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
