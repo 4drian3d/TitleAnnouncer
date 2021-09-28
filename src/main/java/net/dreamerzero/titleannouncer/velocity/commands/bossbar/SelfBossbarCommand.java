@@ -59,7 +59,6 @@ public class SelfBossbarCommand implements SimpleCommand {
             overlay);
         ConfigUtils.sendBossbarConfirmation(sender);
         SoundUtil.playProxyBossbarSound(player);
-        return;
     }
 
     @Override

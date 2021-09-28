@@ -34,7 +34,6 @@ public class SelfActionbarCommand implements SimpleCommand{
             PlaceholderUtil.replaceProxyPlaceholders(player)));
         SoundUtil.playProxyActionbarSound(player);
         ConfigUtils.sendActionbarConfirmation(sender);
-        return;
     }
 
     @Override

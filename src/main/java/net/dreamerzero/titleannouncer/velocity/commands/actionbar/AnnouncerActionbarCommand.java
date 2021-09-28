@@ -39,7 +39,6 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
                     PlaceholderUtil.replaceProxyPlaceholders()));
         SoundUtil.playToAllProxyActionbarSound();
         ConfigUtils.sendActionbarConfirmation(sender);
-        return;
     }
 
     @Override

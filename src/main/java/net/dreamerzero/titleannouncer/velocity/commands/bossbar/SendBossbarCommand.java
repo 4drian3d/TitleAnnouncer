@@ -63,7 +63,6 @@ public class SendBossbarCommand implements SimpleCommand{
             overlay);
         ConfigUtils.sendBossbarConfirmation(sender);
         ConfigUtils.playBossbarSound(playerObjetive);
-        return;
     }
 
     @Override

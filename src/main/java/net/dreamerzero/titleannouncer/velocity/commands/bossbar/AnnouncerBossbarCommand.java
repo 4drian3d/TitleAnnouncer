@@ -72,7 +72,6 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
                 overlay);
             ConfigUtils.sendBossbarConfirmation(sender);
             SoundUtil.playToAllProxyBossbarSound();
-            return;
         }
     }
 

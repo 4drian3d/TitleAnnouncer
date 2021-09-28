@@ -22,6 +22,7 @@ public class AnnouncerCommand implements SimpleCommand {
                 MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             ConfigUtils.helpPrefix(source);
+            //TODO: Add proper velocity command help /*v*announcetitle
             source.sendMessage(GeneralUtils.titleHelpMessage);
             source.sendMessage(GeneralUtils.actionbarHelpMessage);
             source.sendMessage(GeneralUtils.bossbarHelpMessage);
@@ -33,7 +34,6 @@ public class AnnouncerCommand implements SimpleCommand {
             case "reload" -> {
                 ConfigManager.getConfig().forceReload();
                 ConfigUtils.reloadMessage(source);
-                return;
             }
             case "help" -> {
                 source.sendMessage(
@@ -45,24 +45,20 @@ public class AnnouncerCommand implements SimpleCommand {
                         case "title" -> {
                             source.sendMessage(GeneralUtils.titleHelpMessage);
                             source.sendMessage(GeneralUtils.titlewikilink);
-                            return;
                         }
                         case "actionbar" -> {
                             source.sendMessage(GeneralUtils.actionbarHelpMessage);
                             source.sendMessage(GeneralUtils.actionbarwikilink);
-                            return;
                         }
                         case "bossbar" -> {
                             source.sendMessage(GeneralUtils.bossbarHelpMessage);
                             source.sendMessage(GeneralUtils.bossbarwikilink);
-                            return;
                         }
                         default -> {
                             source.sendMessage(GeneralUtils.titleHelpMessage);
                             source.sendMessage(GeneralUtils.actionbarHelpMessage);
                             source.sendMessage(GeneralUtils.bossbarHelpMessage);
                             source.sendMessage(GeneralUtils.fullwikilink);
-                            return;
                         }
                     }
                 } else {
@@ -70,12 +66,10 @@ public class AnnouncerCommand implements SimpleCommand {
                     source.sendMessage(GeneralUtils.actionbarHelpMessage);
                     source.sendMessage(GeneralUtils.bossbarHelpMessage);
                     source.sendMessage(GeneralUtils.fullwikilink);
-                    return;
                 }
             }
             default -> {
                 ConfigUtils.invalidCommand(source);
-                return;
             }
         }
 
