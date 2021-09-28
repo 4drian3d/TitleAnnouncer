@@ -81,7 +81,6 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 1000);
             SoundUtil.playToAllProxyTitleSound();
             ConfigUtils.sendTitleConfirmation(sender);
-            return;
         } else {
             // Send the title
             TitleUtil.sendTitle(
@@ -99,7 +98,6 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 1000);
             SoundUtil.playToAllProxyTitleSound();
             ConfigUtils.sendTitleConfirmation(sender);
-            return;
         }
     }
 

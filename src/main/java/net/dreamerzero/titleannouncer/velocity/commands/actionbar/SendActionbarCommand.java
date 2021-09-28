@@ -49,7 +49,6 @@ public class SendActionbarCommand implements SimpleCommand {
                     PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)));
         SoundUtil.playProxyActionbarSound(playerObjetive);
         ConfigUtils.sendActionbarConfirmation(sender);
-        return;
     }
 
     @Override

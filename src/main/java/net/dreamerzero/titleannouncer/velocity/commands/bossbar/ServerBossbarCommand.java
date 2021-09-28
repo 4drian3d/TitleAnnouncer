@@ -64,7 +64,6 @@ public class ServerBossbarCommand implements SimpleCommand {
             overlay);
         ConfigUtils.sendBossbarConfirmation(sender);
         SoundUtil.playToServerProxyBossbarSound(serverObjetive);
-        return;
     }
 
     @Override

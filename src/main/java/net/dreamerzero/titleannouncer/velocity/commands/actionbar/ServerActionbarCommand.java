@@ -50,7 +50,6 @@ public class ServerActionbarCommand implements SimpleCommand {
                     PlaceholderUtil.replaceProxyPlaceholders()));
         SoundUtil.playToServerProxyActionbarSound(serverObjetive);
         ConfigUtils.sendActionbarConfirmation(sender);
-        return;
     }
 
     @Override
