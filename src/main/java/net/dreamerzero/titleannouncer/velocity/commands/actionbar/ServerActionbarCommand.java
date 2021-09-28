@@ -24,15 +24,13 @@ public class ServerActionbarCommand implements SimpleCommand {
         String[] args = invocation.arguments();
 
         if (args.length < 2) {
-            //TODO: No Actionbar server argument
-            ConfigUtils.noActionbarPlayerArgumentProvided(sender);
+            ConfigUtils.noServerArgumentProvided(sender);
             return;
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            //TODO: Server not found
-            ConfigUtils.playerNotFoundMessage(sender);
+            ConfigUtils.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();

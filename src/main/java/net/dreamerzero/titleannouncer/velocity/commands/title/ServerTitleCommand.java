@@ -30,16 +30,14 @@ public class ServerTitleCommand implements SimpleCommand {
                 return;
             }
             case 1 -> {
-                //TODO: No Title Server Argument provided
-                ConfigUtils.noTitlePlayerArgumentProvided(sender);
+                ConfigUtils.noServerArgumentProvided(sender);
                 return;
             }
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            //TODO: Server not found
-            ConfigUtils.playerNotFoundMessage(sender);
+            ConfigUtils.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();

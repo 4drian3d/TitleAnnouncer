@@ -201,4 +201,28 @@ public class ConfigUtils {
                 "messages.general.player-not-found",
                 "<red>Player not found</red>"))));
     }
+
+    public static void onlyPlayerExecute(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getOrDefault(
+                "messages.general.no-console",
+                "<red>The console cannot execute this command</red>")
+        )));
+    }
+
+    public static void noServerArgumentProvided(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getOrDefault(
+                "messages.general.no-server-provided",
+                "<red>No server provided to send the message</red>")
+        )));
+    }
+
+    public static void noServerFound(Audience sender){
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+            config.getOrDefault(
+                "messages.general.server-not-found",
+                "<red>Server not found</red>")
+        )));
+    }
 }

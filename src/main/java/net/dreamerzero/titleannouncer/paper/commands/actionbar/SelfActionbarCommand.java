@@ -20,7 +20,7 @@ public class SelfActionbarCommand implements CommandExecutor {
         // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("The console cannot execute this command.");
+            ConfigUtils.onlyPlayerExecute(sender);
             return false;
         }
 

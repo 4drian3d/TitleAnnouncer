@@ -26,14 +26,13 @@ public class ServerBossbarCommand implements SimpleCommand {
         String[] args = invocation.arguments();
 
         // The command requires arguments to work
-        if (!BossBarUtils.sendBossbarArgs(args.length, sender)) {
+        if (!BossBarUtils.proxyBossbarArgs(args.length, sender)) {
             return;
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            //TODO: Server not found
-            ConfigUtils.playerNotFoundMessage(sender);
+            ConfigUtils.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
