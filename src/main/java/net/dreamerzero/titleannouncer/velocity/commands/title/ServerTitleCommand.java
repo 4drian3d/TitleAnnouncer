@@ -1,5 +1,6 @@
 package net.dreamerzero.titleannouncer.velocity.commands.title;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.velocitypowered.api.command.CommandSource;
@@ -81,5 +82,23 @@ public class ServerTitleCommand implements SimpleCommand {
             1000);
         SoundUtil.playToServerProxyTitleSound(serverObjetive);
         ConfigUtils.sendTitleConfirmation(sender);
+    }
+
+    @Override
+    public List<String> suggest(final Invocation invocation) {
+        if (invocation.arguments().length <= 2){
+            List<String> servers = List.of("");
+            server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
+            return servers;
+        } else if (!TitleUtil.containsComma(invocation.arguments())){
+            return List.of("[Title]");
+        } else {
+            return List.of("[SubTitle]");
+        }
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("titleannouncer.title.server");
     }
 }

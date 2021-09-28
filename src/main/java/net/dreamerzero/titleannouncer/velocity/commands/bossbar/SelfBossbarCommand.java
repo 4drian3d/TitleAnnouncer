@@ -1,5 +1,7 @@
 package net.dreamerzero.titleannouncer.velocity.commands.bossbar;
 
+import java.util.List;
+
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
@@ -61,5 +63,20 @@ public class SelfBossbarCommand implements SimpleCommand {
         ConfigUtils.sendBossbarConfirmation(sender);
         SoundUtil.playProxyBossbarSound(player);
         return;
+    }
+
+    @Override
+    public List<String> suggest(final Invocation invocation) {
+        return switch (invocation.arguments().length) {
+            case 1 -> List.of("[Time]");
+            case 2 -> List.of("[Color]");
+            case 3 -> List.of("[Type]");
+            default -> List.of("[message]");
+        };
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("titleannouncer.bossbar.self");
     }
 }

@@ -1,5 +1,6 @@
 package net.dreamerzero.titleannouncer.velocity.commands.title;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.velocitypowered.api.command.CommandSource;
@@ -83,5 +84,21 @@ public class SendTitleCommand implements SimpleCommand {
         ConfigUtils.sendTitleConfirmation(sender);
     }
 
-    //TODO: Add Title Tab Complete
+    @Override
+    public List<String> suggest(final Invocation invocation) {
+        if (invocation.arguments().length <= 2){
+            List<String> players = List.of("");
+            server.getAllPlayers().forEach(player -> players.add(player.getUsername()));
+            return players;
+        } else if (!TitleUtil.containsComma(invocation.arguments())){
+            return List.of("[Title]");
+        } else {
+            return List.of("[SubTitle]");
+        }
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("titleannouncer.title.send");
+    }
 }
