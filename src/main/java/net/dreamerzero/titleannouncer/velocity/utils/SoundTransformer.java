@@ -6,7 +6,7 @@ import static dev.simplix.protocolize.data.Sound.*;
 
 public class SoundTransformer {
     //TODO: Finish this
-    static Sound getSoundFromString(String sound){
+    public static Sound getSoundFromString(String sound){
         return switch(sound){
             case "ambient.cave" -> AMBIENT_CAVE;
             case "ambient.underwater.enter" -> AMBIENT_UNDERWATER_ENTER;
