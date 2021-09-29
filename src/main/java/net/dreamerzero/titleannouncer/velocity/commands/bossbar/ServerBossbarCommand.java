@@ -1,5 +1,6 @@
 package net.dreamerzero.titleannouncer.velocity.commands.bossbar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +71,7 @@ public class ServerBossbarCommand implements SimpleCommand {
     public List<String> suggest(final Invocation invocation) {
         return switch (invocation.arguments().length) {
             case 0, 1 -> {
-                List<String> servers = List.of("");
+                ArrayList<String> servers = new ArrayList<>();
                 server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
                 yield servers;
             }

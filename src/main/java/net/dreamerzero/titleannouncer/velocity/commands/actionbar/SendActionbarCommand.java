@@ -2,6 +2,7 @@ package net.dreamerzero.titleannouncer.velocity.commands.actionbar;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
@@ -54,7 +55,7 @@ public class SendActionbarCommand implements SimpleCommand {
     @Override
     public List<String> suggest(final Invocation invocation) {
         if(invocation.arguments().length < 1){
-            List<String> players = List.of("");
+            ArrayList<String> players = new ArrayList<>();
             Announcer.getProxyServer().getAllPlayers().forEach(player ->
                 players.add(player.getUsername()));
             return players;

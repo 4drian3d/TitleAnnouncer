@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
-import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
+import net.dreamerzero.titleannouncer.paper.utils.PaperHelpMessages;
 import net.kyori.adventure.util.TriState;
 
 public class AnnouncerCommand implements CommandExecutor {
@@ -27,10 +27,10 @@ public class AnnouncerCommand implements CommandExecutor {
                 MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             ConfigUtils.helpPrefix(sender);
-            sender.sendMessage(GeneralUtils.titleHelpMessage);
-            sender.sendMessage(GeneralUtils.actionbarHelpMessage);
-            sender.sendMessage(GeneralUtils.bossbarHelpMessage);
-            sender.sendMessage(GeneralUtils.fullwikilink);
+            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+            sender.sendMessage(PaperHelpMessages.fullwikilink);
             return true;
         }
         switch (args[0].toLowerCase()) {
@@ -47,33 +47,33 @@ public class AnnouncerCommand implements CommandExecutor {
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
-                            sender.sendMessage(GeneralUtils.titleHelpMessage);
-                            sender.sendMessage(GeneralUtils.titlewikilink);
+                            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.titlewikilink);
                             return true;
                         }
                         case "actionbar" -> {
-                            sender.sendMessage(GeneralUtils.actionbarHelpMessage);
-                            sender.sendMessage(GeneralUtils.actionbarwikilink);
+                            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.actionbarwikilink);
                             return true;
                         }
                         case "bossbar" -> {
-                            sender.sendMessage(GeneralUtils.bossbarHelpMessage);
-                            sender.sendMessage(GeneralUtils.bossbarwikilink);
+                            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.bossbarwikilink);
                             return true;
                         }
                         default -> {
-                            sender.sendMessage(GeneralUtils.titleHelpMessage);
-                            sender.sendMessage(GeneralUtils.actionbarHelpMessage);
-                            sender.sendMessage(GeneralUtils.bossbarHelpMessage);
-                            sender.sendMessage(GeneralUtils.fullwikilink);
+                            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.fullwikilink);
                             return true;
                         }
                     }
                 } else {
-                    sender.sendMessage(GeneralUtils.titleHelpMessage);
-                    sender.sendMessage(GeneralUtils.actionbarHelpMessage);
-                    sender.sendMessage(GeneralUtils.bossbarHelpMessage);
-                    sender.sendMessage(GeneralUtils.fullwikilink);
+                    sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+                    sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+                    sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                    sender.sendMessage(PaperHelpMessages.fullwikilink);
                     return true;
                 }
             }

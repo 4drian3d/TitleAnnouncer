@@ -1,5 +1,6 @@
 package net.dreamerzero.titleannouncer.velocity.commands.title;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,7 +88,7 @@ public class ServerTitleCommand implements SimpleCommand {
     @Override
     public List<String> suggest(final Invocation invocation) {
         if (invocation.arguments().length <= 1){
-            List<String> servers = List.of("");
+            ArrayList<String> servers = new ArrayList<>();
             server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
             return servers;
         } else if (!TitleUtil.containsComma(invocation.arguments())){
