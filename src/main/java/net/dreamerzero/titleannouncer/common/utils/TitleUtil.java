@@ -28,18 +28,14 @@ public class TitleUtil {
         final int stay,
         final int fadeout) {
 
-        // Title Duration
-        final Title.Times times = Title.Times.of(
-            Duration.ofMillis(fadein),
-            Duration.ofMillis(stay),
-            Duration.ofMillis(fadeout));
-        // Title Format
-        Title titleToSend = Title.title(
+        // Send the title to the specified audience.
+        audience.showTitle(Title.title(
             title,
             subtitle,
-            times);
-        // Send the title to the specified audience.
-        audience.showTitle(titleToSend);
+            Title.Times.of(
+                Duration.ofMillis(fadein),
+                Duration.ofMillis(stay),
+                Duration.ofMillis(fadeout))));
     }
 
     /**
@@ -56,18 +52,16 @@ public class TitleUtil {
         final int stay,
         final int fadeout){
 
-        Title.Times times = Title.Times.of(
+        audience.sendTitlePart(TitlePart.TITLE, title);
+        audience.sendTitlePart(TitlePart.TIMES, Title.Times.of(
             Duration.ofMillis(fadein),
             Duration.ofMillis(stay),
-            Duration.ofMillis(fadeout));
-
-        audience.sendTitlePart(TitlePart.TITLE, title);
-        audience.sendTitlePart(TitlePart.TIMES, times);
+            Duration.ofMillis(fadeout)));
     }
 
     /**
      * Display a single subtitle to the desired audience.
-     * @param title
+     * @param subtitle
      * @param audience
      * @param fadein
      * @param stay
@@ -79,13 +73,11 @@ public class TitleUtil {
         final int stay,
         final int fadeout){
 
-        Title.Times times = Title.Times.of(
+        audience.sendTitlePart(TitlePart.TITLE, subtitle);
+        audience.sendTitlePart(TitlePart.TIMES, Title.Times.of(
             Duration.ofMillis(fadein),
             Duration.ofMillis(stay),
-            Duration.ofMillis(fadeout));
-
-        audience.sendTitlePart(TitlePart.TITLE, subtitle);
-        audience.sendTitlePart(TitlePart.TIMES, times);
+            Duration.ofMillis(fadeout)));
     }
 
     public static String[] getTitleAndSubtitle(String string, Audience sender) {
@@ -107,6 +99,13 @@ public class TitleUtil {
 
     public static boolean containsComma(String[] args){
         for(int i = 0; i <= args.length; i++){
+            if(args[i].contains(";")) return true;
+        }
+        return false;
+    }
+
+    public static boolean containsComma(String[] args, int since){
+        for(int i = since; i <= args.length; i++){
             if(args[i].contains(";")) return true;
         }
         return false;

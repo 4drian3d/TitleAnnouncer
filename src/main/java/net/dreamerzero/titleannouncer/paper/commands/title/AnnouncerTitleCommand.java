@@ -32,11 +32,10 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
-        if(!titleandsubtitle.contains(";")){
+        if(!TitleUtil.containsComma(args)){
             if(sender instanceof Player player){
                 TitleUtil.sendOnlySubtitle(
-                    MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
+                    MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
                         PlaceholderUtil.replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
@@ -45,8 +44,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 return true;
             } else {
                 TitleUtil.sendOnlySubtitle(
-                    MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
+                    MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
                         PlaceholderUtil.replacePlaceholders()),
                         audience, 1000, 3000, 1000);
@@ -67,13 +65,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         if (sender instanceof Player player) {
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(
-                    placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
                     PlaceholderUtil.replacePlaceholders(player)),
-                MiniMessageUtil.parse(
-                    placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
                     PlaceholderUtil.replacePlaceholders(player)),
                 audience,
                 1000,
@@ -85,14 +81,12 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         } else {
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(
-                    PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0],
-                        PlaceholderUtil.replacePlaceholders()),
-                MiniMessageUtil.parse(
-                    PlaceholderUtil.placeholderAPIHook() ? MiniMessageUtil.replaceLegacy(
-                        PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1],
-                        PlaceholderUtil.replacePlaceholders()),
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
+                    PlaceholderUtil.replacePlaceholders()),
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
+                    PlaceholderUtil.replacePlaceholders()),
                 audience,
                 1000,
                 3000,

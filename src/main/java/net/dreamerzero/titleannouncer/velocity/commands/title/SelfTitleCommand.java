@@ -34,13 +34,11 @@ public class SelfTitleCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
-        if(!titleandsubtitle.contains(";")){
+        if(!TitleUtil.containsComma(args)){
             TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    titleandsubtitle),
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
-                    player, 1000, 3000, 1000);
+                sender, 1000, 3000, 1000);
             ConfigUtils.sendTitleConfirmation(sender);
             SoundUtils.playProxySound(player, SoundType.TITLE);
             return;
@@ -56,15 +54,11 @@ public class SelfTitleCommand implements SimpleCommand {
 
         // Send the title
         TitleUtil.sendTitle(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    titleandsubtitlefinal[0]),
+            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                 PlaceholderUtil.replaceProxyPlaceholders(player)),
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    titleandsubtitlefinal[1]),
+            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                 PlaceholderUtil.replaceProxyPlaceholders(player)),
-            player,
+            sender,
             1000,
             3000,
             1000);

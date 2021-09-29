@@ -36,21 +36,17 @@ public class AnnouncerTitleCommand implements SimpleCommand {
         if(!titleandsubtitle.contains(";")){
             if(sender instanceof Player player){
                 TitleUtil.sendOnlySubtitle(
-                    MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitle),
-                        PlaceholderUtil.replaceProxyPlaceholders(player)),
-                        server, 1000, 3000, 1000);
+                    MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+                    PlaceholderUtil.replaceProxyPlaceholders(player)),
+                    server, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
                 SoundUtils.playProxySound(SoundType.TITLE);
                 return;
             } else {
                 TitleUtil.sendOnlySubtitle(
-                    MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitle),
-                        PlaceholderUtil.replaceProxyPlaceholders()),
-                        server, 1000, 3000, 1000);
+                    MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+                    PlaceholderUtil.replaceProxyPlaceholders()),
+                    server, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
                 SoundUtils.playProxySound(SoundType.TITLE);
                 return;
@@ -68,13 +64,9 @@ public class AnnouncerTitleCommand implements SimpleCommand {
         if (sender instanceof Player player) {
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitlefinal[0]),
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitlefinal[1]), 
+                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
                 server,
                 1000,
