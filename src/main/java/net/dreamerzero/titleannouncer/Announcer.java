@@ -16,6 +16,7 @@ import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 
 public class Announcer extends JavaPlugin {
 	private static Announcer instance;
+
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
@@ -39,14 +40,7 @@ public class Announcer extends JavaPlugin {
 
 	// Registration of the commands that the plugin provides
 	public void commandRegister() {
-		// Main Command
-		RegisterCommands.registerMainCommand();
-		// Title Commands
-		RegisterCommands.registerTitle();
-		// ActionBar Commands
-		RegisterCommands.registerActionbar();
-		// BossBar Commands
-		RegisterCommands.registerBossbar();
+		RegisterCommands.registerCommands();
 	}
 
 	public void listenerRegister() {
