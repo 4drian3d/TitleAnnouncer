@@ -22,7 +22,6 @@ public class AnnouncerCommand implements SimpleCommand {
                 MiniMessageUtil.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             ConfigUtils.helpPrefix(source);
-            //TODO: Add proper velocity command help /*v*announcetitle
             source.sendMessage(VelocityHelpMessages.titleHelpMessage);
             source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
             source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);

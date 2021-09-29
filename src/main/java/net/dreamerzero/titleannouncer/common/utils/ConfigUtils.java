@@ -59,11 +59,11 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.title.enabled", true);
     }
 
-    static float getTitleSoundVolume(){
+    public static float getTitleSoundVolume(){
         return config.getOrDefault("sounds.title.volume", 10);
     }
 
-    static float getTitleSoundPitch(){
+    public static float getTitleSoundPitch(){
         return config.getOrDefault("sounds.title.pitch", 2);
     }
 
@@ -115,11 +115,11 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.actionbar.enabled", true);
     }
 
-    static float getActionbarSoundVolume(){
+    public static float getActionbarSoundVolume(){
         return config.getOrDefault("sounds.actionbar.volume", 10);
     }
 
-    static float getActionbarSoundPitch(){
+    public static float getActionbarSoundPitch(){
         return config.getOrDefault("sounds.actionbar.pitch", 2);
     }
 
@@ -154,11 +154,11 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.bossbar.enabled", true);
     }
 
-    static float getBossbarSoundVolume(){
+    public static float getBossbarSoundVolume(){
         return config.getOrDefault("sounds.bossbar.volume", 10);
     }
 
-    static float getBossbarSoundPitch(){
+    public static float getBossbarSoundPitch(){
         return config.getOrDefault("sounds.bossbar.pitch", 2);
     }
 

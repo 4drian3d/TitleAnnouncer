@@ -11,7 +11,8 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.common.utils.SoundUtil;
+import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class AnnouncerTitleCommand implements SimpleCommand {
@@ -41,7 +42,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                         PlaceholderUtil.replaceProxyPlaceholders(player)),
                         server, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
-                SoundUtil.playToAllProxyTitleSound();
+                SoundUtils.playProxySound(SoundType.TITLE);
                 return;
             } else {
                 TitleUtil.sendOnlySubtitle(
@@ -51,7 +52,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                         PlaceholderUtil.replaceProxyPlaceholders()),
                         server, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
-                SoundUtil.playToAllProxyTitleSound();
+                SoundUtils.playProxySound(SoundType.TITLE);
                 return;
             }
         }
@@ -79,7 +80,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 1000,
                 3000,
                 1000);
-            SoundUtil.playToAllProxyTitleSound();
+            SoundUtils.playProxySound(SoundType.TITLE);
             ConfigUtils.sendTitleConfirmation(sender);
         } else {
             // Send the title
@@ -96,7 +97,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 1000,
                 3000,
                 1000);
-            SoundUtil.playToAllProxyTitleSound();
+            SoundUtils.playProxySound(SoundType.TITLE);
             ConfigUtils.sendTitleConfirmation(sender);
         }
     }

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.velocity.utils.RegisterCommands;
+import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 
 public class Announcer {
     private final ProxyServer server;
@@ -32,6 +33,9 @@ public class Announcer {
         RegisterCommands.registerProxyBossbar(server);
         RegisterCommands.registerProxyTitle(server);
         RegisterCommands.registerProxyActionbar(server);
+        SoundUtils.setActionBarSound();
+        SoundUtils.setBossBarSound();
+        SoundUtils.setTitleSound();
         proxy = server;
         instance = this;
     }
