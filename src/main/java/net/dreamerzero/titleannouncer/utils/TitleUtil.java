@@ -67,7 +67,8 @@ public class TitleUtil {
 
     /**
      * Display a single subtitle to the desired audience.
-     * @param title
+     *
+     * @param subtitle
      * @param audience
      * @param fadein
      * @param stay
