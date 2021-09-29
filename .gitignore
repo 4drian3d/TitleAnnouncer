@@ -9,6 +9,10 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# Intellij Idea
+/.idea/
+*.iml
+
 # Visual Studio Code
 
 .settings/
