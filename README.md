@@ -2,7 +2,7 @@
 
 A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessage format to Paper 1.17.1+ servers and Velocity 3.0.2+ networks.
 
-[![Banner](https://i.imgur.com/iI2QNZ6.jpg)](https://polymart.org/resource/titleannouncer.1350)
+[![Banner](https://i.imgur.com/BhFqg82.jpg)](https://polymart.org/resource/titleannouncer.1350)
 
 
 ## Features
