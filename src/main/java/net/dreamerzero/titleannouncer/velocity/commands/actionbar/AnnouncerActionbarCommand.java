@@ -11,7 +11,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 
 public class AnnouncerActionbarCommand implements SimpleCommand {
@@ -38,8 +38,8 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
                 sender instanceof Player player ?
                     PlaceholderUtil.replaceProxyPlaceholders(player) :
                     PlaceholderUtil.replaceProxyPlaceholders()));
-        SoundUtils.playProxySound(SoundType.ACTIONBAR);
-        ConfigUtils.sendActionbarConfirmation(sender);
+        SoundUtils.playProxySound(ComponentType.ACTIONBAR);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

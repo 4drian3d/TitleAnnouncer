@@ -14,7 +14,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
@@ -64,8 +64,8 @@ public class SendBossbarCommand implements SimpleCommand{
                     PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
             color,
             overlay);
-        ConfigUtils.sendBossbarConfirmation(sender);
-        SoundUtils.playProxySound(playerObjetive, SoundType.BOSSBAR);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+        SoundUtils.playProxySound(playerObjetive, ComponentType.BOSSBAR);
     }
 
     @Override

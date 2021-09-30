@@ -13,7 +13,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 
@@ -50,8 +50,8 @@ public class ServerActionbarCommand implements SimpleCommand {
                 MiniMessageUtil.replaceLegacy(
                     actionbartext),
                     PlaceholderUtil.replaceProxyPlaceholders()));
-        SoundUtils.playProxySound(serverObjetive, SoundType.ACTIONBAR);
-        ConfigUtils.sendActionbarConfirmation(sender);
+        SoundUtils.playProxySound(serverObjetive, ComponentType.ACTIONBAR);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

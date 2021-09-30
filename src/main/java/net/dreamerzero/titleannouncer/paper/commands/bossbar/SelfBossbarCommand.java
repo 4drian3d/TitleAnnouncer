@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
@@ -56,8 +57,8 @@ public class SelfBossbarCommand implements CommandExecutor {
                     PlaceholderUtil.replacePlaceholders(player)),
             color,
             overlay);
-        ConfigUtils.playBossbarSound(sender);
-        ConfigUtils.sendBossbarConfirmation(sender);
+        ConfigUtils.playPaperSound(ComponentType.BOSSBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
         return true;
     }
 }

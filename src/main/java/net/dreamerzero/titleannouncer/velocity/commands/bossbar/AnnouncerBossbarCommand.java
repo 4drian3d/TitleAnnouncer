@@ -13,7 +13,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.kyori.adventure.bossbar.BossBar;
 
@@ -58,8 +58,8 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
                         PlaceholderUtil.replaceProxyPlaceholders(player)),
                 color,
                 overlay);
-            ConfigUtils.sendBossbarConfirmation(sender);
-            SoundUtils.playProxySound(SoundType.BOSSBAR);
+            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+            SoundUtils.playProxySound(ComponentType.BOSSBAR);
             return;
         } else {
             VelocityBossbar.sendVelocityBossbar(
@@ -71,8 +71,8 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
                         PlaceholderUtil.replaceProxyPlaceholders()),
                 color,
                 overlay);
-            ConfigUtils.sendBossbarConfirmation(sender);
-            SoundUtils.playProxySound(SoundType.BOSSBAR);
+            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+            SoundUtils.playProxySound(ComponentType.BOSSBAR);
         }
     }
 
