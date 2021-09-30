@@ -16,6 +16,7 @@ A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessag
 - Announcements with [PlaceholderAPI support](https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders) on Paper and forks
 - [Velocity](https://github.com/VelocityPowered/Velocity) proxy support
 - Own useful [placeholders](https://github.com/4drian3d/TitleAnnouncer/wiki/Placeholders) in Paper and Velocity
+- Send sounds along with titles, actionbars and bossbars in Paper and Velocity. In order to use sounds in Velocity, you must install [Protocolize](https://www.spigotmc.org/resources/protocolize-protocollib-for-bungeecord-waterfall-velocity.63778/).
 
 
 ## Commands
@@ -178,7 +179,7 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
 
 
 ## Compatibility
-The plugin works in [Paper](https://papermc.io/), [Airplane](https://github.com/TECHNOVE/Airplane) and [Purpur](https://purpur.pl3x.net/) 1.17.1+ and [VelocityPowered](https://github.com/VelocityPowered/Velocity) 3.0.2+
+The plugin works in [Paper](https://papermc.io/), [Airplane](https://github.com/TECHNOVE/Airplane), [Purpur](https://purpur.pl3x.net/) 1.17.1+ and [VelocityPowered](https://github.com/VelocityPowered/Velocity) 3.0.2+
 
 It does not and will not work in Spigot or CraftBukkit. It will not work in Paper or fork versions 1.16.4 or lower.
 
