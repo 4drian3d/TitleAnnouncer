@@ -51,13 +51,9 @@ public class SelfTitleCommand implements CommandExecutor {
             return true;
         }
 
-        String titleandsubtitlefinal[];
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
-        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null){
-            return false;
-        } else {
-            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
-        }
+        if(titleandsubtitlefinal == null) return false;
 
         // Send the Title
         TitleUtil.sendTitle(

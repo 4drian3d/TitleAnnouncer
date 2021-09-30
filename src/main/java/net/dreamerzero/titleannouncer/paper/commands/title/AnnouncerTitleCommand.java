@@ -54,13 +54,9 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             }
         }
 
-        String titleandsubtitlefinal[];
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
-        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null) {
-            return false;
-        } else {
-            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
-        }
+        if(titleandsubtitlefinal == null) return false;
 
         if (sender instanceof Player player) {
             // Send the title
