@@ -124,26 +124,17 @@ public class ConfigUtils {
     GENERAL CONFIGURATION
     */
     public static void sendConfirmation(ComponentType type, Audience sender){
-        switch(type){
-            case BOSSBAR -> {
-                sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-                    config.getOrDefault(
+        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(switch(type){
+            case BOSSBAR -> config.getOrDefault(
                         "messages.bossbar.successfully",
-                        "<green>Bossbar succesfully sended</green>"))));
-            }
-            case ACTIONBAR -> {
-                sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-                    config.getOrDefault(
+                        "<green>Bossbar succesfully sended</green>");
+            case ACTIONBAR -> config.getOrDefault(
                         "messages.actionbar.successfully",
-                        "<green>Actionbar succesfully sended</green>"))));
-            }
-            case TITLE -> {
-                sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-                    config.getOrDefault(
+                        "<green>Actionbar succesfully sended</green>");
+            case TITLE -> config.getOrDefault(
                         "messages.title.successfully",
-                        "<green>Title succesfully sended</green>"))));
-            }
-        }
+                        "<green>Title succesfully sended</green>");
+        })));
     }
 
     public static void playPaperSound(ComponentType type, Audience audience){

@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 
 import static net.kyori.adventure.text.Component.text;
 
-import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.kyori.adventure.text.minimessage.Template;
 
 public class PlaceholderUtil {
@@ -112,10 +111,10 @@ public class PlaceholderUtil {
 
     public static void placeholderAPICheck(){
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-			Announcer.getInstance().getLogger().info("PlaceholderAPI founded. Enabling integration.");
+			net.dreamerzero.titleannouncer.paper.Announcer.getInstance().getLogger().info(
+                "PlaceholderAPI founded. Enabling integration.");
             isPlaceholderAPIPresent = true;
 		} else {
-			Announcer.getInstance().getLogger().info("PlaceholderAPI integration disabled.");
 			isPlaceholderAPIPresent = false;
 		}
 	}

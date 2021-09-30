@@ -43,14 +43,14 @@ public class BossBarUtils {
     // It will return if the given arguments are correct for the command to work correctly.
     public static boolean regularBossbarArgs(int length, Audience sender) {
         // The command requires arguments to work
-        switch (length) {
+        return switch (length) {
             case 0 -> {
                 sender.sendMessage(
                 ConfigUtils.getPrefix().append(MiniMessageUtil.parse(
                     ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
-                return false;
+                yield false;
             }
             case 1 -> {
                 sender.sendMessage(
@@ -58,7 +58,7 @@ public class BossBarUtils {
                         ConfigManager.getConfig().getOrDefault(
                             "messages.bossbar.only-time",
                             "<gray>You must enter the color and the message arguments.</gray>"))));
-                return false;
+                yield false;
             }
             case 2 -> {
                 sender.sendMessage(
@@ -66,7 +66,7 @@ public class BossBarUtils {
                         ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
-                return false;
+                yield false;
             }
             case 3 -> {
                 sender.sendMessage(
@@ -74,10 +74,10 @@ public class BossBarUtils {
                         ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
-                return false;
+                yield false;
             }
-            default -> {return true;}
-        }
+            default -> true;
+        };
     }
 
     public static boolean sendBossbarArgs(int length, Audience sender) {
