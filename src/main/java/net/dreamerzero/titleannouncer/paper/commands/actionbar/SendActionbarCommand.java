@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
@@ -45,8 +46,8 @@ public class SendActionbarCommand implements CommandExecutor {
                 MiniMessageUtil.replaceLegacy(
                     PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
                     PlaceholderUtil.replacePlaceholders(playerObjetive)));
-        ConfigUtils.playActionbarSound(playerObjetive);
-        ConfigUtils.sendActionbarConfirmation(sender);
+        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
         return true;
     }
 }

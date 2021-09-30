@@ -11,7 +11,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
@@ -58,8 +58,8 @@ public class SelfBossbarCommand implements SimpleCommand {
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
             color,
             overlay);
-        ConfigUtils.sendBossbarConfirmation(sender);
-        SoundUtils.playProxySound(player, SoundType.BOSSBAR);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+        SoundUtils.playProxySound(player, ComponentType.BOSSBAR);
     }
 
     @Override

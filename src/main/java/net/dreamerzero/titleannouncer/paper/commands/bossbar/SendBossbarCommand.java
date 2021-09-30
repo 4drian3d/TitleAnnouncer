@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
@@ -49,37 +50,20 @@ public class SendBossbarCommand implements CommandExecutor{
             return false;
         }
 
-        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
-
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 5);
 
-        if (sender instanceof Player player) {
-            PaperBossBar.sendBukkitBossBar(
-                playerObjetive,
-                time,
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
-                        PlaceholderUtil.replacePlaceholders(playerObjetive)),
-                color,
-                overlay);
-            ConfigUtils.sendBossbarConfirmation(sender);
-            ConfigUtils.playBossbarSound(playerObjetive);
-            return true;
-        } else {
-            PaperBossBar.sendBukkitBossBar(
-                playerObjetive,
-                time,
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
-                        PlaceholderUtil.replacePlaceholders(playerObjetive)),
-                color,
-                overlay);
-            ConfigUtils.sendBossbarConfirmation(sender);
-            ConfigUtils.playBossbarSound(playerObjetive);
-            return true;
-        }
+        PaperBossBar.sendBukkitBossBar(
+            playerObjetive,
+            time,
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(
+                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
+                    PlaceholderUtil.replacePlaceholders(playerObjetive)),
+            color,
+            overlay);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+        ConfigUtils.playPaperSound(ComponentType.BOSSBAR, playerObjetive);
+        return true;
     }
 }

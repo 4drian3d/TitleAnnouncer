@@ -10,7 +10,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 
 public class SelfActionbarCommand implements SimpleCommand{
@@ -33,8 +33,8 @@ public class SelfActionbarCommand implements SimpleCommand{
         sender.sendActionBar(MiniMessageUtil.parse(
             MiniMessageUtil.replaceLegacy(actionbartext),
             PlaceholderUtil.replaceProxyPlaceholders(player)));
-        SoundUtils.playProxySound(player, SoundType.ACTIONBAR);
-        ConfigUtils.sendActionbarConfirmation(sender);
+        SoundUtils.playProxySound(player, ComponentType.ACTIONBAR);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

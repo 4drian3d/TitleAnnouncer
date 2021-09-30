@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
@@ -45,8 +46,8 @@ public class SendTitleCommand implements CommandExecutor {
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle) : titleandsubtitle), 
                     PlaceholderUtil.replacePlaceholders(playerObjetive)),
                     playerObjetive, 1000, 3000, 1000);
-            ConfigUtils.sendTitleConfirmation(sender);
-            ConfigUtils.playTitleSound(playerObjetive);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.playPaperSound(ComponentType.TITLE, playerObjetive);
             return true;
         }
 
@@ -69,8 +70,8 @@ public class SendTitleCommand implements CommandExecutor {
                 PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
                 PlaceholderUtil.replacePlaceholders(playerObjetive)),
             playerObjetive, 1000, 3000, 1000);
-        ConfigUtils.playTitleSound(playerObjetive);
-        ConfigUtils.sendTitleConfirmation(sender);
+        ConfigUtils.playPaperSound(ComponentType.TITLE, playerObjetive);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         return true;
     }
 }

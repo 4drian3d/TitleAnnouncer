@@ -28,13 +28,6 @@ public class ConfigUtils {
                 "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
     }
 
-    public static void sendTitleConfirmation(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getOrDefault(
-                "messages.title.successfully",
-                "<green>Title succesfully sended</green>"))));
-    }
-
     public static void sendNoArgumentMessage(Audience sender) {
         sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
             config.getOrDefault(
@@ -67,27 +60,9 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.title.pitch", 2);
     }
 
-    public static void playTitleSound(Audience audience){
-        if(isTitleSoundEnabled()){
-            SoundUtil.playSound(
-                getTitleSound(),
-                audience,
-                getTitleSoundVolume(),
-                getTitleSoundPitch());
-        }
-    }
-
     /*-----------------------------
     ACTIONBAR CONFIGURATION
     -----------------------------*/
-
-    public static void sendActionbarConfirmation(Audience sender){
-        sender.sendMessage(
-            getPrefix().append(MiniMessageUtil.parse(
-                config.getOrDefault(
-                    "messages.actionbar.successfully",
-                    "<green>Actionbar succesfully sended</green>"))));
-    }
 
     public static void noActionbarArgumentProvided(Audience sender){
         sender.sendMessage(
@@ -123,26 +98,9 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.actionbar.pitch", 2);
     }
 
-    public static void playActionbarSound(Audience audience){
-        if(isActionbarSoundEnabled()){
-            SoundUtil.playSound(
-                getActionbarSound(),
-                audience,
-                getActionbarSoundVolume(),
-                getActionbarSoundPitch());
-        }
-    }
-
     /*-----------------------------
     BOSSBAR CONFIGURATION
     -----------------------------*/
-
-    public static void sendBossbarConfirmation(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getOrDefault(
-                "messages.bossbar.successfully",
-                "<green>Bossbar succesfully sended</green>"))));
-    }
 
     public static String getBossbarSound(){
         return config.getOrDefault(
@@ -162,25 +120,62 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.bossbar.pitch", 2);
     }
 
-    public static void playBossbarSound(Audience audience){
-        if(isBossbarSoundEnabled()){
-            SoundUtil.playSound(
-                getBossbarSound(),
-                audience,
-                getBossbarSoundVolume(),
-                getBossbarSoundPitch());
-        }
-    }
-
     /*
     GENERAL CONFIGURATION
     */
-    @Deprecated
-    public static void sendNoMainPermission(Audience sender){
-        sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
-            config.getOrDefault(
-                "messages.general.no-permission",
-                "<red>You do not have permission to execute this command</red>"))));
+    public static void sendConfirmation(ComponentType type, Audience sender){
+        switch(type){
+            case BOSSBAR -> {
+                sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+                    config.getOrDefault(
+                        "messages.bossbar.successfully",
+                        "<green>Bossbar succesfully sended</green>"))));
+            }
+            case ACTIONBAR -> {
+                sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+                    config.getOrDefault(
+                        "messages.actionbar.successfully",
+                        "<green>Actionbar succesfully sended</green>"))));
+            }
+            case TITLE -> {
+                sender.sendMessage(getPrefix().append(MiniMessageUtil.parse(
+                    config.getOrDefault(
+                        "messages.title.successfully",
+                        "<green>Title succesfully sended</green>"))));
+            }
+        }
+    }
+
+    public static void playPaperSound(ComponentType type, Audience audience){
+        switch(type){
+            case TITLE -> {
+                if(isTitleSoundEnabled()){
+                    SoundUtil.playSound(
+                        getTitleSound(),
+                        audience,
+                        getTitleSoundVolume(),
+                        getTitleSoundPitch());
+                }
+            }
+            case BOSSBAR -> {
+                if(isBossbarSoundEnabled()){
+                    SoundUtil.playSound(
+                        getBossbarSound(),
+                        audience,
+                        getBossbarSoundVolume(),
+                        getBossbarSoundPitch());
+                }
+            }
+            case ACTIONBAR -> {
+                if(isActionbarSoundEnabled()){
+                    SoundUtil.playSound(
+                        getActionbarSound(),
+                        audience,
+                        getActionbarSoundVolume(),
+                        getActionbarSoundPitch());
+                }
+            }
+        }
     }
 
     public static void reloadMessage(Audience sender){

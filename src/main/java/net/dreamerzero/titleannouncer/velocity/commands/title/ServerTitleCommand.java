@@ -13,7 +13,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
-import net.dreamerzero.titleannouncer.velocity.utils.SoundType;
+import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
@@ -54,8 +54,8 @@ public class ServerTitleCommand implements SimpleCommand {
                     MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     PlaceholderUtil.replaceProxyPlaceholders()),
                 serverObjetive, 1000, 3000, 1000);
-            ConfigUtils.sendTitleConfirmation(sender);
-            SoundUtils.playProxySound(serverObjetive, SoundType.TITLE);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+            SoundUtils.playProxySound(serverObjetive, ComponentType.TITLE);
             return;
         }
 
@@ -75,8 +75,8 @@ public class ServerTitleCommand implements SimpleCommand {
             1000,
             3000,
             1000);
-        SoundUtils.playProxySound(serverObjetive, SoundType.TITLE);
-        ConfigUtils.sendTitleConfirmation(sender);
+        SoundUtils.playProxySound(serverObjetive, ComponentType.TITLE);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
     }
 
     @Override
