@@ -6,7 +6,7 @@
 
     <groupId>net.dreamerzero.titleannouncer</groupId>
     <artifactId>TitleAnnouncer</artifactId>
-    <version>1.17.0</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -26,6 +26,18 @@
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>velocity</id>
+            <url>https://nexus.velocitypowered.com/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>exceptionflug</id>
+            <url>https://mvn.exceptionflug.de/repository/exceptionflug-public/</url>
         </repository>
     </repositories>
 
@@ -60,6 +72,23 @@
             <version>2.10.10</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.simplix-softworks</groupId>
+            <artifactId>simplixstorage</artifactId>
+            <version>3.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.simplix</groupId>
+            <artifactId>protocolize-api</artifactId>
+            <version>2.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -87,14 +116,13 @@
                 <version>3.3.0-SNAPSHOT</version>
                 <configuration>
                     <relocations>
-                        <!--
-                            Relocation of MiniMessage, 
-                            can be removed if using Purpur 1.16.5+ 
-                            or if future Paper includes MiniMessage.
-                        -->
                         <relocation>
                             <pattern>net.kyori.adventure.text.minimessage</pattern>
                             <shadedPattern>net.dreamerzero.libs.minimessage</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.leonhard</pattern>
+                            <shadedPattern>net.dreamerzero.libs.simplixstorage</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
