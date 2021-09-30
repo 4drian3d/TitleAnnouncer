@@ -58,19 +58,17 @@ public class SendTitleCommand implements SimpleCommand {
             return;
         }
 
-        String titleandsubtitlefinal[];
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
-        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null) {
-            return;
-        } else {
-            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
-        }
+        if(titleandsubtitlefinal == null) return;
 
         // Send the title
         TitleUtil.sendTitle(
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                 PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                 PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
             playerObjetive,
             1000,

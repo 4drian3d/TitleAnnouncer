@@ -36,16 +36,18 @@ public class AnnouncerTitleCommand implements SimpleCommand {
         if(!titleandsubtitle.contains(";")){
             if(sender instanceof Player player){
                 TitleUtil.sendOnlySubtitle(
-                    MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                    PlaceholderUtil.replaceProxyPlaceholders(player)),
+                    MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(titleandsubtitle),
+                        PlaceholderUtil.replaceProxyPlaceholders(player)),
                     server, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
                 SoundUtils.playProxySound(SoundType.TITLE);
                 return;
             } else {
                 TitleUtil.sendOnlySubtitle(
-                    MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                    PlaceholderUtil.replaceProxyPlaceholders()),
+                    MiniMessageUtil.parse(
+                        MiniMessageUtil.replaceLegacy(titleandsubtitle),
+                        PlaceholderUtil.replaceProxyPlaceholders()),
                     server, 1000, 3000, 1000);
                 ConfigUtils.sendTitleConfirmation(sender);
                 SoundUtils.playProxySound(SoundType.TITLE);
@@ -53,20 +55,18 @@ public class AnnouncerTitleCommand implements SimpleCommand {
             }
         }
 
-        String titleandsubtitlefinal[];
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
-        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null) {
-            return;
-        } else {
-            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
-        }
+        if(titleandsubtitlefinal == null) return;
 
         if (sender instanceof Player player) {
             // Send the title
             TitleUtil.sendTitle(
-                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
-                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
                 server,
                 1000,
@@ -78,13 +78,11 @@ public class AnnouncerTitleCommand implements SimpleCommand {
             // Send the title
             TitleUtil.sendTitle(
                 MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitlefinal[0]),
-                        PlaceholderUtil.replaceProxyPlaceholders()),
+                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
+                    PlaceholderUtil.replaceProxyPlaceholders()),
                 MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        titleandsubtitlefinal[1]),
-                        PlaceholderUtil.replaceProxyPlaceholders()),
+                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
+                    PlaceholderUtil.replaceProxyPlaceholders()),
                 server,
                 1000,
                 3000,

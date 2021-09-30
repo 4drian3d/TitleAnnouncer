@@ -50,7 +50,8 @@ public class ServerTitleCommand implements SimpleCommand {
 
         if(!TitleUtil.containsComma(args, 1)){
             TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+                MiniMessageUtil.parse(
+                    MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     PlaceholderUtil.replaceProxyPlaceholders()),
                 serverObjetive, 1000, 3000, 1000);
             ConfigUtils.sendTitleConfirmation(sender);
@@ -58,19 +59,17 @@ public class ServerTitleCommand implements SimpleCommand {
             return;
         }
 
-        String titleandsubtitlefinal[];
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
-        if(TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender) == null) {
-            return;
-        } else {
-            titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
-        }
+        if(titleandsubtitlefinal == null) return;
 
         // Send the title
         TitleUtil.sendTitle(
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                 PlaceholderUtil.replaceProxyPlaceholders()),
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
+            MiniMessageUtil.parse(
+                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                 PlaceholderUtil.replaceProxyPlaceholders()),
             serverObjetive,
             1000,
