@@ -17,29 +17,30 @@ public class SelfActionbarCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        ConfigUtils config = new ConfigUtils();
         // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            ConfigUtils.onlyPlayerExecute(sender);
+            config.onlyPlayerExecute(sender);
             return false;
         }
 
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args);
+        String actionbartext = new GeneralUtils().getCommandString(args);
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         // Send to sender
-        sender.sendActionBar(
-        MiniMessageUtil.parse(
-            MiniMessageUtil.replaceLegacy(
+        sender.sendActionBar(mUtils.parse(
+            mUtils.replaceLegacy(
                 PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
-                PlaceholderUtil.replacePlaceholders(player)));
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
-        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, sender);
+            PlaceholderUtil.replacePlaceholders(player)));
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        config.playPaperSound(ComponentType.ACTIONBAR, sender);
         return true;
     }
 }

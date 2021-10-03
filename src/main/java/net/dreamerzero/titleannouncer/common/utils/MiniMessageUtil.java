@@ -16,7 +16,7 @@ public class MiniMessageUtil {
      * @param message
      * @return The message with formatting
      */
-    public static Component parse(
+    public Component parse(
         final String message) {
 
         return MiniMessage.miniMessage().deserialize(message);
@@ -29,7 +29,7 @@ public class MiniMessageUtil {
      * @param template
      * @return The formatted message and a replaced placeholder
      */
-    public static Component parse(
+    public Component parse(
         final String message, Template template) {
 
         return MiniMessage.miniMessage().parse(message, template);
@@ -42,13 +42,13 @@ public class MiniMessageUtil {
      * @param template
      * @return Message with formatting and a list of placeholders replaced
      */
-    public static Component parse(
+    public Component parse(
         final String message, List<Template> template) {
 
         return MiniMessage.miniMessage().parse(message, template);
     }
 
-    public static String replaceLegacy(String legacyText){
+    public String replaceLegacy(String legacyText){
         String newText = legacyText
             .replaceAll("&1", "<dark_blue>")
             .replaceAll("&2", "<dark_green>")

@@ -4,9 +4,13 @@ import de.leonhard.storage.Yaml;
 import de.leonhard.storage.internal.settings.ReloadSettings;
 
 public class ConfigManager {
-    private static Yaml config;
+    private Yaml config;
 
-    public static void defaultConfig(){
+    public ConfigManager(){
+        config = new Yaml("config", "plugins/TitleAnnouncer");
+    }
+
+    public void defaultConfig(){
         config.setDefault("messages.prefix.enabled", true);
         config.setDefault(
             "messages.title.error",
@@ -80,7 +84,7 @@ public class ConfigManager {
         """);
         config.setReloadSettings(ReloadSettings.MANUALLY);
     }
-    public static void defaultProxyConfig(){
+    public void defaultProxyConfig(){
         config.setDefault(
             "messages.general.server-not-found",
             "<red>Server not found</red>");
@@ -89,11 +93,7 @@ public class ConfigManager {
             "<red>No server provided to send the message</red>");
     }
 
-    public static void createConfig(){
-        config = new Yaml("config", "plugins/TitleAnnouncer");
-    }
-
-    public static Yaml getConfig(){
+    public Yaml getConfig(){
         return config;
     }
 }

@@ -26,32 +26,34 @@ public class ServerActionbarCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return;
         }else if (args.length < 2) {
-            ConfigUtils.noServerArgumentProvided(sender);
+            config.noServerArgumentProvided(sender);
             return;
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            ConfigUtils.noServerFound(sender);
+            config.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args, 1);
+        String actionbartext = new GeneralUtils().getCommandString(args, 1);
 
         serverObjetive.sendActionBar(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
+            mUtils.parse(
+                mUtils.replaceLegacy(
                     actionbartext),
                     PlaceholderUtil.replaceProxyPlaceholders()));
-        SoundUtils.playProxySound(serverObjetive, ComponentType.ACTIONBAR);
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        new SoundUtils().playProxySound(serverObjetive, ComponentType.ACTIONBAR);
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

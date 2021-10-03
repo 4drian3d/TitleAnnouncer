@@ -6,7 +6,7 @@ public class GeneralUtils {
      * @param args Arguments of the command
      * @return The arguments of a command in string form
      */
-    public static String getCommandString(String[] args){
+    public String getCommandString(String[] args){
         // Concatenate the arguments provided by the command sent.
         StringBuilder commandString = new StringBuilder();
         for (String argument : args) {
@@ -22,7 +22,7 @@ public class GeneralUtils {
      * @param since Specific position from which the string is to be formed
      * @return The command arguments from a specified position converted to String
      */
-    public static String getCommandString(String[] args, int since){
+    public String getCommandString(String[] args, int since){
         // Concatenate the arguments provided by the command sent.
         StringBuilder commandString = new StringBuilder();
         for (int i = since; i < args.length; i++) {

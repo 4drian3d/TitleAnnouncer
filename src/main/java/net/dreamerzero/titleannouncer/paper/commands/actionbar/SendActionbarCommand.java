@@ -18,11 +18,12 @@ public class SendActionbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        ConfigUtils config = new ConfigUtils();
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return false;
         } else if (args.length < 2) {
-            ConfigUtils.noActionbarPlayerArgumentProvided(sender);
+            config.noActionbarPlayerArgumentProvided(sender);
             return false;
         }
 
@@ -34,20 +35,21 @@ public class SendActionbarCommand implements CommandExecutor {
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            ConfigUtils.playerNotFoundMessage(sender);
+            config.playerNotFoundMessage(sender);
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args, 1);
+        String actionbartext = new GeneralUtils().getCommandString(args, 1);
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         playerObjetive.sendActionBar(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
+            mUtils.parse(
+                mUtils.replaceLegacy(
                     PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
                     PlaceholderUtil.replacePlaceholders(playerObjetive)));
-        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        config.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
         return true;
     }
 }

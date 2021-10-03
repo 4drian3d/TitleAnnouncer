@@ -18,15 +18,16 @@ public class WorldActionbarCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        ConfigUtils config = new ConfigUtils(); 
         // It will send an actionbar to the world in which the command is executed,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            ConfigUtils.onlyPlayerExecute(sender);
+            config.onlyPlayerExecute(sender);
             return false;
         }
 
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return false;
         }
 
@@ -34,14 +35,15 @@ public class WorldActionbarCommand implements CommandExecutor {
         Audience audience = player.getWorld();
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args);
+        String actionbartext = new GeneralUtils().getCommandString(args);
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         audience.sendActionBar(
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+            mUtils.parse(mUtils.replaceLegacy(
                 PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
                 PlaceholderUtil.replacePlaceholders(player)));
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
-        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, audience);
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        config.playPaperSound(ComponentType.ACTIONBAR, audience);
         return true;
     }
 }

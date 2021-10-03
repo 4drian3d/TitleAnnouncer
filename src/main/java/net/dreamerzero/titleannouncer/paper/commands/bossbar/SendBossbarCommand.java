@@ -13,18 +13,24 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class SendBossbarCommand implements CommandExecutor{
-    public SendBossbarCommand() {}
+    private Announcer plugin;
+    public SendBossbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        BossBarUtils bUtils = new BossBarUtils();
+
         // The command requires arguments to work
-        if (!BossBarUtils.sendBossbarArgs(args.length, sender)) {
+        if (!bUtils.sendBossbarArgs(args.length, sender)) {
             return false;
         }
 
@@ -33,37 +39,39 @@ public class SendBossbarCommand implements CommandExecutor{
         //Collection of all players in the server
         var serverplayers = Bukkit.getOnlinePlayers();
 
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
+
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            ConfigUtils.playerNotFoundMessage(sender);
+            config.playerNotFoundMessage(sender);
             return false;
         }
 
-        float time = BossBarUtils.validBossbarNumber(args[1], sender);
+        float time = bUtils.validBossbarNumber(args[1], sender);
         if(time == 0.1f) return false;
 
-        BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
-        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);
+        BossBar.Color color = bUtils.bossbarColor(args[2]);
+        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = GeneralUtils.getCommandString(args, 5);
+        String bossbartext = new GeneralUtils().getCommandString(args, 5);
 
-        PaperBossBar.sendBukkitBossBar(
+        new PaperBossBar(plugin).sendBukkitBossBar(
             playerObjetive,
             time,
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
-                    PlaceholderUtil.replacePlaceholders(playerObjetive)),
+            mUtils.parse(mUtils.replaceLegacy(
+                PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
+                PlaceholderUtil.replacePlaceholders(playerObjetive)),
             color,
             overlay);
-        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-        ConfigUtils.playPaperSound(ComponentType.BOSSBAR, playerObjetive);
+        config.sendConfirmation(ComponentType.BOSSBAR, sender);
+        config.playPaperSound(ComponentType.BOSSBAR, playerObjetive);
         return true;
     }
 }

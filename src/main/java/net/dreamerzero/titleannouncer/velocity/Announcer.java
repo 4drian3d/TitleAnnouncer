@@ -22,18 +22,19 @@ public class Announcer {
 
     @Subscribe
     public void onProxyInitialization(final ProxyInitializeEvent event) {
+        SoundUtils sUtils = new SoundUtils();
         server.getConsoleCommandSource().sendMessage(
-            MiniMessageUtil.parse("<aqua>Enabling</aqua> <gradient:yellow:blue>TitleAnnouncer</gradient>"));
-        ConfigManager.createConfig();
-		ConfigManager.defaultConfig();
-        ConfigManager.defaultProxyConfig();
+            new MiniMessageUtil().parse("<aqua>Enabling</aqua> <gradient:yellow:blue>TitleAnnouncer</gradient>"));
+        ConfigManager cManager = new ConfigManager();
+		cManager.defaultConfig();
+        cManager.defaultProxyConfig();
         RegisterCommands.registerProxyMainCommand(server);
         RegisterCommands.registerProxyBossbar(server);
         RegisterCommands.registerProxyTitle(server);
         RegisterCommands.registerProxyActionbar(server);
-        SoundUtils.setActionBarSound();
-        SoundUtils.setBossBarSound();
-        SoundUtils.setTitleSound();
+        sUtils.setActionBarSound();
+        sUtils.setBossBarSound();
+        sUtils.setTitleSound();
         proxy = server;
         instance = this;
     }

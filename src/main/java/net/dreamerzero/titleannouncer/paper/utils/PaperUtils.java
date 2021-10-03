@@ -5,8 +5,12 @@ import org.bukkit.Bukkit;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 
 public class PaperUtils {
+    private Announcer plugin;
+    public PaperUtils(Announcer plugin){
+        this.plugin = plugin;
+    }
     //soon
-    public static void doAsync(Runnable task){
-        Bukkit.getScheduler().runTaskAsynchronously(Announcer.getInstance(), task);
+    public void doAsync(Runnable task){
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, task);
     }
 }

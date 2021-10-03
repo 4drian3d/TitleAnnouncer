@@ -25,19 +25,22 @@ import net.dreamerzero.titleannouncer.paper.commands.title.WorldTitleCommand;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class RegisterCommands {
-    public static void registerBossbar() {
-		Announcer plugin = Announcer.getInstance();
+	private Announcer plugin;
+	public RegisterCommands(Announcer plugin){
+		this.plugin = plugin;
+	}
+
+    public void registerBossbar() {
         plugin.getCommand("announcebossbar")
-			.setExecutor(new AnnouncerBossbarCommand());
+			.setExecutor(new AnnouncerBossbarCommand(plugin));
 		plugin.getCommand("selfbossbar")
-			.setExecutor(new SelfBossbarCommand());
+			.setExecutor(new SelfBossbarCommand(plugin));
 		plugin.getCommand("worldbossbar")
-			.setExecutor(new WorldBossbarCommand());
+			.setExecutor(new WorldBossbarCommand(plugin));
 		plugin.getCommand("sendbossbar")
-			.setExecutor(new SendBossbarCommand());
+			.setExecutor(new SendBossbarCommand(plugin));
     }
-    public static void registerTitle() {
-		Announcer plugin = Announcer.getInstance();
+    public void registerTitle() {
         plugin.getCommand("announcetitle")
 			.setExecutor(new AnnouncerTitleCommand());
 		plugin.getCommand("selftitle")
@@ -47,8 +50,7 @@ public class RegisterCommands {
 		plugin.getCommand("sendtitle")
 			.setExecutor(new SendTitleCommand());
     }
-    public static void registerActionbar() {
-		Announcer plugin = Announcer.getInstance();
+    public void registerActionbar() {
         plugin.getCommand("announceactionbar")
 			.setExecutor(new AnnouncerActionbarCommand());
 		plugin.getCommand("selfactionbar")
@@ -58,14 +60,12 @@ public class RegisterCommands {
 		plugin.getCommand("sendactionbar")
 			.setExecutor(new SendActionbarCommand());
     }
-    public static void registerMainCommand(){
-		Announcer plugin = Announcer.getInstance();
+    public void registerMainCommand(){
         plugin.getCommand("announcer")
 			.setExecutor(new AnnouncerCommand());
     }
-	public static void setCustomNoPermissionMessage(){
-		Announcer plugin = Announcer.getInstance();
-		Yaml config = ConfigManager.getConfig();
+	public void setCustomNoPermissionMessage(){
+		Yaml config = new ConfigManager().getConfig();
 
 		List<PluginCommand> commands = List.of(
 			plugin.getCommand("announcebossbar"),
@@ -85,8 +85,8 @@ public class RegisterCommands {
 			//Waiting for https://github.com/PaperMC/Paper/pull/6676
 			command.setPermissionMessage(
 				LegacyComponentSerializer.legacyAmpersand().serialize(
-					ConfigUtils.getPrefix().append(
-						MiniMessageUtil.parse(config.getString("messages.general.no-permission")))));
+					new ConfigUtils().getPrefix().append(
+						new MiniMessageUtil().parse(config.getString("messages.general.no-permission")))));
 		});
 	}
 }

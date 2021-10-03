@@ -26,53 +26,60 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        BossBarUtils bUtils = new BossBarUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
+
         // The command requires arguments to work
-        if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
+        if (!bUtils.regularBossbarArgs(args.length, sender)) {
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = GeneralUtils.getCommandString(args, 3);
+        String bossbartext = new GeneralUtils().getCommandString(args, 3);
 
-        float time = BossBarUtils.validBossbarNumber(args[0], sender);
+        float time = bUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return;
 
-        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
-        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = bUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
+
+        ConfigUtils config = new ConfigUtils();
 
         if (color == null || overlay == null) {
             sender.sendMessage(
-                ConfigUtils.getPrefix().append(
-                    MiniMessageUtil.parse("<dark_red>Invalid Argument")));
+                config.getPrefix().append(
+                    mUtils.parse("<dark_red>Invalid Argument")));
             return;
         }
+
+        SoundUtils sUtils = new SoundUtils();
 
         // Send to all
         if (sender instanceof Player player) {
             VelocityBossbar.sendVelocityBossbar(
                 server,
                 time,
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
+                mUtils.parse(
+                    mUtils.replaceLegacy(
                         bossbartext),
                         PlaceholderUtil.replaceProxyPlaceholders(player)),
                 color,
                 overlay);
-            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-            SoundUtils.playProxySound(ComponentType.BOSSBAR);
+            config.sendConfirmation(ComponentType.BOSSBAR, sender);
+            sUtils.playProxySound(ComponentType.BOSSBAR);
             return;
         } else {
             VelocityBossbar.sendVelocityBossbar(
                 server,
                 time,
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
+                mUtils.parse(
+                    mUtils.replaceLegacy(
                         bossbartext),
                         PlaceholderUtil.replaceProxyPlaceholders()),
                 color,
                 overlay);
-            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-            SoundUtils.playProxySound(ComponentType.BOSSBAR);
+            config.sendConfirmation(ComponentType.BOSSBAR, sender);
+            sUtils.playProxySound(ComponentType.BOSSBAR);
         }
     }
 

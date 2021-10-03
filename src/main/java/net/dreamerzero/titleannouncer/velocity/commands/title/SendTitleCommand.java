@@ -26,56 +26,61 @@ public class SendTitleCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new  MiniMessageUtil();
 
         switch (args.length) {
             case 0 -> {
-                ConfigUtils.sendNoArgumentMessage(sender);
+                config.sendNoArgumentMessage(sender);
                 return;
             }
             case 1 -> {
-                ConfigUtils.noTitlePlayerArgumentProvided(sender);
+                config.noTitlePlayerArgumentProvided(sender);
                 return;
             }
         }
 
         Optional<Player> optionalPlayerObjetive = server.getPlayer(args[0]);
         if(!optionalPlayerObjetive.isPresent()) {
-            ConfigUtils.playerNotFoundMessage(sender);
+            config.playerNotFoundMessage(sender);
             return;
         }
         Player playerObjetive = optionalPlayerObjetive.get();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
+        String titleandsubtitle = new GeneralUtils().getCommandString(args, 1);
 
-        if(!TitleUtil.containsComma(args, 1)){
-            TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+        SoundUtils sUtils = new SoundUtils();
+        TitleUtil tUtil = new TitleUtil();
+
+        if(!tUtil.containsComma(args, 1)){
+            tUtil.sendOnlySubtitle(
+                mUtils.parse(mUtils.replaceLegacy(titleandsubtitle),
                     PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
                 playerObjetive, 1000, 3000, 1000);
-            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-            SoundUtils.playProxySound(playerObjetive, ComponentType.TITLE);
+            config.sendConfirmation(ComponentType.TITLE, sender);
+            sUtils.playProxySound(playerObjetive, ComponentType.TITLE);
             return;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         // Send the title
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
+        tUtil.sendTitle(
+            mUtils.parse(
+                mUtils.replaceLegacy(titleandsubtitlefinal[0]),
                 PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
+            mUtils.parse(
+                mUtils.replaceLegacy(titleandsubtitlefinal[1]),
                 PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
             playerObjetive,
             1000,
             3000,
             1000);
-            SoundUtils.playProxySound(playerObjetive, ComponentType.TITLE);
-        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+            sUtils.playProxySound(playerObjetive, ComponentType.TITLE);
+        config.sendConfirmation(ComponentType.TITLE, sender);
     }
 
     @Override
@@ -84,7 +89,7 @@ public class SendTitleCommand implements SimpleCommand {
             ArrayList<String> players = new ArrayList<>();
             server.getAllPlayers().forEach(player -> players.add(player.getUsername()));
             return players;
-        } else if (!TitleUtil.containsComma(invocation.arguments())){
+        } else if (!new TitleUtil().containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {
             return List.of("[SubTitle]");

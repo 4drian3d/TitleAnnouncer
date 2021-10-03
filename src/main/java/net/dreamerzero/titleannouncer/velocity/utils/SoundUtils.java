@@ -15,35 +15,36 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 
 public class SoundUtils {
-    private static Sound titleSound;
-    private static Sound actionbarSound;
-    private static Sound bossbarSound;
+    private Sound titleSound;
+    private Sound actionbarSound;
+    private Sound bossbarSound;
+    private ConfigUtils config = new ConfigUtils();
 
-    public static void setTitleSound(){
-        titleSound = SoundTransformer.getSoundFromString(ConfigUtils.getTitleSound());
+    public void setTitleSound(){
+        titleSound = SoundTransformer.getSoundFromString(config.getTitleSound());
     }
 
-    public static void setBossBarSound(){
-        bossbarSound = SoundTransformer.getSoundFromString(ConfigUtils.getBossbarSound());
+    public void setBossBarSound(){
+        bossbarSound = SoundTransformer.getSoundFromString(config.getBossbarSound());
     }
 
-    public static void setActionBarSound(){
-        actionbarSound = SoundTransformer.getSoundFromString(ConfigUtils.getActionbarSound());
+    public void setActionBarSound(){
+        actionbarSound = SoundTransformer.getSoundFromString(config.getActionbarSound());
     }
 
-    public static Sound getTitleSound(){
+    public Sound getTitleSound(){
         return titleSound;
     }
 
-    public static Sound getBossBarSound(){
+    public Sound getBossBarSound(){
         return bossbarSound;
     }
 
-    public static Sound getActionBarSound(){
+    public Sound getActionBarSound(){
         return actionbarSound;
     }
 
-    public static void playProxySound(Player player, ComponentType type){
+    public void playProxySound(Player player, ComponentType type){
         ProxyServer proxy = Announcer.getProxyServer();
 
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
@@ -51,14 +52,14 @@ public class SoundUtils {
         UUID playeruuid = player.getUniqueId();
         ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
         switch(type) {
-            case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
-            case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
-            case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
+            case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, config.getTitleSoundVolume(), config.getTitleSoundPitch());
+            case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, config.getBossbarSoundVolume(), config.getBossbarSoundPitch());
+            case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, config.getActionbarSoundVolume(), config.getActionbarSoundPitch());
         };
 
     }
 
-    public static void playProxySound(ComponentType type){
+    public void playProxySound(ComponentType type){
         ProxyServer proxy = Announcer.getProxyServer();
 
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
@@ -68,14 +69,14 @@ public class SoundUtils {
             ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
 
             switch(type) {
-                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
-                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
-                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
+                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, config.getTitleSoundVolume(), config.getTitleSoundPitch());
+                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, config.getBossbarSoundVolume(), config.getBossbarSoundPitch());
+                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, config.getActionbarSoundVolume(), config.getActionbarSoundPitch());
             };
         }
     }
 
-    public static void playProxySound(RegisteredServer server, ComponentType type){
+    public void playProxySound(RegisteredServer server, ComponentType type){
         ProxyServer proxy = Announcer.getProxyServer();
 
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
@@ -85,9 +86,9 @@ public class SoundUtils {
             ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
 
             switch(type) {
-                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
-                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
-                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
+                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, config.getTitleSoundVolume(), config.getTitleSoundPitch());
+                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, config.getBossbarSoundVolume(), config.getBossbarSoundPitch());
+                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, config.getActionbarSoundVolume(), config.getActionbarSoundPitch());
             };
         }
     }

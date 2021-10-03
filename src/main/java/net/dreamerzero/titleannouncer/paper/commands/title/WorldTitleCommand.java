@@ -19,10 +19,11 @@ public class WorldTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        ConfigUtils config = new ConfigUtils();
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            ConfigUtils.onlyPlayerExecute(sender);
+            config.onlyPlayerExecute(sender);
             return false;
         }
 
@@ -31,44 +32,47 @@ public class WorldTitleCommand implements CommandExecutor {
 
         // The command requires arguments to work
         if(args.length == 0){
-            ConfigUtils.sendNoArgumentMessage(sender);
+            config.sendNoArgumentMessage(sender);
             return false;
         }
 
         boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = GeneralUtils.getCommandString(args);
+        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+
+        TitleUtil tUtil = new TitleUtil();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(placeholderAPISupport ?
+            tUtil.sendOnlySubtitle(
+                mUtils.parse(
+                mUtils.replaceLegacy(placeholderAPISupport ?
                     PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
                     PlaceholderUtil.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
-            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-            ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
+            config.sendConfirmation(ComponentType.TITLE, sender);
+            config.playPaperSound(ComponentType.TITLE, audience);
             return true;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return false;
 
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+        tUtil.sendTitle(
+            mUtils.parse(mUtils.replaceLegacy(
                 placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]): titleandsubtitlefinal[0]), 
                 PlaceholderUtil.replacePlaceholders(player)),
-            MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(
+            mUtils.parse(mUtils.replaceLegacy(
                 placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
                 PlaceholderUtil.replacePlaceholders(player)),
             audience,
             1000,
             3000,
             1000);
-        ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
-        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+        config.playPaperSound(ComponentType.TITLE, audience);
+        config.sendConfirmation(ComponentType.TITLE, sender);
         return true;
     }
 }

@@ -111,8 +111,6 @@ public class PlaceholderUtil {
 
     public static void placeholderAPICheck(){
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-			net.dreamerzero.titleannouncer.paper.Announcer.getInstance().getLogger().info(
-                "PlaceholderAPI founded. Enabling integration.");
             isPlaceholderAPIPresent = true;
 		} else {
 			isPlaceholderAPIPresent = false;

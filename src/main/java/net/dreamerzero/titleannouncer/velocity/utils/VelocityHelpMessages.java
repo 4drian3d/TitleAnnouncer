@@ -165,7 +165,7 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki"))
             .hoverEvent(HoverEvent.showText(
-                MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
         .build();
     public final static Component titlewikilink = text()
         .append(text()
@@ -177,7 +177,7 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Title-Commands"))
             .hoverEvent(HoverEvent.showText(
-                MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
     public final static Component actionbarwikilink = text()
         .append(text()
@@ -189,7 +189,7 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/ActionBar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 
     public final static Component bossbarwikilink = text()
@@ -202,6 +202,6 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Bossbar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                MiniMessageUtil.parse("<gradient:red:blue>Click Here</gradient>"))))
+                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 }

@@ -28,44 +28,47 @@ public class SendBossbarCommand implements SimpleCommand{
     public void execute(Invocation invocation){
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        BossBarUtils bUtils = new BossBarUtils();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         // The command requires arguments to work
-        if (!BossBarUtils.sendBossbarArgs(args.length, sender)) {
+        if (!bUtils.sendBossbarArgs(args.length, sender)) {
             return;
         }
 
         Optional<Player> optionalPlayerObjetive = server.getPlayer(args[0]);
         if(!optionalPlayerObjetive.isPresent()) {
-            ConfigUtils.playerNotFoundMessage(sender);
+            config.playerNotFoundMessage(sender);
             return;
         }
         Player playerObjetive = optionalPlayerObjetive.get();
 
-        float time = BossBarUtils.validBossbarNumber(args[1], sender);
+        float time = bUtils.validBossbarNumber(args[1], sender);
         if(time == 0.1f) return;
 
-        BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
-        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);
+        BossBar.Color color = bUtils.bossbarColor(args[2]);
+        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(ConfigUtils.getPrefix().append(MiniMessageUtil.parse("<dark_red>Invalid Argument")));
+            sender.sendMessage(config.getPrefix().append(mUtils.parse("<dark_red>Invalid Argument")));
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = GeneralUtils.getCommandString(args, 5);
+        String bossbartext = new GeneralUtils().getCommandString(args, 5);
 
         VelocityBossbar.sendVelocityBossbar(
             playerObjetive,
             time,
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
+            mUtils.parse(
+                mUtils.replaceLegacy(
                     bossbartext),
                     PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)),
             color,
             overlay);
-        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-        SoundUtils.playProxySound(playerObjetive, ComponentType.BOSSBAR);
+        config.sendConfirmation(ComponentType.BOSSBAR, sender);
+        new SoundUtils().playProxySound(playerObjetive, ComponentType.BOSSBAR);
     }
 
     @Override

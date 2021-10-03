@@ -19,22 +19,25 @@ public class SelfActionbarCommand implements SimpleCommand{
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
+
         if(!(sender instanceof Player player)){
-            ConfigUtils.onlyPlayerExecute(sender);
+            config.onlyPlayerExecute(sender);
             return;
         }
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return;
         }
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args);
+        String actionbartext = new GeneralUtils().getCommandString(args);
 
-        sender.sendActionBar(MiniMessageUtil.parse(
-            MiniMessageUtil.replaceLegacy(actionbartext),
+        sender.sendActionBar(mUtils.parse(
+            mUtils.replaceLegacy(actionbartext),
             PlaceholderUtil.replaceProxyPlaceholders(player)));
-        SoundUtils.playProxySound(player, ComponentType.ACTIONBAR);
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        new SoundUtils().playProxySound(player, ComponentType.ACTIONBAR);
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

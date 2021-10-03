@@ -26,31 +26,34 @@ public class SendActionbarCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
+
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return;
         }else if (args.length < 2) {
-            ConfigUtils.noActionbarPlayerArgumentProvided(sender);
+            config.noActionbarPlayerArgumentProvided(sender);
             return;
         }
 
         Optional<Player> optionalPlayerObjetive = server.getPlayer(args[0]);
         if(!optionalPlayerObjetive.isPresent()) {
-            ConfigUtils.playerNotFoundMessage(sender);
+            config.playerNotFoundMessage(sender);
             return;
         }
         Player playerObjetive = optionalPlayerObjetive.get();
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args, 1);
+        String actionbartext = new GeneralUtils().getCommandString(args, 1);
 
         playerObjetive.sendActionBar(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
+            mUtils.parse(
+                mUtils.replaceLegacy(
                     actionbartext),
                     PlaceholderUtil.replaceProxyPlaceholders(playerObjetive)));
-        SoundUtils.playProxySound(playerObjetive, ComponentType.ACTIONBAR);
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        new SoundUtils().playProxySound(playerObjetive, ComponentType.ACTIONBAR);
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

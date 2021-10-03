@@ -19,14 +19,15 @@ public class SendTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        ConfigUtils config = new ConfigUtils();
         // The command requires arguments to work
         switch (args.length) {
             case 0 -> {
-                ConfigUtils.sendNoArgumentMessage(sender);
+                config.sendNoArgumentMessage(sender);
                 return true;
             }
             case 1 -> {
-                ConfigUtils.noTitlePlayerArgumentProvided(sender);
+                config.noTitlePlayerArgumentProvided(sender);
                 return true;
             }
         }
@@ -34,44 +35,46 @@ public class SendTitleCommand implements CommandExecutor {
         boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
+        String titleandsubtitle = new GeneralUtils().getCommandString(args, 1);
 
         var serverplayers = Bukkit.getOnlinePlayers();
         Player playerObjetive = Bukkit.getPlayer(args[0]);
 
-        if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
-                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle) : titleandsubtitle), 
-                    PlaceholderUtil.replacePlaceholders(playerObjetive)),
-                    playerObjetive, 1000, 3000, 1000);
-            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-            ConfigUtils.playPaperSound(ComponentType.TITLE, playerObjetive);
-            return true;
-        }
-
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
-
-        if(titleandsubtitlefinal == null) return false;
-
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            ConfigUtils.playerNotFoundMessage(sender);
+            config.playerNotFoundMessage(sender);
             return false;
         }
 
+        TitleUtil tUtil = new TitleUtil();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
+
+        if(!titleandsubtitle.contains(";")){
+            tUtil.sendOnlySubtitle(
+                mUtils.parse(mUtils.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle) : titleandsubtitle), 
+                    PlaceholderUtil.replacePlaceholders(playerObjetive)),
+                    playerObjetive, 1000, 3000, 1000);
+            config.sendConfirmation(ComponentType.TITLE, sender);
+            config.playPaperSound(ComponentType.TITLE, playerObjetive);
+            return true;
+        }
+
+        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+
+        if(titleandsubtitlefinal == null) return false;
+
         // Send the title
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+        tUtil.sendTitle(
+            mUtils.parse(placeholderAPISupport ? mUtils.replaceLegacy(
                 PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
                 PlaceholderUtil.replacePlaceholders(playerObjetive)),
-            MiniMessageUtil.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+            mUtils.parse(placeholderAPISupport ? mUtils.replaceLegacy(
                 PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
                 PlaceholderUtil.replacePlaceholders(playerObjetive)),
             playerObjetive, 1000, 3000, 1000);
-        ConfigUtils.playPaperSound(ComponentType.TITLE, playerObjetive);
-        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+        config.playPaperSound(ComponentType.TITLE, playerObjetive);
+        config.sendConfirmation(ComponentType.TITLE, sender);
         return true;
     }
 }

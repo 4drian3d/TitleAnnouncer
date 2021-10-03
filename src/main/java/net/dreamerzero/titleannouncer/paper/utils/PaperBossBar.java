@@ -1,11 +1,19 @@
 package net.dreamerzero.titleannouncer.paper.utils;
 
+import org.bukkit.scheduler.BukkitRunnable;
+
+import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 
 public class PaperBossBar {
-    private static float value = 1f;
+    private Announcer plugin;
+    public PaperBossBar(Announcer plugin){
+        this.plugin = plugin;
+    }
+
+    private float value = 1f;
     /**
      * It will send a bossbar to the specified audience,
      * with the specified characteristics showing an
@@ -17,7 +25,7 @@ public class PaperBossBar {
      * @param color
      * @param type
      */
-    public static void sendBukkitBossBar (
+    public void sendBukkitBossBar (
         final Audience audience,
         final float time,
         final Component content,
@@ -32,26 +40,25 @@ public class PaperBossBar {
             color,
             type);
 
-        value = 1f;
-
+        value =1f;
         audience.showBossBar(bar);
         final float toReduce = finalTime;
-
-        new org.bukkit.scheduler.BukkitRunnable() {
+        new BukkitRunnable() {
             @Override
             public void run() {
                 value -= toReduce;
-                if (value <= 0.02) {
-                    audience.hideBossBar(bar);
-                    cancel();
-                }
-                try {
-                    bar.progress(value);
-                } catch (IllegalArgumentException e) {
-                    cancel();
-                }
+            if (value <= 0.02) {
+                audience.hideBossBar(bar);
+                cancel();
             }
-        }.runTaskTimerAsynchronously(net.dreamerzero.titleannouncer.paper.Announcer.getInstance(), 20, 2);
+            try {
+                bar.progress(value);
+            } catch (IllegalArgumentException e) {
+                cancel();
+            }
+            }
+        }.runTaskTimerAsynchronously(plugin, 20, 2);
+
     }
 
 }

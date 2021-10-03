@@ -24,22 +24,24 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args);
+        String actionbartext = new GeneralUtils().getCommandString(args);
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if(args.length == 0) {
-            ConfigUtils.noActionbarArgumentProvided(sender);
+            config.noActionbarArgumentProvided(sender);
             return;
         }
 
         // Send to all
-        server.sendActionBar(MiniMessageUtil.parse(
-            MiniMessageUtil.replaceLegacy(
+        server.sendActionBar(mUtils.parse(
+            mUtils.replaceLegacy(
                 actionbartext),
                 sender instanceof Player player ?
                     PlaceholderUtil.replaceProxyPlaceholders(player) :
                     PlaceholderUtil.replaceProxyPlaceholders()));
-        SoundUtils.playProxySound(ComponentType.ACTIONBAR);
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        new SoundUtils().playProxySound(ComponentType.ACTIONBAR);
+        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

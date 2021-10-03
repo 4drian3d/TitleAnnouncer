@@ -15,40 +15,36 @@ import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;
 import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 
 public class Announcer extends JavaPlugin {
-	private static Announcer instance;
+	private Announcer instance;
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(MiniMessageUtil.parse(
+		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(new MiniMessageUtil().parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		instance = this;
-		ConfigManager.createConfig();
-		ConfigManager.defaultConfig();
-		commandRegister();
+		ConfigManager cManager = new ConfigManager();
+		cManager.defaultConfig();
 		listenerRegister();
 		PlaceholderUtil.placeholderAPICheck();
-		RegisterCommands.setCustomNoPermissionMessage();
+		RegisterCommands rCommands = new RegisterCommands(this);
+		rCommands.setCustomNoPermissionMessage();
+		// Main Command
+		rCommands.registerMainCommand();
+		// Title Commands
+		rCommands.registerTitle();
+		// ActionBar Commands
+		rCommands.registerActionbar();
+		// BossBar Commands
+		rCommands.registerBossbar();
 	}
 
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(MiniMessageUtil.parse(
+		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(new MiniMessageUtil().parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-	}
-
-	// Registration of the commands that the plugin provides
-	public void commandRegister() {
-		// Main Command
-		RegisterCommands.registerMainCommand();
-		// Title Commands
-		RegisterCommands.registerTitle();
-		// ActionBar Commands
-		RegisterCommands.registerActionbar();
-		// BossBar Commands
-		RegisterCommands.registerBossbar();
 	}
 
 	public void listenerRegister() {
@@ -56,7 +52,7 @@ public class Announcer extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PluginListener(), this);
 	}
 
-	public static Announcer getInstance() {
+	public Announcer getInstance() {
 		return instance;
 	}
 }

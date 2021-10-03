@@ -15,70 +15,70 @@ public class AnnouncerCommand implements CommandExecutor {
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        MiniMessageUtil mUtils = new MiniMessageUtil();
         if (sender.permissionValue("titleannouncer.command.admin") != TriState.TRUE){
-            sender.sendMessage(
-                MiniMessageUtil.parse(
+            sender.sendMessage(mUtils.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             return true;
         }
-
+        ConfigUtils config = new ConfigUtils();
+        PaperHelpMessages paperMessages = new PaperHelpMessages();
         if (args.length == 0) {
-            sender.sendMessage(
-                MiniMessageUtil.parse(
+            sender.sendMessage(mUtils.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-            ConfigUtils.helpPrefix(sender);
-            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
-            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
-            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
-            sender.sendMessage(PaperHelpMessages.fullwikilink);
+            config.helpPrefix(sender);
+            sender.sendMessage(paperMessages.titleHelpMessage);
+            sender.sendMessage(paperMessages.actionbarHelpMessage);
+            sender.sendMessage(paperMessages.bossbarHelpMessage);
+            sender.sendMessage(paperMessages.fullwikilink);
             return true;
         }
         switch (args[0].toLowerCase()) {
             case "reload" -> {
-                ConfigManager.getConfig().forceReload();
-                ConfigUtils.reloadMessage(sender);
+                new ConfigManager().getConfig().forceReload();
+                config.reloadMessage(sender);
                 return true;
             }
             case "help" -> {
                 sender.sendMessage(
-                    MiniMessageUtil.parse(
+                    mUtils.parse(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-                ConfigUtils.helpPrefix(sender);
+                config.helpPrefix(sender);
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
-                            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
-                            sender.sendMessage(PaperHelpMessages.titlewikilink);
+                            sender.sendMessage(paperMessages.titleHelpMessage);
+                            sender.sendMessage(paperMessages.titlewikilink);
                             return true;
                         }
                         case "actionbar" -> {
-                            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
-                            sender.sendMessage(PaperHelpMessages.actionbarwikilink);
+                            sender.sendMessage(paperMessages.actionbarHelpMessage);
+                            sender.sendMessage(paperMessages.actionbarwikilink);
                             return true;
                         }
                         case "bossbar" -> {
-                            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
-                            sender.sendMessage(PaperHelpMessages.bossbarwikilink);
+                            sender.sendMessage(paperMessages.bossbarHelpMessage);
+                            sender.sendMessage(paperMessages.bossbarwikilink);
                             return true;
                         }
                         default -> {
-                            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
-                            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
-                            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
-                            sender.sendMessage(PaperHelpMessages.fullwikilink);
+                            sender.sendMessage(paperMessages.titleHelpMessage);
+                            sender.sendMessage(paperMessages.actionbarHelpMessage);
+                            sender.sendMessage(paperMessages.bossbarHelpMessage);
+                            sender.sendMessage(paperMessages.fullwikilink);
                             return true;
                         }
                     }
                 } else {
-                    sender.sendMessage(PaperHelpMessages.titleHelpMessage);
-                    sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
-                    sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
-                    sender.sendMessage(PaperHelpMessages.fullwikilink);
+                    sender.sendMessage(paperMessages.titleHelpMessage);
+                    sender.sendMessage(paperMessages.actionbarHelpMessage);
+                    sender.sendMessage(paperMessages.bossbarHelpMessage);
+                    sender.sendMessage(paperMessages.fullwikilink);
                     return true;
                 }
             }
             default -> {
-                ConfigUtils.invalidCommand(sender);
+                config.invalidCommand(sender);
                 return false;
             }
         }

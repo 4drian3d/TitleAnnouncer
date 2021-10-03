@@ -20,53 +20,58 @@ public class SelfTitleCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if (!(sender instanceof Player player)) {
-            ConfigUtils.onlyPlayerExecute(sender);
+            config.onlyPlayerExecute(sender);
             return;
         }
 
         if(args.length == 0) {
-            ConfigUtils.sendNoArgumentMessage(sender);
+            config.sendNoArgumentMessage(sender);
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = GeneralUtils.getCommandString(args);
+        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+
+        SoundUtils sUtils = new SoundUtils();
+        TitleUtil tUtil = new TitleUtil();
 
         if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+            tUtil.sendOnlySubtitle(
+                mUtils.parse(mUtils.replaceLegacy(titleandsubtitle),
                     PlaceholderUtil.replaceProxyPlaceholders(player)),
                 sender, 1000, 3000, 1000);
-            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-            SoundUtils.playProxySound(player, ComponentType.TITLE);
+            config.sendConfirmation(ComponentType.TITLE, sender);
+            sUtils.playProxySound(player, ComponentType.TITLE);
             return;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         // Send the title
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
+        tUtil.sendTitle(
+            mUtils.parse(
+                mUtils.replaceLegacy(titleandsubtitlefinal[0]),
                 PlaceholderUtil.replaceProxyPlaceholders(player)),
-            MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
+            mUtils.parse(
+                mUtils.replaceLegacy(titleandsubtitlefinal[1]),
                 PlaceholderUtil.replaceProxyPlaceholders(player)),
             sender,
             1000,
             3000,
             1000);
-        SoundUtils.playProxySound(player, ComponentType.TITLE);
-        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+        sUtils.playProxySound(player, ComponentType.TITLE);
+        config.sendConfirmation(ComponentType.TITLE, sender);
     }
 
     @Override
     public List<String> suggest(final Invocation invocation) {
-        if (!TitleUtil.containsComma(invocation.arguments())){
+        if (!new TitleUtil().containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {
             return List.of("[SubTitle]");

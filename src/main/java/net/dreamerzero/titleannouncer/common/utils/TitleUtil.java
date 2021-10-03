@@ -20,7 +20,7 @@ public class TitleUtil {
      * @param stay
      * @param fadeout
      */
-    public static void sendTitle(
+    public void sendTitle(
         final Component title,
         final Component subtitle,
         final Audience audience,
@@ -67,7 +67,7 @@ public class TitleUtil {
      * @param stay
      * @param fadeout
      */
-    public static void sendOnlySubtitle(final Component subtitle,
+    public void sendOnlySubtitle(final Component subtitle,
         final Audience audience,
         final int fadein,
         final int stay,
@@ -80,7 +80,7 @@ public class TitleUtil {
             Duration.ofMillis(fadeout)));
     }
 
-    public static String[] getTitleAndSubtitle(String string, Audience sender) {
+    public String[] getTitleAndSubtitle(String string, Audience sender) {
         try {
             String newString[] = string.split(";");
             if(newString.length > 2) {
@@ -92,20 +92,20 @@ public class TitleUtil {
         // it will catch the error in the console and send an error message to the sender.
         } catch (Exception e) {
             // Send an error message to the sender using the command
-            ConfigUtils.sendTitleError(sender);
+            new ConfigUtils().sendTitleError(sender);
             return null;
         }
     }
 
-    public static boolean containsComma(String[] args){
-        for(int i = 0; i <= args.length; i++){
-            if(args[i].contains(";")) return true;
+    public boolean containsComma(String[] args){
+        for(String argument : args){
+            if(argument.contains(";")) return true;
         }
         return false;
     }
 
-    public static boolean containsComma(String[] args, int since){
-        for(int i = since; i <= args.length; i++){
+    public boolean containsComma(String[] args, int since){
+        for(int i = since; i < args.length; i++){
             if(args[i].contains(";")) return true;
         }
         return false;

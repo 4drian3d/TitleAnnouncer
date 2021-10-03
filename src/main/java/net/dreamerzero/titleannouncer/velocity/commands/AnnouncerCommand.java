@@ -16,12 +16,13 @@ public class AnnouncerCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource source = invocation.source();
         String[] args = invocation.arguments();
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if (args.length == 0) {
-            source.sendMessage(
-                MiniMessageUtil.parse(
+            source.sendMessage(mUtils.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-            ConfigUtils.helpPrefix(source);
+            config.helpPrefix(source);
             source.sendMessage(VelocityHelpMessages.titleHelpMessage);
             source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
             source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
@@ -31,14 +32,14 @@ public class AnnouncerCommand implements SimpleCommand {
 
         switch (args[0].toLowerCase()) {
             case "reload" -> {
-                ConfigManager.getConfig().forceReload();
-                ConfigUtils.reloadMessage(source);
+                new ConfigManager().getConfig().forceReload();
+                config.reloadMessage(source);
             }
             case "help" -> {
                 source.sendMessage(
-                    MiniMessageUtil.parse(
+                    mUtils.parse(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-                ConfigUtils.helpPrefix(source);
+                config.helpPrefix(source);
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
@@ -68,7 +69,7 @@ public class AnnouncerCommand implements SimpleCommand {
                 }
             }
             default -> {
-                ConfigUtils.invalidCommand(source);
+                config.invalidCommand(source);
             }
         }
 

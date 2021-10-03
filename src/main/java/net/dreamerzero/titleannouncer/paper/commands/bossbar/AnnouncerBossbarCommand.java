@@ -13,6 +13,7 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
@@ -20,7 +21,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class AnnouncerBossbarCommand implements CommandExecutor {
-    public AnnouncerBossbarCommand() {}
+    private Announcer plugin;
+    public AnnouncerBossbarCommand(Announcer plugin) {
+        this.plugin = plugin;
+    }
 
     // The audience that will receive the bossbar will be all the players on the server.
     Audience audience = Bukkit.getServer();
@@ -28,21 +32,26 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // The command requires arguments to work
-        if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
+        BossBarUtils bUtils = new BossBarUtils();
+        if (!bUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = GeneralUtils.getCommandString(args, 3);
+        String bossbartext = new GeneralUtils().getCommandString(args, 3);
 
-        float time = BossBarUtils.validBossbarNumber(args[0], sender);
+        float time = bUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return false;
 
-        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
-        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = bUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
+
+        ConfigUtils config = new ConfigUtils();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
+        PaperBossBar pBossBar = new PaperBossBar(plugin);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
@@ -50,30 +59,29 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
 
         // Send to all
         if (sender instanceof Player player) {
-            PaperBossBar.sendBukkitBossBar(
+            pBossBar.sendBukkitBossBar(
                 audience,
                 time,
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
-                        placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                        PlaceholderUtil.replacePlaceholders(player)),
+                mUtils.parse(mUtils.replaceLegacy(
+                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
+                    PlaceholderUtil.replacePlaceholders(player)),
                 color,
                 overlay);
-            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-            ConfigUtils.playPaperSound(ComponentType.BOSSBAR, audience);
+            config.sendConfirmation(ComponentType.BOSSBAR, sender);
+            config.playPaperSound(ComponentType.BOSSBAR, audience);
             return true;
         } else {
-            PaperBossBar.sendBukkitBossBar(
+            pBossBar.sendBukkitBossBar(
                 audience,
                 time,
-                MiniMessageUtil.parse(
-                    MiniMessageUtil.replaceLegacy(
+                mUtils.parse(
+                    mUtils.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
                         PlaceholderUtil.replacePlaceholders()),
                 color,
                 overlay);
-            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-            ConfigUtils.playPaperSound(ComponentType.BOSSBAR, audience);
+            config.sendConfirmation(ComponentType.BOSSBAR, sender);
+            config.playPaperSound(ComponentType.BOSSBAR, audience);
             return true;
         }
     }

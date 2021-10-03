@@ -22,54 +22,57 @@ public class SelfTitleCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        ConfigUtils config = new ConfigUtils();
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            ConfigUtils.onlyPlayerExecute(sender);
+            config.onlyPlayerExecute(sender);
             return false;
         }
 
         // The command requires arguments to work
         if(args.length == 0){
-            ConfigUtils.sendNoArgumentMessage(sender);
+            config.sendNoArgumentMessage(sender);
             return true;
         }
 
         boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = GeneralUtils.getCommandString(args);
+        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+
+        TitleUtil tUtil = new TitleUtil();
+        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if(!titleandsubtitle.contains(";")){
-            TitleUtil.sendOnlySubtitle(
-                MiniMessageUtil.parse(
-                MiniMessageUtil.replaceLegacy(
+            tUtil.sendOnlySubtitle(
+                mUtils.parse(mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
                     PlaceholderUtil.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
-            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-            ConfigUtils.playPaperSound(ComponentType.TITLE, sender);
+            config.sendConfirmation(ComponentType.TITLE, sender);
+            config.playPaperSound(ComponentType.TITLE, sender);
             return true;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return false;
 
         // Send the Title
-        TitleUtil.sendTitle(
-            MiniMessageUtil.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
-                PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
+        tUtil.sendTitle(
+            mUtils.parse(mUtils.replaceLegacy(placeholderAPISupport ? 
+                PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]), 
             PlaceholderUtil.replacePlaceholders(player)),
-            MiniMessageUtil.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
-                PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
+            mUtils.parse(mUtils.replaceLegacy(placeholderAPISupport ? 
+                PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
             PlaceholderUtil.replacePlaceholders(player)),
             sender,
             1000,
             3000,
             1000);
-        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-        ConfigUtils.playPaperSound(ComponentType.TITLE, sender);
+        config.sendConfirmation(ComponentType.TITLE, sender);
+        config.playPaperSound(ComponentType.TITLE, sender);
         return true;
     }
 }
