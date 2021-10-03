@@ -10,10 +10,10 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 
 public class VelocityHelpMessages {
-    public final static Component titleArguments = text("[Title]; [SubTitle]", AQUA);
-    public final static Component actionbarArguments = text("[ActionBar]", AQUA);
-    public final static Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
-    public final static Component titleHelpMessage = text()
+    public final Component titleArguments = text("[Title]; [SubTitle]", AQUA);
+    public final Component actionbarArguments = text("[ActionBar]", AQUA);
+    public final Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
+    public final Component titleHelpMessage = text()
         .append(text()
             .append(text("Title", YELLOW))
         )
@@ -59,7 +59,7 @@ public class VelocityHelpMessages {
         )
         .build();
 
-    public final static Component actionbarHelpMessage = text()
+    public final Component actionbarHelpMessage = text()
         .color(YELLOW)
         .append(text()
             .append(text("ActionBar"))
@@ -106,7 +106,7 @@ public class VelocityHelpMessages {
         )
         .build();
 
-    public final static Component bossbarHelpMessage = text()
+    public final Component bossbarHelpMessage = text()
         .color(YELLOW)
         .append(text()
             .append(text("BossBar"))
@@ -155,7 +155,7 @@ public class VelocityHelpMessages {
         )
         .build();
 
-    public final static Component fullwikilink = text()
+    public final Component fullwikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on"))
             .color(GOLD)
@@ -167,7 +167,7 @@ public class VelocityHelpMessages {
             .hoverEvent(HoverEvent.showText(
                 new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
         .build();
-    public final static Component titlewikilink = text()
+    public final Component titlewikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on"))
             .color(GOLD)
@@ -179,7 +179,7 @@ public class VelocityHelpMessages {
             .hoverEvent(HoverEvent.showText(
                 new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
-    public final static Component actionbarwikilink = text()
+    public final Component actionbarwikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on"))
             .color(GOLD)
@@ -192,7 +192,7 @@ public class VelocityHelpMessages {
                 new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 
-    public final static Component bossbarwikilink = text()
+    public final Component bossbarwikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on"))
             .color(GOLD)

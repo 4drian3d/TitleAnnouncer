@@ -15,14 +15,12 @@ import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;
 import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 
 public class Announcer extends JavaPlugin {
-	private Announcer instance;
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(new MiniMessageUtil().parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		instance = this;
 		ConfigManager cManager = new ConfigManager();
 		cManager.defaultConfig();
 		listenerRegister();
@@ -50,9 +48,5 @@ public class Announcer extends JavaPlugin {
 	public void listenerRegister() {
 		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
 		getServer().getPluginManager().registerEvents(new PluginListener(), this);
-	}
-
-	public Announcer getInstance() {
-		return instance;
 	}
 }

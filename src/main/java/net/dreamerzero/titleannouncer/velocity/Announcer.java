@@ -13,7 +13,6 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 public class Announcer {
     private final ProxyServer server;
     private static ProxyServer proxy;
-    private static Announcer instance;
 
     @Inject
     public Announcer(final ProxyServer server) {
@@ -28,22 +27,18 @@ public class Announcer {
         ConfigManager cManager = new ConfigManager();
 		cManager.defaultConfig();
         cManager.defaultProxyConfig();
-        RegisterCommands.registerProxyMainCommand(server);
-        RegisterCommands.registerProxyBossbar(server);
-        RegisterCommands.registerProxyTitle(server);
-        RegisterCommands.registerProxyActionbar(server);
+        RegisterCommands rCommands = new RegisterCommands(this);
+        rCommands.registerProxyMainCommand(server);
+        rCommands.registerProxyBossbar(server);
+        rCommands.registerProxyTitle(server);
+        rCommands.registerProxyActionbar(server);
         sUtils.setActionBarSound();
         sUtils.setBossBarSound();
         sUtils.setTitleSound();
         proxy = server;
-        instance = this;
     }
 
     public static ProxyServer getProxyServer(){
         return proxy;
-    }
-
-    public static Announcer getVInstance(){
-        return instance;
     }
 }

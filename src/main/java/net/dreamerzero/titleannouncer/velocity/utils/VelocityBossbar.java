@@ -2,13 +2,19 @@ package net.dreamerzero.titleannouncer.velocity.utils;
 
 import java.util.concurrent.TimeUnit;
 
+import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 
 public class VelocityBossbar {
-    private static float value = 1f;
-    public static void sendVelocityBossbar(
+    private Announcer plugin;
+
+    public VelocityBossbar(Announcer plugin){
+        this.plugin = plugin;
+    }
+    private float value = 1f;
+    public void sendVelocityBossbar(
         final Audience audience,
         final float time,
         final Component content,
@@ -31,7 +37,7 @@ public class VelocityBossbar {
         var server = net.dreamerzero.titleannouncer.velocity.Announcer.getProxyServer();
 
         server.getScheduler()
-        .buildTask(net.dreamerzero.titleannouncer.velocity.Announcer.getVInstance(), () -> {
+        .buildTask(plugin, () -> {
             value -= toReduce;
                 if (value <= 0.02) {
                     audience.hideBossBar(bar);

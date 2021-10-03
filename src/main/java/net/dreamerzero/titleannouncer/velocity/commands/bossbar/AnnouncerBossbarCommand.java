@@ -14,13 +14,16 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
+import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.kyori.adventure.bossbar.BossBar;
 
 public class AnnouncerBossbarCommand implements SimpleCommand {
     private ProxyServer server;
-    public AnnouncerBossbarCommand(ProxyServer server) {
+    private Announcer plugin;
+    public AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) {
         this.server = server;
+        this.plugin = plugin;
     }
     @Override
     public void execute(Invocation invocation) {
@@ -28,6 +31,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
         String[] args = invocation.arguments();
         BossBarUtils bUtils = new BossBarUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        VelocityBossbar vBossbar = new VelocityBossbar(plugin);
 
         // The command requires arguments to work
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
@@ -56,7 +60,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
 
         // Send to all
         if (sender instanceof Player player) {
-            VelocityBossbar.sendVelocityBossbar(
+            vBossbar.sendVelocityBossbar(
                 server,
                 time,
                 mUtils.parse(
@@ -69,7 +73,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
             sUtils.playProxySound(ComponentType.BOSSBAR);
             return;
         } else {
-            VelocityBossbar.sendVelocityBossbar(
+            vBossbar.sendVelocityBossbar(
                 server,
                 time,
                 mUtils.parse(

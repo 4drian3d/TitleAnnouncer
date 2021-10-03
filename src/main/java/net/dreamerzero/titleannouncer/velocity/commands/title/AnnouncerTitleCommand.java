@@ -13,7 +13,6 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VTask;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class AnnouncerTitleCommand implements SimpleCommand {
@@ -41,24 +40,20 @@ public class AnnouncerTitleCommand implements SimpleCommand {
 
         if(!titleandsubtitle.contains(";")){
             if(sender instanceof Player player){
-                VTask.run(()->{
-                    tUtil.sendOnlySubtitle(
+                tUtil.sendOnlySubtitle(
                     mUtils.parse(
                         mUtils.replaceLegacy(titleandsubtitle),
                         PlaceholderUtil.replaceProxyPlaceholders(player)),
                     server, 1000, 3000, 1000);
-                });
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 sUtils.playProxySound(ComponentType.TITLE);
                 return;
             } else {
-                VTask.run(()->{
-                    tUtil.sendOnlySubtitle(
+                tUtil.sendOnlySubtitle(
                     mUtils.parse(
                         mUtils.replaceLegacy(titleandsubtitle),
                         PlaceholderUtil.replaceProxyPlaceholders()),
                     server, 1000, 3000, 1000);
-                });
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 sUtils.playProxySound(ComponentType.TITLE);
                 return;
@@ -87,8 +82,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
             config.sendConfirmation(ComponentType.TITLE, sender);
         } else {
             // Send the title
-            VTask.run(()->{
-                tUtil.sendTitle(
+            tUtil.sendTitle(
                 mUtils.parse(
                     mUtils.replaceLegacy(titleandsubtitlefinal[0]),
                     PlaceholderUtil.replaceProxyPlaceholders()),
@@ -99,7 +93,6 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 1000,
                 3000,
                 1000);
-            });
             sUtils.playProxySound(ComponentType.TITLE);
             config.sendConfirmation(ComponentType.TITLE, sender);
         }

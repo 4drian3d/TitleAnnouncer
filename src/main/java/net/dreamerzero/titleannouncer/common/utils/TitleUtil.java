@@ -46,7 +46,7 @@ public class TitleUtil {
      * @param stay
      * @param fadeout
      */
-    public static void sendOnlyTitle(final Component title,
+    public void sendOnlyTitle(final Component title,
         final Audience audience,
         final int fadein,
         final int stay,

@@ -15,14 +15,17 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
+import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 
 public class SendBossbarCommand implements SimpleCommand{
     private ProxyServer server;
-    public SendBossbarCommand(ProxyServer server) {
+    private Announcer plugin;
+    public SendBossbarCommand(ProxyServer server, Announcer plugin) {
         this.server = server;
+        this.plugin = plugin;
     }
     @Override
     public void execute(Invocation invocation){
@@ -31,6 +34,7 @@ public class SendBossbarCommand implements SimpleCommand{
         BossBarUtils bUtils = new BossBarUtils();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        VelocityBossbar vBossbar = new VelocityBossbar(plugin);
 
         // The command requires arguments to work
         if (!bUtils.sendBossbarArgs(args.length, sender)) {
@@ -58,7 +62,7 @@ public class SendBossbarCommand implements SimpleCommand{
         // Concatenate the arguments provided by the command sent.
         String bossbartext = new GeneralUtils().getCommandString(args, 5);
 
-        VelocityBossbar.sendVelocityBossbar(
+        vBossbar.sendVelocityBossbar(
             playerObjetive,
             time,
             mUtils.parse(
