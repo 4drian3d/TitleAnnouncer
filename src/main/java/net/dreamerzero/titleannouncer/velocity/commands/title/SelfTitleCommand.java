@@ -5,23 +5,28 @@ import java.util.List;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class SelfTitleCommand implements SimpleCommand {
-    public SelfTitleCommand() {}
+    private ProxyServer server;
+    public SelfTitleCommand(ProxyServer server) {
+        this.server = server;
+    }
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if (!(sender instanceof Player player)) {
             config.onlyPlayerExecute(sender);
@@ -42,7 +47,7 @@ public class SelfTitleCommand implements SimpleCommand {
         if(!titleandsubtitle.contains(";")){
             tUtil.sendOnlySubtitle(
                 mUtils.parse(mUtils.replaceLegacy(titleandsubtitle),
-                    PlaceholderUtil.replaceProxyPlaceholders(player)),
+                    vPlaceholders.replaceProxyPlaceholders(player)),
                 sender, 1000, 3000, 1000);
             config.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(player, ComponentType.TITLE);
@@ -57,10 +62,10 @@ public class SelfTitleCommand implements SimpleCommand {
         tUtil.sendTitle(
             mUtils.parse(
                 mUtils.replaceLegacy(titleandsubtitlefinal[0]),
-                PlaceholderUtil.replaceProxyPlaceholders(player)),
+                vPlaceholders.replaceProxyPlaceholders(player)),
             mUtils.parse(
                 mUtils.replaceLegacy(titleandsubtitlefinal[1]),
-                PlaceholderUtil.replaceProxyPlaceholders(player)),
+                vPlaceholders.replaceProxyPlaceholders(player)),
             sender,
             1000,
             3000,

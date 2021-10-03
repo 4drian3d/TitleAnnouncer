@@ -12,9 +12,9 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -66,8 +66,8 @@ public class SendBossbarCommand implements CommandExecutor{
             playerObjetive,
             time,
             mUtils.parse(mUtils.replaceLegacy(
-                PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
-                PlaceholderUtil.replacePlaceholders(playerObjetive)),
+                Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
+                new PPlaceholders().replacePlaceholders(playerObjetive)),
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);

@@ -12,9 +12,9 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -49,13 +49,14 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
         PaperBossBar pBossBar = new PaperBossBar(plugin);
+        PPlaceholders papi = new PPlaceholders();
 
         if (color == null || overlay == null) {
             sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
-        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+        boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Send to all
         if (sender instanceof Player player) {
@@ -64,7 +65,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
                 time,
                 mUtils.parse(mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    PlaceholderUtil.replacePlaceholders(player)),
+                    papi.replacePlaceholders(player)),
                 color,
                 overlay);
             config.sendConfirmation(ComponentType.BOSSBAR, sender);
@@ -77,7 +78,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
                 mUtils.parse(
                     mUtils.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
-                        PlaceholderUtil.replacePlaceholders()),
+                        papi.replacePlaceholders()),
                 color,
                 overlay);
             config.sendConfirmation(ComponentType.BOSSBAR, sender);

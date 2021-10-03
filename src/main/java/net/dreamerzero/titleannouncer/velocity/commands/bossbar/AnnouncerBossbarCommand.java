@@ -12,10 +12,10 @@ import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 
 public class AnnouncerBossbarCommand implements SimpleCommand {
@@ -32,6 +32,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
         BossBarUtils bUtils = new BossBarUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
         VelocityBossbar vBossbar = new VelocityBossbar(plugin);
+        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         // The command requires arguments to work
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
@@ -66,7 +67,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
                 mUtils.parse(
                     mUtils.replaceLegacy(
                         bossbartext),
-                        PlaceholderUtil.replaceProxyPlaceholders(player)),
+                        vPlaceholders.replaceProxyPlaceholders(player)),
                 color,
                 overlay);
             config.sendConfirmation(ComponentType.BOSSBAR, sender);
@@ -79,7 +80,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
                 mUtils.parse(
                     mUtils.replaceLegacy(
                         bossbartext),
-                        PlaceholderUtil.replaceProxyPlaceholders()),
+                        vPlaceholders.replaceProxyPlaceholders()),
                 color,
                 overlay);
             config.sendConfirmation(ComponentType.BOSSBAR, sender);

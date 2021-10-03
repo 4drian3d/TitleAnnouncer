@@ -11,8 +11,9 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
 
 public class AnnouncerTitleCommand implements CommandExecutor {
@@ -29,19 +30,20 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             return true;
         }
 
-        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+        boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = new GeneralUtils().getCommandString(args);
         TitleUtil tUtil = new TitleUtil();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        PPlaceholders papi = new PPlaceholders();
 
         if(!tUtil.containsComma(args)){
             if(sender instanceof Player player){
                 tUtil.sendOnlySubtitle(
                     mUtils.parse(mUtils.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
-                        PlaceholderUtil.replacePlaceholders(player)),
+                        papi.replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 config.playPaperSound(ComponentType.TITLE, audience);
@@ -50,7 +52,7 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 tUtil.sendOnlySubtitle(
                     mUtils.parse(mUtils.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
-                        PlaceholderUtil.replacePlaceholders()),
+                        papi.replacePlaceholders()),
                         audience, 1000, 3000, 1000);
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 config.playPaperSound(ComponentType.TITLE, audience);
@@ -67,10 +69,10 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             tUtil.sendTitle(
                 mUtils.parse(mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
-                    PlaceholderUtil.replacePlaceholders(player)),
+                    papi.replacePlaceholders(player)),
                 mUtils.parse(mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
-                    PlaceholderUtil.replacePlaceholders(player)),
+                    papi.replacePlaceholders(player)),
                 audience,
                 1000,
                 3000,
@@ -83,10 +85,10 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             tUtil.sendTitle(
                 mUtils.parse(mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
-                    PlaceholderUtil.replacePlaceholders()),
+                    papi.replacePlaceholders()),
                 mUtils.parse(mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
-                    PlaceholderUtil.replacePlaceholders()),
+                    papi.replacePlaceholders()),
                 audience,
                 1000,
                 3000,

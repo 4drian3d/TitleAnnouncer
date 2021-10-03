@@ -11,9 +11,9 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -62,8 +62,8 @@ public class SelfBossbarCommand implements CommandExecutor {
             time,
             mUtils.parse(
                 mUtils.replaceLegacy(
-                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    PlaceholderUtil.replacePlaceholders(player)),
+                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
+                    new PPlaceholders().replacePlaceholders(player)),
             color,
             overlay);
         config.playPaperSound(ComponentType.BOSSBAR, sender);

@@ -11,7 +11,8 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
 
 public class AnnouncerActionbarCommand implements CommandExecutor {
@@ -28,18 +29,19 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
             return false;
         }
 
-        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+        boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
         String actionbartext = new GeneralUtils().getCommandString(args);
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        PPlaceholders papi = new PPlaceholders();
 
         // Send to all
         if (sender instanceof Player player) {
             audience.sendActionBar(mUtils.parse(
                 mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
-                    PlaceholderUtil.replacePlaceholders(player)));
+                    papi.replacePlaceholders(player)));
             config.playPaperSound(ComponentType.ACTIONBAR, audience);
             config.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;
@@ -47,7 +49,7 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
             audience.sendActionBar(mUtils.parse(
                 mUtils.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, actionbartext) : actionbartext),
-                    PlaceholderUtil.replacePlaceholders()));
+                    papi.replacePlaceholders()));
             config.playPaperSound(ComponentType.ACTIONBAR, audience);
             config.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;

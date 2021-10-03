@@ -5,22 +5,25 @@ import java.util.List;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 
 public class SelfBossbarCommand implements SimpleCommand {
     private Announcer plugin;
-    public SelfBossbarCommand(Announcer plugin){
+    private ProxyServer server;
+    public SelfBossbarCommand(Announcer plugin, ProxyServer server){
         this.plugin = plugin;
+        this.server = server;
     }
     @Override
     public void execute(Invocation invocation) {
@@ -63,7 +66,7 @@ public class SelfBossbarCommand implements SimpleCommand {
             time,
             mUtils.parse(mUtils.replaceLegacy(
                 bossbartext),
-                PlaceholderUtil.replaceProxyPlaceholders(player)),
+                new VPlaceholders(server).replaceProxyPlaceholders(player)),
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);

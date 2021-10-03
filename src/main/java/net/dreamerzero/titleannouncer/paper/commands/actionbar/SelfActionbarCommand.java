@@ -10,7 +10,8 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 
 public class SelfActionbarCommand implements CommandExecutor {
     public SelfActionbarCommand() {}
@@ -37,8 +38,8 @@ public class SelfActionbarCommand implements CommandExecutor {
         // Send to sender
         sender.sendActionBar(mUtils.parse(
             mUtils.replaceLegacy(
-                PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
-            PlaceholderUtil.replacePlaceholders(player)));
+                Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
+            new PPlaceholders().replacePlaceholders(player)));
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
         config.playPaperSound(ComponentType.ACTIONBAR, sender);
         return true;

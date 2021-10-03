@@ -13,10 +13,10 @@ import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 
@@ -67,7 +67,7 @@ public class ServerBossbarCommand implements SimpleCommand {
             mUtils.parse(
                 mUtils.replaceLegacy(
                     bossbartext),
-                    PlaceholderUtil.replaceProxyPlaceholders()),
+                    new VPlaceholders(server).replaceProxyPlaceholders()),
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);

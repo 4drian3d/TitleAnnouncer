@@ -10,7 +10,8 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
 
 public class WorldActionbarCommand implements CommandExecutor {
@@ -40,8 +41,8 @@ public class WorldActionbarCommand implements CommandExecutor {
 
         audience.sendActionBar(
             mUtils.parse(mUtils.replaceLegacy(
-                PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
-                PlaceholderUtil.replacePlaceholders(player)));
+                Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
+                new PPlaceholders().replacePlaceholders(player)));
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
         config.playPaperSound(ComponentType.ACTIONBAR, audience);
         return true;

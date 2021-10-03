@@ -12,9 +12,9 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 
 public class ServerActionbarCommand implements SimpleCommand {
@@ -28,6 +28,7 @@ public class ServerActionbarCommand implements SimpleCommand {
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
             config.noActionbarArgumentProvided(sender);
@@ -51,7 +52,7 @@ public class ServerActionbarCommand implements SimpleCommand {
             mUtils.parse(
                 mUtils.replaceLegacy(
                     actionbartext),
-                    PlaceholderUtil.replaceProxyPlaceholders()));
+                    vPlaceholders.replaceProxyPlaceholders()));
         new SoundUtils().playProxySound(serverObjetive, ComponentType.ACTIONBAR);
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }

@@ -10,9 +10,9 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class AnnouncerTitleCommand implements SimpleCommand {
@@ -26,6 +26,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
             config.sendNoArgumentMessage(sender);
@@ -43,7 +44,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 tUtil.sendOnlySubtitle(
                     mUtils.parse(
                         mUtils.replaceLegacy(titleandsubtitle),
-                        PlaceholderUtil.replaceProxyPlaceholders(player)),
+                        vPlaceholders.replaceProxyPlaceholders(player)),
                     server, 1000, 3000, 1000);
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 sUtils.playProxySound(ComponentType.TITLE);
@@ -52,7 +53,7 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 tUtil.sendOnlySubtitle(
                     mUtils.parse(
                         mUtils.replaceLegacy(titleandsubtitle),
-                        PlaceholderUtil.replaceProxyPlaceholders()),
+                        vPlaceholders.replaceProxyPlaceholders()),
                     server, 1000, 3000, 1000);
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 sUtils.playProxySound(ComponentType.TITLE);
@@ -70,10 +71,10 @@ public class AnnouncerTitleCommand implements SimpleCommand {
                 tUtil.sendTitle(
                 mUtils.parse(
                     mUtils.replaceLegacy(titleandsubtitlefinal[0]),
-                    PlaceholderUtil.replaceProxyPlaceholders(player)),
+                    vPlaceholders.replaceProxyPlaceholders(player)),
                 mUtils.parse(
                     mUtils.replaceLegacy(titleandsubtitlefinal[1]),
-                    PlaceholderUtil.replaceProxyPlaceholders(player)),
+                    vPlaceholders.replaceProxyPlaceholders(player)),
                 server,
                 1000,
                 3000,
@@ -85,10 +86,10 @@ public class AnnouncerTitleCommand implements SimpleCommand {
             tUtil.sendTitle(
                 mUtils.parse(
                     mUtils.replaceLegacy(titleandsubtitlefinal[0]),
-                    PlaceholderUtil.replaceProxyPlaceholders()),
+                    vPlaceholders.replaceProxyPlaceholders()),
                 mUtils.parse(
                     mUtils.replaceLegacy(titleandsubtitlefinal[1]),
-                    PlaceholderUtil.replaceProxyPlaceholders()),
+                    vPlaceholders.replaceProxyPlaceholders()),
                 server,
                 1000,
                 3000,

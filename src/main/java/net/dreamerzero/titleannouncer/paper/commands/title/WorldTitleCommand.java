@@ -10,8 +10,9 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
 
 public class WorldTitleCommand implements CommandExecutor {
@@ -36,20 +37,21 @@ public class WorldTitleCommand implements CommandExecutor {
             return false;
         }
 
-        boolean placeholderAPISupport = PlaceholderUtil.placeholderAPIHook();
+        boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = new GeneralUtils().getCommandString(args);
 
         TitleUtil tUtil = new TitleUtil();
         MiniMessageUtil mUtils = new MiniMessageUtil();
+        PPlaceholders pPlaceholders = new PPlaceholders();
 
         if(!titleandsubtitle.contains(";")){
             tUtil.sendOnlySubtitle(
                 mUtils.parse(
                 mUtils.replaceLegacy(placeholderAPISupport ?
                     PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
-                    PlaceholderUtil.replacePlaceholders(player)),
+                    pPlaceholders.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
             config.sendConfirmation(ComponentType.TITLE, sender);
             config.playPaperSound(ComponentType.TITLE, audience);
@@ -63,10 +65,10 @@ public class WorldTitleCommand implements CommandExecutor {
         tUtil.sendTitle(
             mUtils.parse(mUtils.replaceLegacy(
                 placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]): titleandsubtitlefinal[0]), 
-                PlaceholderUtil.replacePlaceholders(player)),
+                pPlaceholders.replacePlaceholders(player)),
             mUtils.parse(mUtils.replaceLegacy(
                 placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
-                PlaceholderUtil.replacePlaceholders(player)),
+                pPlaceholders.replacePlaceholders(player)),
             audience,
             1000,
             3000,

@@ -11,7 +11,8 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
+import net.dreamerzero.titleannouncer.paper.Announcer;
+import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 
 public class SendActionbarCommand implements CommandExecutor {
     public SendActionbarCommand() {}
@@ -46,8 +47,8 @@ public class SendActionbarCommand implements CommandExecutor {
         playerObjetive.sendActionBar(
             mUtils.parse(
                 mUtils.replaceLegacy(
-                    PlaceholderUtil.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
-                    PlaceholderUtil.replacePlaceholders(playerObjetive)));
+                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
+                    new PPlaceholders().replacePlaceholders(playerObjetive)));
         config.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
         return true;

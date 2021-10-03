@@ -20,7 +20,7 @@ public class RegisterCommands {
 		CommandMeta vsendbossbar = server.getCommandManager().metaBuilder("vsendbossbar").aliases("psendbossbar", "vsnbossbar").build();
 		CommandMeta vserverbossbar = server.getCommandManager().metaBuilder("vserverbossbar").aliases("serverbossbar", "svbossbar").build();
 		server.getCommandManager().register(vannouncebossbar, new AnnouncerBossbarCommand(server, plugin));
-        server.getCommandManager().register(vselfbossbar, new SelfBossbarCommand(plugin));
+        server.getCommandManager().register(vselfbossbar, new SelfBossbarCommand(plugin, server));
         server.getCommandManager().register(vsendbossbar, new SendBossbarCommand(server, plugin));
         server.getCommandManager().register(vserverbossbar, new ServerBossbarCommand(server, plugin));
 	}
@@ -31,7 +31,7 @@ public class RegisterCommands {
 		CommandMeta vsendtitle = server.getCommandManager().metaBuilder("vsendtitle").aliases("psendtitle", "vsntitle").build();
 		CommandMeta vservertitle = server.getCommandManager().metaBuilder("vservertitle").aliases("servertitle", "svtitle").build();
 		server.getCommandManager().register(vannouncetitle, new AnnouncerTitleCommand(server));
-        server.getCommandManager().register(vselftitle, new SelfTitleCommand());
+        server.getCommandManager().register(vselftitle, new SelfTitleCommand(server));
         server.getCommandManager().register(vsendtitle, new SendTitleCommand(server));
         server.getCommandManager().register(vservertitle, new ServerTitleCommand(server));
 	}
@@ -42,7 +42,7 @@ public class RegisterCommands {
 		CommandMeta vsendactionbar = server.getCommandManager().metaBuilder("vsendactionbar").aliases("psendactionbar", "vsnactionbar").build();
 		CommandMeta vserveractionbar = server.getCommandManager().metaBuilder("vserveractionbar").aliases("serveractionbar", "svactionbar").build();
 		server.getCommandManager().register(vannounceactionbar, new AnnouncerActionbarCommand(server));
-        server.getCommandManager().register(vselfactionbar, new SelfActionbarCommand());
+        server.getCommandManager().register(vselfactionbar, new SelfActionbarCommand(server));
         server.getCommandManager().register(vsendactionbar, new SendActionbarCommand(server));
         server.getCommandManager().register(vserveractionbar, new ServerActionbarCommand(server));
 	}

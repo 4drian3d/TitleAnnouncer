@@ -12,9 +12,9 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.common.utils.PlaceholderUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
+import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class ServerTitleCommand implements SimpleCommand {
@@ -28,6 +28,7 @@ public class ServerTitleCommand implements SimpleCommand {
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new  MiniMessageUtil();
+        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         switch (args.length) {
             case 0 -> {
@@ -56,7 +57,7 @@ public class ServerTitleCommand implements SimpleCommand {
         if(!tUtil.containsComma(args, 1)){
             tUtil.sendOnlySubtitle(
                 mUtils.parse(mUtils.replaceLegacy(titleandsubtitle),
-                    PlaceholderUtil.replaceProxyPlaceholders()),
+                    vPlaceholders.replaceProxyPlaceholders()),
                 serverObjetive, 1000, 3000, 1000);
             config.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(serverObjetive, ComponentType.TITLE);
@@ -71,10 +72,10 @@ public class ServerTitleCommand implements SimpleCommand {
         tUtil.sendTitle(
             mUtils.parse(
                 mUtils.replaceLegacy(titleandsubtitlefinal[0]),
-                PlaceholderUtil.replaceProxyPlaceholders()),
+                vPlaceholders.replaceProxyPlaceholders()),
             mUtils.parse(
                 mUtils.replaceLegacy(titleandsubtitlefinal[1]),
-                PlaceholderUtil.replaceProxyPlaceholders()),
+                vPlaceholders.replaceProxyPlaceholders()),
             serverObjetive,
             1000,
             3000,
