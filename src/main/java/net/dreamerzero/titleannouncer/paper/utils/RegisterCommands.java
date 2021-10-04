@@ -84,7 +84,7 @@ public class RegisterCommands {
 		commands.forEach(command -> {
 			//Waiting for https://github.com/PaperMC/Paper/pull/6676
 			command.setPermissionMessage(
-				LegacyComponentSerializer.legacyAmpersand().serialize(
+				LegacyComponentSerializer.legacySection().serialize(
 					new ConfigUtils().getPrefix().append(
 						new MiniMessageUtil().parse(config.getString("messages.general.no-permission")))));
 		});

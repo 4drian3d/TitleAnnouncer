@@ -60,7 +60,7 @@ public class Announcer extends JavaPlugin {
 
     public static void placeholderAPICheck(){
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            isPlaceholderAPIPresent = true;
+			isPlaceholderAPIPresent = true;
 		} else {
 			isPlaceholderAPIPresent = false;
 		}
