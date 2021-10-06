@@ -9,11 +9,12 @@ import net.kyori.adventure.text.Component;
 
 public class PaperBossBar {
     private Announcer plugin;
+    private float value;
     public PaperBossBar(Announcer plugin){
         this.plugin = plugin;
+        this.value = 1f;
     }
 
-    private float value = 1f;
     /**
      * It will send a bossbar to the specified audience,
      * with the specified characteristics showing an
@@ -32,7 +33,7 @@ public class PaperBossBar {
         final BossBar.Color color,
         final BossBar.Overlay type) {
 
-        float finalTime = 0.1f/time;
+        final float finalTime = 0.1f/time;
 
         BossBar bar = BossBar.bossBar(
             content,
@@ -40,13 +41,11 @@ public class PaperBossBar {
             color,
             type);
 
-        value =1f;
         audience.showBossBar(bar);
-        final float toReduce = finalTime;
         new BukkitRunnable() {
             @Override
             public void run() {
-                value -= toReduce;
+                value -= finalTime;
             if (value <= 0.02) {
                 audience.hideBossBar(bar);
                 cancel();

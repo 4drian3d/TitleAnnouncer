@@ -20,7 +20,6 @@ import net.dreamerzero.titleannouncer.paper.commands.title.AnnouncerTitleCommand
 import net.dreamerzero.titleannouncer.paper.commands.title.SelfTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.SendTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.WorldTitleCommand;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class RegisterCommands {
 	private Announcer plugin;
@@ -65,11 +64,10 @@ public class RegisterCommands {
 			PluginCommand command = this.plugin.getCommand(factory.getCommand());
 			command.setExecutor(factory.getExecutor());
 			// Waiting for https://github.com/PaperMC/Paper/pull/6676
-			command.setPermissionMessage(
-				LegacyComponentSerializer.legacySection().serialize(
-					new ConfigUtils().getPrefix().append(
+			command.permissionMessage(
+				new ConfigUtils().getPrefix().append(
 						new MiniMessageUtil().parse(
-							config.getString("messages.general.no-permission")))));
+							config.getString("messages.general.no-permission"))));
 		}
 	}
 }

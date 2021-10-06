@@ -14,12 +14,15 @@ public class VPlaceholders {
         this.proxy = proxy;
     }
     public List<Template> replaceProxyPlaceholders(){
-        return List.of(Template.of("online", String.valueOf(proxy.getPlayerCount())));
+        return List.of(
+            Template.of("online", String.valueOf(proxy.getPlayerCount())),
+            Template.of("servers", String.valueOf(proxy.getAllServers().size())));
     }
 
     public List<Template> replaceProxyPlaceholders(Player player){
         List<Template> templates = Arrays.asList(
             Template.of("online", String.valueOf(proxy.getPlayerCount())),
+            Template.of("servers", String.valueOf(proxy.getAllServers().size())),
             Template.of("name", player.getUsername()),
             Template.of("ping", String.valueOf(player.getPing())),
             Template.of("client", player.getClientBrand()),

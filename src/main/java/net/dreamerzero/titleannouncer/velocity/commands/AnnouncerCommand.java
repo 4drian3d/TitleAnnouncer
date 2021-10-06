@@ -18,16 +18,15 @@ public class AnnouncerCommand implements SimpleCommand {
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
-        VelocityHelpMessages vMessages = new VelocityHelpMessages();
 
         if (args.length == 0) {
             source.sendMessage(mUtils.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             config.helpPrefix(source);
-            source.sendMessage(vMessages.titleHelpMessage);
-            source.sendMessage(vMessages.actionbarHelpMessage);
-            source.sendMessage(vMessages.bossbarHelpMessage);
-            source.sendMessage(vMessages.fullwikilink);
+            source.sendMessage(VelocityHelpMessages.titleHelpMessage);
+            source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
+            source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
+            source.sendMessage(VelocityHelpMessages.fullwikilink);
             return;
         }
 
@@ -44,29 +43,29 @@ public class AnnouncerCommand implements SimpleCommand {
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
-                            source.sendMessage(vMessages.titleHelpMessage);
-                            source.sendMessage(vMessages.titlewikilink);
+                            source.sendMessage(VelocityHelpMessages.titleHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.titlewikilink);
                         }
                         case "actionbar" -> {
-                            source.sendMessage(vMessages.actionbarHelpMessage);
-                            source.sendMessage(vMessages.actionbarwikilink);
+                            source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.actionbarwikilink);
                         }
                         case "bossbar" -> {
-                            source.sendMessage(vMessages.bossbarHelpMessage);
-                            source.sendMessage(vMessages.bossbarwikilink);
+                            source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.bossbarwikilink);
                         }
                         default -> {
-                            source.sendMessage(vMessages.titleHelpMessage);
-                            source.sendMessage(vMessages.actionbarHelpMessage);
-                            source.sendMessage(vMessages.bossbarHelpMessage);
-                            source.sendMessage(vMessages.fullwikilink);
+                            source.sendMessage(VelocityHelpMessages.titleHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.fullwikilink);
                         }
                     }
                 } else {
-                    source.sendMessage(vMessages.titleHelpMessage);
-                    source.sendMessage(vMessages.actionbarHelpMessage);
-                    source.sendMessage(vMessages.bossbarHelpMessage);
-                    source.sendMessage(vMessages.fullwikilink);
+                    source.sendMessage(VelocityHelpMessages.titleHelpMessage);
+                    source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
+                    source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
+                    source.sendMessage(VelocityHelpMessages.fullwikilink);
                 }
             }
             default -> {
