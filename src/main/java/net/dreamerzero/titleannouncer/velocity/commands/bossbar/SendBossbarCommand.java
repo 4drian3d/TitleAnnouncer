@@ -34,7 +34,7 @@ public class SendBossbarCommand implements SimpleCommand{
         BossBarUtils bUtils = new BossBarUtils();
         ConfigUtils config = new ConfigUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
-        VelocityBossbar vBossbar = new VelocityBossbar(plugin);
+        VelocityBossbar vBossbar = new VelocityBossbar(plugin, server);
 
         // The command requires arguments to work
         if (!bUtils.sendBossbarArgs(args.length, sender)) {
@@ -72,7 +72,7 @@ public class SendBossbarCommand implements SimpleCommand{
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);
-        new SoundUtils().playProxySound(playerObjetive, ComponentType.BOSSBAR);
+        new SoundUtils(server).playProxySound(playerObjetive, ComponentType.BOSSBAR);
     }
 
     @Override

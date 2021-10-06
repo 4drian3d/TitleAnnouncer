@@ -61,7 +61,7 @@ public class ServerBossbarCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String bossbartext = new GeneralUtils().getCommandString(args, 5);
 
-        new VelocityBossbar(plugin).sendVelocityBossbar(
+        new VelocityBossbar(plugin, server).sendVelocityBossbar(
             serverObjetive,
             time,
             mUtils.parse(
@@ -71,7 +71,7 @@ public class ServerBossbarCommand implements SimpleCommand {
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);
-        new SoundUtils().playProxySound(serverObjetive, ComponentType.BOSSBAR);
+        new SoundUtils(server).playProxySound(serverObjetive, ComponentType.BOSSBAR);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class SelfTitleCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = new GeneralUtils().getCommandString(args);
 
-        SoundUtils sUtils = new SoundUtils();
+        SoundUtils sUtils = new SoundUtils(server);
         TitleUtil tUtil = new TitleUtil();
 
         if(!titleandsubtitle.contains(";")){

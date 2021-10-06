@@ -15,7 +15,6 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.dreamerzero.titleannouncer.velocity.Announcer;
 
 public class SendActionbarCommand implements SimpleCommand {
     private ProxyServer server;
@@ -53,7 +52,7 @@ public class SendActionbarCommand implements SimpleCommand {
                 mUtils.replaceLegacy(
                     actionbartext),
                     vPlaceholders.replaceProxyPlaceholders(playerObjetive)));
-        new SoundUtils().playProxySound(playerObjetive, ComponentType.ACTIONBAR);
+        new SoundUtils(server).playProxySound(playerObjetive, ComponentType.ACTIONBAR);
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
@@ -61,7 +60,7 @@ public class SendActionbarCommand implements SimpleCommand {
     public List<String> suggest(final Invocation invocation) {
         if(invocation.arguments().length < 1){
             ArrayList<String> players = new ArrayList<>();
-            Announcer.getProxyServer().getAllPlayers().forEach(player ->
+            server.getAllPlayers().forEach(player ->
                 players.add(player.getUsername()));
             return players;
         }

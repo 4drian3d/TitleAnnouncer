@@ -41,7 +41,7 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
                 sender instanceof Player player ?
                     vPlaceholders.replaceProxyPlaceholders(player) :
                     vPlaceholders.replaceProxyPlaceholders()));
-        new SoundUtils().playProxySound(ComponentType.ACTIONBAR);
+        new SoundUtils(server).playProxySound(ComponentType.ACTIONBAR);
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 

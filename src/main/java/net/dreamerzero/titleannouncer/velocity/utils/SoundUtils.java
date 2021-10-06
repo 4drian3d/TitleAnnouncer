@@ -12,13 +12,17 @@ import dev.simplix.protocolize.api.player.ProtocolizePlayer;
 import dev.simplix.protocolize.data.Sound;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
-import net.dreamerzero.titleannouncer.velocity.Announcer;
 
 public class SoundUtils {
     private Sound titleSound;
     private Sound actionbarSound;
     private Sound bossbarSound;
     private ConfigUtils config = new ConfigUtils();
+    private ProxyServer proxy;
+
+    public SoundUtils(ProxyServer server){
+        this.proxy = server;
+    }
 
     public void setTitleSound(){
         titleSound = SoundTransformer.getSoundFromString(config.getTitleSound());
@@ -45,8 +49,6 @@ public class SoundUtils {
     }
 
     public void playProxySound(Player player, ComponentType type){
-        ProxyServer proxy = Announcer.getProxyServer();
-
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
 
         UUID playeruuid = player.getUniqueId();
@@ -60,8 +62,6 @@ public class SoundUtils {
     }
 
     public void playProxySound(ComponentType type){
-        ProxyServer proxy = Announcer.getProxyServer();
-
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
 
         for(Player player : proxy.getAllPlayers()){
@@ -77,8 +77,6 @@ public class SoundUtils {
     }
 
     public void playProxySound(RegisteredServer server, ComponentType type){
-        ProxyServer proxy = Announcer.getProxyServer();
-
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
 
         for(Player player : server.getPlayersConnected()){

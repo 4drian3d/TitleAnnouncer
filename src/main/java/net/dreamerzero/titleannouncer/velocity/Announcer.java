@@ -12,7 +12,6 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 
 public class Announcer {
     private final ProxyServer server;
-    private static ProxyServer proxy;
 
     @Inject
     public Announcer(final ProxyServer server) {
@@ -21,7 +20,7 @@ public class Announcer {
 
     @Subscribe
     public void onProxyInitialization(final ProxyInitializeEvent event) {
-        SoundUtils sUtils = new SoundUtils();
+        SoundUtils sUtils = new SoundUtils(server);
         server.getConsoleCommandSource().sendMessage(
             new MiniMessageUtil().parse("<aqua>Enabling</aqua> <gradient:yellow:blue>TitleAnnouncer</gradient>"));
         ConfigManager cManager = new ConfigManager();
@@ -35,10 +34,5 @@ public class Announcer {
         sUtils.setActionBarSound();
         sUtils.setBossBarSound();
         sUtils.setTitleSound();
-        proxy = server;
-    }
-
-    public static ProxyServer getProxyServer(){
-        return proxy;
     }
 }

@@ -41,7 +41,7 @@ public class SelfActionbarCommand implements SimpleCommand{
         sender.sendActionBar(mUtils.parse(
             mUtils.replaceLegacy(actionbartext),
             vPlaceholders.replaceProxyPlaceholders(player)));
-        new SoundUtils().playProxySound(player, ComponentType.ACTIONBAR);
+        new SoundUtils(server).playProxySound(player, ComponentType.ACTIONBAR);
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 

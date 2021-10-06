@@ -61,7 +61,7 @@ public class SelfBossbarCommand implements SimpleCommand {
         }
 
         // Send to all
-        new VelocityBossbar(plugin).sendVelocityBossbar(
+        new VelocityBossbar(plugin, server).sendVelocityBossbar(
             sender,
             time,
             mUtils.parse(mUtils.replaceLegacy(
@@ -70,7 +70,7 @@ public class SelfBossbarCommand implements SimpleCommand {
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);
-        new SoundUtils().playProxySound(player, ComponentType.BOSSBAR);
+        new SoundUtils(server).playProxySound(player, ComponentType.BOSSBAR);
     }
 
     @Override

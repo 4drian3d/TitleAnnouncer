@@ -51,7 +51,7 @@ public class ServerTitleCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = new GeneralUtils().getCommandString(args, 1);
 
-        SoundUtils sUtils = new SoundUtils();
+        SoundUtils sUtils = new SoundUtils(server);
         TitleUtil tUtil = new TitleUtil();
 
         if(!tUtil.containsComma(args, 1)){

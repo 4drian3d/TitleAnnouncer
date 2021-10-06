@@ -31,7 +31,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
         String[] args = invocation.arguments();
         BossBarUtils bUtils = new BossBarUtils();
         MiniMessageUtil mUtils = new MiniMessageUtil();
-        VelocityBossbar vBossbar = new VelocityBossbar(plugin);
+        VelocityBossbar vBossbar = new VelocityBossbar(plugin, server);
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         // The command requires arguments to work
@@ -57,7 +57,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
             return;
         }
 
-        SoundUtils sUtils = new SoundUtils();
+        SoundUtils sUtils = new SoundUtils(server);
 
         // Send to all
         if (sender instanceof Player player) {
