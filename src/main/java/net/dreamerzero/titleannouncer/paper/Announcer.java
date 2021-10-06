@@ -25,16 +25,7 @@ public class Announcer extends JavaPlugin {
 		cManager.defaultConfig();
 		listenerRegister();
 		placeholderAPICheck();
-		RegisterCommands rCommands = new RegisterCommands(this);
-		rCommands.setCustomNoPermissionMessage();
-		// Main Command
-		rCommands.registerMainCommand();
-		// Title Commands
-		rCommands.registerTitle();
-		// ActionBar Commands
-		rCommands.registerActionbar();
-		// BossBar Commands
-		rCommands.registerBossbar();
+		new RegisterCommands(this).registerCommands();
 	}
 
 	@Override
