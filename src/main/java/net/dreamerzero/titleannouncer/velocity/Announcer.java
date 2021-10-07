@@ -31,8 +31,10 @@ public class Announcer {
         rCommands.registerProxyBossbar(server);
         rCommands.registerProxyTitle(server);
         rCommands.registerProxyActionbar(server);
-        sUtils.setActionBarSound();
-        sUtils.setBossBarSound();
-        sUtils.setTitleSound();
+        if(server.getPluginManager().isLoaded("protocolize")){
+            sUtils.setActionBarSound();
+            sUtils.setBossBarSound();
+            sUtils.setTitleSound();
+        }
     }
 }
