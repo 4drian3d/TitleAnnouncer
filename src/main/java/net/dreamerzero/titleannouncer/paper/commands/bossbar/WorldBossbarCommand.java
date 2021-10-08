@@ -19,11 +19,7 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-public class WorldBossbarCommand implements CommandExecutor {
-    Announcer plugin;
-    public WorldBossbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+public record WorldBossbarCommand(Announcer plugin) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

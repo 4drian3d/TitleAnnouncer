@@ -14,11 +14,8 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 
-public class AnnouncerActionbarCommand implements SimpleCommand {
-    private ProxyServer server;
-    public AnnouncerActionbarCommand(ProxyServer server) {
-        this.server = server;
-    }
+public record AnnouncerActionbarCommand(ProxyServer server) implements SimpleCommand {
+
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();

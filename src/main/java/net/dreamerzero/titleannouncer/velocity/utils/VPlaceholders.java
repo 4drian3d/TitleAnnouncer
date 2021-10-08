@@ -8,11 +8,8 @@ import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.kyori.adventure.text.minimessage.Template;
 
-public class VPlaceholders {
-    private ProxyServer proxy;
-    public VPlaceholders(ProxyServer proxy){
-        this.proxy = proxy;
-    }
+public record VPlaceholders(ProxyServer proxy) {
+
     public List<Template> replaceProxyPlaceholders(){
         return List.of(
             Template.of("online", String.valueOf(proxy.getPlayerCount())),

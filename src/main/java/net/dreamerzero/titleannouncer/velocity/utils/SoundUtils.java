@@ -14,9 +14,9 @@ import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 
 public class SoundUtils {
-    private Sound titleSound;
-    private Sound actionbarSound;
-    private Sound bossbarSound;
+    private static Sound titleSound;
+    private static Sound actionbarSound;
+    private static Sound bossbarSound;
     private ConfigUtils config = new ConfigUtils();
     private ProxyServer proxy;
 

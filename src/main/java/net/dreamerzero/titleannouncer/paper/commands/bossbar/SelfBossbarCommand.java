@@ -18,16 +18,12 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-public class SelfBossbarCommand implements CommandExecutor {
-    private Announcer plugin;
-    public SelfBossbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
+public record SelfBossbarCommand(Announcer plugin) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         ConfigUtils config = new ConfigUtils();
-        // It will send an actionbar to the one who executes the command, 
+        // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
             config.onlyPlayerExecute(sender);

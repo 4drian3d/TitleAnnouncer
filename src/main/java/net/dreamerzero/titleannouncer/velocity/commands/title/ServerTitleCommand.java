@@ -17,11 +17,8 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
-public class ServerTitleCommand implements SimpleCommand {
-    private ProxyServer server;
-    public ServerTitleCommand(ProxyServer server) {
-        this.server = server;
-    }
+public record ServerTitleCommand(ProxyServer server) implements SimpleCommand {
+
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();

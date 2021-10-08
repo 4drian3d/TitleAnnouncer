@@ -18,13 +18,8 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 
-public class AnnouncerBossbarCommand implements SimpleCommand {
-    private ProxyServer server;
-    private Announcer plugin;
-    public AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) {
-        this.server = server;
-        this.plugin = plugin;
-    }
+public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) implements SimpleCommand {
+
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();

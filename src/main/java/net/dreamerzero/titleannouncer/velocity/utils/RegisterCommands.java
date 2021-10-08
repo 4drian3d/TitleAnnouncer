@@ -9,11 +9,8 @@ import net.dreamerzero.titleannouncer.velocity.commands.actionbar.*;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.commands.AnnouncerCommand;
 
-public class RegisterCommands {
-	private Announcer plugin;
-	public RegisterCommands(Announcer plugin){
-		this.plugin = plugin;
-	}
+public record RegisterCommands(Announcer plugin) {
+
     public void registerProxyBossbar(ProxyServer server){
 		CommandMeta vannouncebossbar = server.getCommandManager().metaBuilder("vannouncebossbar").aliases("pannouncebossbar", "vbossbar").build();
 		CommandMeta vselfbossbar = server.getCommandManager().metaBuilder("vselfbossbar").aliases("pselfbossbar", "vsfbossbar").build();

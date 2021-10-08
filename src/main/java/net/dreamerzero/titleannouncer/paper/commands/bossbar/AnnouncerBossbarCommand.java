@@ -20,14 +20,7 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-public class AnnouncerBossbarCommand implements CommandExecutor {
-    private Announcer plugin;
-    public AnnouncerBossbarCommand(Announcer plugin) {
-        this.plugin = plugin;
-    }
-
-    // The audience that will receive the bossbar will be all the players on the server.
-    Audience audience = Bukkit.getServer();
+public record AnnouncerBossbarCommand(Announcer plugin) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -36,6 +29,8 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
+        // The audience that will receive the bossbar will be all the players on the server.
+        Audience audience = Bukkit.getServer();
 
         // Concatenate the arguments provided by the command sent.
         String bossbartext = new GeneralUtils().getCommandString(args, 3);

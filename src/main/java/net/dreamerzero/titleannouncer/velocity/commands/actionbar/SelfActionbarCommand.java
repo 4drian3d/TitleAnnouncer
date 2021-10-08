@@ -14,11 +14,7 @@ import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 
-public class SelfActionbarCommand implements SimpleCommand{
-    private ProxyServer server;
-    public SelfActionbarCommand(ProxyServer server) {
-        this.server = server;
-    }
+public record SelfActionbarCommand(ProxyServer server) implements SimpleCommand{
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();

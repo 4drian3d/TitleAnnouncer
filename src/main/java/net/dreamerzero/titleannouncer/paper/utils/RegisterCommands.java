@@ -21,12 +21,7 @@ import net.dreamerzero.titleannouncer.paper.commands.title.SelfTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.SendTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.WorldTitleCommand;
 
-public class RegisterCommands {
-	private Announcer plugin;
-	public RegisterCommands(Announcer plugin){
-		this.plugin = plugin;
-	}
-
+public record RegisterCommands(Announcer plugin) {
 	/**
 	 * Register of each existing Paper plugin command
 	 * @author Jonakls
@@ -61,8 +56,8 @@ public class RegisterCommands {
 	private void initCommand(CommandFactory ...factories) {
 		Yaml config = new ConfigManager().getConfig();
 		for(CommandFactory factory : factories) {
-			PluginCommand command = this.plugin.getCommand(factory.getCommand());
-			command.setExecutor(factory.getExecutor());
+			PluginCommand command = this.plugin.getCommand(factory.command());
+			command.setExecutor(factory.executor());
 			// Waiting for https://github.com/PaperMC/Paper/pull/6676
 			command.permissionMessage(
 				new ConfigUtils().getPrefix().append(

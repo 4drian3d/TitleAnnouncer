@@ -20,7 +20,6 @@ public class Announcer {
 
     @Subscribe
     public void onProxyInitialization(final ProxyInitializeEvent event) {
-        SoundUtils sUtils = new SoundUtils(server);
         server.getConsoleCommandSource().sendMessage(
             new MiniMessageUtil().parse("<aqua>Enabling</aqua> <gradient:yellow:blue>TitleAnnouncer</gradient>"));
         ConfigManager cManager = new ConfigManager();
@@ -32,6 +31,7 @@ public class Announcer {
         rCommands.registerProxyTitle(server);
         rCommands.registerProxyActionbar(server);
         if(server.getPluginManager().isLoaded("protocolize")){
+            SoundUtils sUtils = new SoundUtils(server);
             sUtils.setActionBarSound();
             sUtils.setBossBarSound();
             sUtils.setTitleSound();
