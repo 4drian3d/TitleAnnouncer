@@ -19,12 +19,11 @@ public record SendActionbarCommand(MiniMessage mm) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         if(args.length == 0) {
-            config.noActionbarArgumentProvided(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return false;
         } else if (args.length < 2) {
-            config.noActionbarPlayerArgumentProvided(sender);
+            ConfigUtils.noActionbarPlayerArgumentProvided(sender);
             return false;
         }
 
@@ -36,20 +35,20 @@ public record SendActionbarCommand(MiniMessage mm) implements CommandExecutor {
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            config.playerNotFoundMessage(sender);
+            ConfigUtils.playerNotFoundMessage(sender);
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = new GeneralUtils().getCommandString(args, 1);
+        String actionbartext = GeneralUtils.getCommandString(args, 1);
 
         playerObjetive.sendActionBar(
             mm.parse(
                 MiniMessageUtil.replaceLegacy(
                     Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
                     PPlaceholders.replacePlaceholders(playerObjetive)));
-        config.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
-        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
         return true;
     }
 }

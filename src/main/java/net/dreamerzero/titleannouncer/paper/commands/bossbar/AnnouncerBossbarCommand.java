@@ -21,21 +21,26 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor {
+public class AnnouncerBossbarCommand implements CommandExecutor {
+    private Announcer plugin;
+    private MiniMessage mm;
+    private Audience audience;
+    public AnnouncerBossbarCommand(Announcer plugin, MiniMessage mm){
+        this.plugin = plugin;
+        this.mm = mm;
+        audience = Bukkit.getServer();
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // The command requires arguments to work
-        ConfigUtils config = new ConfigUtils();
-        BossBarUtils bUtils = new BossBarUtils(config, mm);
+        BossBarUtils bUtils = new BossBarUtils(mm);
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
-        // The audience that will receive the bossbar will be all the players on the server.
-        Audience audience = Bukkit.getServer();
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 3);
+        String bossbartext = GeneralUtils.getCommandString(args, 3);
 
         float time = bUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return false;
@@ -46,7 +51,7 @@ public record AnnouncerBossbarCommand(Announcer plugin, MiniMessage mm) implemen
         PaperBossBar pBossBar = new PaperBossBar(plugin);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
@@ -62,8 +67,8 @@ public record AnnouncerBossbarCommand(Announcer plugin, MiniMessage mm) implemen
                     PPlaceholders.replacePlaceholders(player)),
                 color,
                 overlay);
-            config.sendConfirmation(ComponentType.BOSSBAR, sender);
-            config.playPaperSound(ComponentType.BOSSBAR, audience);
+            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+            ConfigUtils.playPaperSound(ComponentType.BOSSBAR, audience);
             return true;
         } else {
             pBossBar.sendBukkitBossBar(
@@ -75,8 +80,8 @@ public record AnnouncerBossbarCommand(Announcer plugin, MiniMessage mm) implemen
                         PPlaceholders.replacePlaceholders()),
                 color,
                 overlay);
-            config.sendConfirmation(ComponentType.BOSSBAR, sender);
-            config.playPaperSound(ComponentType.BOSSBAR, audience);
+            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+            ConfigUtils.playPaperSound(ComponentType.BOSSBAR, audience);
             return true;
         }
     }

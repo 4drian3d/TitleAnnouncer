@@ -24,29 +24,28 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         switch (args.length) {
             case 0 -> {
-                config.sendNoArgumentMessage(sender);
+                ConfigUtils.sendNoArgumentMessage(sender);
                 return;
             }
             case 1 -> {
-                config.noServerArgumentProvided(sender);
+                ConfigUtils.noServerArgumentProvided(sender);
                 return;
             }
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            config.noServerFound(sender);
+            ConfigUtils.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args, 1);
+        String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
 
         SoundUtils sUtils = new SoundUtils(server);
         TitleUtil tUtil = new TitleUtil();
@@ -56,7 +55,7 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
                 mm.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     vPlaceholders.replaceProxyPlaceholders()),
                 serverObjetive, 1000, 3000, 1000);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(serverObjetive, ComponentType.TITLE);
             return;
         }
@@ -78,7 +77,7 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
             3000,
             1000);
         sUtils.playProxySound(serverObjetive, ComponentType.TITLE);
-        config.sendConfirmation(ComponentType.TITLE, sender);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
     }
 
     @Override

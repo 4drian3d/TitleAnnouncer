@@ -19,19 +19,24 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record SelfBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor {
-
+public class SelfBossbarCommand implements CommandExecutor {
+    private MiniMessage mm;
+    private Announcer plugin;
+    private BossBarUtils bUtils;
+    public SelfBossbarCommand(Announcer plugin, MiniMessage mm){
+        this.mm = mm;
+        this.plugin = plugin;
+        bUtils = new BossBarUtils(mm);
+    }
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return false;
         }
 
-        BossBarUtils bUtils = new BossBarUtils(config, mm);
         PaperBossBar pBossBar = new PaperBossBar(plugin);
 
         // The command requires arguments to work
@@ -46,12 +51,12 @@ public record SelfBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 4);
+        String bossbartext = GeneralUtils.getCommandString(args, 4);
 
         pBossBar.sendBukkitBossBar(
             player,
@@ -61,8 +66,8 @@ public record SelfBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
                 PPlaceholders.replacePlaceholders(player)),
             color,
             overlay);
-        config.playPaperSound(ComponentType.BOSSBAR, sender);
-        config.sendConfirmation(ComponentType.BOSSBAR, sender);
+        ConfigUtils.playPaperSound(ComponentType.BOSSBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
         return true;
     }
 }

@@ -27,8 +27,7 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
     public void execute(Invocation invocation){
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
-        BossBarUtils bUtils = new BossBarUtils(config, mm);
+        BossBarUtils bUtils = new BossBarUtils(mm);
 
         // The command requires arguments to work
         if (!bUtils.proxyBossbarArgs(args.length, sender)) {
@@ -37,7 +36,7 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            config.noServerFound(sender);
+            ConfigUtils.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
@@ -49,12 +48,12 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(config.getPrefix().append(mm.parse("<dark_red>Invalid Argument")));
+            sender.sendMessage(ConfigUtils.getPrefix().append(mm.parse("<dark_red>Invalid Argument")));
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 5);
+        String bossbartext = GeneralUtils.getCommandString(args, 5);
 
         new VelocityBossbar(plugin, server).sendVelocityBossbar(
             serverObjetive,
@@ -65,7 +64,7 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
                     new VPlaceholders(server).replaceProxyPlaceholders()),
             color,
             overlay);
-        config.sendConfirmation(ComponentType.BOSSBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
         new SoundUtils(server).playProxySound(serverObjetive, ComponentType.BOSSBAR);
     }
 

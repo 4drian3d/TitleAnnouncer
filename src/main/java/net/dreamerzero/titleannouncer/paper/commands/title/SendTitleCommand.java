@@ -24,15 +24,14 @@ public class SendTitleCommand implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         // The command requires arguments to work
         switch (args.length) {
             case 0 -> {
-                config.sendNoArgumentMessage(sender);
+                ConfigUtils.sendNoArgumentMessage(sender);
                 return true;
             }
             case 1 -> {
-                config.noTitlePlayerArgumentProvided(sender);
+                ConfigUtils.noTitlePlayerArgumentProvided(sender);
                 return true;
             }
         }
@@ -40,14 +39,14 @@ public class SendTitleCommand implements CommandExecutor {
         boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args, 1);
+        String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
 
         var serverplayers = Bukkit.getOnlinePlayers();
         Player playerObjetive = Bukkit.getPlayer(args[0]);
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            config.playerNotFoundMessage(sender);
+            ConfigUtils.playerNotFoundMessage(sender);
             return false;
         }
 
@@ -59,8 +58,8 @@ public class SendTitleCommand implements CommandExecutor {
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle) : titleandsubtitle), 
                     PPlaceholders.replacePlaceholders(playerObjetive)),
                     playerObjetive, 1000, 3000, 1000);
-            config.sendConfirmation(ComponentType.TITLE, sender);
-            config.playPaperSound(ComponentType.TITLE, playerObjetive);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.playPaperSound(ComponentType.TITLE, playerObjetive);
             return true;
         }
 
@@ -77,8 +76,8 @@ public class SendTitleCommand implements CommandExecutor {
                 PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
                 PPlaceholders.replacePlaceholders(playerObjetive)),
             playerObjetive, 1000, 3000, 1000);
-        config.playPaperSound(ComponentType.TITLE, playerObjetive);
-        config.sendConfirmation(ComponentType.TITLE, sender);
+        ConfigUtils.playPaperSound(ComponentType.TITLE, playerObjetive);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         return true;
     }
 }

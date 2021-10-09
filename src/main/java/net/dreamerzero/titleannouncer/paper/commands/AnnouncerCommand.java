@@ -10,7 +10,14 @@ import net.dreamerzero.titleannouncer.paper.utils.PaperHelpMessages;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.util.TriState;
 
-public record AnnouncerCommand(MiniMessage mm) implements CommandExecutor {
+public class AnnouncerCommand implements CommandExecutor {
+    private MiniMessage mm;
+    private PaperHelpMessages paperMessages;
+
+    public AnnouncerCommand(MiniMessage mm){
+        this.mm = mm;
+        paperMessages = new PaperHelpMessages();
+    }
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -19,12 +26,11 @@ public record AnnouncerCommand(MiniMessage mm) implements CommandExecutor {
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             return true;
         }
-        ConfigUtils config = new ConfigUtils();
-        PaperHelpMessages paperMessages = new PaperHelpMessages();
+
         if (args.length == 0) {
             sender.sendMessage(mm.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-            config.helpPrefix(sender);
+            ConfigUtils.helpPrefix(sender);
             sender.sendMessage(paperMessages.titleHelpMessage);
             sender.sendMessage(paperMessages.actionbarHelpMessage);
             sender.sendMessage(paperMessages.bossbarHelpMessage);
@@ -34,14 +40,13 @@ public record AnnouncerCommand(MiniMessage mm) implements CommandExecutor {
         switch (args[0].toLowerCase()) {
             case "reload" -> {
                 new ConfigManager().getConfig().forceReload();
-                config.reloadMessage(sender);
+                ConfigUtils.reloadMessage(sender);
                 return true;
             }
             case "help" -> {
-                sender.sendMessage(
-                    mm.parse(
+                sender.sendMessage(mm.parse(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-                config.helpPrefix(sender);
+                ConfigUtils.helpPrefix(sender);
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
@@ -76,10 +81,9 @@ public record AnnouncerCommand(MiniMessage mm) implements CommandExecutor {
                 }
             }
             default -> {
-                config.invalidCommand(sender);
+                ConfigUtils.invalidCommand(sender);
                 return false;
             }
         }
     }
-
 }

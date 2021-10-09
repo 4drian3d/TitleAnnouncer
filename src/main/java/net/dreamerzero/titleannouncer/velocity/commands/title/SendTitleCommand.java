@@ -24,29 +24,28 @@ public record SendTitleCommand(ProxyServer server, MiniMessage mm) implements Si
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         switch (args.length) {
             case 0 -> {
-                config.sendNoArgumentMessage(sender);
+                ConfigUtils.sendNoArgumentMessage(sender);
                 return;
             }
             case 1 -> {
-                config.noTitlePlayerArgumentProvided(sender);
+                ConfigUtils.noTitlePlayerArgumentProvided(sender);
                 return;
             }
         }
 
         Optional<Player> optionalPlayerObjetive = server.getPlayer(args[0]);
         if(!optionalPlayerObjetive.isPresent()) {
-            config.playerNotFoundMessage(sender);
+            ConfigUtils.playerNotFoundMessage(sender);
             return;
         }
         Player playerObjetive = optionalPlayerObjetive.get();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args, 1);
+        String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
 
         SoundUtils sUtils = new SoundUtils(server);
         TitleUtil tUtil = new TitleUtil();
@@ -56,7 +55,7 @@ public record SendTitleCommand(ProxyServer server, MiniMessage mm) implements Si
                 mm.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     vPlaceholders.replaceProxyPlaceholders(playerObjetive)),
                 playerObjetive, 1000, 3000, 1000);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(playerObjetive, ComponentType.TITLE);
             return;
         }
@@ -78,7 +77,7 @@ public record SendTitleCommand(ProxyServer server, MiniMessage mm) implements Si
             3000,
             1000);
             sUtils.playProxySound(playerObjetive, ComponentType.TITLE);
-        config.sendConfirmation(ComponentType.TITLE, sender);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
     }
 
     @Override

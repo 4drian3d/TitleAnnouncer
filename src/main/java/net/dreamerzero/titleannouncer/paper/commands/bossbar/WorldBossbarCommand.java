@@ -24,15 +24,14 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         // It will send an actionbar to the world in which the command is executed, 
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return false;
         }
 
-        BossBarUtils bUtils = new BossBarUtils(config,mm);
+        BossBarUtils bUtils = new BossBarUtils(mm);
 
         // The command requires arguments to work
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
@@ -40,7 +39,7 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 3);
+        String bossbartext = GeneralUtils.getCommandString(args, 3);
 
         float time = bUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return false;
@@ -49,7 +48,7 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
@@ -65,8 +64,8 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
                     PPlaceholders.replacePlaceholders()),
             color,
             overlay);
-        config.sendConfirmation(ComponentType.BOSSBAR, sender);
-        config.playPaperSound(ComponentType.BOSSBAR, audience);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+        ConfigUtils.playPaperSound(ComponentType.BOSSBAR, audience);
         return true;
     }
 }

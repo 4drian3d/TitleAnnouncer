@@ -15,12 +15,11 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource source = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
 
         if (args.length == 0) {
             source.sendMessage(mm.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-            config.helpPrefix(source);
+            ConfigUtils.helpPrefix(source);
             source.sendMessage(VelocityHelpMessages.titleHelpMessage);
             source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
             source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
@@ -31,13 +30,13 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
         switch (args[0].toLowerCase()) {
             case "reload" -> {
                 new ConfigManager().getConfig().forceReload();
-                config.reloadMessage(source);
+                ConfigUtils.reloadMessage(source);
             }
             case "help" -> {
                 source.sendMessage(
                     mm.parse(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
-                config.helpPrefix(source);
+                ConfigUtils.helpPrefix(source);
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
@@ -67,7 +66,7 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
                 }
             }
             default -> {
-                config.invalidCommand(source);
+                ConfigUtils.invalidCommand(source);
             }
         }
 

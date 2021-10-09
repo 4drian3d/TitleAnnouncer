@@ -22,16 +22,15 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
-            config.sendNoArgumentMessage(sender);
+            ConfigUtils.sendNoArgumentMessage(sender);
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+        String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         SoundUtils sUtils = new SoundUtils(server);
         TitleUtil tUtil = new TitleUtil();
@@ -43,7 +42,7 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
                         MiniMessageUtil.replaceLegacy(titleandsubtitle),
                         vPlaceholders.replaceProxyPlaceholders(player)),
                     server, 1000, 3000, 1000);
-                config.sendConfirmation(ComponentType.TITLE, sender);
+                ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
                 sUtils.playProxySound(ComponentType.TITLE);
                 return;
             } else {
@@ -52,7 +51,7 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
                         MiniMessageUtil.replaceLegacy(titleandsubtitle),
                         vPlaceholders.replaceProxyPlaceholders()),
                     server, 1000, 3000, 1000);
-                config.sendConfirmation(ComponentType.TITLE, sender);
+                ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
                 sUtils.playProxySound(ComponentType.TITLE);
                 return;
             }
@@ -77,7 +76,7 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
                 3000,
                 1000);
             sUtils.playProxySound(ComponentType.TITLE);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         } else {
             // Send the title
             tUtil.sendTitle(
@@ -92,7 +91,7 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
                 3000,
                 1000);
             sUtils.playProxySound(ComponentType.TITLE);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         }
     }
 

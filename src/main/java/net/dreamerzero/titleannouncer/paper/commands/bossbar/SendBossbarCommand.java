@@ -24,8 +24,7 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
-        BossBarUtils bUtils = new BossBarUtils(config, mm);
+        BossBarUtils bUtils = new BossBarUtils(mm);
 
         // The command requires arguments to work
         if (!bUtils.sendBossbarArgs(args.length, sender)) {
@@ -39,7 +38,7 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
-            config.playerNotFoundMessage(sender);
+            ConfigUtils.playerNotFoundMessage(sender);
             return false;
         }
 
@@ -50,12 +49,12 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
+            sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 5);
+        String bossbartext = GeneralUtils.getCommandString(args, 5);
 
         new PaperBossBar(plugin).sendBukkitBossBar(
             playerObjetive,
@@ -65,8 +64,8 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
                 PPlaceholders.replacePlaceholders(playerObjetive)),
             color,
             overlay);
-        config.sendConfirmation(ComponentType.BOSSBAR, sender);
-        config.playPaperSound(ComponentType.BOSSBAR, playerObjetive);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
+        ConfigUtils.playPaperSound(ComponentType.BOSSBAR, playerObjetive);
         return true;
     }
 }

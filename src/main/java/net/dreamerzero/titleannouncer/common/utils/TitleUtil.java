@@ -92,7 +92,7 @@ public class TitleUtil {
         // it will catch the error in the console and send an error message to the sender.
         } catch (Exception e) {
             // Send an error message to the sender using the command
-            new ConfigUtils().sendTitleError(sender);
+            ConfigUtils.sendTitleError(sender);
             return null;
         }
     }

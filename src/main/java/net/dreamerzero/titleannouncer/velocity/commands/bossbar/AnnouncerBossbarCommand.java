@@ -25,8 +25,7 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, Mini
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
-        BossBarUtils bUtils = new BossBarUtils(config, mm);
+        BossBarUtils bUtils = new BossBarUtils(mm);
         VelocityBossbar vBossbar = new VelocityBossbar(plugin, server);
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
@@ -36,7 +35,7 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, Mini
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 3);
+        String bossbartext = GeneralUtils.getCommandString(args, 3);
 
         float time = bUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return;
@@ -46,7 +45,7 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, Mini
 
         if (color == null || overlay == null) {
             sender.sendMessage(
-                config.getPrefix().append(
+                ConfigUtils.getPrefix().append(
                     mm.parse("<dark_red>Invalid Argument")));
             return;
         }
@@ -64,7 +63,7 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, Mini
                         vPlaceholders.replaceProxyPlaceholders(player)),
                 color,
                 overlay);
-            config.sendConfirmation(ComponentType.BOSSBAR, sender);
+            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
             sUtils.playProxySound(ComponentType.BOSSBAR);
             return;
         } else {
@@ -77,7 +76,7 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, Mini
                         vPlaceholders.replaceProxyPlaceholders()),
                 color,
                 overlay);
-            config.sendConfirmation(ComponentType.BOSSBAR, sender);
+            ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
             sUtils.playProxySound(ComponentType.BOSSBAR);
         }
     }

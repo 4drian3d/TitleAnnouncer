@@ -18,29 +18,28 @@ public record SelfActionbarCommand(MiniMessage mm) implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         // It will send an actionbar to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return false;
         }
 
         if(args.length == 0) {
-            config.noActionbarArgumentProvided(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = new GeneralUtils().getCommandString(args);
+        String actionbartext = GeneralUtils.getCommandString(args);
 
         // Send to sender
         sender.sendActionBar(mm.parse(
             MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
             PPlaceholders.replacePlaceholders(player)));
-        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
-        config.playPaperSound(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, sender);
         return true;
     }
 }

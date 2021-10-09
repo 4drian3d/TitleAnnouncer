@@ -24,14 +24,13 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessa
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
 
         if (!(sender instanceof Player player)) {
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return;
         }
 
-        BossBarUtils bUtils = new BossBarUtils(config, mm);
+        BossBarUtils bUtils = new BossBarUtils(mm);
 
         // The command requires arguments to work
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
@@ -39,7 +38,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessa
         }
 
         // Concatenate the arguments provided by the command sent.
-        String bossbartext = new GeneralUtils().getCommandString(args, 3);
+        String bossbartext = GeneralUtils.getCommandString(args, 3);
 
         float time = bUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return;
@@ -49,7 +48,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessa
 
         if (color == null || overlay == null) {
             sender.sendMessage(
-                config.getPrefix().append(
+                ConfigUtils.getPrefix().append(
                     mm.parse("<dark_red>Invalid Argument")));
             return;
         }
@@ -63,7 +62,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessa
                 new VPlaceholders(server).replaceProxyPlaceholders(player)),
             color,
             overlay);
-        config.sendConfirmation(ComponentType.BOSSBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
         new SoundUtils(server).playProxySound(player, ComponentType.BOSSBAR);
     }
 

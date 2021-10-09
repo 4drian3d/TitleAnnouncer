@@ -20,16 +20,15 @@ public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecut
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         if(args.length == 0) {
-            config.noActionbarArgumentProvided(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return false;
         }
 
         boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = new GeneralUtils().getCommandString(args);
+        String actionbartext = GeneralUtils.getCommandString(args);
         // The audience that will receive the actionbar will be all the players on the server.
         Audience audience = Bukkit.getServer();
 
@@ -39,16 +38,16 @@ public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecut
                 MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
                     PPlaceholders.replacePlaceholders(player)));
-            config.playPaperSound(ComponentType.ACTIONBAR, audience);
-            config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+            ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, audience);
+            ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;
         } else {
             audience.sendActionBar(mm.parse(
                 MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, actionbartext) : actionbartext),
                     PPlaceholders.replacePlaceholders()));
-            config.playPaperSound(ComponentType.ACTIONBAR, audience);
-            config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+            ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, audience);
+            ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;
         }
     }

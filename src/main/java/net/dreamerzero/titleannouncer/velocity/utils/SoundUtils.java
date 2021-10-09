@@ -17,7 +17,6 @@ public class SoundUtils {
     private static Sound titleSound;
     private static Sound actionbarSound;
     private static Sound bossbarSound;
-    private ConfigUtils config = new ConfigUtils();
     private ProxyServer proxy;
 
     public SoundUtils(ProxyServer server){
@@ -25,15 +24,15 @@ public class SoundUtils {
     }
 
     public void setTitleSound(){
-        titleSound = SoundTransformer.getSoundFromString(config.getTitleSound());
+        titleSound = SoundTransformer.getSoundFromString(ConfigUtils.getTitleSound());
     }
 
     public void setBossBarSound(){
-        bossbarSound = SoundTransformer.getSoundFromString(config.getBossbarSound());
+        bossbarSound = SoundTransformer.getSoundFromString(ConfigUtils.getBossbarSound());
     }
 
     public void setActionBarSound(){
-        actionbarSound = SoundTransformer.getSoundFromString(config.getActionbarSound());
+        actionbarSound = SoundTransformer.getSoundFromString(ConfigUtils.getActionbarSound());
     }
 
     public Sound getTitleSound(){
@@ -54,9 +53,9 @@ public class SoundUtils {
         UUID playeruuid = player.getUniqueId();
         ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
         switch(type) {
-            case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, config.getTitleSoundVolume(), config.getTitleSoundPitch());
-            case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, config.getBossbarSoundVolume(), config.getBossbarSoundPitch());
-            case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, config.getActionbarSoundVolume(), config.getActionbarSoundPitch());
+            case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
+            case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
+            case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
         };
 
     }
@@ -69,9 +68,9 @@ public class SoundUtils {
             ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
 
             switch(type) {
-                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, config.getTitleSoundVolume(), config.getTitleSoundPitch());
-                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, config.getBossbarSoundVolume(), config.getBossbarSoundPitch());
-                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, config.getActionbarSoundVolume(), config.getActionbarSoundPitch());
+                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
+                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
+                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
             };
         }
     }
@@ -84,9 +83,9 @@ public class SoundUtils {
             ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
 
             switch(type) {
-                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, config.getTitleSoundVolume(), config.getTitleSoundPitch());
-                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, config.getBossbarSoundVolume(), config.getBossbarSoundPitch());
-                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, config.getActionbarSoundVolume(), config.getActionbarSoundPitch());
+                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
+                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
+                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
             };
         }
     }

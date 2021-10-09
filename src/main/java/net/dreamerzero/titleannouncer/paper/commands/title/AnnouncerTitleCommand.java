@@ -28,16 +28,15 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         if(args.length == 0) {
-            config.sendNoArgumentMessage(sender);
+            ConfigUtils.sendNoArgumentMessage(sender);
             return true;
         }
 
         boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+        String titleandsubtitle = GeneralUtils.getCommandString(args);
         TitleUtil tUtil = new TitleUtil();
 
         if(!tUtil.containsComma(args)){
@@ -47,8 +46,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
                         PPlaceholders.replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
-                config.sendConfirmation(ComponentType.TITLE, sender);
-                config.playPaperSound(ComponentType.TITLE, audience);
+                ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+                ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
                 return true;
             } else {
                 tUtil.sendOnlySubtitle(
@@ -56,8 +55,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
                         PPlaceholders.replacePlaceholders()),
                         audience, 1000, 3000, 1000);
-                config.sendConfirmation(ComponentType.TITLE, sender);
-                config.playPaperSound(ComponentType.TITLE, audience);
+                ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+                ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
                 return true;
             }
         }
@@ -79,8 +78,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 1000,
                 3000,
                 1000);
-            config.playPaperSound(ComponentType.TITLE, audience);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             return true;
         } else {
             // Send the title
@@ -95,8 +94,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 1000,
                 3000,
                 1000);
-            config.playPaperSound(ComponentType.TITLE, audience);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             return true;
         }
     }

@@ -22,21 +22,20 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if (!(sender instanceof Player player)) {
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return;
         }
 
         if(args.length == 0) {
-            config.sendNoArgumentMessage(sender);
+            ConfigUtils.sendNoArgumentMessage(sender);
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+        String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         SoundUtils sUtils = new SoundUtils(server);
         TitleUtil tUtil = new TitleUtil();
@@ -46,7 +45,7 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
                 mm.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     vPlaceholders.replaceProxyPlaceholders(player)),
                 sender, 1000, 3000, 1000);
-            config.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(player, ComponentType.TITLE);
             return;
         }
@@ -68,7 +67,7 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
             3000,
             1000);
         sUtils.playProxySound(player, ComponentType.TITLE);
-        config.sendConfirmation(ComponentType.TITLE, sender);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
     }
 
     @Override

@@ -23,26 +23,25 @@ public record ServerActionbarCommand(ProxyServer server, MiniMessage mm) impleme
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
-            config.noActionbarArgumentProvided(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return;
         }else if (args.length < 2) {
-            config.noServerArgumentProvided(sender);
+            ConfigUtils.noServerArgumentProvided(sender);
             return;
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
         if(!optionalServerObjetive.isPresent()) {
-            config.noServerFound(sender);
+            ConfigUtils.noServerFound(sender);
             return;
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
 
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = new GeneralUtils().getCommandString(args, 1);
+        String actionbartext = GeneralUtils.getCommandString(args, 1);
 
         serverObjetive.sendActionBar(
             mm.parse(
@@ -50,7 +49,7 @@ public record ServerActionbarCommand(ProxyServer server, MiniMessage mm) impleme
                     actionbartext),
                     vPlaceholders.replaceProxyPlaceholders()));
         new SoundUtils(server).playProxySound(serverObjetive, ComponentType.ACTIONBAR);
-        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

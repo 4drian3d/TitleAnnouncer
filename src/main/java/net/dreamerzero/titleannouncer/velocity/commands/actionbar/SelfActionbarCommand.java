@@ -20,25 +20,24 @@ public record SelfActionbarCommand(ProxyServer server, MiniMessage mm) implement
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        ConfigUtils config = new ConfigUtils();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(!(sender instanceof Player player)){
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return;
         }
         if(args.length == 0) {
-            config.noActionbarArgumentProvided(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return;
         }
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = new GeneralUtils().getCommandString(args);
+        String actionbartext = GeneralUtils.getCommandString(args);
 
         sender.sendActionBar(mm.parse(
             MiniMessageUtil.replaceLegacy(actionbartext),
             vPlaceholders.replaceProxyPlaceholders(player)));
         new SoundUtils(server).playProxySound(player, ComponentType.ACTIONBAR);
-        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

@@ -22,12 +22,11 @@ public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) impl
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         // Concatenate the arguments provided by the command sent.
-        String actionbartext = new GeneralUtils().getCommandString(args);
-        ConfigUtils config = new ConfigUtils();
+        String actionbartext = GeneralUtils.getCommandString(args);
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
-            config.noActionbarArgumentProvided(sender);
+            ConfigUtils.noActionbarArgumentProvided(sender);
             return;
         }
 
@@ -39,7 +38,7 @@ public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) impl
                     vPlaceholders.replaceProxyPlaceholders(player) :
                     vPlaceholders.replaceProxyPlaceholders()));
         new SoundUtils(server).playProxySound(ComponentType.ACTIONBAR);
-        config.sendConfirmation(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 
     @Override

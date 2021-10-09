@@ -59,9 +59,8 @@ public record RegisterCommands(Announcer plugin, MiniMessage mm) {
 			PluginCommand command = this.plugin.getCommand(factory.command());
 			command.setExecutor(factory.executor());
 			command.permissionMessage(
-				new ConfigUtils().getPrefix().append(
-						mm.parse(
-							config.getString("messages.general.no-permission"))));
+				ConfigUtils.getPrefix().append(
+					mm.parse(config.getString("messages.general.no-permission"))));
 		}
 	}
 }

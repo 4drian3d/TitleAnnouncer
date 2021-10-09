@@ -23,24 +23,23 @@ public class SelfTitleCommand implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        ConfigUtils config = new ConfigUtils();
         // It will send an title to the one who executes the command,
         // it makes no sense for the console to execute it.
         if (!(sender instanceof Player player)) {
-            config.onlyPlayerExecute(sender);
+            ConfigUtils.onlyPlayerExecute(sender);
             return false;
         }
 
         // The command requires arguments to work
         if(args.length == 0){
-            config.sendNoArgumentMessage(sender);
+            ConfigUtils.sendNoArgumentMessage(sender);
             return true;
         }
 
         boolean placeholderAPISupport = Announcer.placeholderAPIHook();
 
         // Concatenate the arguments provided by the command sent.
-        String titleandsubtitle = new GeneralUtils().getCommandString(args);
+        String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         TitleUtil tUtil = new TitleUtil();
 
@@ -50,8 +49,8 @@ public class SelfTitleCommand implements CommandExecutor {
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
                     PPlaceholders.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
-            config.sendConfirmation(ComponentType.TITLE, sender);
-            config.playPaperSound(ComponentType.TITLE, sender);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+            ConfigUtils.playPaperSound(ComponentType.TITLE, sender);
             return true;
         }
 
@@ -71,8 +70,8 @@ public class SelfTitleCommand implements CommandExecutor {
             1000,
             3000,
             1000);
-        config.sendConfirmation(ComponentType.TITLE, sender);
-        config.playPaperSound(ComponentType.TITLE, sender);
+        ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+        ConfigUtils.playPaperSound(ComponentType.TITLE, sender);
         return true;
     }
 }
