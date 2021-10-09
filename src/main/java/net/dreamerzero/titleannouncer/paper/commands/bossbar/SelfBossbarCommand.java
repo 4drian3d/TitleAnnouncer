@@ -17,8 +17,9 @@ import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record SelfBossbarCommand(Announcer plugin) implements CommandExecutor {
+public record SelfBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -30,8 +31,7 @@ public record SelfBossbarCommand(Announcer plugin) implements CommandExecutor {
             return false;
         }
 
-        BossBarUtils bUtils = new BossBarUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
+        BossBarUtils bUtils = new BossBarUtils(config, mm);
         PaperBossBar pBossBar = new PaperBossBar(plugin);
 
         // The command requires arguments to work
@@ -56,10 +56,9 @@ public record SelfBossbarCommand(Announcer plugin) implements CommandExecutor {
         pBossBar.sendBukkitBossBar(
             player,
             time,
-            mUtils.parse(
-                mUtils.replaceLegacy(
-                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    new PPlaceholders().replacePlaceholders(player)),
+            mm.parse(MiniMessageUtil.replaceLegacy(
+                Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
+                PPlaceholders.replacePlaceholders(player)),
             color,
             overlay);
         config.playPaperSound(ComponentType.BOSSBAR, sender);

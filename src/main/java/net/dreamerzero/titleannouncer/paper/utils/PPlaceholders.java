@@ -14,7 +14,7 @@ public class PPlaceholders {
      * for the context of Console
      * @return Placeholders for console
      */
-    public List<Template> replacePlaceholders() {
+    public static List<Template> replacePlaceholders() {
         String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
         String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
 
@@ -30,7 +30,7 @@ public class PPlaceholders {
      * @param player
      * @return Placeholders for sender player
      */
-    public List<Template> replacePlaceholders(org.bukkit.entity.Player player) {
+    public static List<Template> replacePlaceholders(org.bukkit.entity.Player player) {
 
         String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
         String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);

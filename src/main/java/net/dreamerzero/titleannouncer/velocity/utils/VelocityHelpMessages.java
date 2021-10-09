@@ -3,11 +3,10 @@ package net.dreamerzero.titleannouncer.velocity.utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import static net.kyori.adventure.text.Component.*;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
-
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 
 public class VelocityHelpMessages {
     public static final Component titleArguments = text("[Title]; [SubTitle]", AQUA);
@@ -165,7 +164,7 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki"))
             .hoverEvent(HoverEvent.showText(
-                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
+                MiniMessage.miniMessage().parse("<gradient:red:blue>Click Here</gradient>"))))
         .build();
     public static final Component titlewikilink = text()
         .append(text()
@@ -177,7 +176,7 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Title-Commands"))
             .hoverEvent(HoverEvent.showText(
-                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
+                MiniMessage.miniMessage().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
     public static final Component actionbarwikilink = text()
         .append(text()
@@ -189,7 +188,7 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/ActionBar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
+                MiniMessage.miniMessage().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 
     public static final Component bossbarwikilink = text()
@@ -202,6 +201,6 @@ public class VelocityHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Bossbar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                new MiniMessageUtil().parse("<gradient:red:blue>Click Here</gradient>"))))
+                MiniMessage.miniMessage().parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 }

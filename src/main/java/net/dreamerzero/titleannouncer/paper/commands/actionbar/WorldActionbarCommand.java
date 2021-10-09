@@ -13,9 +13,13 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class WorldActionbarCommand implements CommandExecutor {
-    public WorldActionbarCommand() {}
+    private MiniMessage mm;
+    public WorldActionbarCommand(MiniMessage mm) {
+        this.mm = mm;
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -37,12 +41,11 @@ public class WorldActionbarCommand implements CommandExecutor {
 
         // Concatenate the arguments provided by the command sent.
         String actionbartext = new GeneralUtils().getCommandString(args);
-        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         audience.sendActionBar(
-            mUtils.parse(mUtils.replaceLegacy(
+            mm.parse(MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
-                new PPlaceholders().replacePlaceholders(player)));
+                PPlaceholders.replacePlaceholders(player)));
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
         config.playPaperSound(ComponentType.ACTIONBAR, audience);
         return true;

@@ -4,10 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.listeners.PluginListener;
 import net.dreamerzero.titleannouncer.paper.listeners.TabCompleteListener;
 import net.dreamerzero.titleannouncer.paper.utils.RegisterCommands;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.DARK_GRAY;
@@ -15,29 +15,31 @@ import static net.kyori.adventure.text.format.NamedTextColor.AQUA;
 
 public class Announcer extends JavaPlugin {
 	private static boolean isPlaceholderAPIPresent;
+	private MiniMessage mm;
 	@Override
 	public void onEnable() {
+		mm = MiniMessage.miniMessage();
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(new MiniMessageUtil().parse(
+		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(mm.parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 		ConfigManager cManager = new ConfigManager();
 		cManager.defaultConfig();
 		listenerRegister();
 		placeholderAPICheck();
-		new RegisterCommands(this).registerCommands();
+		new RegisterCommands(this, mm).registerCommands();
 	}
 
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(new MiniMessageUtil().parse(
+		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(mm.parse(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 	}
 
 	public void listenerRegister() {
-		getServer().getPluginManager().registerEvents(new TabCompleteListener(), this);
+		getServer().getPluginManager().registerEvents(new TabCompleteListener(mm), this);
 		getServer().getPluginManager().registerEvents(new PluginListener(), this);
 	}
 

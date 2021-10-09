@@ -12,9 +12,9 @@ import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
 import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class SelfActionbarCommand implements CommandExecutor {
-    public SelfActionbarCommand() {}
+public record SelfActionbarCommand(MiniMessage mm) implements CommandExecutor {
 
     //Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -33,13 +33,12 @@ public class SelfActionbarCommand implements CommandExecutor {
 
         // Concatenate the arguments provided by the command sent.
         String actionbartext = new GeneralUtils().getCommandString(args);
-        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         // Send to sender
-        sender.sendActionBar(mUtils.parse(
-            mUtils.replaceLegacy(
+        sender.sendActionBar(mm.parse(
+            MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
-            new PPlaceholders().replacePlaceholders(player)));
+            PPlaceholders.replacePlaceholders(player)));
         config.sendConfirmation(ComponentType.ACTIONBAR, sender);
         config.playPaperSound(ComponentType.ACTIONBAR, sender);
         return true;

@@ -5,7 +5,6 @@ import org.bukkit.command.PluginCommand;
 import de.leonhard.storage.Yaml;
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.commands.AnnouncerCommand;
 import net.dreamerzero.titleannouncer.paper.commands.actionbar.AnnouncerActionbarCommand;
@@ -20,8 +19,9 @@ import net.dreamerzero.titleannouncer.paper.commands.title.AnnouncerTitleCommand
 import net.dreamerzero.titleannouncer.paper.commands.title.SelfTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.SendTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.WorldTitleCommand;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record RegisterCommands(Announcer plugin) {
+public record RegisterCommands(Announcer plugin, MiniMessage mm) {
 	/**
 	 * Register of each existing Paper plugin command
 	 * @author Jonakls
@@ -29,22 +29,22 @@ public record RegisterCommands(Announcer plugin) {
 	public void registerCommands() {
 		initCommand(
 			// BossBar
-			new CommandFactory("announcebossbar", new AnnouncerBossbarCommand(plugin)),
-			new CommandFactory("selfbossbar", new SelfBossbarCommand(plugin)),
-			new CommandFactory("worldbossbar", new WorldBossbarCommand(plugin)),
-			new CommandFactory("sendbossbar", new SendBossbarCommand(plugin)),
+			new CommandFactory("announcebossbar", new AnnouncerBossbarCommand(plugin, mm)),
+			new CommandFactory("selfbossbar", new SelfBossbarCommand(plugin, mm)),
+			new CommandFactory("worldbossbar", new WorldBossbarCommand(plugin, mm)),
+			new CommandFactory("sendbossbar", new SendBossbarCommand(plugin, mm)),
 			// Title
-			new CommandFactory("announcetitle", new AnnouncerTitleCommand()),
-			new CommandFactory("selftitle", new SelfTitleCommand()),
-			new CommandFactory("worldtitle", new WorldTitleCommand()),
-			new CommandFactory("sendtitle", new SendTitleCommand()),
+			new CommandFactory("announcetitle", new AnnouncerTitleCommand(mm)),
+			new CommandFactory("selftitle", new SelfTitleCommand(mm)),
+			new CommandFactory("worldtitle", new WorldTitleCommand(mm)),
+			new CommandFactory("sendtitle", new SendTitleCommand(mm)),
 			// ActionBar
-			new CommandFactory("announceactionbar", new AnnouncerActionbarCommand()),
-			new CommandFactory("selfactionbar", new SelfActionbarCommand()),
-			new CommandFactory("worldactionbar", new WorldActionbarCommand()),
-			new CommandFactory("sendactionbar", new SendActionbarCommand()),
+			new CommandFactory("announceactionbar", new AnnouncerActionbarCommand(mm)),
+			new CommandFactory("selfactionbar", new SelfActionbarCommand(mm)),
+			new CommandFactory("worldactionbar", new WorldActionbarCommand(mm)),
+			new CommandFactory("sendactionbar", new SendActionbarCommand(mm)),
 			// MainCommand
-			new CommandFactory("announcer", new AnnouncerCommand())
+			new CommandFactory("announcer", new AnnouncerCommand(mm))
 		);
 	}
 
@@ -58,10 +58,9 @@ public record RegisterCommands(Announcer plugin) {
 		for(CommandFactory factory : factories) {
 			PluginCommand command = this.plugin.getCommand(factory.command());
 			command.setExecutor(factory.executor());
-			// Waiting for https://github.com/PaperMC/Paper/pull/6676
 			command.permissionMessage(
 				new ConfigUtils().getPrefix().append(
-						new MiniMessageUtil().parse(
+						mm.parse(
 							config.getString("messages.general.no-permission"))));
 		}
 	}

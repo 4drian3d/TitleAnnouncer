@@ -17,15 +17,16 @@ import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) implements SimpleCommand {
+public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm) implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        BossBarUtils bUtils = new BossBarUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
+        ConfigUtils config = new ConfigUtils();
+        BossBarUtils bUtils = new BossBarUtils(config, mm);
         VelocityBossbar vBossbar = new VelocityBossbar(plugin, server);
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
@@ -43,12 +44,10 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) impl
         BossBar.Color color = bUtils.bossbarColor(args[1]);
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
 
-        ConfigUtils config = new ConfigUtils();
-
         if (color == null || overlay == null) {
             sender.sendMessage(
                 config.getPrefix().append(
-                    mUtils.parse("<dark_red>Invalid Argument")));
+                    mm.parse("<dark_red>Invalid Argument")));
             return;
         }
 
@@ -59,8 +58,8 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) impl
             vBossbar.sendVelocityBossbar(
                 server,
                 time,
-                mUtils.parse(
-                    mUtils.replaceLegacy(
+                mm.parse(
+                    MiniMessageUtil.replaceLegacy(
                         bossbartext),
                         vPlaceholders.replaceProxyPlaceholders(player)),
                 color,
@@ -72,8 +71,8 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin) impl
             vBossbar.sendVelocityBossbar(
                 server,
                 time,
-                mUtils.parse(
-                    mUtils.replaceLegacy(
+                mm.parse(
+                    MiniMessageUtil.replaceLegacy(
                         bossbartext),
                         vPlaceholders.replaceProxyPlaceholders()),
                 color,

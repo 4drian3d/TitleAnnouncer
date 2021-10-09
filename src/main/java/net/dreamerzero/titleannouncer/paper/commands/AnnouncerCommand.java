@@ -6,25 +6,23 @@ import org.bukkit.command.CommandSender;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.utils.PaperHelpMessages;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.util.TriState;
 
-public class AnnouncerCommand implements CommandExecutor {
-    public AnnouncerCommand() {}
+public record AnnouncerCommand(MiniMessage mm) implements CommandExecutor {
 
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         if (sender.permissionValue("titleannouncer.command.admin") != TriState.TRUE){
-            sender.sendMessage(mUtils.parse(
+            sender.sendMessage(mm.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             return true;
         }
         ConfigUtils config = new ConfigUtils();
         PaperHelpMessages paperMessages = new PaperHelpMessages();
         if (args.length == 0) {
-            sender.sendMessage(mUtils.parse(
+            sender.sendMessage(mm.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             config.helpPrefix(sender);
             sender.sendMessage(paperMessages.titleHelpMessage);
@@ -41,7 +39,7 @@ public class AnnouncerCommand implements CommandExecutor {
             }
             case "help" -> {
                 sender.sendMessage(
-                    mUtils.parse(
+                    mm.parse(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
                 config.helpPrefix(sender);
                 if(args.length == 2){

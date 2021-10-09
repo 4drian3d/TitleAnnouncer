@@ -15,15 +15,15 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record ServerActionbarCommand(ProxyServer server) implements SimpleCommand {
+public record ServerActionbarCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
@@ -45,8 +45,8 @@ public record ServerActionbarCommand(ProxyServer server) implements SimpleComman
         String actionbartext = new GeneralUtils().getCommandString(args, 1);
 
         serverObjetive.sendActionBar(
-            mUtils.parse(
-                mUtils.replaceLegacy(
+            mm.parse(
+                MiniMessageUtil.replaceLegacy(
                     actionbartext),
                     vPlaceholders.replaceProxyPlaceholders()));
         new SoundUtils(server).playProxySound(serverObjetive, ComponentType.ACTIONBAR);

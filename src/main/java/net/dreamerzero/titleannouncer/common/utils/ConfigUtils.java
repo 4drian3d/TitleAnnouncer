@@ -3,13 +3,15 @@ package net.dreamerzero.titleannouncer.common.utils;
 import de.leonhard.storage.Yaml;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class ConfigUtils {
     private Yaml config = new ConfigManager().getConfig();
+    private MiniMessage mm = MiniMessage.miniMessage();
 
     public Component getPrefix(){
         if (config.getOrDefault("messages.prefix.enabled", true)) {
-            return new MiniMessageUtil().parse(config.getOrDefault(
+            return mm.parse(config.getOrDefault(
                 "messages.prefix.line",
                 "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> "));
         } else {
@@ -22,21 +24,21 @@ public class ConfigUtils {
     -----------------------------*/
 
     public void sendTitleError(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.title.error",
                 "<dark_red>An error occurred while sending the title. Be sure to use the ';' to separate the title and the subtitle.</dark_red>"))));
     }
 
     public void sendNoArgumentMessage(Audience sender) {
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.title.without-argument",
                 "<red>You need to enter the title and subtitle arguments.</red>"))));
     }
 
     public void noTitlePlayerArgumentProvided(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.title.only-player",
                 "<gray>You must enter the title and subtitle after the player's name to send the message correctly.</gray>"))));
@@ -66,7 +68,7 @@ public class ConfigUtils {
 
     public void noActionbarArgumentProvided(Audience sender){
         sender.sendMessage(
-            getPrefix().append(new MiniMessageUtil().parse(
+            getPrefix().append(mm.parse(
                 config.getOrDefault(
                     "messages.actionbar.without-argument",
                     "<red>You need to enter the message to announce.</red>"))));
@@ -74,7 +76,7 @@ public class ConfigUtils {
 
     public void noActionbarPlayerArgumentProvided(Audience sender){
         sender.sendMessage(
-            getPrefix().append(new MiniMessageUtil().parse(
+            getPrefix().append(mm.parse(
                 config.getOrDefault(
                     "messages.actionbar.only-player",
                     "<gray>You must enter the message to be sent after the player's name.</gray>"))));
@@ -124,7 +126,7 @@ public class ConfigUtils {
     GENERAL CONFIGURATION
     */
     public void sendConfirmation(ComponentType type, Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(switch(type){
+        sender.sendMessage(getPrefix().append(mm.parse(switch(type){
             case BOSSBAR -> config.getOrDefault(
                         "messages.bossbar.successfully",
                         "<green>Bossbar succesfully sended</green>");
@@ -171,35 +173,35 @@ public class ConfigUtils {
     }
 
     public void reloadMessage(Audience sender){
-        sender.sendMessage(new MiniMessageUtil().parse(
+        sender.sendMessage(mm.parse(
             config.getOrDefault(
                 "messages.general.reload-config",
                 "<green>Config Reloaded</green>")));
     }
 
     public void invalidCommand(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.general.invalid-command",
                 "<red>Unknown Command</red>"))));
     }
 
     public void helpPrefix(Audience sender){
-        sender.sendMessage(new MiniMessageUtil().parse(
+        sender.sendMessage(mm.parse(
             config.getOrDefault(
                 "messages.general.help-message",
                 "<white>Available Commands:</white>")));
     }
 
     public void playerNotFoundMessage(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.general.player-not-found",
                 "<red>Player not found</red>"))));
     }
 
     public void onlyPlayerExecute(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.general.no-console",
                 "<red>The console cannot execute this command</red>")
@@ -207,7 +209,7 @@ public class ConfigUtils {
     }
 
     public void noServerArgumentProvided(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.general.no-server-provided",
                 "<red>No server provided to send the message</red>")
@@ -215,7 +217,7 @@ public class ConfigUtils {
     }
 
     public void noServerFound(Audience sender){
-        sender.sendMessage(getPrefix().append(new MiniMessageUtil().parse(
+        sender.sendMessage(getPrefix().append(mm.parse(
             config.getOrDefault(
                 "messages.general.server-not-found",
                 "<red>Server not found</red>")

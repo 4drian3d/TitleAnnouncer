@@ -17,21 +17,21 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record SelfBossbarCommand(Announcer plugin, ProxyServer server) implements SimpleCommand {
+public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessage mm) implements SimpleCommand {
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if (!(sender instanceof Player player)) {
             config.onlyPlayerExecute(sender);
             return;
         }
 
-        BossBarUtils bUtils = new BossBarUtils();
+        BossBarUtils bUtils = new BossBarUtils(config, mm);
 
         // The command requires arguments to work
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
@@ -50,7 +50,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server) implement
         if (color == null || overlay == null) {
             sender.sendMessage(
                 config.getPrefix().append(
-                    mUtils.parse("<dark_red>Invalid Argument")));
+                    mm.parse("<dark_red>Invalid Argument")));
             return;
         }
 
@@ -58,7 +58,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server) implement
         new VelocityBossbar(plugin, server).sendVelocityBossbar(
             sender,
             time,
-            mUtils.parse(mUtils.replaceLegacy(
+            mm.parse(MiniMessageUtil.replaceLegacy(
                 bossbartext),
                 new VPlaceholders(server).replaceProxyPlaceholders(player)),
             color,

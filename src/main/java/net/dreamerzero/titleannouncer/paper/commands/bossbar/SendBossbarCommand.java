@@ -18,12 +18,14 @@ import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record SendBossbarCommand(Announcer plugin) implements CommandExecutor{
+public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor{
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        BossBarUtils bUtils = new BossBarUtils();
+        ConfigUtils config = new ConfigUtils();
+        BossBarUtils bUtils = new BossBarUtils(config, mm);
 
         // The command requires arguments to work
         if (!bUtils.sendBossbarArgs(args.length, sender)) {
@@ -34,9 +36,6 @@ public record SendBossbarCommand(Announcer plugin) implements CommandExecutor{
 
         //Collection of all players in the server
         var serverplayers = Bukkit.getOnlinePlayers();
-
-        ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if (!serverplayers.contains(playerObjetive)) {
             // Send an error message to the sender using the command.
@@ -61,9 +60,9 @@ public record SendBossbarCommand(Announcer plugin) implements CommandExecutor{
         new PaperBossBar(plugin).sendBukkitBossBar(
             playerObjetive,
             time,
-            mUtils.parse(mUtils.replaceLegacy(
+            mm.parse(MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
-                new PPlaceholders().replacePlaceholders(playerObjetive)),
+                PPlaceholders.replacePlaceholders(playerObjetive)),
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);

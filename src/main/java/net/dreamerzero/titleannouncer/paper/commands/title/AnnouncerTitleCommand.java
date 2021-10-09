@@ -15,9 +15,13 @@ import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class AnnouncerTitleCommand implements CommandExecutor {
-    public AnnouncerTitleCommand() {}
+    private MiniMessage mm;
+    public AnnouncerTitleCommand(MiniMessage mm) {
+        this.mm = mm;
+    }
 
     //The audience that will receive the title will be all the players on the server.
     Audience audience = Bukkit.getServer();
@@ -35,24 +39,22 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = new GeneralUtils().getCommandString(args);
         TitleUtil tUtil = new TitleUtil();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
-        PPlaceholders papi = new PPlaceholders();
 
         if(!tUtil.containsComma(args)){
             if(sender instanceof Player player){
                 tUtil.sendOnlySubtitle(
-                    mUtils.parse(mUtils.replaceLegacy(
+                    mm.parse(MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
-                        papi.replacePlaceholders(player)),
+                        PPlaceholders.replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 config.playPaperSound(ComponentType.TITLE, audience);
                 return true;
             } else {
                 tUtil.sendOnlySubtitle(
-                    mUtils.parse(mUtils.replaceLegacy(
+                    mm.parse(MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
-                        papi.replacePlaceholders()),
+                        PPlaceholders.replacePlaceholders()),
                         audience, 1000, 3000, 1000);
                 config.sendConfirmation(ComponentType.TITLE, sender);
                 config.playPaperSound(ComponentType.TITLE, audience);
@@ -67,12 +69,12 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         if (sender instanceof Player player) {
             // Send the title
             tUtil.sendTitle(
-                mUtils.parse(mUtils.replaceLegacy(
+                mm.parse(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
-                    papi.replacePlaceholders(player)),
-                mUtils.parse(mUtils.replaceLegacy(
+                    PPlaceholders.replacePlaceholders(player)),
+                mm.parse(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
-                    papi.replacePlaceholders(player)),
+                    PPlaceholders.replacePlaceholders(player)),
                 audience,
                 1000,
                 3000,
@@ -83,12 +85,12 @@ public class AnnouncerTitleCommand implements CommandExecutor {
         } else {
             // Send the title
             tUtil.sendTitle(
-                mUtils.parse(mUtils.replaceLegacy(
+                mm.parse(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
-                    papi.replacePlaceholders()),
-                mUtils.parse(mUtils.replaceLegacy(
+                    PPlaceholders.replacePlaceholders()),
+                mm.parse(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
-                    papi.replacePlaceholders()),
+                    PPlaceholders.replacePlaceholders()),
                 audience,
                 1000,
                 3000,

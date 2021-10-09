@@ -2,8 +2,9 @@ package net.dreamerzero.titleannouncer.common.utils;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class BossBarUtils {
+public record BossBarUtils(ConfigUtils config, MiniMessage mm) {
     /**
      * Based on the argument given in the command, 
      * it will return the color of the specified bossbar.
@@ -42,14 +43,12 @@ public class BossBarUtils {
 
     // It will return if the given arguments are correct for the command to work correctly.
     public boolean regularBossbarArgs(int length, Audience sender) {
-        ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         ConfigManager cManager = new ConfigManager();
         // The command requires arguments to work
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
@@ -57,7 +56,7 @@ public class BossBarUtils {
             }
             case 1 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                             "messages.bossbar.only-time",
                             "<gray>You must enter the color and the message arguments.</gray>"))));
@@ -65,7 +64,7 @@ public class BossBarUtils {
             }
             case 2 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
@@ -73,7 +72,7 @@ public class BossBarUtils {
             }
             case 3 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
@@ -84,13 +83,11 @@ public class BossBarUtils {
     }
 
     public boolean sendBossbarArgs(int length, Audience sender) {
-        ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         ConfigManager cManager = new ConfigManager();
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
@@ -98,7 +95,7 @@ public class BossBarUtils {
             }
             case 1 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.only-player",
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
@@ -106,7 +103,7 @@ public class BossBarUtils {
             }
             case 2 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                     cManager.getConfig().getOrDefault(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
@@ -114,7 +111,7 @@ public class BossBarUtils {
             }
             case 3 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
@@ -122,7 +119,7 @@ public class BossBarUtils {
             }
             case 4 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
@@ -133,13 +130,11 @@ public class BossBarUtils {
     }
 
     public boolean proxyBossbarArgs(int length, Audience sender) {
-        ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         ConfigManager cManager = new ConfigManager();
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
@@ -147,7 +142,7 @@ public class BossBarUtils {
             }
             case 1 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.general.no-server-provided",
                         "<red>No server provided to send the message</red>"))));
@@ -155,7 +150,7 @@ public class BossBarUtils {
             }
             case 2 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
@@ -163,7 +158,7 @@ public class BossBarUtils {
             }
             case 3 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
@@ -171,7 +166,7 @@ public class BossBarUtils {
             }
             case 4 -> {
                 sender.sendMessage(
-                    config.getPrefix().append(mUtils.parse(
+                    config.getPrefix().append(mm.parse(
                         cManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
@@ -185,9 +180,8 @@ public class BossBarUtils {
         try {
             return Integer.parseInt(number);
         } catch (Exception e){
-            sender.sendMessage(
-                new ConfigUtils().getPrefix().append(
-                    new MiniMessageUtil().parse("<dark_red>This is not a valid number")));
+            sender.sendMessage(config.getPrefix().append(
+                mm.parse("<dark_red>This is not a valid number")));
             return 0.1f;
         }
     }

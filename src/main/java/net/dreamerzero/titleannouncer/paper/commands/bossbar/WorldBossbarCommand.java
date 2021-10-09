@@ -18,8 +18,9 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record WorldBossbarCommand(Announcer plugin) implements CommandExecutor {
+public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -31,8 +32,7 @@ public record WorldBossbarCommand(Announcer plugin) implements CommandExecutor {
             return false;
         }
 
-        BossBarUtils bUtils = new BossBarUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
+        BossBarUtils bUtils = new BossBarUtils(config,mm);
 
         // The command requires arguments to work
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
@@ -59,10 +59,10 @@ public record WorldBossbarCommand(Announcer plugin) implements CommandExecutor {
         new PaperBossBar(plugin).sendBukkitBossBar(
             audience,
             time,
-            mUtils.parse(
-                mUtils.replaceLegacy(
+            mm.parse(
+                MiniMessageUtil.replaceLegacy(
                     Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    new PPlaceholders().replacePlaceholders()),
+                    PPlaceholders.replacePlaceholders()),
             color,
             overlay);
         config.sendConfirmation(ComponentType.BOSSBAR, sender);

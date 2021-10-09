@@ -3,14 +3,13 @@ package net.dreamerzero.titleannouncer.paper.utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import static net.kyori.adventure.text.Component.*;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-
 public class PaperHelpMessages {
-    private MiniMessageUtil mUtils = new MiniMessageUtil();
+    private MiniMessage mm = MiniMessage.miniMessage();
     public final Component titleArguments = text("[Title]; [SubTitle]", AQUA);
     public final Component actionbarArguments = text("[ActionBar]", AQUA);
     public final Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
@@ -151,7 +150,7 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki"))
             .hoverEvent(HoverEvent.showText(
-                mUtils.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
         .build();
     public final Component titlewikilink = text()
         .append(text()
@@ -161,7 +160,7 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Title-Commands"))
             .hoverEvent(HoverEvent.showText(
-                mUtils.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
     public final Component actionbarwikilink = text()
         .append(text()
@@ -171,7 +170,7 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/ActionBar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                mUtils.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 
     public final Component bossbarwikilink = text()
@@ -182,6 +181,6 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Bossbar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                mUtils.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 }

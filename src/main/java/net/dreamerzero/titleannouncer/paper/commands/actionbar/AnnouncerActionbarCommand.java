@@ -14,12 +14,9 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class AnnouncerActionbarCommand implements CommandExecutor {
-    public AnnouncerActionbarCommand() {}
-
-    // The audience that will receive the actionbar will be all the players on the server.
-    Audience audience = Bukkit.getServer();
+public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -33,23 +30,23 @@ public class AnnouncerActionbarCommand implements CommandExecutor {
 
         // Concatenate the arguments provided by the command sent.
         String actionbartext = new GeneralUtils().getCommandString(args);
-        MiniMessageUtil mUtils = new MiniMessageUtil();
-        PPlaceholders papi = new PPlaceholders();
+        // The audience that will receive the actionbar will be all the players on the server.
+        Audience audience = Bukkit.getServer();
 
         // Send to all
         if (sender instanceof Player player) {
-            audience.sendActionBar(mUtils.parse(
-                mUtils.replaceLegacy(
+            audience.sendActionBar(mm.parse(
+                MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
-                    papi.replacePlaceholders(player)));
+                    PPlaceholders.replacePlaceholders(player)));
             config.playPaperSound(ComponentType.ACTIONBAR, audience);
             config.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;
         } else {
-            audience.sendActionBar(mUtils.parse(
-                mUtils.replaceLegacy(
+            audience.sendActionBar(mm.parse(
+                MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, actionbartext) : actionbartext),
-                    papi.replacePlaceholders()));
+                    PPlaceholders.replacePlaceholders()));
             config.playPaperSound(ComponentType.ACTIONBAR, audience);
             config.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;

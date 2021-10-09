@@ -19,13 +19,15 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerBossbarCommand(Announcer plugin) implements CommandExecutor {
+public record AnnouncerBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // The command requires arguments to work
-        BossBarUtils bUtils = new BossBarUtils();
+        ConfigUtils config = new ConfigUtils();
+        BossBarUtils bUtils = new BossBarUtils(config, mm);
         if (!bUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
@@ -41,10 +43,7 @@ public record AnnouncerBossbarCommand(Announcer plugin) implements CommandExecut
         BossBar.Color color = bUtils.bossbarColor(args[1]);
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
 
-        ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         PaperBossBar pBossBar = new PaperBossBar(plugin);
-        PPlaceholders papi = new PPlaceholders();
 
         if (color == null || overlay == null) {
             sender.sendMessage(config.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));
@@ -58,9 +57,9 @@ public record AnnouncerBossbarCommand(Announcer plugin) implements CommandExecut
             pBossBar.sendBukkitBossBar(
                 audience,
                 time,
-                mUtils.parse(mUtils.replaceLegacy(
+                mm.parse(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    papi.replacePlaceholders(player)),
+                    PPlaceholders.replacePlaceholders(player)),
                 color,
                 overlay);
             config.sendConfirmation(ComponentType.BOSSBAR, sender);
@@ -70,10 +69,10 @@ public record AnnouncerBossbarCommand(Announcer plugin) implements CommandExecut
             pBossBar.sendBukkitBossBar(
                 audience,
                 time,
-                mUtils.parse(
-                    mUtils.replaceLegacy(
+                mm.parse(
+                    MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
-                        papi.replacePlaceholders()),
+                        PPlaceholders.replacePlaceholders()),
                 color,
                 overlay);
             config.sendConfirmation(ComponentType.BOSSBAR, sender);

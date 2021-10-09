@@ -13,13 +13,13 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-/*
-This command will be executed as a test of the "/anunciarevento" command.
-It will only be sent for the same player.
-*/
 public class SelfTitleCommand implements CommandExecutor {
-    public SelfTitleCommand() {}
+    private MiniMessage mm;
+    public SelfTitleCommand(MiniMessage mm) {
+        this.mm = mm;
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -43,14 +43,12 @@ public class SelfTitleCommand implements CommandExecutor {
         String titleandsubtitle = new GeneralUtils().getCommandString(args);
 
         TitleUtil tUtil = new TitleUtil();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
-        PPlaceholders pPlaceholders = new PPlaceholders();
 
         if(!titleandsubtitle.contains(";")){
             tUtil.sendOnlySubtitle(
-                mUtils.parse(mUtils.replaceLegacy(
+                mm.parse(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
-                    pPlaceholders.replacePlaceholders(player)),
+                    PPlaceholders.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
             config.sendConfirmation(ComponentType.TITLE, sender);
             config.playPaperSound(ComponentType.TITLE, sender);
@@ -63,12 +61,12 @@ public class SelfTitleCommand implements CommandExecutor {
 
         // Send the Title
         tUtil.sendTitle(
-            mUtils.parse(mUtils.replaceLegacy(placeholderAPISupport ? 
+            mm.parse(MiniMessageUtil.replaceLegacy(placeholderAPISupport ? 
                 PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]), 
-            pPlaceholders.replacePlaceholders(player)),
-            mUtils.parse(mUtils.replaceLegacy(placeholderAPISupport ? 
+            PPlaceholders.replacePlaceholders(player)),
+            mm.parse(MiniMessageUtil.replaceLegacy(placeholderAPISupport ? 
                 PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
-            pPlaceholders.replacePlaceholders(player)),
+            PPlaceholders.replacePlaceholders(player)),
             sender,
             1000,
             3000,

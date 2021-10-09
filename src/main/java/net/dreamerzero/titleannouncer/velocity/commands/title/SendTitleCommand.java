@@ -15,16 +15,16 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
-public record SendTitleCommand(ProxyServer server) implements SimpleCommand {
+public record SendTitleCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new  MiniMessageUtil();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         switch (args.length) {
@@ -53,7 +53,7 @@ public record SendTitleCommand(ProxyServer server) implements SimpleCommand {
 
         if(!tUtil.containsComma(args, 1)){
             tUtil.sendOnlySubtitle(
-                mUtils.parse(mUtils.replaceLegacy(titleandsubtitle),
+                mm.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     vPlaceholders.replaceProxyPlaceholders(playerObjetive)),
                 playerObjetive, 1000, 3000, 1000);
             config.sendConfirmation(ComponentType.TITLE, sender);
@@ -67,11 +67,11 @@ public record SendTitleCommand(ProxyServer server) implements SimpleCommand {
 
         // Send the title
         tUtil.sendTitle(
-            mUtils.parse(
-                mUtils.replaceLegacy(titleandsubtitlefinal[0]),
+            mm.parse(
+                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                 vPlaceholders.replaceProxyPlaceholders(playerObjetive)),
-            mUtils.parse(
-                mUtils.replaceLegacy(titleandsubtitlefinal[1]),
+            mm.parse(
+                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                 vPlaceholders.replaceProxyPlaceholders(playerObjetive)),
             playerObjetive,
             1000,

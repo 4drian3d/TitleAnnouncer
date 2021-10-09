@@ -6,21 +6,19 @@ import com.velocitypowered.api.permission.Tristate;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityHelpMessages;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class AnnouncerCommand implements SimpleCommand {
-    public AnnouncerCommand() {}
+public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource source = invocation.source();
         String[] args = invocation.arguments();
         ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
 
         if (args.length == 0) {
-            source.sendMessage(mUtils.parse(
+            source.sendMessage(mm.parse(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             config.helpPrefix(source);
             source.sendMessage(VelocityHelpMessages.titleHelpMessage);
@@ -37,7 +35,7 @@ public class AnnouncerCommand implements SimpleCommand {
             }
             case "help" -> {
                 source.sendMessage(
-                    mUtils.parse(
+                    mm.parse(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
                 config.helpPrefix(source);
                 if(args.length == 2){

@@ -13,8 +13,9 @@ import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerActionbarCommand(ProxyServer server) implements SimpleCommand {
+public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
@@ -23,7 +24,6 @@ public record AnnouncerActionbarCommand(ProxyServer server) implements SimpleCom
         // Concatenate the arguments provided by the command sent.
         String actionbartext = new GeneralUtils().getCommandString(args);
         ConfigUtils config = new ConfigUtils();
-        MiniMessageUtil mUtils = new MiniMessageUtil();
         VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
@@ -32,8 +32,8 @@ public record AnnouncerActionbarCommand(ProxyServer server) implements SimpleCom
         }
 
         // Send to all
-        server.sendActionBar(mUtils.parse(
-            mUtils.replaceLegacy(
+        server.sendActionBar(mm.parse(
+            MiniMessageUtil.replaceLegacy(
                 actionbartext),
                 sender instanceof Player player ?
                     vPlaceholders.replaceProxyPlaceholders(player) :
