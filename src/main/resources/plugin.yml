@@ -1,12 +1,10 @@
-name: ${project.artifactId}
-version: ${project.version}
-prefix: ${project.artifactId}
+name: ${name}
+version: ${version}
+prefix: ${name}
 author: 4drian3d
 main: net.dreamerzero.titleannouncer.paper.Announcer
-website: https://github.com/4drian3d/TitleAnnouncer
-description: >
-    Plugin created to send titles, actionbars and bossbars to the
-    player and the server in general using the MiniMessage format.
+website: ${url}
+description: ${description}
 api-version: 1.17
 softdepend: [PlaceholderAPI]
 commands:
@@ -30,11 +28,9 @@ commands:
         permission: titleannouncer.title.send
     # Actionbar Commands
     announceactionbar:
-        aliases: [actionbarevento]
         description: This will announce an actionbar to all players.
         permission: titleannouncer.actionbar.global
     selfactionbar:
-        aliases: [actionbarpevento]
         description: This will announce an actionbar to the sender of the command.
         permission: titleannouncer.actionbar.self
     worldactionbar:
