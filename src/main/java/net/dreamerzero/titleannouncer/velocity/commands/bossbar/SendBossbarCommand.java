@@ -1,6 +1,5 @@
 package net.dreamerzero.titleannouncer.velocity.commands.bossbar;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,11 +71,7 @@ public record SendBossbarCommand(ProxyServer server, Announcer plugin, MiniMessa
     @Override
     public List<String> suggest(final Invocation invocation) {
         return switch (invocation.arguments().length) {
-            case 1 -> {
-                ArrayList<String> players = new ArrayList<>();
-                server.getAllPlayers().forEach(player -> players.add(player.getUsername()));
-                yield players;
-            }
+            case 1 -> server.getAllPlayers().stream().map(Player::getUsername).toList();
             case 2 -> List.of("[Time]");
             case 3 -> List.of("[Color]");
             case 4 -> List.of("[Type]");

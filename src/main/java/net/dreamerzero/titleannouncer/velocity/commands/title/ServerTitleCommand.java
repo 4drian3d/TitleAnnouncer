@@ -1,6 +1,5 @@
 package net.dreamerzero.titleannouncer.velocity.commands.title;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,9 +82,7 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
     @Override
     public List<String> suggest(final Invocation invocation) {
         if (invocation.arguments().length <= 1){
-            ArrayList<String> servers = new ArrayList<>();
-            server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
-            return servers;
+            return server.getAllServers().stream().map(server -> server.getServerInfo().getName()).toList();
         } else if (!new TitleUtil().containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {

@@ -1,6 +1,5 @@
 package net.dreamerzero.titleannouncer.velocity.commands.actionbar;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,10 +54,7 @@ public record ServerActionbarCommand(ProxyServer server, MiniMessage mm) impleme
     @Override
     public List<String> suggest(final Invocation invocation) {
         if(invocation.arguments().length <= 1){
-            ArrayList<String> servers = new ArrayList<>();
-            server.getAllServers().forEach(server ->
-                servers.add(server.getServerInfo().getName()));
-            return servers;
+            return server.getAllServers().stream().map(server -> server.getServerInfo().getName()).toList();
         }
         return List.of("[message]");
     }

@@ -1,6 +1,5 @@
 package net.dreamerzero.titleannouncer.velocity.commands.title;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,9 +82,7 @@ public record SendTitleCommand(ProxyServer server, MiniMessage mm) implements Si
     @Override
     public List<String> suggest(final Invocation invocation) {
         if (invocation.arguments().length <= 2){
-            ArrayList<String> players = new ArrayList<>();
-            server.getAllPlayers().forEach(player -> players.add(player.getUsername()));
-            return players;
+            return server.getAllPlayers().stream().map(Player::getUsername).toList();
         } else if (!new TitleUtil().containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {

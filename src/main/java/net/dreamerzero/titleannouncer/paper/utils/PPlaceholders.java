@@ -15,14 +15,10 @@ public class PPlaceholders {
      * @return Placeholders for console
      */
     public static List<Template> replacePlaceholders() {
-        String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
-        String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
-
-        final List<Template> templates = List.of(
+        return List.of(
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
-            Template.of("mspt", text(mspt)),
-            Template.of("tps", text(tps)));
-        return templates;
+            Template.of("mspt", text(String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3))),
+            Template.of("tps", text(String.valueOf(Bukkit.getTPS()[0]).substring(0, 4))));
     }
     /**
      * Replace Placeholders in Title/ActionBar
@@ -31,18 +27,13 @@ public class PPlaceholders {
      * @return Placeholders for sender player
      */
     public static List<Template> replacePlaceholders(org.bukkit.entity.Player player) {
-
-        String mspt = String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3);
-        String tps = String.valueOf(Bukkit.getTPS()[0]).substring(0, 4);
-
-        final List<Template> templates = List.of(
+        return List.of(
             Template.of("name", text(player.getName())),
             Template.of("ping", text(String.valueOf(player.getPing()))),
             Template.of("online", text(Bukkit.getServer().getOnlinePlayers().size())),
             Template.of("world", text(player.getWorld().getName())),
             Template.of("player", text(player.getName())),
-            Template.of("mspt", text(mspt)),
-            Template.of("tps", text(tps)));
-        return templates;
+            Template.of("mspt", text(String.valueOf(Bukkit.getAverageTickTime()/20).substring(0, 3))),
+            Template.of("tps", text(String.valueOf(Bukkit.getTPS()[0]).substring(0, 4))));
     }
 }

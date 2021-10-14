@@ -1,6 +1,5 @@
 package net.dreamerzero.titleannouncer.velocity.commands.bossbar;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,11 +70,7 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
     @Override
     public List<String> suggest(final Invocation invocation) {
         return switch (invocation.arguments().length) {
-            case 0, 1 -> {
-                ArrayList<String> servers = new ArrayList<>();
-                server.getAllServers().forEach(sv -> servers.add(sv.getServerInfo().getName()));
-                yield servers;
-            }
+            case 0, 1 -> server.getAllServers().stream().map(server -> server.getServerInfo().getName()).toList();
             case 2 -> List.of("[Time]");
             case 3 -> List.of("[Color]");
             case 4 -> List.of("[Type]");
