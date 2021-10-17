@@ -64,6 +64,7 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
         if (sender instanceof Player player) {
             // Send the title
             // Possible bug fix? -> VTask.run(()-> {task});
+            // Bug in Adventure, not mine
                 tUtil.sendTitle(
                 mm.parse(
                     MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),

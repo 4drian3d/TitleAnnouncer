@@ -74,9 +74,6 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
 
     @Override
     public boolean hasPermission(final Invocation invocation) {
-        if (invocation.source().getPermissionValue("titleannouncer.command.show") != Tristate.TRUE){
-            return false;
-        }
-        return true;
+        return invocation.source().getPermissionValue("titleannouncer.command.show") == Tristate.TRUE;
     }
 }

@@ -7,7 +7,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class ConfigUtils {
     private static Yaml config = new ConfigManager().getConfig();
-    private static MiniMessage mm = MiniMessage.miniMessage();
+    private static final MiniMessage mm = MiniMessage.miniMessage();
 
     public static Component getPrefix(){
         if (config.getOrDefault("messages.prefix.enabled", true)) {

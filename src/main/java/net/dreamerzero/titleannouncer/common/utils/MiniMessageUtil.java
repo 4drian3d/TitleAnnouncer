@@ -2,7 +2,7 @@ package net.dreamerzero.titleannouncer.common.utils;
 
 public class MiniMessageUtil {
     public static String replaceLegacy(String legacyText){
-        String newText = legacyText
+        return legacyText
             .replaceAll("&1", "<dark_blue>")
             .replaceAll("&2", "<dark_green>")
             .replaceAll("&3", "<dark_aqua>")
@@ -22,6 +22,5 @@ public class MiniMessageUtil {
             .replaceAll("&k", "<obfuscated>")
             .replaceAll("&m", "<strikethrough>")
             .replaceAll("&n", "<underline>");
-            return newText;
     }
 }

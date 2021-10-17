@@ -1,7 +1,7 @@
 package net.dreamerzero.titleannouncer.common.utils;
 
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.bossbar.BossBar;
+import static net.kyori.adventure.bossbar.BossBar.*;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public record BossBarUtils(MiniMessage mm) {
@@ -11,15 +11,15 @@ public record BossBarUtils(MiniMessage mm) {
      * @param color
      * @return the color of the specified bossbar.
      */
-    public BossBar.Color bossbarColor(String color) {
+    public Color bossbarColor(String color) {
         return switch (color.toLowerCase()) {
-            case "red" -> BossBar.Color.RED;
-            case "blue" -> BossBar.Color.BLUE;
-            case "green" -> BossBar.Color.GREEN;
-            case "pink" -> BossBar.Color.PINK;
-            case "purple" -> BossBar.Color.PURPLE;
-            case "white" -> BossBar.Color.WHITE;
-            case "yellow" -> BossBar.Color.YELLOW;
+            case "red" -> Color.RED;
+            case "blue" -> Color.BLUE;
+            case "green" -> Color.GREEN;
+            case "pink" -> Color.PINK;
+            case "purple" -> Color.PURPLE;
+            case "white" -> Color.WHITE;
+            case "yellow" -> Color.YELLOW;
             default -> null;
         };
     }
@@ -30,13 +30,13 @@ public record BossBarUtils(MiniMessage mm) {
      * @param overlay
      * @return the style of the bossbar
      */
-    public BossBar.Overlay bossbarOverlay(String overlay){
+    public Overlay bossbarOverlay(String overlay){
         return switch (overlay.toLowerCase()){
-            case "6" -> BossBar.Overlay.NOTCHED_6;
-            case "10" -> BossBar.Overlay.NOTCHED_10;
-            case "12" -> BossBar.Overlay.NOTCHED_12;
-            case "20" -> BossBar.Overlay.NOTCHED_20;
-            case "full", "progress" -> BossBar.Overlay.PROGRESS;
+            case "6" -> Overlay.NOTCHED_6;
+            case "10" -> Overlay.NOTCHED_10;
+            case "12" -> Overlay.NOTCHED_12;
+            case "20" -> Overlay.NOTCHED_20;
+            case "full", "progress" -> Overlay.PROGRESS;
             default -> null;
         };
     }
