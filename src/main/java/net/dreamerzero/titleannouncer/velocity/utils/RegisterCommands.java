@@ -4,6 +4,10 @@ import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.velocity.commands.bossbar.*;
+import net.dreamerzero.titleannouncer.velocity.commands.chat.AnnouncerChatCommand;
+import net.dreamerzero.titleannouncer.velocity.commands.chat.SelfChatCommand;
+import net.dreamerzero.titleannouncer.velocity.commands.chat.SendChatCommand;
+import net.dreamerzero.titleannouncer.velocity.commands.chat.ServerChatCommand;
 import net.dreamerzero.titleannouncer.velocity.commands.title.*;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.dreamerzero.titleannouncer.velocity.commands.actionbar.*;
@@ -43,6 +47,17 @@ public record RegisterCommands(Announcer plugin, ProxyServer server, MiniMessage
         server.getCommandManager().register(vselfactionbar, new SelfActionbarCommand(server, mm));
         server.getCommandManager().register(vsendactionbar, new SendActionbarCommand(server, mm));
         server.getCommandManager().register(vserveractionbar, new ServerActionbarCommand(server, mm));
+	}
+
+	public void registerProxyChat(){
+		CommandMeta vannouncechat = server.getCommandManager().metaBuilder("vannouncechat").aliases("pannouncechat", "vchat").build();
+		CommandMeta vselfchat = server.getCommandManager().metaBuilder("vselfchat").aliases("pselfchat", "vsfchat").build();
+		CommandMeta vsendchat = server.getCommandManager().metaBuilder("vsendchat").aliases("psendchat", "vsnchat").build();
+		CommandMeta vserverchat = server.getCommandManager().metaBuilder("vserverchat").aliases("serverchat", "svchat").build();
+		server.getCommandManager().register(vannouncechat, new AnnouncerChatCommand(server, mm));
+		server.getCommandManager().register(vselfchat, new SelfChatCommand(server, mm));
+		server.getCommandManager().register(vsendchat, new SendChatCommand(server, mm));
+		server.getCommandManager().register(vserverchat, new ServerChatCommand(server, mm));
 	}
 
 	public void registerProxyMainCommand(){

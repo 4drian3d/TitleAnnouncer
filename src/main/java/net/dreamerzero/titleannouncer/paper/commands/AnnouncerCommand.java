@@ -62,10 +62,16 @@ public class AnnouncerCommand implements CommandExecutor {
                             sender.sendMessage(PaperHelpMessages.bossbarwikilink);
                             return true;
                         }
+                        case "chat" -> {
+                            sender.sendMessage(PaperHelpMessages.chatHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.chatwikilink);
+                            return true;
+                        }
                         default -> {
                             sender.sendMessage(PaperHelpMessages.titleHelpMessage);
                             sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
                             sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.chatHelpMessage);
                             sender.sendMessage(PaperHelpMessages.fullwikilink);
                             return true;
                         }

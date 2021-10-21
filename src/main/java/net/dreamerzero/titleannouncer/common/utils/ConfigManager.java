@@ -65,6 +65,20 @@ public class ConfigManager {
         config.setDefault("sounds.bossbar.pitch", 2);
 
         config.setDefault(
+            "messages.chat.successfully",
+            "<green>Chat succesfully sended</green>");
+        config.setDefault(
+            "messages.chat.without-argument",
+            "<red>You need to enter the message to announce.</red>");
+        config.setDefault(
+            "messages.chat.only-player",
+            "<gray>You must enter the message to be sent after the player's name.</gray>");
+        config.setDefault("sounds.chat.enabled", true);
+        config.setDefault("sounds.chat.sound-id", "entity.experience_orb.pickup");
+        config.setDefault("sounds.chat.volume", 10);
+        config.setDefault("sounds.chat.pitch", 2);
+
+        config.setDefault(
             "messages.general.no-permission",
             "<red>You do not have permission to execute this command</red>");
         config.setDefault("messages.general.player-not-found", "<red>Player not found</red>");

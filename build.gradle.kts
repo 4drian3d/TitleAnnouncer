@@ -47,8 +47,8 @@ dependencies {
 }
 
 group = "net.dreamerzero.titleannouncer"
-version = "2.1.2"
-description = "Plugin created to send titles, actionbars and bossbars to the player and the proxy using the MiniMessage format."
+version = "2.2.0"
+description = "Plugin created to send titles, actionbars, bossbars and chat announces to the player and the proxy using the MiniMessage format."
 java.sourceCompatibility = JavaVersion.VERSION_16
 
 blossom{
