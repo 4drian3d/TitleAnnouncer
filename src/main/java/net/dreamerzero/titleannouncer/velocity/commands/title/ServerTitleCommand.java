@@ -47,11 +47,10 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
         String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
 
         SoundUtils sUtils = new SoundUtils(server);
-        TitleUtil tUtil = new TitleUtil();
 
-        if(!tUtil.containsComma(args, 1)){
-            tUtil.sendOnlySubtitle(
-                mm.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+        if(!TitleUtil.containsComma(args, 1)){
+            TitleUtil.sendOnlySubtitle(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     vPlaceholders.replaceProxyPlaceholders()),
                 serverObjetive, 1000, 3000, 1000);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
@@ -59,16 +58,16 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
             return;
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         // Send the title
-        tUtil.sendTitle(
-            mm.parse(
+        TitleUtil.sendTitle(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                 vPlaceholders.replaceProxyPlaceholders()),
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                 vPlaceholders.replaceProxyPlaceholders()),
             serverObjetive,
@@ -82,8 +81,9 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
     @Override
     public List<String> suggest(final Invocation invocation) {
         if (invocation.arguments().length <= 1){
-            return server.getAllServers().stream().map(server -> server.getServerInfo().getName()).toList();
-        } else if (!new TitleUtil().containsComma(invocation.arguments())){
+            return server.getAllServers().stream()
+                .map(server -> server.getServerInfo().getName()).toList();
+        } else if (!TitleUtil.containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {
             return List.of("[SubTitle]");

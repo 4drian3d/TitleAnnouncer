@@ -5,6 +5,9 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
+
+import de.leonhard.storage.Yaml;
+
 import com.velocitypowered.api.event.Subscribe;
 
 import net.dreamerzero.titleannouncer.common.utils.Constants;
@@ -27,20 +30,22 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 public class Announcer {
     private final ProxyServer server;
     private final MiniMessage mm;
+    private static Yaml config;
 
     @Inject
     public Announcer(final ProxyServer server) {
         this.server = server;
         this.mm = MiniMessage.miniMessage();
+        config = new Yaml("config", "plugins/TitleAnnouncer");
     }
 
     @Subscribe
     public void onProxyInitialization(final ProxyInitializeEvent event) {
         server.getConsoleCommandSource().sendMessage(
-            mm.parse("<aqua>Enabling</aqua> <gradient:yellow:blue>TitleAnnouncer</gradient>"));
-        ConfigManager cManager = new ConfigManager();
-		cManager.defaultConfig();
-        cManager.defaultProxyConfig();
+            mm.deserialize("<aqua>Enabling</aqua> <gradient:yellow:blue>TitleAnnouncer</gradient>"));
+        new ConfigManager(config);
+		ConfigManager.defaultConfig();
+        ConfigManager.defaultProxyConfig();
         RegisterCommands rCommands = new RegisterCommands(this, server, mm);
         rCommands.registerProxyMainCommand();
         rCommands.registerProxyBossbar();

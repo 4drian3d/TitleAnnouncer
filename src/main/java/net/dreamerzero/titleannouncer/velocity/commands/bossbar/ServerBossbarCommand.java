@@ -47,7 +47,7 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(ConfigUtils.getPrefix().append(mm.parse("<dark_red>Invalid Argument")));
+            sender.sendMessage(ConfigUtils.getPrefix().append(mm.deserialize("<dark_red>Invalid Argument")));
             return;
         }
 
@@ -57,7 +57,7 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
         new VelocityBossbar(plugin, server).sendVelocityBossbar(
             serverObjetive,
             time,
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     bossbartext),
                     new VPlaceholders(server).replaceProxyPlaceholders()),
@@ -70,7 +70,8 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
     @Override
     public List<String> suggest(final Invocation invocation) {
         return switch (invocation.arguments().length) {
-            case 0, 1 -> server.getAllServers().stream().map(server -> server.getServerInfo().getName()).toList();
+            case 0, 1 -> server.getAllServers().stream()
+                .map(server -> server.getServerInfo().getName()).toList();
             case 2 -> List.of("[Time]");
             case 3 -> List.of("[Color]");
             case 4 -> List.of("[Type]");

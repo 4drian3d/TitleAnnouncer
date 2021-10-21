@@ -58,7 +58,7 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
         new PaperBossBar(plugin).sendBukkitBossBar(
             audience,
             time,
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
                     PPlaceholders.replacePlaceholders()),

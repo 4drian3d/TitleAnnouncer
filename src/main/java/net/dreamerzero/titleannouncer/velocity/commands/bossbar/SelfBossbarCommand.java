@@ -49,7 +49,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessa
         if (color == null || overlay == null) {
             sender.sendMessage(
                 ConfigUtils.getPrefix().append(
-                    mm.parse("<dark_red>Invalid Argument")));
+                    mm.deserialize("<dark_red>Invalid Argument")));
             return;
         }
 
@@ -57,7 +57,7 @@ public record SelfBossbarCommand(Announcer plugin, ProxyServer server, MiniMessa
         new VelocityBossbar(plugin, server).sendVelocityBossbar(
             sender,
             time,
-            mm.parse(MiniMessageUtil.replaceLegacy(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(
                 bossbartext),
                 new VPlaceholders(server).replaceProxyPlaceholders(player)),
             color,

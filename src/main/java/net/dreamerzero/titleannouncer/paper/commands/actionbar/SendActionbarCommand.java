@@ -43,7 +43,7 @@ public record SendActionbarCommand(MiniMessage mm) implements CommandExecutor {
         String actionbartext = GeneralUtils.getCommandString(args, 1);
 
         playerObjetive.sendActionBar(
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
                     PPlaceholders.replacePlaceholders(playerObjetive)));

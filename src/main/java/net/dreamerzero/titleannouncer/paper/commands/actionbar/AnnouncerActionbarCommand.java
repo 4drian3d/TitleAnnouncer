@@ -34,7 +34,7 @@ public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecut
 
         // Send to all
         if (sender instanceof Player player) {
-            audience.sendActionBar(mm.parse(
+            audience.sendActionBar(mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
                     PPlaceholders.replacePlaceholders(player)));
@@ -42,7 +42,7 @@ public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecut
             ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
             return true;
         } else {
-            audience.sendActionBar(mm.parse(
+            audience.sendActionBar(mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, actionbartext) : actionbartext),
                     PPlaceholders.replacePlaceholders()));

@@ -42,7 +42,7 @@ public class WorldActionbarCommand implements CommandExecutor {
         String actionbartext = GeneralUtils.getCommandString(args);
 
         audience.sendActionBar(
-            mm.parse(MiniMessageUtil.replaceLegacy(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
                 PPlaceholders.replacePlaceholders(player)));
         ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);

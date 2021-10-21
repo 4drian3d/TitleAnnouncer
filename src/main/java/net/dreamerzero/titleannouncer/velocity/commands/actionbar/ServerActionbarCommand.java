@@ -43,7 +43,7 @@ public record ServerActionbarCommand(ProxyServer server, MiniMessage mm) impleme
         String actionbartext = GeneralUtils.getCommandString(args, 1);
 
         serverObjetive.sendActionBar(
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     actionbartext),
                     vPlaceholders.replaceProxyPlaceholders()));
@@ -54,7 +54,8 @@ public record ServerActionbarCommand(ProxyServer server, MiniMessage mm) impleme
     @Override
     public List<String> suggest(final Invocation invocation) {
         if(invocation.arguments().length <= 1){
-            return server.getAllServers().stream().map(server -> server.getServerInfo().getName()).toList();
+            return server.getAllServers().stream()
+                .map(server -> server.getServerInfo().getName()).toList();
         }
         return List.of("[message]");
     }

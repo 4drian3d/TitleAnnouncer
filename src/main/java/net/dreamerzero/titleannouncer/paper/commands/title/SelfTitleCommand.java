@@ -41,11 +41,9 @@ public class SelfTitleCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
-        TitleUtil tUtil = new TitleUtil();
-
         if(!titleandsubtitle.contains(";")){
-            tUtil.sendOnlySubtitle(
-                mm.parse(MiniMessageUtil.replaceLegacy(
+            TitleUtil.sendOnlySubtitle(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
                     PPlaceholders.replacePlaceholders(player)),
                     sender, 1000, 3000, 1000);
@@ -54,16 +52,16 @@ public class SelfTitleCommand implements CommandExecutor {
             return true;
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return false;
 
         // Send the Title
-        tUtil.sendTitle(
-            mm.parse(MiniMessageUtil.replaceLegacy(placeholderAPISupport ? 
+        TitleUtil.sendTitle(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(placeholderAPISupport ? 
                 PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]), 
             PPlaceholders.replacePlaceholders(player)),
-            mm.parse(MiniMessageUtil.replaceLegacy(placeholderAPISupport ? 
+            mm.deserialize(MiniMessageUtil.replaceLegacy(placeholderAPISupport ? 
                 PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
             PPlaceholders.replacePlaceholders(player)),
             sender,

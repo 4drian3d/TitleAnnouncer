@@ -4,13 +4,13 @@ import de.leonhard.storage.Yaml;
 import de.leonhard.storage.internal.settings.ReloadSettings;
 
 public class ConfigManager {
-    private Yaml config;
+    private static Yaml config;
 
-    public ConfigManager(){
-        config = new Yaml("config", "plugins/TitleAnnouncer");
+    public ConfigManager(Yaml configuration){
+        config = configuration;
     }
 
-    public void defaultConfig(){
+    public static void defaultConfig(){
         config.setDefault("messages.prefix.enabled", true);
         config.setDefault(
             "messages.title.error",
@@ -73,18 +73,17 @@ public class ConfigManager {
         config.setDefault("messages.general.reload-config", "<green>Config Reloaded</green>");
         config.setDefault("messages.general.no-console", "<red>The console cannot execute this command</red>");
         config.setDefault("messages.prefix.line", "<gray>[</gray><gradient:yellow:blue>TitleAnnouncer</gradient><gray>]</gray> ");
-        config.setHeader("""
-        TitleAnnouncer | by 4drian3d
-
-        # To modify the plugin messages and to use the plugin in general,
-        # I recommend that you have a basic knowledge of MiniMessage.
-        # Guide: https://docs.adventure.kyori.net/minimessage.html#format
-        # Spanish Guide: https://gist.github.com/4drian3d/9ccce0ca1774285e38becb09b73728f3
-
-        """);
+        config.setHeader(
+        "TitleAnnouncer | by 4drian3d",
+        "",
+        "To modify the plugin messages and to use the plugin in general,",
+        "I recommend that you have a basic knowledge of MiniMessage.",
+        "Guide: https://docs.adventure.kyori.net/minimessage.html#format",
+        "Spanish Guide: https://gist.github.com/4drian3d/9ccce0ca1774285e38becb09b73728f3",
+        "");
         config.setReloadSettings(ReloadSettings.MANUALLY);
     }
-    public void defaultProxyConfig(){
+    public static void defaultProxyConfig(){
         config.setDefault(
             "messages.general.server-not-found",
             "<red>Server not found</red>");
@@ -93,7 +92,7 @@ public class ConfigManager {
             "<red>No server provided to send the message</red>");
     }
 
-    public Yaml getConfig(){
+    public static Yaml getConfig(){
         return config;
     }
 }

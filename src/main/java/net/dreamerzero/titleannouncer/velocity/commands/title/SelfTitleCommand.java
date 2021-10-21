@@ -38,11 +38,10 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         SoundUtils sUtils = new SoundUtils(server);
-        TitleUtil tUtil = new TitleUtil();
 
         if(!titleandsubtitle.contains(";")){
-            tUtil.sendOnlySubtitle(
-                mm.parse(MiniMessageUtil.replaceLegacy(titleandsubtitle),
+            TitleUtil.sendOnlySubtitle(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(titleandsubtitle),
                     vPlaceholders.replaceProxyPlaceholders(player)),
                 sender, 1000, 3000, 1000);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
@@ -50,16 +49,16 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
             return;
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         // Send the title
-        tUtil.sendTitle(
-            mm.parse(
+        TitleUtil.sendTitle(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                 vPlaceholders.replaceProxyPlaceholders(player)),
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                 vPlaceholders.replaceProxyPlaceholders(player)),
             sender,
@@ -72,7 +71,7 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
 
     @Override
     public List<String> suggest(final Invocation invocation) {
-        if (!new TitleUtil().containsComma(invocation.arguments())){
+        if (!TitleUtil.containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {
             return List.of("[SubTitle]");

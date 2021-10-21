@@ -45,11 +45,9 @@ public class WorldTitleCommand implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
-        TitleUtil tUtil = new TitleUtil();
-
         if(!titleandsubtitle.contains(";")){
-            tUtil.sendOnlySubtitle(
-                mm.parse(
+            TitleUtil.sendOnlySubtitle(
+                mm.deserialize(
                 MiniMessageUtil.replaceLegacy(placeholderAPISupport ?
                     PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle),
                     PPlaceholders.replacePlaceholders(player)),
@@ -59,15 +57,15 @@ public class WorldTitleCommand implements CommandExecutor {
             return true;
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return false;
 
-        tUtil.sendTitle(
-            mm.parse(MiniMessageUtil.replaceLegacy(
+        TitleUtil.sendTitle(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(
                 placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]): titleandsubtitlefinal[0]), 
                 PPlaceholders.replacePlaceholders(player)),
-            mm.parse(MiniMessageUtil.replaceLegacy(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(
                 placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]), 
                 PPlaceholders.replacePlaceholders(player)),
             audience,

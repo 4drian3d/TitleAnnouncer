@@ -43,37 +43,36 @@ public record BossBarUtils(MiniMessage mm) {
 
     // It will return if the given arguments are correct for the command to work correctly.
     public boolean regularBossbarArgs(int length, Audience sender) {
-        ConfigManager cManager = new ConfigManager();
         // The command requires arguments to work
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
                 yield false;
             }
             case 1 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                             "messages.bossbar.only-time",
                             "<gray>You must enter the color and the message arguments.</gray>"))));
                 yield false;
             }
             case 2 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
                 yield false;
             }
             case 3 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
                 yield false;
@@ -83,44 +82,43 @@ public record BossBarUtils(MiniMessage mm) {
     }
 
     public boolean sendBossbarArgs(int length, Audience sender) {
-        ConfigManager cManager = new ConfigManager();
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
                 yield false;
             }
             case 1 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.only-player",
                         "<gray>You must enter the message to be sent after the player's name.</gray>"))));
                 yield false;
             }
             case 2 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                    cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                    ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
                 yield false;
             }
             case 3 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
                 yield false;
             }
             case 4 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
                 yield false;
@@ -130,44 +128,43 @@ public record BossBarUtils(MiniMessage mm) {
     }
 
     public boolean proxyBossbarArgs(int length, Audience sender) {
-        ConfigManager cManager = new ConfigManager();
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-argument",
                         "<red>You need to enter the time, color and message arguments.</red>"))));
                 yield false;
             }
             case 1 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.general.no-server-provided",
                         "<red>No server provided to send the message</red>"))));
                 yield false;
             }
             case 2 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.only-time",
                         "<gray>You must enter the color, overlay and the message arguments.</gray>"))));
                 yield false;
             }
             case 3 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.overlay-missing",
                         "<gray>You must enter the overlay and the message arguments.</gray>"))));
                 yield false;
             }
             case 4 -> {
                 sender.sendMessage(
-                    ConfigUtils.getPrefix().append(mm.parse(
-                        cManager.getConfig().getOrDefault(
+                    ConfigUtils.getPrefix().append(mm.deserialize(
+                        ConfigManager.getConfig().getOrDefault(
                         "messages.bossbar.without-message",
                         "<gray>You need to enter the message to announce.</gray>"))));
                 yield false;
@@ -181,7 +178,7 @@ public record BossBarUtils(MiniMessage mm) {
             return Integer.parseInt(number);
         } catch (Exception e){
             sender.sendMessage(ConfigUtils.getPrefix().append(
-                mm.parse("<dark_red>This is not a valid number")));
+                mm.deserialize("<dark_red>This is not a valid number")));
             return 0.1f;
         }
     }

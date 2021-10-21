@@ -33,7 +33,7 @@ public record SelfActionbarCommand(ProxyServer server, MiniMessage mm) implement
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
 
-        sender.sendActionBar(mm.parse(
+        sender.sendActionBar(mm.deserialize(
             MiniMessageUtil.replaceLegacy(actionbartext),
             vPlaceholders.replaceProxyPlaceholders(player)));
         new SoundUtils(server).playProxySound(player, ComponentType.ACTIONBAR);

@@ -22,13 +22,13 @@ public class AnnouncerCommand implements CommandExecutor {
     // Main Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.permissionValue("titleannouncer.command.admin") != TriState.TRUE){
-            sender.sendMessage(mm.parse(
+            sender.sendMessage(mm.deserialize(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage(mm.parse(
+            sender.sendMessage(mm.deserialize(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             ConfigUtils.helpPrefix(sender);
             sender.sendMessage(paperMessages.titleHelpMessage);
@@ -39,12 +39,12 @@ public class AnnouncerCommand implements CommandExecutor {
         }
         switch (args[0].toLowerCase()) {
             case "reload" -> {
-                new ConfigManager().getConfig().forceReload();
+                ConfigManager.getConfig().forceReload();
                 ConfigUtils.reloadMessage(sender);
                 return true;
             }
             case "help" -> {
-                sender.sendMessage(mm.parse(
+                sender.sendMessage(mm.deserialize(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
                 ConfigUtils.helpPrefix(sender);
                 if(args.length == 2){

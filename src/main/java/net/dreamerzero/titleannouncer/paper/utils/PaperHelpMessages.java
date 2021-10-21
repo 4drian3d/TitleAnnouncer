@@ -150,7 +150,7 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki"))
             .hoverEvent(HoverEvent.showText(
-                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
         .build();
     public final Component titlewikilink = text()
         .append(text()
@@ -160,7 +160,7 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Title-Commands"))
             .hoverEvent(HoverEvent.showText(
-                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
             .build();
     public final Component actionbarwikilink = text()
         .append(text()
@@ -170,7 +170,7 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/ActionBar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 
     public final Component bossbarwikilink = text()
@@ -181,6 +181,6 @@ public class PaperHelpMessages {
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Bossbar-Commands"))
             .hoverEvent(HoverEvent.showText(
-                mm.parse("<gradient:red:blue>Click Here</gradient>"))))
+                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 }

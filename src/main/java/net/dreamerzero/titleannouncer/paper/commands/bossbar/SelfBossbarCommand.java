@@ -61,7 +61,7 @@ public class SelfBossbarCommand implements CommandExecutor {
         pBossBar.sendBukkitBossBar(
             player,
             time,
-            mm.parse(MiniMessageUtil.replaceLegacy(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
                 PPlaceholders.replacePlaceholders(player)),
             color,

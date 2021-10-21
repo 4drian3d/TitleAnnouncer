@@ -17,7 +17,7 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
         String[] args = invocation.arguments();
 
         if (args.length == 0) {
-            source.sendMessage(mm.parse(
+            source.sendMessage(mm.deserialize(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             ConfigUtils.helpPrefix(source);
             source.sendMessage(VelocityHelpMessages.titleHelpMessage);
@@ -29,12 +29,12 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
 
         switch (args[0].toLowerCase()) {
             case "reload" -> {
-                new ConfigManager().getConfig().forceReload();
+                ConfigManager.getConfig().forceReload();
                 ConfigUtils.reloadMessage(source);
             }
             case "help" -> {
                 source.sendMessage(
-                    mm.parse(
+                    mm.deserialize(
                     "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
                 ConfigUtils.helpPrefix(source);
                 if(args.length == 2){

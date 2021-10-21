@@ -48,7 +48,7 @@ public record SendBossbarCommand(ProxyServer server, Announcer plugin, MiniMessa
         BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
-            sender.sendMessage(ConfigUtils.getPrefix().append(mm.parse("<dark_red>Invalid Argument")));
+            sender.sendMessage(ConfigUtils.getPrefix().append(mm.deserialize("<dark_red>Invalid Argument")));
             return;
         }
 
@@ -58,7 +58,7 @@ public record SendBossbarCommand(ProxyServer server, Announcer plugin, MiniMessa
         vBossbar.sendVelocityBossbar(
             playerObjetive,
             time,
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     bossbartext),
                     new VPlaceholders(server).replaceProxyPlaceholders(playerObjetive)),
@@ -71,7 +71,8 @@ public record SendBossbarCommand(ProxyServer server, Announcer plugin, MiniMessa
     @Override
     public List<String> suggest(final Invocation invocation) {
         return switch (invocation.arguments().length) {
-            case 1 -> server.getAllPlayers().stream().map(Player::getUsername).toList();
+            case 1 -> server.getAllPlayers().stream()
+                .map(Player::getUsername).toList();
             case 2 -> List.of("[Time]");
             case 3 -> List.of("[Color]");
             case 4 -> List.of("[Type]");

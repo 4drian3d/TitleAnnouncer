@@ -7,28 +7,29 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.kyori.adventure.text.minimessage.Template;
+import net.kyori.adventure.text.minimessage.template.TemplateResolver;
 
 public record VPlaceholders(ProxyServer proxy) {
 
-    public List<Template> replaceProxyPlaceholders(){
-        return List.of(
-            Template.of("online", String.valueOf(proxy.getPlayerCount())),
-            Template.of("servers", String.valueOf(proxy.getAllServers().size())));
+    public TemplateResolver replaceProxyPlaceholders(){
+        return TemplateResolver.templates(
+            Template.template("online", String.valueOf(proxy.getPlayerCount())),
+            Template.template("servers", String.valueOf(proxy.getAllServers().size())));
     }
 
-    public List<Template> replaceProxyPlaceholders(Player player){
+    public TemplateResolver replaceProxyPlaceholders(Player player){
         List<Template> templates = Arrays.asList(
-            Template.of("online", String.valueOf(proxy.getPlayerCount())),
-            Template.of("servers", String.valueOf(proxy.getAllServers().size())),
-            Template.of("name", player.getUsername()),
-            Template.of("ping", String.valueOf(player.getPing())),
-            Template.of("client", player.getClientBrand()),
-            Template.of("locale", player.getEffectiveLocale().getDisplayLanguage()),
-            Template.of("server", player.getCurrentServer().get().getServerInfo().getName()),
-            Template.of("version", player.getProtocolVersion().getMostRecentSupportedVersion()));
+            Template.template("online", String.valueOf(proxy.getPlayerCount())),
+            Template.template("servers", String.valueOf(proxy.getAllServers().size())),
+            Template.template("name", player.getUsername()),
+            Template.template("ping", String.valueOf(player.getPing())),
+            Template.template("client", player.getClientBrand()),
+            Template.template("locale", player.getEffectiveLocale().getDisplayLanguage()),
+            Template.template("server", player.getCurrentServer().get().getServerInfo().getName()),
+            Template.template("version", player.getProtocolVersion().getMostRecentSupportedVersion()));
         if(player.getModInfo().isPresent()) {
-            templates.add(Template.of("mods", player.getModInfo().get().getMods().toString()));
+            templates.add(Template.template("mods", player.getModInfo().get().getMods().toString()));
         }
-        return templates;
+        return TemplateResolver.templates(templates);
     }
 }

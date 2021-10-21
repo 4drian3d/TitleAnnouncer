@@ -50,11 +50,9 @@ public class SendTitleCommand implements CommandExecutor {
             return false;
         }
 
-        TitleUtil tUtil = new TitleUtil();
-
         if(!titleandsubtitle.contains(";")){
-            tUtil.sendOnlySubtitle(
-                mm.parse(MiniMessageUtil.replaceLegacy(
+            TitleUtil.sendOnlySubtitle(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitle) : titleandsubtitle), 
                     PPlaceholders.replacePlaceholders(playerObjetive)),
                     playerObjetive, 1000, 3000, 1000);
@@ -63,16 +61,16 @@ public class SendTitleCommand implements CommandExecutor {
             return true;
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return false;
 
         // Send the title
-        tUtil.sendTitle(
-            mm.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+        TitleUtil.sendTitle(
+            mm.deserialize(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
                 PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitlefinal[0])) : titleandsubtitlefinal[0], 
                 PPlaceholders.replacePlaceholders(playerObjetive)),
-            mm.parse(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
+            mm.deserialize(placeholderAPISupport ? MiniMessageUtil.replaceLegacy(
                 PlaceholderAPI.setPlaceholders(playerObjetive, titleandsubtitlefinal[1])) : titleandsubtitlefinal[1], 
                 PPlaceholders.replacePlaceholders(playerObjetive)),
             playerObjetive, 1000, 3000, 1000);

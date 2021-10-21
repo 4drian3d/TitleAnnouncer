@@ -43,7 +43,7 @@ public record SendActionbarCommand(ProxyServer server, MiniMessage mm) implement
         String actionbartext = GeneralUtils.getCommandString(args, 1);
 
         playerObjetive.sendActionBar(
-            mm.parse(
+            mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     actionbartext),
                     vPlaceholders.replaceProxyPlaceholders(playerObjetive)));

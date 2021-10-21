@@ -37,12 +37,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
 
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
-        TitleUtil tUtil = new TitleUtil();
 
-        if(!tUtil.containsComma(args)){
+        if(!TitleUtil.containsComma(args)){
             if(sender instanceof Player player){
-                tUtil.sendOnlySubtitle(
-                    mm.parse(MiniMessageUtil.replaceLegacy(
+                TitleUtil.sendOnlySubtitle(
+                    mm.deserialize(MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitle) : titleandsubtitle), 
                         PPlaceholders.replacePlaceholders(player)),
                         audience, 1000, 3000, 1000);
@@ -50,8 +49,8 @@ public class AnnouncerTitleCommand implements CommandExecutor {
                 ConfigUtils.playPaperSound(ComponentType.TITLE, audience);
                 return true;
             } else {
-                tUtil.sendOnlySubtitle(
-                    mm.parse(MiniMessageUtil.replaceLegacy(
+                TitleUtil.sendOnlySubtitle(
+                    mm.deserialize(MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitle) : titleandsubtitle), 
                         PPlaceholders.replacePlaceholders()),
                         audience, 1000, 3000, 1000);
@@ -61,17 +60,17 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             }
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return false;
 
         if (sender instanceof Player player) {
             // Send the title
-            tUtil.sendTitle(
-                mm.parse(MiniMessageUtil.replaceLegacy(
+            TitleUtil.sendTitle(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
                     PPlaceholders.replacePlaceholders(player)),
-                mm.parse(MiniMessageUtil.replaceLegacy(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
                     PPlaceholders.replacePlaceholders(player)),
                 audience,
@@ -83,11 +82,11 @@ public class AnnouncerTitleCommand implements CommandExecutor {
             return true;
         } else {
             // Send the title
-            tUtil.sendTitle(
-                mm.parse(MiniMessageUtil.replaceLegacy(
+            TitleUtil.sendTitle(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[0]) : titleandsubtitlefinal[0]),
                     PPlaceholders.replacePlaceholders()),
-                mm.parse(MiniMessageUtil.replaceLegacy(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, titleandsubtitlefinal[1]) : titleandsubtitlefinal[1]),
                     PPlaceholders.replacePlaceholders()),
                 audience,

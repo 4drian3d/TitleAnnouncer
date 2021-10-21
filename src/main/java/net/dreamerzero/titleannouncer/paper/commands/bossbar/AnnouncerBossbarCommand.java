@@ -62,7 +62,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             pBossBar.sendBukkitBossBar(
                 audience,
                 time,
-                mm.parse(MiniMessageUtil.replaceLegacy(
+                mm.deserialize(MiniMessageUtil.replaceLegacy(
                     placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
                     PPlaceholders.replacePlaceholders(player)),
                 color,
@@ -74,7 +74,7 @@ public class AnnouncerBossbarCommand implements CommandExecutor {
             pBossBar.sendBukkitBossBar(
                 audience,
                 time,
-                mm.parse(
+                mm.deserialize(
                     MiniMessageUtil.replaceLegacy(
                         placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, bossbartext) : bossbartext),
                         PPlaceholders.replacePlaceholders()),

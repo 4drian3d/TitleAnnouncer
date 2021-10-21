@@ -59,7 +59,7 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
         new PaperBossBar(plugin).sendBukkitBossBar(
             playerObjetive,
             time,
-            mm.parse(MiniMessageUtil.replaceLegacy(
+            mm.deserialize(MiniMessageUtil.replaceLegacy(
                 Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, bossbartext) : bossbartext),
                 PPlaceholders.replacePlaceholders(playerObjetive)),
             color,

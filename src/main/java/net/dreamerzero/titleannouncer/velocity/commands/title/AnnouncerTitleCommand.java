@@ -33,31 +33,19 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
         String titleandsubtitle = GeneralUtils.getCommandString(args);
 
         SoundUtils sUtils = new SoundUtils(server);
-        TitleUtil tUtil = new TitleUtil();
 
         if(!titleandsubtitle.contains(";")){
-            if(sender instanceof Player player){
-                tUtil.sendOnlySubtitle(
-                    mm.parse(
-                        MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                        vPlaceholders.replaceProxyPlaceholders(player)),
-                    server, 1000, 3000, 1000);
-                ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-                sUtils.playProxySound(ComponentType.TITLE);
-                return;
-            } else {
-                tUtil.sendOnlySubtitle(
-                    mm.parse(
-                        MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                        vPlaceholders.replaceProxyPlaceholders()),
-                    server, 1000, 3000, 1000);
-                ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
-                sUtils.playProxySound(ComponentType.TITLE);
-                return;
-            }
+            TitleUtil.sendOnlySubtitle(
+                mm.deserialize(
+                    MiniMessageUtil.replaceLegacy(titleandsubtitle),
+                    sender instanceof Player player ? vPlaceholders.replaceProxyPlaceholders(player) : vPlaceholders.replaceProxyPlaceholders()),
+                server, 1000, 3000, 1000);
+            ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
+            sUtils.playProxySound(ComponentType.TITLE);
+            return;
         }
 
-        String titleandsubtitlefinal[] = tUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
@@ -65,11 +53,11 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
             // Send the title
             // Possible bug fix? -> VTask.run(()-> {task});
             // Bug in Adventure, not mine
-                tUtil.sendTitle(
-                mm.parse(
+                TitleUtil.sendTitle(
+                mm.deserialize(
                     MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                     vPlaceholders.replaceProxyPlaceholders(player)),
-                mm.parse(
+                mm.deserialize(
                     MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                     vPlaceholders.replaceProxyPlaceholders(player)),
                 server,
@@ -80,11 +68,11 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         } else {
             // Send the title
-            tUtil.sendTitle(
-                mm.parse(
+            TitleUtil.sendTitle(
+                mm.deserialize(
                     MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
                     vPlaceholders.replaceProxyPlaceholders()),
-                mm.parse(
+                mm.deserialize(
                     MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
                     vPlaceholders.replaceProxyPlaceholders()),
                 server,
@@ -98,7 +86,7 @@ public record AnnouncerTitleCommand(ProxyServer server, MiniMessage mm) implemen
 
     @Override
     public List<String> suggest(final Invocation invocation) {
-        if (!new TitleUtil().containsComma(invocation.arguments())){
+        if (!TitleUtil.containsComma(invocation.arguments())){
             return List.of("[Title]");
         } else {
             return List.of("[SubTitle]");

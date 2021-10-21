@@ -3,6 +3,7 @@ package net.dreamerzero.titleannouncer.paper;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.leonhard.storage.Yaml;
 import net.dreamerzero.titleannouncer.common.utils.ConfigManager;
 import net.dreamerzero.titleannouncer.paper.listeners.PluginListener;
 import net.dreamerzero.titleannouncer.paper.listeners.TabCompleteListener;
@@ -20,11 +21,11 @@ public class Announcer extends JavaPlugin {
 	public void onEnable() {
 		mm = MiniMessage.miniMessage();
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(mm.parse(
+		Bukkit.getConsoleSender().sendMessage(text("Enabling ", AQUA).append(mm.deserialize(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		ConfigManager cManager = new ConfigManager();
-		cManager.defaultConfig();
+		new ConfigManager(new Yaml("plugins/TitleAnnouncer", "config"));
+		ConfigManager.defaultConfig();
 		listenerRegister();
 		placeholderAPICheck();
 		new RegisterCommands(this, mm).registerCommands();
@@ -33,7 +34,7 @@ public class Announcer extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
-		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(mm.parse(
+		Bukkit.getConsoleSender().sendMessage(text("Disabling ", AQUA).append(mm.deserialize(
 			"<gradient:yellow:blue>TitleAnnouncer</gradient>")));
 		Bukkit.getConsoleSender().sendMessage(text("----------------------", DARK_GRAY));
 	}

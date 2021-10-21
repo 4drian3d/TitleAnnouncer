@@ -31,7 +31,7 @@ public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) impl
         }
 
         // Send to all
-        server.sendActionBar(mm.parse(
+        server.sendActionBar(mm.deserialize(
             MiniMessageUtil.replaceLegacy(
                 actionbartext),
                 sender instanceof Player player ?

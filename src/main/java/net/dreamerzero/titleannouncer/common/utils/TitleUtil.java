@@ -20,7 +20,7 @@ public class TitleUtil {
      * @param stay
      * @param fadeout
      */
-    public void sendTitle(
+    public static void sendTitle(
         final Component title,
         final Component subtitle,
         final Audience audience,
@@ -46,7 +46,7 @@ public class TitleUtil {
      * @param stay
      * @param fadeout
      */
-    public void sendOnlyTitle(final Component title,
+    public static void sendOnlyTitle(final Component title,
         final Audience audience,
         final int fadein,
         final int stay,
@@ -67,7 +67,7 @@ public class TitleUtil {
      * @param stay
      * @param fadeout
      */
-    public void sendOnlySubtitle(final Component subtitle,
+    public static void sendOnlySubtitle(final Component subtitle,
         final Audience audience,
         final int fadein,
         final int stay,
@@ -80,7 +80,7 @@ public class TitleUtil {
             Duration.ofMillis(fadeout)));
     }
 
-    public String[] getTitleAndSubtitle(String string, Audience sender) {
+    public static String[] getTitleAndSubtitle(String string, Audience sender) {
         try {
             String newString[] = string.split(";");
             if(newString.length > 2) {
@@ -97,14 +97,14 @@ public class TitleUtil {
         }
     }
 
-    public boolean containsComma(String[] args){
+    public static boolean containsComma(String[] args){
         for(String argument : args){
             if(argument.contains(";")) return true;
         }
         return false;
     }
 
-    public boolean containsComma(String[] args, int since){
+    public static boolean containsComma(String[] args, int since){
         for(int i = since; i < args.length; i++){
             if(args[i].contains(";")) return true;
         }

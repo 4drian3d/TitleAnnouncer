@@ -54,13 +54,13 @@ public record RegisterCommands(Announcer plugin, MiniMessage mm) {
 	 * @param factories command factories
 	 */
 	private void initCommand(CommandFactory ...factories) {
-		Yaml config = new ConfigManager().getConfig();
+		Yaml config = ConfigManager.getConfig();
 		for(CommandFactory factory : factories) {
 			PluginCommand command = this.plugin.getCommand(factory.command());
 			command.setExecutor(factory.executor());
 			command.permissionMessage(
 				ConfigUtils.getPrefix().append(
-					mm.parse(config.getString("messages.general.no-permission"))));
+					mm.deserialize(config.getString("messages.general.no-permission"))));
 		}
 	}
 }
