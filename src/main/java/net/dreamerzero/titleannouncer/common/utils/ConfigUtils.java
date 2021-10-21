@@ -210,7 +210,7 @@ public class ConfigUtils {
                 }
             }
             case CHAT -> {
-                if(isActionbarSoundEnabled()){
+                if(isChatSoundEnabled()){
                     SoundUtil.playSound(
                         getChatSound(),
                         audience,

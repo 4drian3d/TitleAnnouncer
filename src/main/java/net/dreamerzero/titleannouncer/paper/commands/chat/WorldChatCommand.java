@@ -37,11 +37,11 @@ public class WorldChatCommand implements CommandExecutor {
 
             Audience audience = player.getWorld();
 
-            String actionbartext = GeneralUtils.getCommandString(args);
+            String chattext = GeneralUtils.getCommandString(args);
 
             audience.sendMessage(
                 mm.deserialize(MiniMessageUtil.replaceLegacy(
-                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
+                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, chattext) : chattext),
                     PPlaceholders.replacePlaceholders(player)));
             ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
             ConfigUtils.playPaperSound(ComponentType.CHAT, audience);

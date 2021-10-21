@@ -46,12 +46,12 @@ public class SendChatCommand implements CommandExecutor {
                 return false;
             }
 
-            String actionbartext = GeneralUtils.getCommandString(args, 1);
+            String chattext = GeneralUtils.getCommandString(args, 1);
 
             playerObjetive.sendMessage(
                 mm.deserialize(
                     MiniMessageUtil.replaceLegacy(
-                        Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
+                        Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, chattext) : chattext),
                         PPlaceholders.replacePlaceholders(playerObjetive)));
             ConfigUtils.playPaperSound(ComponentType.CHAT, playerObjetive);
             ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);

@@ -31,13 +31,13 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        // Concatenate the arguments provided by the command sent.
-        String actionbartext = GeneralUtils.getCommandString(args);
 
         if(args.length == 0) {
             ConfigUtils.noActionbarArgumentProvided(sender);
             return;
         }
+
+        String actionbartext = GeneralUtils.getCommandString(args);
 
         // Send to all
         server.sendActionBar(mm.deserialize(

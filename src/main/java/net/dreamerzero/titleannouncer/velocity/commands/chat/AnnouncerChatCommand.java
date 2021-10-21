@@ -32,17 +32,17 @@ public class AnnouncerChatCommand implements SimpleCommand {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
 
-        String actionbartext = GeneralUtils.getCommandString(args);
-
         if(args.length == 0) {
             ConfigUtils.noChatArgumentProvided(sender);
             return;
         }
 
+        String chattext = GeneralUtils.getCommandString(args);
+
         // Send to all
         server.sendMessage(mm.deserialize(
             MiniMessageUtil.replaceLegacy(
-                actionbartext),
+                chattext),
                 sender instanceof Player player ?
                     vPlaceholders.replaceProxyPlaceholders(player) :
                     vPlaceholders.replaceProxyPlaceholders()));

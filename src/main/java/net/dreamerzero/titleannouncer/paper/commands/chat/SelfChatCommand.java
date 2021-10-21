@@ -35,14 +35,14 @@ public class SelfChatCommand implements CommandExecutor {
             return false;
         }
 
-        String actionbartext = GeneralUtils.getCommandString(args);
+        String chattext = GeneralUtils.getCommandString(args);
 
         sender.sendMessage(mm.deserialize(
             MiniMessageUtil.replaceLegacy(
-                Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext), 
+                Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, chattext) : chattext), 
             PPlaceholders.replacePlaceholders(player)));
-        ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
-        ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, sender);
+        ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
+        ConfigUtils.playPaperSound(ComponentType.CHAT, sender);
         return true;
     }
 }
