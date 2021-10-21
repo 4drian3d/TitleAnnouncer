@@ -9,7 +9,11 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.kyori.adventure.text.minimessage.Template;
 import net.kyori.adventure.text.minimessage.template.TemplateResolver;
 
-public record VPlaceholders(ProxyServer proxy) {
+public class VPlaceholders {
+    private final ProxyServer proxy;
+    public VPlaceholders(ProxyServer proxy){
+        this.proxy = proxy;
+    }
 
     public TemplateResolver replaceProxyPlaceholders(){
         return TemplateResolver.templates(

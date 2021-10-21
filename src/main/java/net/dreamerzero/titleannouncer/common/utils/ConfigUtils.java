@@ -140,11 +140,10 @@ public class ConfigUtils {
     }
 
     public static void playPaperSound(ComponentType type, Audience audience){
-        SoundUtil sUtils = new SoundUtil();
         switch(type){
             case TITLE -> {
                 if(isTitleSoundEnabled()){
-                    sUtils.playSound(
+                    SoundUtil.playSound(
                         getTitleSound(),
                         audience,
                         getTitleSoundVolume(),
@@ -153,7 +152,7 @@ public class ConfigUtils {
             }
             case BOSSBAR -> {
                 if(isBossbarSoundEnabled()){
-                    sUtils.playSound(
+                    SoundUtil.playSound(
                         getBossbarSound(),
                         audience,
                         getBossbarSoundVolume(),
@@ -162,7 +161,7 @@ public class ConfigUtils {
             }
             case ACTIONBAR -> {
                 if(isActionbarSoundEnabled()){
-                    sUtils.playSound(
+                    SoundUtil.playSound(
                         getActionbarSound(),
                         audience,
                         getActionbarSoundVolume(),

@@ -11,12 +11,10 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.util.TriState;
 
 public class AnnouncerCommand implements CommandExecutor {
-    private MiniMessage mm;
-    private PaperHelpMessages paperMessages;
+    private final MiniMessage mm;
 
     public AnnouncerCommand(MiniMessage mm){
         this.mm = mm;
-        paperMessages = new PaperHelpMessages();
     }
 
     // Main Command
@@ -31,10 +29,10 @@ public class AnnouncerCommand implements CommandExecutor {
             sender.sendMessage(mm.deserialize(
                 "<gradient:yellow:blue>TitleAnnouncer</gradient> <gray>by</gray> <gradient:green:yellow>4drian3d</gradient>"));
             ConfigUtils.helpPrefix(sender);
-            sender.sendMessage(paperMessages.titleHelpMessage);
-            sender.sendMessage(paperMessages.actionbarHelpMessage);
-            sender.sendMessage(paperMessages.bossbarHelpMessage);
-            sender.sendMessage(paperMessages.fullwikilink);
+            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+            sender.sendMessage(PaperHelpMessages.fullwikilink);
             return true;
         }
         switch (args[0].toLowerCase()) {
@@ -50,33 +48,33 @@ public class AnnouncerCommand implements CommandExecutor {
                 if(args.length == 2){
                     switch (args[1].toLowerCase()) {
                         case "title" -> {
-                            sender.sendMessage(paperMessages.titleHelpMessage);
-                            sender.sendMessage(paperMessages.titlewikilink);
+                            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.titlewikilink);
                             return true;
                         }
                         case "actionbar" -> {
-                            sender.sendMessage(paperMessages.actionbarHelpMessage);
-                            sender.sendMessage(paperMessages.actionbarwikilink);
+                            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.actionbarwikilink);
                             return true;
                         }
                         case "bossbar" -> {
-                            sender.sendMessage(paperMessages.bossbarHelpMessage);
-                            sender.sendMessage(paperMessages.bossbarwikilink);
+                            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.bossbarwikilink);
                             return true;
                         }
                         default -> {
-                            sender.sendMessage(paperMessages.titleHelpMessage);
-                            sender.sendMessage(paperMessages.actionbarHelpMessage);
-                            sender.sendMessage(paperMessages.bossbarHelpMessage);
-                            sender.sendMessage(paperMessages.fullwikilink);
+                            sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                            sender.sendMessage(PaperHelpMessages.fullwikilink);
                             return true;
                         }
                     }
                 } else {
-                    sender.sendMessage(paperMessages.titleHelpMessage);
-                    sender.sendMessage(paperMessages.actionbarHelpMessage);
-                    sender.sendMessage(paperMessages.bossbarHelpMessage);
-                    sender.sendMessage(paperMessages.fullwikilink);
+                    sender.sendMessage(PaperHelpMessages.titleHelpMessage);
+                    sender.sendMessage(PaperHelpMessages.actionbarHelpMessage);
+                    sender.sendMessage(PaperHelpMessages.bossbarHelpMessage);
+                    sender.sendMessage(PaperHelpMessages.fullwikilink);
                     return true;
                 }
             }

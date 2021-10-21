@@ -9,11 +9,11 @@ import static net.kyori.adventure.text.Component.*;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 public class PaperHelpMessages {
-    private MiniMessage mm = MiniMessage.miniMessage();
-    public final Component titleArguments = text("[Title]; [SubTitle]", AQUA);
-    public final Component actionbarArguments = text("[ActionBar]", AQUA);
-    public final Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
-    public final Component titleHelpMessage = text()
+    private static MiniMessage mm = MiniMessage.miniMessage();
+    public static final Component titleArguments = text("[Title]; [SubTitle]", AQUA);
+    public static final Component actionbarArguments = text("[ActionBar]", AQUA);
+    public static final Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
+    public static final Component titleHelpMessage = text()
         .append(text()
             .append(text("Title", YELLOW))
         )
@@ -55,7 +55,7 @@ public class PaperHelpMessages {
         )
         .build();
 
-    public final Component actionbarHelpMessage = text()
+    public static final Component actionbarHelpMessage = text()
         .color(YELLOW)
         .append(text()
             .append(text("ActionBar"))
@@ -98,7 +98,7 @@ public class PaperHelpMessages {
         )
         .build();
 
-    public final Component bossbarHelpMessage = text()
+    public static final Component bossbarHelpMessage = text()
         .color(YELLOW)
         .append(text()
             .append(text("BossBar"))
@@ -142,7 +142,7 @@ public class PaperHelpMessages {
         )
         .build();
 
-    public final Component fullwikilink = text()
+    public static final Component fullwikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on")))
         .append(space())
@@ -152,7 +152,7 @@ public class PaperHelpMessages {
             .hoverEvent(HoverEvent.showText(
                 mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
         .build();
-    public final Component titlewikilink = text()
+    public static final Component titlewikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on")))
         .append(space())
@@ -162,7 +162,7 @@ public class PaperHelpMessages {
             .hoverEvent(HoverEvent.showText(
                 mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
             .build();
-    public final Component actionbarwikilink = text()
+    public static final Component actionbarwikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on")))
         .append(space())
@@ -173,7 +173,7 @@ public class PaperHelpMessages {
                 mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
             .build();
 
-    public final Component bossbarwikilink = text()
+    public static final Component bossbarwikilink = text()
         .append(text()
             .append(Component.text("Visit full guide on")))
         .append(space())

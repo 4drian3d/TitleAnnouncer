@@ -13,7 +13,7 @@ public class SoundUtil {
      * @param volume
      * @param pitch
      */
-    public void playSound(
+    public static void playSound(
         final String sound,
         final Audience audience,
         final float volume,

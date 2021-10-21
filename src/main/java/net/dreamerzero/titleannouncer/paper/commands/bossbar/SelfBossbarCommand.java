@@ -22,11 +22,9 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 public class SelfBossbarCommand implements CommandExecutor {
     private MiniMessage mm;
     private Announcer plugin;
-    private BossBarUtils bUtils;
     public SelfBossbarCommand(Announcer plugin, MiniMessage mm){
         this.mm = mm;
         this.plugin = plugin;
-        bUtils = new BossBarUtils(mm);
     }
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -40,15 +38,15 @@ public class SelfBossbarCommand implements CommandExecutor {
         PaperBossBar pBossBar = new PaperBossBar(plugin);
 
         // The command requires arguments to work
-        if (!bUtils.regularBossbarArgs(args.length, sender)) {
+        if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
 
-        float time = bUtils.validBossbarNumber(args[0], sender);
+        float time = BossBarUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return false;
 
-        BossBar.Color color = bUtils.bossbarColor(args[1]);
-        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));

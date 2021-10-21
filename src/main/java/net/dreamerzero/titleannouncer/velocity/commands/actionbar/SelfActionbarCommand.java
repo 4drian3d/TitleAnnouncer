@@ -15,12 +15,19 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record SelfActionbarCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand{
+public class SelfActionbarCommand implements SimpleCommand{
+    private final MiniMessage mm;
+    private SoundUtils sUtils;
+    private VPlaceholders vPlaceholders;
+    public SelfActionbarCommand(ProxyServer server, MiniMessage mm){
+        this.mm = mm;
+        this.sUtils = new SoundUtils(server);
+        this.vPlaceholders = new VPlaceholders(server);
+    }
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(!(sender instanceof Player player)){
             ConfigUtils.onlyPlayerExecute(sender);
@@ -36,7 +43,7 @@ public record SelfActionbarCommand(ProxyServer server, MiniMessage mm) implement
         sender.sendActionBar(mm.deserialize(
             MiniMessageUtil.replaceLegacy(actionbartext),
             vPlaceholders.replaceProxyPlaceholders(player)));
-        new SoundUtils(server).playProxySound(player, ComponentType.ACTIONBAR);
+        sUtils.playProxySound(player, ComponentType.ACTIONBAR);
         ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 

@@ -24,10 +24,9 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        BossBarUtils bUtils = new BossBarUtils(mm);
 
         // The command requires arguments to work
-        if (!bUtils.sendBossbarArgs(args.length, sender)) {
+        if (!BossBarUtils.sendBossbarArgs(args.length, sender)) {
             return false;
         }
 
@@ -42,11 +41,11 @@ public record SendBossbarCommand(Announcer plugin, MiniMessage mm) implements Co
             return false;
         }
 
-        float time = bUtils.validBossbarNumber(args[1], sender);
+        float time = BossBarUtils.validBossbarNumber(args[1], sender);
         if(time == 0.1f) return false;
 
-        BossBar.Color color = bUtils.bossbarColor(args[2]);
-        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));

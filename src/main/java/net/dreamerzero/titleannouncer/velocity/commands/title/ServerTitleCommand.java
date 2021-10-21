@@ -17,13 +17,22 @@ import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
-public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand {
+public class ServerTitleCommand implements SimpleCommand {
+    private final MiniMessage mm;
+    private final ProxyServer server;
+    private SoundUtils sUtils;
+    private VPlaceholders vPlaceholders;
+    public ServerTitleCommand(ProxyServer server, MiniMessage mm){
+        this.server = server;
+        this.mm = mm;
+        this.sUtils = new SoundUtils(server);
+        this.vPlaceholders = new VPlaceholders(server);
+    }
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         switch (args.length) {
             case 0 -> {
@@ -45,8 +54,6 @@ public record ServerTitleCommand(ProxyServer server, MiniMessage mm) implements 
 
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args, 1);
-
-        SoundUtils sUtils = new SoundUtils(server);
 
         if(!TitleUtil.containsComma(args, 1)){
             TitleUtil.sendOnlySubtitle(

@@ -4,14 +4,15 @@ import net.kyori.adventure.audience.Audience;
 import static net.kyori.adventure.bossbar.BossBar.*;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record BossBarUtils(MiniMessage mm) {
+public class BossBarUtils {
+    private final static MiniMessage mm = MiniMessage.miniMessage();
     /**
      * Based on the argument given in the command, 
      * it will return the color of the specified bossbar.
      * @param color
      * @return the color of the specified bossbar.
      */
-    public Color bossbarColor(String color) {
+    public static Color bossbarColor(String color) {
         return switch (color.toLowerCase()) {
             case "red" -> Color.RED;
             case "blue" -> Color.BLUE;
@@ -30,7 +31,7 @@ public record BossBarUtils(MiniMessage mm) {
      * @param overlay
      * @return the style of the bossbar
      */
-    public Overlay bossbarOverlay(String overlay){
+    public static Overlay bossbarOverlay(String overlay){
         return switch (overlay.toLowerCase()){
             case "6" -> Overlay.NOTCHED_6;
             case "10" -> Overlay.NOTCHED_10;
@@ -42,7 +43,7 @@ public record BossBarUtils(MiniMessage mm) {
     }
 
     // It will return if the given arguments are correct for the command to work correctly.
-    public boolean regularBossbarArgs(int length, Audience sender) {
+    public static boolean regularBossbarArgs(int length, Audience sender) {
         // The command requires arguments to work
         return switch (length) {
             case 0 -> {
@@ -81,7 +82,7 @@ public record BossBarUtils(MiniMessage mm) {
         };
     }
 
-    public boolean sendBossbarArgs(int length, Audience sender) {
+    public static boolean sendBossbarArgs(int length, Audience sender) {
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
@@ -127,7 +128,7 @@ public record BossBarUtils(MiniMessage mm) {
         };
     }
 
-    public boolean proxyBossbarArgs(int length, Audience sender) {
+    public static boolean proxyBossbarArgs(int length, Audience sender) {
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
@@ -173,7 +174,7 @@ public record BossBarUtils(MiniMessage mm) {
         };
     }
 
-    public float validBossbarNumber(String number, Audience sender){
+    public static float validBossbarNumber(String number, Audience sender){
         try {
             return Integer.parseInt(number);
         } catch (Exception e){

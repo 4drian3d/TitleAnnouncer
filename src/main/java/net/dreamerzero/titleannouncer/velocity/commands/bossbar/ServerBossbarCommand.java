@@ -20,16 +20,27 @@ import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm) implements SimpleCommand {
+public class ServerBossbarCommand implements SimpleCommand {
+    private final MiniMessage mm;
+    private final ProxyServer server;
+    private final Announcer plugin;
+    private SoundUtils sUtils;
+    private VPlaceholders vPlaceholders;
+    public ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm){
+        this.server = server;
+        this.mm = mm;
+        this.plugin = plugin;
+        this.sUtils = new SoundUtils(server);
+        this.vPlaceholders = new VPlaceholders(server);
+    }
 
     @Override
     public void execute(Invocation invocation){
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        BossBarUtils bUtils = new BossBarUtils(mm);
 
         // The command requires arguments to work
-        if (!bUtils.proxyBossbarArgs(args.length, sender)) {
+        if (!BossBarUtils.proxyBossbarArgs(args.length, sender)) {
             return;
         }
 
@@ -40,11 +51,11 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
         }
         RegisteredServer serverObjetive = optionalServerObjetive.get();
 
-        float time = bUtils.validBossbarNumber(args[1], sender);
+        float time = BossBarUtils.validBossbarNumber(args[1], sender);
         if(time == 0.1f) return;
 
-        BossBar.Color color = bUtils.bossbarColor(args[2]);
-        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[3]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[2]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[3]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(mm.deserialize("<dark_red>Invalid Argument")));
@@ -60,11 +71,11 @@ public record ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMes
             mm.deserialize(
                 MiniMessageUtil.replaceLegacy(
                     bossbartext),
-                    new VPlaceholders(server).replaceProxyPlaceholders()),
+                    vPlaceholders.replaceProxyPlaceholders()),
             color,
             overlay);
         ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
-        new SoundUtils(server).playProxySound(serverObjetive, ComponentType.BOSSBAR);
+        sUtils.playProxySound(serverObjetive, ComponentType.BOSSBAR);
     }
 
     @Override

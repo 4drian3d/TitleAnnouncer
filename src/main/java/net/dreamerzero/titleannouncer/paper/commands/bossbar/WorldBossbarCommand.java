@@ -31,21 +31,19 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
             return false;
         }
 
-        BossBarUtils bUtils = new BossBarUtils(mm);
-
         // The command requires arguments to work
-        if (!bUtils.regularBossbarArgs(args.length, sender)) {
+        if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
             return false;
         }
 
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 3);
 
-        float time = bUtils.validBossbarNumber(args[0], sender);
+        float time = BossBarUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return false;
 
-        BossBar.Color color = bUtils.bossbarColor(args[1]);
-        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(ConfigUtils.getPrefix().append(Component.text("Invalid Argument", NamedTextColor.DARK_RED)));

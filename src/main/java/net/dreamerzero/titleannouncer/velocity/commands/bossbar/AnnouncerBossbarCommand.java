@@ -19,29 +19,38 @@ import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm) implements SimpleCommand {
+public class AnnouncerBossbarCommand implements SimpleCommand {
+    private final ProxyServer server;
+    private final MiniMessage mm;
+    private final Announcer plugin;
+    private SoundUtils sUtils;
+    private VPlaceholders vPlaceholders;
+    public AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm){
+        this.server = server;
+        this.plugin = plugin;
+        this.mm = mm;
+        this.sUtils = new SoundUtils(server);
+        this.vPlaceholders = new VPlaceholders(server);
+    }
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        BossBarUtils bUtils = new BossBarUtils(mm);
-        VelocityBossbar vBossbar = new VelocityBossbar(plugin, server);
-        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         // The command requires arguments to work
-        if (!bUtils.regularBossbarArgs(args.length, sender)) {
+        if (!BossBarUtils.regularBossbarArgs(args.length, sender)) {
             return;
         }
 
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 3);
 
-        float time = bUtils.validBossbarNumber(args[0], sender);
+        float time = BossBarUtils.validBossbarNumber(args[0], sender);
         if(time == 0.1f) return;
 
-        BossBar.Color color = bUtils.bossbarColor(args[1]);
-        BossBar.Overlay overlay = bUtils.bossbarOverlay(args[2]);
+        BossBar.Color color = BossBarUtils.bossbarColor(args[1]);
+        BossBar.Overlay overlay = BossBarUtils.bossbarOverlay(args[2]);
 
         if (color == null || overlay == null) {
             sender.sendMessage(
@@ -50,7 +59,7 @@ public record AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, Mini
             return;
         }
 
-        SoundUtils sUtils = new SoundUtils(server);
+        VelocityBossbar vBossbar = new VelocityBossbar(plugin, server);
 
         // Send to all
         if (sender instanceof Player player) {

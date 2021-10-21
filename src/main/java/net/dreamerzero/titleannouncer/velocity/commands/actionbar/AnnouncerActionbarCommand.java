@@ -15,7 +15,17 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand {
+public class AnnouncerActionbarCommand implements SimpleCommand {
+    private final ProxyServer server;
+    private final MiniMessage mm;
+    private SoundUtils sUtils;
+    private VPlaceholders vPlaceholders;
+    public AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm){
+        this.server = server;
+        this.mm = mm;
+        this.sUtils = new SoundUtils(server);
+        this.vPlaceholders = new VPlaceholders(server);
+    }
 
     @Override
     public void execute(Invocation invocation) {
@@ -23,7 +33,6 @@ public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) impl
         String[] args = invocation.arguments();
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
-        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if(args.length == 0) {
             ConfigUtils.noActionbarArgumentProvided(sender);
@@ -37,7 +46,7 @@ public record AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm) impl
                 sender instanceof Player player ?
                     vPlaceholders.replaceProxyPlaceholders(player) :
                     vPlaceholders.replaceProxyPlaceholders()));
-        new SoundUtils(server).playProxySound(ComponentType.ACTIONBAR);
+        sUtils.playProxySound(ComponentType.ACTIONBAR);
         ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }
 

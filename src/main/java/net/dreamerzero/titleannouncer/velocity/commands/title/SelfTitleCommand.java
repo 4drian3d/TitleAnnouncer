@@ -16,13 +16,20 @@ import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
-public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements SimpleCommand {
+public class SelfTitleCommand implements SimpleCommand {
+    private final MiniMessage mm;
+    private SoundUtils sUtils;
+    private VPlaceholders vPlaceholders;
+    public SelfTitleCommand(ProxyServer server, MiniMessage mm){
+        this.mm = mm;
+        this.sUtils = new SoundUtils(server);
+        this.vPlaceholders = new VPlaceholders(server);
+    }
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-        VPlaceholders vPlaceholders = new VPlaceholders(server);
 
         if (!(sender instanceof Player player)) {
             ConfigUtils.onlyPlayerExecute(sender);
@@ -36,8 +43,6 @@ public record SelfTitleCommand(ProxyServer server, MiniMessage mm) implements Si
 
         // Concatenate the arguments provided by the command sent.
         String titleandsubtitle = GeneralUtils.getCommandString(args);
-
-        SoundUtils sUtils = new SoundUtils(server);
 
         if(!titleandsubtitle.contains(";")){
             TitleUtil.sendOnlySubtitle(
