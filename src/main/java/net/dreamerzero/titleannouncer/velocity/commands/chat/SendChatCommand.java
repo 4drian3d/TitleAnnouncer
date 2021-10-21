@@ -1,6 +1,7 @@
 package net.dreamerzero.titleannouncer.velocity.commands.chat;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
@@ -15,12 +16,12 @@ import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
 import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class AnnouncerChatCommand implements SimpleCommand {
+public class SendChatCommand implements SimpleCommand {
     private final ProxyServer server;
     private final MiniMessage mm;
     private SoundUtils sUtils;
     private VPlaceholders vPlaceholders;
-    public AnnouncerChatCommand(ProxyServer server, MiniMessage mm){
+    public SendChatCommand(ProxyServer server, MiniMessage mm){
         this.server = server;
         this.mm = mm;
         this.sUtils = new SoundUtils(server);
@@ -32,31 +33,43 @@ public class AnnouncerChatCommand implements SimpleCommand {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
 
-        String actionbartext = GeneralUtils.getCommandString(args);
-
         if(args.length == 0) {
             ConfigUtils.noChatArgumentProvided(sender);
             return;
+        }else if (args.length < 2) {
+            ConfigUtils.noChatPlayerArgumentProvided(sender);
+            return;
         }
 
-        // Send to all
-        server.sendMessage(mm.deserialize(
-            MiniMessageUtil.replaceLegacy(
-                actionbartext),
-                sender instanceof Player player ?
-                    vPlaceholders.replaceProxyPlaceholders(player) :
-                    vPlaceholders.replaceProxyPlaceholders()));
-        sUtils.playProxySound(ComponentType.CHAT);
+        Optional<Player> optionalPlayerObjetive = server.getPlayer(args[0]);
+        if(!optionalPlayerObjetive.isPresent()) {
+            ConfigUtils.playerNotFoundMessage(sender);
+            return;
+        }
+        Player playerObjetive = optionalPlayerObjetive.get();
+
+        // Concatenate the arguments provided by the command sent.
+        String chattext = GeneralUtils.getCommandString(args, 1);
+
+        playerObjetive.sendMessage(
+            mm.deserialize(
+                MiniMessageUtil.replaceLegacy(
+                    chattext),
+                    vPlaceholders.replaceProxyPlaceholders(playerObjetive)));
+        sUtils.playProxySound(playerObjetive, ComponentType.CHAT);
         ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
     }
 
     @Override
     public List<String> suggest(final Invocation invocation) {
+        if(invocation.arguments().length < 1){
+            return server.getAllPlayers().stream().map(Player::getUsername).toList();
+        }
         return List.of("[message]");
     }
 
     @Override
     public boolean hasPermission(final Invocation invocation) {
-        return invocation.source().hasPermission("titleannouncer.chat.global");
+        return invocation.source().hasPermission("titleannouncer.chat.send");
     }
 }

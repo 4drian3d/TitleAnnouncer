@@ -16,6 +16,9 @@ import net.dreamerzero.titleannouncer.paper.commands.bossbar.SelfBossbarCommand;
 import net.dreamerzero.titleannouncer.paper.commands.bossbar.SendBossbarCommand;
 import net.dreamerzero.titleannouncer.paper.commands.bossbar.WorldBossbarCommand;
 import net.dreamerzero.titleannouncer.paper.commands.chat.AnnouncerChatCommand;
+import net.dreamerzero.titleannouncer.paper.commands.chat.SelfChatCommand;
+import net.dreamerzero.titleannouncer.paper.commands.chat.SendChatCommand;
+import net.dreamerzero.titleannouncer.paper.commands.chat.WorldChatCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.AnnouncerTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.SelfTitleCommand;
 import net.dreamerzero.titleannouncer.paper.commands.title.SendTitleCommand;
@@ -46,6 +49,9 @@ public record RegisterCommands(Announcer plugin, MiniMessage mm) {
 			new CommandFactory("sendactionbar", new SendActionbarCommand(mm)),
 			// Chat
 			new CommandFactory("announcechat", new AnnouncerChatCommand(mm)),
+			new CommandFactory("selfchat", new SelfChatCommand(mm)),
+			new CommandFactory("worldchat", new WorldChatCommand(mm)),
+			new CommandFactory("sendchat", new SendChatCommand(mm)),
 			// MainCommand
 			new CommandFactory("announcer", new AnnouncerCommand(mm))
 		);

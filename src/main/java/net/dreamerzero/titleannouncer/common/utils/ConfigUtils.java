@@ -126,6 +126,22 @@ public class ConfigUtils {
     CHAT CONFIGURATION
     -----------------------------*/
 
+    public static void noChatArgumentProvided(Audience sender){
+        sender.sendMessage(
+            getPrefix().append(mm.deserialize(
+                config.getOrDefault(
+                    "messages.chat.without-argument",
+                    "<red>You need to enter the message to announce.</red>"))));
+    }
+
+    public static void noChatPlayerArgumentProvided(Audience sender){
+        sender.sendMessage(
+            getPrefix().append(mm.deserialize(
+                config.getOrDefault(
+                    "messages.chat.only-player",
+                    "<gray>You must enter the message to be sent after the player's name.</gray>"))));
+    }
+
     public static String getChatSound(){
         return config.getOrDefault(
             "sounds.chat.sound-id",

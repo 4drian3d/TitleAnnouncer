@@ -1,12 +1,12 @@
 # TitleAnnouncer [![WorkFlow Status](https://img.shields.io/github/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncer%20Maven%20Build?&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/actions/workflows/TitleAnnouncerBuild.yml) [![Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?color=FFF0&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/releases)
 
-A lightweight plugin to send Titles, Actionbars and Bossbars with the MiniMessage format to Paper 1.17.1+ servers and Velocity 3.0.2+ networks.
+A lightweight plugin to send Titles, Actionbars, Bossbars and Chat Announces with the MiniMessage format to Paper 1.17.1+ servers and Velocity 3.0.2+ networks.
 
 [![Banner](https://i.imgur.com/BhFqg82.jpg)](https://polymart.org/resource/titleannouncer.1350)
 
 
 ## Features
-- Ability to send announcements by using titles, actionbars and bossbars.
+- Ability to send announcements by using titles, actionbars, bossbars, and chat messages.
 - Send announcements to users in the same world you are in.
 - Send announcements to a specific user.
 - Test the announcement to be sent or simply send the announcement to yourself.
@@ -116,7 +116,7 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
             <td><code>/worldactionbar</code></td>
             <td>(Message)</td>
             <td>titleannouncer.actionbar.world</td>
-            <td>Sends an actionbar to the world in which the command was executed.</td>
+            <td>Sends an actionbar to the world in which the command was executed in Paper.</td>
         </tr>
         <tr>
             <td><code>/sendactionbar</code></td>
@@ -160,7 +160,7 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
             <td><code>/worldbossbar</code></td>
             <td>(Time) (Color) (Type) (Message)</td>
             <td>titleannouncer.bossbar.world</td>
-            <td>Sends a Bossbar to the world in which the command was executed.</td>
+            <td>Sends a Bossbar to the world in which the command was executed in Paper.</td>
         </tr>
         <tr>
             <td><code>/sendbossbar</code></td>
@@ -173,6 +173,50 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
             <td>(Server) (Time) (Color) (Type) (Message)</td>
             <td>titleannouncer.bossbar.server</td>
             <td>Sends an Bossbar to a server on Velocity.</td>
+        </tr>
+    </tbody>
+</table>
+
+### Chat
+<table>
+    <thead>
+    <tr>
+        <th>Command</th>
+        <th>Argument</th>
+        <th>Permission</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>/announcechat</code></td>
+            <td>(Message)</td>
+            <td>titleannouncer.chat.global</td>
+            <td>Announce a Chat Message to the entire server.</td>
+        </tr>
+        <tr>
+            <td><code>/selfchat</code></td>
+            <td>(Message)</td>
+            <td>titleannouncer.chat.self</td>
+            <td>Send a Chat Message only to the player who has sent it.</td>
+        </tr>
+        <tr>
+            <td><code>/worldchat</code></td>
+            <td>(Message)</td>
+            <td>titleannouncer.chat.world</td>
+            <td>Sends a Chat Message to the world in which the command was executed in Paper.</td>
+        </tr>
+        <tr>
+            <td><code>/sendchat</code></td>
+            <td>(Player) (Message)</td>
+            <td>titleannouncer.chat.send</td>
+            <td>Sends an Chat Message to a specific player.</td>
+        </tr>
+        <tr>
+            <td><code>/serverchat</code></td>
+            <td>(Server) (Message)</td>
+            <td>titleannouncer.chat.server</td>
+            <td>Sends a Chat Message to a server on Velocity.</td>
         </tr>
     </tbody>
 </table>

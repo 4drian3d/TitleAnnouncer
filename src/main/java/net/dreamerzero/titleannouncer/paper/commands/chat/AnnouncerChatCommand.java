@@ -27,7 +27,7 @@ public class AnnouncerChatCommand implements CommandExecutor {
             @NotNull String[] args) {
 
             if(args.length == 0) {
-                ConfigUtils.noActionbarArgumentProvided(sender);
+                ConfigUtils.noChatArgumentProvided(sender);
                 return false;
             }
 
