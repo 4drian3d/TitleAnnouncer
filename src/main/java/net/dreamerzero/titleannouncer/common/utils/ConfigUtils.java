@@ -122,6 +122,28 @@ public class ConfigUtils {
         return config.getOrDefault("sounds.bossbar.pitch", 2);
     }
 
+    /*-----------------------------
+    CHAT CONFIGURATION
+    -----------------------------*/
+
+    public static String getChatSound(){
+        return config.getOrDefault(
+            "sounds.chat.sound-id",
+            "entity.experience_orb.pickup");
+    }
+
+    public static boolean isChatSoundEnabled(){
+        return config.getOrDefault("sounds.chat.enabled", true);
+    }
+
+    public static float getChatSoundVolume(){
+        return config.getOrDefault("sounds.chat.volume", 10);
+    }
+
+    public static float getChatSoundPitch(){
+        return config.getOrDefault("sounds.chat.pitch", 2);
+    }
+
     /*
     GENERAL CONFIGURATION
     */
@@ -136,6 +158,9 @@ public class ConfigUtils {
             case TITLE -> config.getOrDefault(
                         "messages.title.successfully",
                         "<green>Title succesfully sended</green>");
+            case CHAT -> config.getOrDefault(
+                        "messages.chat.succesfully", 
+                        "<green>Chat succesfully sended</green>");
         })));
     }
 
@@ -166,6 +191,15 @@ public class ConfigUtils {
                         audience,
                         getActionbarSoundVolume(),
                         getActionbarSoundPitch());
+                }
+            }
+            case CHAT -> {
+                if(isActionbarSoundEnabled()){
+                    SoundUtil.playSound(
+                        getChatSound(),
+                        audience,
+                        getChatSoundVolume(),
+                        getChatSoundPitch());
                 }
             }
         }

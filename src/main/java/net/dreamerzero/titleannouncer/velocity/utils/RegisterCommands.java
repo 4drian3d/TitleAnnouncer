@@ -4,6 +4,7 @@ import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.velocity.commands.bossbar.*;
+import net.dreamerzero.titleannouncer.velocity.commands.chat.AnnouncerChatCommand;
 import net.dreamerzero.titleannouncer.velocity.commands.title.*;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.dreamerzero.titleannouncer.velocity.commands.actionbar.*;
@@ -43,6 +44,11 @@ public record RegisterCommands(Announcer plugin, ProxyServer server, MiniMessage
         server.getCommandManager().register(vselfactionbar, new SelfActionbarCommand(server, mm));
         server.getCommandManager().register(vsendactionbar, new SendActionbarCommand(server, mm));
         server.getCommandManager().register(vserveractionbar, new ServerActionbarCommand(server, mm));
+	}
+
+	public void registerProxyChat(){
+		CommandMeta vannouncechat = server.getCommandManager().metaBuilder("vannouncechat").aliases("pannouncechat", "vchat").build();
+		server.getCommandManager().register(vannouncechat, new AnnouncerChatCommand(server, mm));
 	}
 
 	public void registerProxyMainCommand(){

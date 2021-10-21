@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
@@ -19,7 +20,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecutor {
 
     // Command
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if(args.length == 0) {
             ConfigUtils.noActionbarArgumentProvided(sender);
             return false;
