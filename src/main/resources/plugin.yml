@@ -53,6 +53,19 @@ commands:
         aliases: [playerbossbar]
         description: Sends a bossbar to a specific player.
         permission: titleannouncer.bossbar.send
+    # Chat Commands
+    announcechat:
+        description: This will announce a chat to all players.
+        permission: titleannouncer.chat.global
+    selfchat:
+        description: This will announce a chat to the sender of the command.
+        permission: titleannouncer.chat.self
+    worldchat:
+        description: It will send a chat to the world in which the player is located.
+        permission: titleannouncer.chat.world
+    sendchat:
+        description: Sends a chat to a specific player.
+        permission: titleannouncer.chat.send
 permissions:
     titleannouncer.command.show:
         description: Main Command of the plugin
