@@ -226,7 +226,7 @@ public class PaperHelpMessages {
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Chat-Commands"))
             .hoverEvent(HoverEvent.showText(
                 mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
-            .build();
+        .build();
 
     public static final Component bossbarwikilink = text()
         .append(text()

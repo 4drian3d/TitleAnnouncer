@@ -1,6 +1,7 @@
 package net.dreamerzero.titleannouncer.velocity.commands.title;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
@@ -75,12 +76,14 @@ public class SelfTitleCommand implements SimpleCommand {
     }
 
     @Override
-    public List<String> suggest(final Invocation invocation) {
-        if (!TitleUtil.containsComma(invocation.arguments())){
-            return List.of("[Title]");
-        } else {
-            return List.of("[SubTitle]");
-        }
+    public CompletableFuture<List<String>> suggestAsync(final Invocation invocation) {
+        return CompletableFuture.supplyAsync(()-> {
+            if (!TitleUtil.containsComma(invocation.arguments())){
+                return List.of("[Title]");
+            } else {
+                return List.of("[SubTitle]");
+            }
+        });
     }
 
     @Override

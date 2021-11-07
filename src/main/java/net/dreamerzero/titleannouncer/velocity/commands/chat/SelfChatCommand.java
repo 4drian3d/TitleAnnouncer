@@ -1,6 +1,7 @@
 package net.dreamerzero.titleannouncer.velocity.commands.chat;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
@@ -48,8 +49,8 @@ public class SelfChatCommand implements SimpleCommand {
     }
 
     @Override
-    public List<String> suggest(final Invocation invocation) {
-        return List.of("[message]");
+    public CompletableFuture<List<String>> suggestAsync(final Invocation invocation) {
+        return CompletableFuture.supplyAsync(()->List.of("[message]"));
     }
 
     @Override

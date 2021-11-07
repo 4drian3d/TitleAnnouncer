@@ -2,6 +2,7 @@ package net.dreamerzero.titleannouncer.velocity.commands.bossbar;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
@@ -79,15 +80,16 @@ public class ServerBossbarCommand implements SimpleCommand {
     }
 
     @Override
-    public List<String> suggest(final Invocation invocation) {
-        return switch (invocation.arguments().length) {
+    public CompletableFuture<List<String>> suggestAsync(final Invocation invocation) {
+        return CompletableFuture.supplyAsync(()-> switch (invocation.arguments().length) {
             case 0, 1 -> server.getAllServers().stream()
-                .map(server -> server.getServerInfo().getName()).toList();
+                .map(sv -> sv.getServerInfo().getName())
+                .toList();
             case 2 -> List.of("[Time]");
             case 3 -> List.of("[Color]");
             case 4 -> List.of("[Type]");
             default -> List.of("[message]");
-        };
+        });
     }
 
     @Override

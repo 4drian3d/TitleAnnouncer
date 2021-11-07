@@ -1,5 +1,8 @@
 package net.dreamerzero.titleannouncer.velocity.commands;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.permission.Tristate;
@@ -51,10 +54,15 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
                             source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
                             source.sendMessage(VelocityHelpMessages.bossbarwikilink);
                         }
+                        case "chat" -> {
+                            source.sendMessage(VelocityHelpMessages.chatHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.chatwikilink);
+                        }
                         default -> {
                             source.sendMessage(VelocityHelpMessages.titleHelpMessage);
                             source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
                             source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
+                            source.sendMessage(VelocityHelpMessages.chatHelpMessage);
                             source.sendMessage(VelocityHelpMessages.fullwikilink);
                         }
                     }
@@ -62,6 +70,7 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
                     source.sendMessage(VelocityHelpMessages.titleHelpMessage);
                     source.sendMessage(VelocityHelpMessages.actionbarHelpMessage);
                     source.sendMessage(VelocityHelpMessages.bossbarHelpMessage);
+                    source.sendMessage(VelocityHelpMessages.chatHelpMessage);
                     source.sendMessage(VelocityHelpMessages.fullwikilink);
                 }
             }
@@ -75,5 +84,21 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
     @Override
     public boolean hasPermission(final Invocation invocation) {
         return invocation.source().getPermissionValue("titleannouncer.command.show") == Tristate.TRUE;
+    }
+
+    @Override
+    public CompletableFuture<List<String>> suggestAsync(Invocation invocation){
+        String[] args = invocation.arguments();
+        return CompletableFuture.supplyAsync(()-> {
+            if(args.length < 1){
+                return List.of("help", "reload");
+            }
+
+            if(args[0].equals("help")){
+                return List.of("title", "bossbar", "actionbar", "chat", "help");
+            }
+
+            return List.of();
+        });
     }
 }
