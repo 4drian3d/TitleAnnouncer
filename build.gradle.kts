@@ -40,10 +40,10 @@ dependencies {
 
     compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.10.10")
-	compileOnly("dev.simplix:protocolize-api:2.0.0")
+	compileOnly("dev.simplix:protocolize-velocity:2.0.1")
 
-    compileOnly("com.velocitypowered:velocity-api:3.0.1")
-    annotationProcessor("com.velocitypowered:velocity-api:3.0.1")
+    compileOnly("com.velocitypowered:velocity-api:3.1.0-SNAPSHOT")
+    annotationProcessor("com.velocitypowered:velocity-api:3.1.0-SNAPSHOT")
 }
 
 group = "net.dreamerzero.titleannouncer"
