@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
-import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -76,7 +75,6 @@ public class SoundUtils {
             case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
             case CHAT -> protocolizePlayer.playSound(getChatSound(), SoundCategory.MASTER, ConfigUtils.getChatSoundVolume(), ConfigUtils.getChatSoundPitch());
         };
-
     }
 
     /**
@@ -87,30 +85,6 @@ public class SoundUtils {
         if(!proxy.getPluginManager().isLoaded("protocolize")) return;
 
         for(Player player : proxy.getAllPlayers()){
-            final UUID playeruuid = player.getUniqueId();
-            final ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
-
-            switch(type) {
-                case TITLE -> protocolizePlayer.playSound(getTitleSound(), SoundCategory.MASTER, ConfigUtils.getTitleSoundVolume(), ConfigUtils.getTitleSoundPitch());
-                case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
-                case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
-                case CHAT -> protocolizePlayer.playSound(getChatSound(), SoundCategory.MASTER, ConfigUtils.getChatSoundVolume(), ConfigUtils.getChatSoundPitch());
-            };
-        }
-    }
-
-    /**
-     * Play a sound to all players in a RegisteredServer
-     * @param server the server
-     * @param type the component sound
-     * @deprecated implemented natively in protocolize since 2.0.1
-     * @see {@link #playProxySound(Audience)}
-     */
-    @Deprecated
-    public void playProxySound(@NotNull RegisteredServer server, ComponentType type){
-        if(!proxy.getPluginManager().isLoaded("protocolize")) return;
-
-        for(Player player : server.getPlayersConnected()){
             final UUID playeruuid = player.getUniqueId();
             final ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
 
