@@ -10,23 +10,20 @@ import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
+import net.kyori.adventure.title.Title;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class AnnouncerTitleCommand implements SimpleCommand {
-    private final MiniMessage mm;
     private final ProxyServer server;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public AnnouncerTitleCommand(ProxyServer server, MiniMessage mm){
+    private VelocityPlaceholders vPlaceholders;
+    public AnnouncerTitleCommand(ProxyServer server){
         this.server = server;
-        this.mm = mm;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -44,49 +41,32 @@ public class AnnouncerTitleCommand implements SimpleCommand {
 
         if(!titleandsubtitle.contains(";")){
             TitleUtil.sendOnlySubtitle(
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                    sender instanceof Player player ? vPlaceholders.replaceProxyPlaceholders(player) : vPlaceholders.replaceProxyPlaceholders()),
+                sender instanceof Player player
+                ? vPlaceholders.applyPlaceholders(titleandsubtitle, player)
+                : vPlaceholders.applyPlaceholders(titleandsubtitle),
                 server, 1000, 3000, 1000);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(ComponentType.TITLE);
             return;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String[] titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         if (sender instanceof Player player) {
-            // Send the title
-            // Possible bug fix? -> VTask.run(()-> {task});
-            // Bug in Adventure, not mine
-                TitleUtil.sendTitle(
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
-                    vPlaceholders.replaceProxyPlaceholders(player)),
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
-                    vPlaceholders.replaceProxyPlaceholders(player)),
-                server,
-                1000,
-                3000,
-                1000);
+            server.showTitle(Title.title(
+                vPlaceholders.applyPlaceholders(titleandsubtitlefinal[0], player),
+                vPlaceholders.applyPlaceholders(titleandsubtitlefinal[1], player))
+            );
             sUtils.playProxySound(ComponentType.TITLE);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         } else {
             // Send the title
-            TitleUtil.sendTitle(
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
-                    vPlaceholders.replaceProxyPlaceholders()),
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
-                    vPlaceholders.replaceProxyPlaceholders()),
-                server,
-                1000,
-                3000,
-                1000);
+            server.showTitle(Title.title(
+                vPlaceholders.applyPlaceholders(titleandsubtitlefinal[0]),
+                vPlaceholders.applyPlaceholders(titleandsubtitlefinal[1]))
+            );
             sUtils.playProxySound(ComponentType.TITLE);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
         }

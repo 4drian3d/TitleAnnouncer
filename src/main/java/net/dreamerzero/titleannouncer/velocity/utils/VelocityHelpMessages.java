@@ -14,6 +14,8 @@ public class VelocityHelpMessages {
     public static final Component actionbarArguments = text("[ActionBar]", AQUA);
     public static final Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);
     public static final Component chatArguments = text("[Chat]", AQUA);
+    private static final Component player = text("[Player]", AQUA);
+    private static final Component server = text("[Server]", AQUA);
     public static final Component titleHelpMessage = text()
         .append(text()
             .append(text("Title", YELLOW))
@@ -40,7 +42,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Server]", AQUA))
+            .append(server)
         )
         .append(space())
         .append(text()
@@ -52,7 +54,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Player]", AQUA))
+            .append(player)
         )
         .append(space())
         .append(text()
@@ -87,7 +89,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Server]", AQUA))
+            .append(server)
         )
         .append(space())
         .append(text()
@@ -99,7 +101,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Player]", AQUA))
+            .append(player)
         )
         .append(space())
         .append(text()
@@ -134,7 +136,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Server]", AQUA))
+            .append(server)
 
         )
         .append(space())
@@ -147,7 +149,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Player]", AQUA))
+            .append(player)
 
         )
         .append(space())
@@ -191,7 +193,7 @@ public class VelocityHelpMessages {
         )
         .append(space())
         .append(text()
-            .append(text("[Player]", AQUA))
+            .append(player)
         )
         .append(space())
         .append(text()
@@ -199,64 +201,59 @@ public class VelocityHelpMessages {
         )
         .build();
 
+    static final HoverEvent<Component> clickhover = HoverEvent.showText(
+        mm.deserialize("<gradient:red:blue>Click Here</gradient>"));
+    static final Component fullguide = text("Visit full guide on", GOLD);
+
     public static final Component fullwikilink = text()
         .append(text()
-            .append(Component.text("Visit full guide on"))
-            .color(GOLD)
+            .append(fullguide)
         )
         .append(space())
         .append(text()
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki"))
-            .hoverEvent(HoverEvent.showText(
-                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
+            .hoverEvent(clickhover))
         .build();
     public static final Component titlewikilink = text()
         .append(text()
-            .append(Component.text("Visit full guide on"))
-            .color(GOLD)
+            .append(fullguide)
         )
         .append(space())
         .append(text()
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Title-Commands"))
-            .hoverEvent(HoverEvent.showText(
-                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
+            .hoverEvent(clickhover))
             .build();
     public static final Component actionbarwikilink = text()
         .append(text()
-            .append(Component.text("Visit full guide on"))
-            .color(GOLD)
+            .append(fullguide)
         )
         .append(space())
         .append(text()
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/ActionBar-Commands"))
-            .hoverEvent(HoverEvent.showText(
-                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
+            .hoverEvent(clickhover))
             .build();
 
     public static final Component bossbarwikilink = text()
         .append(text()
-            .append(Component.text("Visit full guide on"))
-            .color(GOLD)
+            .append(fullguide)
         )
         .append(space())
         .append(text()
             .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Bossbar-Commands"))
-            .hoverEvent(HoverEvent.showText(
-                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
+            .hoverEvent(clickhover))
             .build();
 
     public static final Component chatwikilink = text()
-        .append(text()
-            .append(Component.text("Visit full guide on")))
+        .append(fullguide)
         .append(space())
-        .append(text()
-            .append(text("WIKI"))
+        .append(text("WIKI"))
             .clickEvent(ClickEvent.openUrl("https://github.com/4drian3d/TitleAnnouncer/wiki/Chat-Commands"))
-            .hoverEvent(HoverEvent.showText(
-                mm.deserialize("<gradient:red:blue>Click Here</gradient>"))))
+            .hoverEvent(clickhover)
         .build();
+
+    private VelocityHelpMessages(){}
 }

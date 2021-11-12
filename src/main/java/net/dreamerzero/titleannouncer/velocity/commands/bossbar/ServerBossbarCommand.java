@@ -12,11 +12,10 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -26,13 +25,13 @@ public class ServerBossbarCommand implements SimpleCommand {
     private final ProxyServer server;
     private final Announcer plugin;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
+    private VelocityPlaceholders vPlaceholders;
     public ServerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm){
         this.server = server;
         this.mm = mm;
         this.plugin = plugin;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -69,10 +68,7 @@ public class ServerBossbarCommand implements SimpleCommand {
         new VelocityBossbar(plugin, server).sendVelocityBossbar(
             serverObjetive,
             time,
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    bossbartext),
-                    vPlaceholders.replaceProxyPlaceholders()),
+            vPlaceholders.applyPlaceholders(bossbartext),
             color,
             overlay);
         ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);

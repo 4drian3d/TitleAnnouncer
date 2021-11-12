@@ -9,7 +9,10 @@ import static net.kyori.adventure.text.Component.*;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 public class PaperHelpMessages {
-    private final static MiniMessage mm = MiniMessage.miniMessage();
+    private PaperHelpMessages(){
+        throw new IllegalAccessError("Utility Class");
+    }
+    private static final MiniMessage mm = MiniMessage.miniMessage();
     public static final Component titleArguments = text("[Title]; [SubTitle]", AQUA);
     public static final Component actionbarArguments = text("[ActionBar]", AQUA);
     public static final Component bossbarArguments = text("[Time] [Color] [Style] [BossBar]", AQUA);

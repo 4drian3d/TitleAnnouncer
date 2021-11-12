@@ -1,6 +1,7 @@
 package net.dreamerzero.titleannouncer.common.utils;
 
 import java.time.Duration;
+import java.util.regex.PatternSyntaxException;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -82,18 +83,18 @@ public class TitleUtil {
 
     public static String[] getTitleAndSubtitle(String string, Audience sender) {
         try {
-            String newString[] = string.split(";");
+            String[] newString = string.split(";");
             if(newString.length > 2) {
-                String fixedString[] = {newString[0], newString[1]};
-                return fixedString;
+                String[] fixedString = {newString[0], newString[1]};
+                newString = fixedString;
             }
             return newString;
         // In case the command does not contain a separator ";",
         // it will catch the error in the console and send an error message to the sender.
-        } catch (Exception e) {
+        } catch (PatternSyntaxException e) {
             // Send an error message to the sender using the command
             ConfigUtils.sendTitleError(sender);
-            return null;
+            return new String[0];
         }
     }
 
@@ -109,5 +110,9 @@ public class TitleUtil {
             if(args[i].contains(";")) return true;
         }
         return false;
+    }
+
+    private TitleUtil() throws IllegalAccessException{
+        throw new IllegalAccessException("Utility Class");
     }
 }

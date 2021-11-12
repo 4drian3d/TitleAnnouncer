@@ -33,25 +33,25 @@ public record RegisterCommands(Announcer plugin, MiniMessage mm) {
 	public void registerCommands() {
 		initCommand(
 			// BossBar
-			new CommandFactory("announcebossbar", new AnnouncerBossbarCommand(plugin, mm)),
-			new CommandFactory("selfbossbar", new SelfBossbarCommand(plugin, mm)),
-			new CommandFactory("worldbossbar", new WorldBossbarCommand(plugin, mm)),
-			new CommandFactory("sendbossbar", new SendBossbarCommand(plugin, mm)),
+			new CommandFactory("announcebossbar", new AnnouncerBossbarCommand(plugin)),
+			new CommandFactory("selfbossbar", new SelfBossbarCommand(plugin)),
+			new CommandFactory("worldbossbar", new WorldBossbarCommand(plugin)),
+			new CommandFactory("sendbossbar", new SendBossbarCommand(plugin)),
 			// Title
-			new CommandFactory("announcetitle", new AnnouncerTitleCommand(mm)),
-			new CommandFactory("selftitle", new SelfTitleCommand(mm)),
-			new CommandFactory("worldtitle", new WorldTitleCommand(mm)),
-			new CommandFactory("sendtitle", new SendTitleCommand(mm)),
+			new CommandFactory("announcetitle", new AnnouncerTitleCommand()),
+			new CommandFactory("selftitle", new SelfTitleCommand()),
+			new CommandFactory("worldtitle", new WorldTitleCommand()),
+			new CommandFactory("sendtitle", new SendTitleCommand()),
 			// ActionBar
-			new CommandFactory("announceactionbar", new AnnouncerActionbarCommand(mm)),
-			new CommandFactory("selfactionbar", new SelfActionbarCommand(mm)),
-			new CommandFactory("worldactionbar", new WorldActionbarCommand(mm)),
-			new CommandFactory("sendactionbar", new SendActionbarCommand(mm)),
+			new CommandFactory("announceactionbar", new AnnouncerActionbarCommand()),
+			new CommandFactory("selfactionbar", new SelfActionbarCommand()),
+			new CommandFactory("worldactionbar", new WorldActionbarCommand()),
+			new CommandFactory("sendactionbar", new SendActionbarCommand()),
 			// Chat
-			new CommandFactory("announcechat", new AnnouncerChatCommand(mm)),
-			new CommandFactory("selfchat", new SelfChatCommand(mm)),
-			new CommandFactory("worldchat", new WorldChatCommand(mm)),
-			new CommandFactory("sendchat", new SendChatCommand(mm)),
+			new CommandFactory("announcechat", new AnnouncerChatCommand()),
+			new CommandFactory("selfchat", new SelfChatCommand()),
+			new CommandFactory("worldchat", new WorldChatCommand()),
+			new CommandFactory("sendchat", new SendChatCommand()),
 			// MainCommand
 			new CommandFactory("announcer", new AnnouncerCommand(mm))
 		);

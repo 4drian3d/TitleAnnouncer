@@ -7,17 +7,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
-import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
+import net.dreamerzero.titleannouncer.paper.utils.PaperPlaceholders;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecutor {
+public class AnnouncerActionbarCommand implements CommandExecutor {
+    private final PaperPlaceholders placeholders;
+    public AnnouncerActionbarCommand(){
+        this.placeholders = new PaperPlaceholders();
+    }
 
     // Command
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
@@ -26,8 +26,6 @@ public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecut
             return false;
         }
 
-        boolean placeholderAPISupport = Announcer.placeholderAPIHook();
-
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args);
         // The audience that will receive the actionbar will be all the players on the server.
@@ -35,21 +33,14 @@ public record AnnouncerActionbarCommand(MiniMessage mm) implements CommandExecut
 
         // Send to all
         if (sender instanceof Player player) {
-            audience.sendActionBar(mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(player, actionbartext) : actionbartext),
-                    PPlaceholders.replacePlaceholders(player)));
+            audience.sendActionBar(placeholders.applyPlaceholders(actionbartext, player));
             ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, audience);
             ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
-            return true;
         } else {
-            audience.sendActionBar(mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    placeholderAPISupport ? PlaceholderAPI.setPlaceholders(null, actionbartext) : actionbartext),
-                    PPlaceholders.replacePlaceholders()));
+            audience.sendActionBar(placeholders.applyPlaceholders(actionbartext));
             ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, audience);
             ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
-            return true;
         }
+        return true;
     }
 }

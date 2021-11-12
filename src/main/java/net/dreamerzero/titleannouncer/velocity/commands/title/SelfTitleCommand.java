@@ -10,21 +10,18 @@ import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
+import net.kyori.adventure.title.Title;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class SelfTitleCommand implements SimpleCommand {
-    private final MiniMessage mm;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public SelfTitleCommand(ProxyServer server, MiniMessage mm){
-        this.mm = mm;
+    private VelocityPlaceholders vPlaceholders;
+    public SelfTitleCommand(ProxyServer server){
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -47,30 +44,22 @@ public class SelfTitleCommand implements SimpleCommand {
 
         if(!titleandsubtitle.contains(";")){
             TitleUtil.sendOnlySubtitle(
-                mm.deserialize(MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                    vPlaceholders.replaceProxyPlaceholders(player)),
+                vPlaceholders.applyPlaceholders(titleandsubtitle, player),
                 sender, 1000, 3000, 1000);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(player, ComponentType.TITLE);
             return;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String[] titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         // Send the title
-        TitleUtil.sendTitle(
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
-                vPlaceholders.replaceProxyPlaceholders(player)),
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
-                vPlaceholders.replaceProxyPlaceholders(player)),
-            sender,
-            1000,
-            3000,
-            1000);
+        sender.showTitle(Title.title(
+            vPlaceholders.applyPlaceholders(titleandsubtitlefinal[0], player),
+            vPlaceholders.applyPlaceholders(titleandsubtitlefinal[1], player)
+        ));
         sUtils.playProxySound(player, ComponentType.TITLE);
         ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
     }

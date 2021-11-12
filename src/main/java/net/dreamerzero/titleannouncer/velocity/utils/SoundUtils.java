@@ -22,24 +22,25 @@ public class SoundUtils {
     private static Sound bossbarSound;
     private static Sound chatSound;
     private final ProxyServer proxy;
+    private static final String PROTOCOLIZE = "protocolize";
 
     public SoundUtils(ProxyServer server){
         this.proxy = server;
     }
 
-    public void setTitleSound(){
+    public static void setTitleSound(){
         titleSound = SoundTransformer.getSoundFromString(ConfigUtils.getTitleSound());
     }
 
-    public void setBossBarSound(){
+    public static void setBossBarSound(){
         bossbarSound = SoundTransformer.getSoundFromString(ConfigUtils.getBossbarSound());
     }
 
-    public void setActionBarSound(){
+    public static void setActionBarSound(){
         actionbarSound = SoundTransformer.getSoundFromString(ConfigUtils.getActionbarSound());
     }
 
-    public void setChatSound(){
+    public static void setChatSound(){
         chatSound = SoundTransformer.getSoundFromString(ConfigUtils.getChatSound());
     }
 
@@ -65,7 +66,7 @@ public class SoundUtils {
      * @param type the component type
      */
     public void playProxySound(@NotNull Player player, ComponentType type){
-        if(!proxy.getPluginManager().isLoaded("protocolize")) return;
+        if(!proxy.getPluginManager().isLoaded(PROTOCOLIZE)) return;
 
         final UUID playeruuid = player.getUniqueId();
         final ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(playeruuid);
@@ -74,7 +75,7 @@ public class SoundUtils {
             case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
             case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
             case CHAT -> protocolizePlayer.playSound(getChatSound(), SoundCategory.MASTER, ConfigUtils.getChatSoundVolume(), ConfigUtils.getChatSoundPitch());
-        };
+        }
     }
 
     /**
@@ -82,7 +83,7 @@ public class SoundUtils {
      * @param type the component type
      */
     public void playProxySound(ComponentType type){
-        if(!proxy.getPluginManager().isLoaded("protocolize")) return;
+        if(!proxy.getPluginManager().isLoaded(PROTOCOLIZE)) return;
 
         for(Player player : proxy.getAllPlayers()){
             final UUID playeruuid = player.getUniqueId();
@@ -93,7 +94,7 @@ public class SoundUtils {
                 case BOSSBAR -> protocolizePlayer.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
                 case ACTIONBAR -> protocolizePlayer.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
                 case CHAT -> protocolizePlayer.playSound(getChatSound(), SoundCategory.MASTER, ConfigUtils.getChatSoundVolume(), ConfigUtils.getChatSoundPitch());
-            };
+            }
         }
     }
 
@@ -103,7 +104,7 @@ public class SoundUtils {
      * @param type the component type
      */
     public void playProxySound(@NotNull Audience audience, ComponentType type){
-        if(!proxy.getPluginManager().isLoaded("protocolize")) return;
+        if(!proxy.getPluginManager().isLoaded(PROTOCOLIZE)) return;
 
         final ProtocolizeAudience pAudience = new ProtocolizeAudience(audience);
 
@@ -112,6 +113,6 @@ public class SoundUtils {
             case BOSSBAR -> pAudience.playSound(getBossBarSound(), SoundCategory.MASTER, ConfigUtils.getBossbarSoundVolume(), ConfigUtils.getBossbarSoundPitch());
             case ACTIONBAR -> pAudience.playSound(getActionBarSound(), SoundCategory.MASTER, ConfigUtils.getActionbarSoundVolume(), ConfigUtils.getActionbarSoundPitch());
             case CHAT -> pAudience.playSound(getChatSound(), SoundCategory.MASTER, ConfigUtils.getChatSoundVolume(), ConfigUtils.getChatSoundPitch());
-        };
+        }
     }
 }

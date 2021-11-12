@@ -11,19 +11,15 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 
 public class SelfChatCommand implements SimpleCommand {
-    private final MiniMessage mm;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public SelfChatCommand(ProxyServer server, MiniMessage mm){
-        this.mm = mm;
+    private VelocityPlaceholders vPlaceholders;
+    public SelfChatCommand(ProxyServer server){
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
     @Override
     public void execute(Invocation invocation) {
@@ -41,9 +37,7 @@ public class SelfChatCommand implements SimpleCommand {
 
         String chattext = GeneralUtils.getCommandString(args);
 
-        sender.sendMessage(mm.deserialize(
-            MiniMessageUtil.replaceLegacy(chattext),
-            vPlaceholders.replaceProxyPlaceholders(player)));
+        sender.sendMessage(vPlaceholders.applyPlaceholders(chattext, player));
         sUtils.playProxySound(player, ComponentType.CHAT);
         ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
     }

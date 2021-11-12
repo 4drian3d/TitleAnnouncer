@@ -30,13 +30,12 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 public class Announcer {
     private final ProxyServer server;
     private final MiniMessage mm;
-    private static Yaml config;
+    private static Yaml config = new Yaml("config", "plugins/TitleAnnouncer");
 
     @Inject
     public Announcer(final ProxyServer server) {
         this.server = server;
         this.mm = MiniMessage.miniMessage();
-        config = new Yaml("config", "plugins/TitleAnnouncer");
     }
 
     @Subscribe
@@ -52,10 +51,9 @@ public class Announcer {
         rCommands.registerProxyTitle();
         rCommands.registerProxyActionbar();
         if(server.getPluginManager().isLoaded("protocolize")){
-            SoundUtils sUtils = new SoundUtils(server);
-            sUtils.setActionBarSound();
-            sUtils.setBossBarSound();
-            sUtils.setTitleSound();
+            SoundUtils.setActionBarSound();
+            SoundUtils.setBossBarSound();
+            SoundUtils.setTitleSound();
         }
     }
 }

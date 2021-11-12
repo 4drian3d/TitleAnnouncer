@@ -6,20 +6,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
-import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
+import net.dreamerzero.titleannouncer.paper.utils.PaperPlaceholders;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class WorldChatCommand implements CommandExecutor {
-    private final MiniMessage mm;
-    public WorldChatCommand(MiniMessage mm){
-        this.mm = mm;
+    private final PaperPlaceholders placeholders;
+    public WorldChatCommand(){
+        this.placeholders = new PaperPlaceholders();
     }
 
     @Override
@@ -39,10 +35,7 @@ public class WorldChatCommand implements CommandExecutor {
 
             String chattext = GeneralUtils.getCommandString(args);
 
-            audience.sendMessage(
-                mm.deserialize(MiniMessageUtil.replaceLegacy(
-                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, chattext) : chattext),
-                    PPlaceholders.replacePlaceholders(player)));
+            audience.sendMessage(placeholders.applyPlaceholders(chattext, player));
             ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
             ConfigUtils.playPaperSound(ComponentType.CHAT, audience);
             return true;

@@ -11,39 +11,31 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 import net.dreamerzero.titleannouncer.common.utils.TitleUtil;
 
 public class ServerTitleCommand implements SimpleCommand {
-    private final MiniMessage mm;
     private final ProxyServer server;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public ServerTitleCommand(ProxyServer server, MiniMessage mm){
+    private VelocityPlaceholders vPlaceholders;
+    public ServerTitleCommand(ProxyServer server){
         this.server = server;
-        this.mm = mm;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
     public void execute(Invocation invocation) {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
-
-        switch (args.length) {
-            case 0 -> {
-                ConfigUtils.sendNoArgumentMessage(sender);
-                return;
-            }
-            case 1 -> {
-                ConfigUtils.noServerArgumentProvided(sender);
-                return;
-            }
+        if(args.length == 0){
+            ConfigUtils.sendNoArgumentMessage(sender);
+            return;
+        } else if (args.length == 1){
+           ConfigUtils.noServerArgumentProvided(sender);
+            return;
         }
 
         Optional<RegisteredServer> optionalServerObjetive = server.getServer(args[0]);
@@ -58,26 +50,21 @@ public class ServerTitleCommand implements SimpleCommand {
 
         if(!TitleUtil.containsComma(args, 1)){
             TitleUtil.sendOnlySubtitle(
-                mm.deserialize(MiniMessageUtil.replaceLegacy(titleandsubtitle),
-                    vPlaceholders.replaceProxyPlaceholders()),
+                vPlaceholders.applyPlaceholders(titleandsubtitle),
                 serverObjetive, 1000, 3000, 1000);
             ConfigUtils.sendConfirmation(ComponentType.TITLE, sender);
             sUtils.playProxySound(serverObjetive, ComponentType.TITLE);
             return;
         }
 
-        String titleandsubtitlefinal[] = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
+        String[] titleandsubtitlefinal = TitleUtil.getTitleAndSubtitle(titleandsubtitle, sender);
 
         if(titleandsubtitlefinal == null) return;
 
         // Send the title
         TitleUtil.sendTitle(
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[0]),
-                vPlaceholders.replaceProxyPlaceholders()),
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(titleandsubtitlefinal[1]),
-                vPlaceholders.replaceProxyPlaceholders()),
+            vPlaceholders.applyPlaceholders(titleandsubtitlefinal[0]),
+            vPlaceholders.applyPlaceholders(titleandsubtitlefinal[1]),
             serverObjetive,
             1000,
             3000,
@@ -91,7 +78,7 @@ public class ServerTitleCommand implements SimpleCommand {
         return CompletableFuture.supplyAsync(() -> {
             if (invocation.arguments().length <= 1){
                 return server.getAllServers().stream()
-                    .map(server -> server.getServerInfo().getName())
+                    .map(sv -> sv.getServerInfo().getName())
                     .toList();
             } else if (!TitleUtil.containsComma(invocation.arguments())){
                 return List.of("[Title]");

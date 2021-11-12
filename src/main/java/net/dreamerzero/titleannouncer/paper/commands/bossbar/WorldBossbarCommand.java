@@ -5,22 +5,19 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.paper.Announcer;
 import net.dreamerzero.titleannouncer.paper.utils.PaperBossBar;
-import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
+import net.dreamerzero.titleannouncer.paper.utils.PaperPlaceholders;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements CommandExecutor {
+public record WorldBossbarCommand(Announcer plugin) implements CommandExecutor {
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -53,13 +50,12 @@ public record WorldBossbarCommand(Announcer plugin, MiniMessage mm) implements C
         // The audience that will receive the bossbar will be all the players on the server.
         Audience audience = player.getWorld();
 
+        var placeholders = new PaperPlaceholders();
+
         new PaperBossBar(plugin).sendBukkitBossBar(
             audience,
             time,
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(player, bossbartext) : bossbartext), 
-                    PPlaceholders.replacePlaceholders()),
+            placeholders.applyPlaceholders(bossbartext, player),
             color,
             overlay);
         ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);

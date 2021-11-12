@@ -12,21 +12,17 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 
 public class SendChatCommand implements SimpleCommand {
     private final ProxyServer server;
-    private final MiniMessage mm;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public SendChatCommand(ProxyServer server, MiniMessage mm){
+    private VelocityPlaceholders vPlaceholders;
+    public SendChatCommand(ProxyServer server){
         this.server = server;
-        this.mm = mm;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -52,11 +48,7 @@ public class SendChatCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String chattext = GeneralUtils.getCommandString(args, 1);
 
-        playerObjetive.sendMessage(
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    chattext),
-                    vPlaceholders.replaceProxyPlaceholders(playerObjetive)));
+        playerObjetive.sendMessage(vPlaceholders.applyPlaceholders(chattext, playerObjetive));
         sUtils.playProxySound(playerObjetive, ComponentType.CHAT);
         ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
     }

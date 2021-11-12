@@ -4,12 +4,14 @@ import dev.simplix.protocolize.data.Sound;
 
 public class SoundTransformer {
     public static Sound getSoundFromString(String sound){
-        String soundReplaced = sound.replaceAll("_", ".");
+        String soundReplaced = sound.replace("_", ".");
         for (Sound mcsound : Sound.values()){
-            if(mcsound.toString().replaceAll("_", ".").equalsIgnoreCase(soundReplaced)){
+            if(mcsound.toString().replace("_", ".").equalsIgnoreCase(soundReplaced)){
                 return mcsound;
             }
         }
         return Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
     }
+
+    private SoundTransformer(){}
 }

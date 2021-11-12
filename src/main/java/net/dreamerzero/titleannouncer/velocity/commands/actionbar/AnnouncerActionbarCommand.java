@@ -9,22 +9,18 @@ import com.velocitypowered.api.proxy.ProxyServer;
 
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 
 public class AnnouncerActionbarCommand implements SimpleCommand {
     private final ProxyServer server;
-    private final MiniMessage mm;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public AnnouncerActionbarCommand(ProxyServer server, MiniMessage mm){
+    private VelocityPlaceholders vPlaceholders;
+    public AnnouncerActionbarCommand(ProxyServer server){
         this.server = server;
-        this.mm = mm;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -40,12 +36,10 @@ public class AnnouncerActionbarCommand implements SimpleCommand {
         String actionbartext = GeneralUtils.getCommandString(args);
 
         // Send to all
-        server.sendActionBar(mm.deserialize(
-            MiniMessageUtil.replaceLegacy(
-                actionbartext),
+        server.sendActionBar(
                 sender instanceof Player player ?
-                    vPlaceholders.replaceProxyPlaceholders(player) :
-                    vPlaceholders.replaceProxyPlaceholders()));
+                    vPlaceholders.applyPlaceholders(actionbartext, player) :
+                    vPlaceholders.applyPlaceholders(actionbartext));
         sUtils.playProxySound(ComponentType.ACTIONBAR);
         ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
     }

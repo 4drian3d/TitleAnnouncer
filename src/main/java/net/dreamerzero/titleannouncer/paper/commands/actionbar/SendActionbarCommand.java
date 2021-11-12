@@ -6,16 +6,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
-import net.dreamerzero.titleannouncer.paper.Announcer;
-import net.dreamerzero.titleannouncer.paper.utils.PPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.paper.utils.PaperPlaceholders;
 
-public record SendActionbarCommand(MiniMessage mm) implements CommandExecutor {
+public class SendActionbarCommand implements CommandExecutor {
+    private PaperPlaceholders placeholders;
+    public SendActionbarCommand(){
+        this.placeholders = new PaperPlaceholders();
+    }
 
     // Command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -42,11 +42,7 @@ public record SendActionbarCommand(MiniMessage mm) implements CommandExecutor {
         // Concatenate the arguments provided by the command sent.
         String actionbartext = GeneralUtils.getCommandString(args, 1);
 
-        playerObjetive.sendActionBar(
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    Announcer.placeholderAPIHook() ? PlaceholderAPI.setPlaceholders(playerObjetive, actionbartext) : actionbartext), 
-                    PPlaceholders.replacePlaceholders(playerObjetive)));
+        playerObjetive.sendActionBar(placeholders.applyPlaceholders(actionbartext, playerObjetive));
         ConfigUtils.playPaperSound(ComponentType.ACTIONBAR, playerObjetive);
         ConfigUtils.sendConfirmation(ComponentType.ACTIONBAR, sender);
         return true;

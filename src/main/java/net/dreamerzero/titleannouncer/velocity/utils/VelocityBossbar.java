@@ -40,20 +40,20 @@ public class VelocityBossbar {
         audience.showBossBar(bar);
 
         taskScheduled = proxy.getScheduler()
-        .buildTask(plugin, () -> {
-            value -= finalTime;
-                if (value <= 0.02) {
-                    audience.hideBossBar(bar);
-                    cancelTask();
-                }
-                try {
-                    bar.progress(value);
-                } catch (IllegalArgumentException e) {
-                    cancelTask();
-                }
-        })
-        .repeat(200L, TimeUnit.MILLISECONDS)
-        .schedule();
+            .buildTask(plugin, () -> {
+                value -= finalTime;
+                    if (value <= 0.02) {
+                        audience.hideBossBar(bar);
+                        cancelTask();
+                    }
+                    try {
+                        bar.progress(value);
+                    } catch (IllegalArgumentException e) {
+                        cancelTask();
+                    }
+            })
+            .repeat(200L, TimeUnit.MILLISECONDS)
+            .schedule();
     }
 
     void cancelTask(){

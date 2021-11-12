@@ -8,25 +8,20 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
-
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 
 public class ServerChatCommand implements SimpleCommand {
     private final ProxyServer server;
-    private final MiniMessage mm;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
-    public ServerChatCommand(ProxyServer server, MiniMessage mm){
+    private VelocityPlaceholders vPlaceholders;
+    public ServerChatCommand(ProxyServer server){
         this.server = server;
-        this.mm = mm;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -52,11 +47,7 @@ public class ServerChatCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String chattext = GeneralUtils.getCommandString(args, 1);
 
-        serverObjetive.sendMessage(
-            mm.deserialize(
-                MiniMessageUtil.replaceLegacy(
-                    chattext),
-                    vPlaceholders.replaceProxyPlaceholders()));
+        serverObjetive.sendMessage(vPlaceholders.applyPlaceholders(chattext));
         sUtils.playProxySound(serverObjetive, ComponentType.CHAT);
         ConfigUtils.sendConfirmation(ComponentType.CHAT, sender);
     }

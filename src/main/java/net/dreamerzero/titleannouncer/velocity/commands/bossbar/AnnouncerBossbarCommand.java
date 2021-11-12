@@ -12,11 +12,10 @@ import net.dreamerzero.titleannouncer.velocity.utils.VelocityBossbar;
 import net.dreamerzero.titleannouncer.common.utils.BossBarUtils;
 import net.dreamerzero.titleannouncer.common.utils.ConfigUtils;
 import net.dreamerzero.titleannouncer.common.utils.GeneralUtils;
-import net.dreamerzero.titleannouncer.common.utils.MiniMessageUtil;
 import net.dreamerzero.titleannouncer.common.utils.ComponentType;
 import net.dreamerzero.titleannouncer.velocity.Announcer;
 import net.dreamerzero.titleannouncer.velocity.utils.SoundUtils;
-import net.dreamerzero.titleannouncer.velocity.utils.VPlaceholders;
+import net.dreamerzero.titleannouncer.velocity.utils.VelocityPlaceholders;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
@@ -25,13 +24,13 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
     private final MiniMessage mm;
     private final Announcer plugin;
     private SoundUtils sUtils;
-    private VPlaceholders vPlaceholders;
+    private VelocityPlaceholders vPlaceholders;
     public AnnouncerBossbarCommand(ProxyServer server, Announcer plugin, MiniMessage mm){
         this.server = server;
         this.plugin = plugin;
         this.mm = mm;
         this.sUtils = new SoundUtils(server);
-        this.vPlaceholders = new VPlaceholders(server);
+        this.vPlaceholders = new VelocityPlaceholders(server);
     }
 
     @Override
@@ -67,23 +66,16 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
             vBossbar.sendVelocityBossbar(
                 server,
                 time,
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(
-                        bossbartext),
-                        vPlaceholders.replaceProxyPlaceholders(player)),
+                vPlaceholders.applyPlaceholders(bossbartext, player),
                 color,
                 overlay);
             ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
             sUtils.playProxySound(ComponentType.BOSSBAR);
-            return;
         } else {
             vBossbar.sendVelocityBossbar(
                 server,
                 time,
-                mm.deserialize(
-                    MiniMessageUtil.replaceLegacy(
-                        bossbartext),
-                        vPlaceholders.replaceProxyPlaceholders()),
+                vPlaceholders.applyPlaceholders(bossbartext),
                 color,
                 overlay);
             ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);

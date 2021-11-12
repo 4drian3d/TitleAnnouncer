@@ -32,10 +32,10 @@ public record RegisterCommands(Announcer plugin, ProxyServer server, MiniMessage
 		CommandMeta vselftitle = server.getCommandManager().metaBuilder("vselftitle").aliases("pselftitle", "vsftitle").build();
 		CommandMeta vsendtitle = server.getCommandManager().metaBuilder("vsendtitle").aliases("psendtitle", "vsntitle").build();
 		CommandMeta vservertitle = server.getCommandManager().metaBuilder("vservertitle").aliases("servertitle", "svtitle").build();
-		server.getCommandManager().register(vannouncetitle, new AnnouncerTitleCommand(server, mm));
-        server.getCommandManager().register(vselftitle, new SelfTitleCommand(server, mm));
-        server.getCommandManager().register(vsendtitle, new SendTitleCommand(server, mm));
-        server.getCommandManager().register(vservertitle, new ServerTitleCommand(server, mm));
+		server.getCommandManager().register(vannouncetitle, new AnnouncerTitleCommand(server));
+        server.getCommandManager().register(vselftitle, new SelfTitleCommand(server));
+        server.getCommandManager().register(vsendtitle, new SendTitleCommand(server));
+        server.getCommandManager().register(vservertitle, new ServerTitleCommand(server));
 	}
 
 	public void registerProxyActionbar(){
@@ -43,10 +43,10 @@ public record RegisterCommands(Announcer plugin, ProxyServer server, MiniMessage
 		CommandMeta vselfactionbar = server.getCommandManager().metaBuilder("vselfactionbar").aliases("pselfactionbar", "vsfactionbar").build();
 		CommandMeta vsendactionbar = server.getCommandManager().metaBuilder("vsendactionbar").aliases("psendactionbar", "vsnactionbar").build();
 		CommandMeta vserveractionbar = server.getCommandManager().metaBuilder("vserveractionbar").aliases("serveractionbar", "svactionbar").build();
-		server.getCommandManager().register(vannounceactionbar, new AnnouncerActionbarCommand(server, mm));
-        server.getCommandManager().register(vselfactionbar, new SelfActionbarCommand(server, mm));
-        server.getCommandManager().register(vsendactionbar, new SendActionbarCommand(server, mm));
-        server.getCommandManager().register(vserveractionbar, new ServerActionbarCommand(server, mm));
+		server.getCommandManager().register(vannounceactionbar, new AnnouncerActionbarCommand(server));
+        server.getCommandManager().register(vselfactionbar, new SelfActionbarCommand(server));
+        server.getCommandManager().register(vsendactionbar, new SendActionbarCommand(server));
+        server.getCommandManager().register(vserveractionbar, new ServerActionbarCommand(server));
 	}
 
 	public void registerProxyChat(){
@@ -54,10 +54,10 @@ public record RegisterCommands(Announcer plugin, ProxyServer server, MiniMessage
 		CommandMeta vselfchat = server.getCommandManager().metaBuilder("vselfchat").aliases("pselfchat", "vsfchat").build();
 		CommandMeta vsendchat = server.getCommandManager().metaBuilder("vsendchat").aliases("psendchat", "vsnchat").build();
 		CommandMeta vserverchat = server.getCommandManager().metaBuilder("vserverchat").aliases("serverchat", "svchat").build();
-		server.getCommandManager().register(vannouncechat, new AnnouncerChatCommand(server, mm));
-		server.getCommandManager().register(vselfchat, new SelfChatCommand(server, mm));
-		server.getCommandManager().register(vsendchat, new SendChatCommand(server, mm));
-		server.getCommandManager().register(vserverchat, new ServerChatCommand(server, mm));
+		server.getCommandManager().register(vannouncechat, new AnnouncerChatCommand(server));
+		server.getCommandManager().register(vselfchat, new SelfChatCommand(server));
+		server.getCommandManager().register(vsendchat, new SendChatCommand(server));
+		server.getCommandManager().register(vserverchat, new ServerChatCommand(server));
 	}
 
 	public void registerProxyMainCommand(){

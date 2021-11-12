@@ -74,9 +74,7 @@ public record AnnouncerCommand(MiniMessage mm) implements SimpleCommand {
                     source.sendMessage(VelocityHelpMessages.fullwikilink);
                 }
             }
-            default -> {
-                ConfigUtils.invalidCommand(source);
-            }
+            default -> ConfigUtils.invalidCommand(source);
         }
 
     }
