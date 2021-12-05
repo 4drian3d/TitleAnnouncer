@@ -3,9 +3,20 @@ package net.dreamerzero.titleannouncer.common.utils;
 import net.kyori.adventure.audience.Audience;
 import static net.kyori.adventure.bossbar.BossBar.*;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.transformation.TransformationType;
 
 public class BossBarUtils {
-    private final static MiniMessage mm = MiniMessage.miniMessage();
+    private BossBarUtils(){}
+    private static final MiniMessage mm = MiniMessage.builder()
+        .transformations(tr ->
+            tr.add(TransformationType.COLOR)
+                .add(TransformationType.DECORATION)
+                .add(TransformationType.FONT)
+                .add(TransformationType.GRADIENT)
+                .add(TransformationType.RAINBOW)
+                .add(TransformationType.TRANSLATABLE)
+            .build()
+        ).build();
     /**
      * Based on the argument given in the command, 
      * it will return the color of the specified bossbar.
@@ -33,10 +44,10 @@ public class BossBarUtils {
      */
     public static Overlay bossbarOverlay(String overlay){
         return switch (overlay.toLowerCase()){
-            case "6" -> Overlay.NOTCHED_6;
-            case "10" -> Overlay.NOTCHED_10;
-            case "12" -> Overlay.NOTCHED_12;
-            case "20" -> Overlay.NOTCHED_20;
+            case "6", "notched_6" -> Overlay.NOTCHED_6;
+            case "10", "notched_10" -> Overlay.NOTCHED_10;
+            case "12", "notched_12" -> Overlay.NOTCHED_12;
+            case "20", "notched_20" -> Overlay.NOTCHED_20;
             case "full", "progress" -> Overlay.PROGRESS;
             default -> null;
         };
