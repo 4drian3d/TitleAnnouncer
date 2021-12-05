@@ -63,7 +63,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
 
         // Send to all
         if (sender instanceof Player player) {
-            vBossbar.sendVelocityBossbar(
+            vBossbar.sendBossbar(
                 server,
                 time,
                 vPlaceholders.applyPlaceholders(bossbartext, player),
@@ -72,7 +72,7 @@ public class AnnouncerBossbarCommand implements SimpleCommand {
             ConfigUtils.sendConfirmation(ComponentType.BOSSBAR, sender);
             sUtils.playProxySound(ComponentType.BOSSBAR);
         } else {
-            vBossbar.sendVelocityBossbar(
+            vBossbar.sendBossbar(
                 server,
                 time,
                 vPlaceholders.applyPlaceholders(bossbartext),

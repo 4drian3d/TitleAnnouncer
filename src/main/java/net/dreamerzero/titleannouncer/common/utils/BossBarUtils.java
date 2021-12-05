@@ -2,10 +2,16 @@ package net.dreamerzero.titleannouncer.common.utils;
 
 import net.kyori.adventure.audience.Audience;
 import static net.kyori.adventure.bossbar.BossBar.*;
+
+import java.util.Locale;
+import java.util.regex.PatternSyntaxException;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class BossBarUtils {
-    private final static MiniMessage mm = MiniMessage.miniMessage();
+    private static final MiniMessage mm = MiniMessage.miniMessage();
     /**
      * Based on the argument given in the command, 
      * it will return the color of the specified bossbar.
@@ -43,7 +49,7 @@ public class BossBarUtils {
     }
 
     // It will return if the given arguments are correct for the command to work correctly.
-    public static boolean regularBossbarArgs(int length, Audience sender) {
+    public static boolean regularBossbarArgs(int length, @NotNull Audience sender) {
         // The command requires arguments to work
         return switch (length) {
             case 0 -> {
@@ -82,7 +88,7 @@ public class BossBarUtils {
         };
     }
 
-    public static boolean sendBossbarArgs(int length, Audience sender) {
+    public static boolean sendBossbarArgs(int length, @NotNull Audience sender) {
         return switch (length) {
             case 0 -> {
                 sender.sendMessage(
@@ -183,4 +189,22 @@ public class BossBarUtils {
             return 0.1f;
         }
     }
+
+    public static boolean isValidArgument(@NotNull String argument){
+        if(argument.equalsIgnoreCase("all")){
+            return true;
+        } else {
+            try{
+                var splittedargument = argument.split(":");
+                return switch(splittedargument[0].toLowerCase(Locale.ROOT)){
+                    case "server", "player", "self", "me" -> true;
+                    default -> false;
+                };
+            } catch (PatternSyntaxException exception){
+                return false;
+            }
+        }
+    }
+
+    private BossBarUtils(){}
 }

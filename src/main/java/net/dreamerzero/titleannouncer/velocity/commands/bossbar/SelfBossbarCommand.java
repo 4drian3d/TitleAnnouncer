@@ -64,7 +64,7 @@ public class SelfBossbarCommand implements SimpleCommand {
         }
 
         // Send to all
-        new VelocityBossbar(plugin, server).sendVelocityBossbar(
+        new VelocityBossbar(plugin, server).sendBossbar(
             sender,
             time,
             vpapi.applyPlaceholders(bossbartext, player),

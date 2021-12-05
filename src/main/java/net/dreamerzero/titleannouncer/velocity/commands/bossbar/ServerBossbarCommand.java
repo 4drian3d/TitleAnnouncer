@@ -65,7 +65,7 @@ public class ServerBossbarCommand implements SimpleCommand {
         // Concatenate the arguments provided by the command sent.
         String bossbartext = GeneralUtils.getCommandString(args, 5);
 
-        new VelocityBossbar(plugin, server).sendVelocityBossbar(
+        new VelocityBossbar(plugin, server).sendBossbar(
             serverObjetive,
             time,
             vPlaceholders.applyPlaceholders(bossbartext),
