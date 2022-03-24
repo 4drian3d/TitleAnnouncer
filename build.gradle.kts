@@ -1,86 +1,31 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-
 plugins {
     java
-	id("net.kyori.blossom") version "1.2.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-repositories {
-    maven {
-        url = uri("https://papermc.io/repo/repository/maven-public/")
-    }
-
-    maven {
-        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-    }
-
-    maven {
-        url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-    }
-
-    maven {
-        url = uri("https://nexus.velocitypowered.com/repository/maven-public/")
-    }
-
-    maven {
-        url = uri("https://jitpack.io")
-    }
-
-    maven {
-        url = uri("https://mvn.exceptionflug.de/repository/exceptionflug-public/")
-    }
+allprojects {
+    apply(plugin = "java")
+    group = "me.dreamerzero.titleannouncer"
+    version = "3.0.0"
+    description = "Plugin created to send titles, actionbars, bossbars and chat announces to the player and the proxy using the MiniMessage format"
 }
 
-dependencies {
-    shadow("com.github.simplix-softworks:simplixstorage:3.2.3")
-    shadow("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT"){
-        exclude("net.kyori", "adventure-api")
+subprojects {
+    repositories {
+        mavenCentral()
+        maven("https://papermc.io/repo/repository/maven-public/")
+        maven("https://repo.maven.apache.org/maven2/")
     }
-
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.10.10")
-	compileOnly("dev.simplix:protocolize-velocity:2.0.1")
-
-    compileOnly("com.velocitypowered:velocity-api:3.1.0-SNAPSHOT")
-    annotationProcessor("com.velocitypowered:velocity-api:3.1.0-SNAPSHOT")
-}
-
-group = "net.dreamerzero.titleannouncer"
-version = "2.2.1"
-description = "Plugin created to send titles, actionbars, bossbars and chat announces to the player and the proxy using the MiniMessage format."
-java.sourceCompatibility = JavaVersion.VERSION_16
-
-blossom{
-	val constants = "src/main/java/net/dreamerzero/titleannouncer/common/utils/Constants.java"
-	replaceToken("{name}", rootProject.name, constants)
-	replaceToken("{version}", version, constants)
-	replaceToken("{description}", description, constants)
-    replaceToken("{url}", "https://polymart.org/resource/titleannouncer.1350", constants)
 }
 
 tasks {
-    processResources {
-        expand(
-            "name" to rootProject.name,
-            "version" to version,
-            "description" to "Plugin created to send titles, actionbars and bossbars to the player and the proxy using the MiniMessage format.",
-            "url" to "https://polymart.org/resource/titleannouncer.1350"
-        )
-    }
     build {
         dependsOn(shadowJar)
     }
     shadowJar {
-        dependsOn(getByName("relocateJars") as ConfigureShadowRelocation)
-        minimize()
-        archiveFileName.set("TitleAnnouncer.jar")
+        archiveFileName.set("MiniPlaceholders.jar")
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         configurations = listOf(project.configurations.shadow.get())
-    }
-
-    create<ConfigureShadowRelocation>("relocateJars") {
-        target = shadowJar.get()
-        prefix = "net.dreamerzero.titleannouncer.libs"
     }
 }
 
