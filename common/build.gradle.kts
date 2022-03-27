@@ -22,7 +22,10 @@ dependencies {
 
 blossom{
     replaceToken("{version}", version)
-    replaceTokenIn("src/main/java/me/dreamerzero/titleannouncer/common/PluginConstants.java")
+    replaceToken("{id}", "titleannouncer")
+    replaceToken("{name}", name)
+    replaceToken("{url}", "TODO")
+    replaceTokenIn("src/main/java/me/dreamerzero/titleannouncer/common/Constants.java")
 }
 
 tasks {
