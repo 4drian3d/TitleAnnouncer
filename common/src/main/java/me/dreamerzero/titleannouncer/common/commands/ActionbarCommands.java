@@ -20,7 +20,7 @@ public class ActionbarCommands<A> {
     }
 
     public LiteralArgumentBuilder<A> actionbar(LiteralArgumentBuilder<A> platformArgument){
-        return LiteralArgumentBuilder.<A>literal("actionbar")
+        return LiteralArgumentBuilder.<A>literal("announceactionbar")
             .then(LiteralArgumentBuilder.<A>literal("global")
                 .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                     .executes(cmd -> {
@@ -28,8 +28,8 @@ public class ActionbarCommands<A> {
                             MiniMessage.miniMessage().deserialize(
                                 cmd.getArgument("message", String.class)));
                         return 1;
-                    })
-                )  
+                    }).build()
+                ).build()
             )
             .then(LiteralArgumentBuilder.<A>literal("self")
                 .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
@@ -39,7 +39,7 @@ public class ActionbarCommands<A> {
                                 cmd.getArgument("message", String.class)));
                         return 1;
                     })
-                )  
+                ).build()
             )
             .then(LiteralArgumentBuilder.<A>literal("send")
                 .then(RequiredArgumentBuilder.<A, String>argument("objetive", StringArgumentType.word())
@@ -56,10 +56,10 @@ public class ActionbarCommands<A> {
                             }
                             
                         })
-                    )
-                ) 
+                    ).build()
+                ).build() 
             )
-            .then(platformArgument);
+            .then(platformArgument.build());
 
     }
 

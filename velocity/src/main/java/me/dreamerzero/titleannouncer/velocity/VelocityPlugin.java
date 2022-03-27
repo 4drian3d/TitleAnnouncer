@@ -17,9 +17,11 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 
+import me.dreamerzero.titleannouncer.common.AnnouncerPlugin;
 import me.dreamerzero.titleannouncer.common.Constants;
 import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
+import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -39,12 +41,14 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
         )
     }
 )
-public final class VelocityPlugin {
+public final class VelocityPlugin implements AnnouncerPlugin {
     private final ProxyServer proxy;
+    private final CommandManager cManager;
 
     @Inject
-    public VelocityPlugin(ProxyServer proxy){
+    public VelocityPlugin(ProxyServer proxy, CommandManager cManager){
         this.proxy = proxy;
+        this.cManager = cManager;
     }
 
     @Subscribe
@@ -53,9 +57,13 @@ public final class VelocityPlugin {
             ? new MiniPlaceholdersFormatter()
             : new RegularFormatter()
         );
-
-        CommandManager manager = proxy.getCommandManager();
         VelocityAdapter adapter = new VelocityAdapter(proxy);
+
+        this.registerActionbar(adapter);
+    }
+
+    @Override
+    public void registerActionbar(CommandAdapter adapter) {
         LiteralArgumentBuilder<CommandSource> actionbarCommand = new ActionbarCommands<CommandSource>(adapter, c -> c)
             .actionbar(
                 LiteralArgumentBuilder.<CommandSource>literal("server")
@@ -81,11 +89,28 @@ public final class VelocityPlugin {
                     )
             );
         BrigadierCommand actionbar = new BrigadierCommand(actionbarCommand);
-        CommandMeta actionbarMeta = manager.metaBuilder(actionbar).plugin(this).build();
+        CommandMeta actionbarMeta = cManager.metaBuilder(actionbar).plugin(this).build();
 
-        manager.register(actionbarMeta, actionbar);
+        cManager.register(actionbarMeta, actionbar);
+        
+    }
 
+    @Override
+    public void registerBossbar(CommandAdapter adapter) {
+        // TODO Auto-generated method stub
+        
+    }
 
+    @Override
+    public void registerChat(CommandAdapter adapter) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void registerTitle(CommandAdapter adapter) {
+        // TODO Auto-generated method stub
+        
     }
 
 
