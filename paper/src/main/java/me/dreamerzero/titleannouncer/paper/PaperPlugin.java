@@ -10,10 +10,10 @@ import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
+import me.dreamerzero.titleannouncer.paper.commands.ToastCommands;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.server.dedicated.DedicatedServer;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -34,6 +34,8 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
         registerBossbar(adapter);
         registerTitle(adapter);
         registerChat(adapter);
+
+        this.getCommandDispatcher().getDispatcher().register(ToastCommands.toast());
     }
 
     private CraftServer getMCServer(){
