@@ -14,6 +14,7 @@ import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import io.papermc.paper.adventure.AdventureComponent;
+import me.dreamerzero.titleannouncer.paper.commands.ToastCommands.CustomItemPackage;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Criterion;
@@ -81,5 +82,9 @@ public final class ToastUtils {
 
         packet = new ClientboundUpdateAdvancementsPacket(true, Collections.emptyList(), Set.of(new ResourceLocation(pluginKey.getNamespace())), Collections.emptyMap());
         craftPlayer.getHandle().connection.send(packet);
+    }
+
+    public static void sendToast(Player player, CustomItemPackage pack){
+        sendToast(player, pack.title(), pack.description(), pack.item());
     }
 }

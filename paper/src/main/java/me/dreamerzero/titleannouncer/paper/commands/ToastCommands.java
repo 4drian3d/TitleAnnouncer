@@ -1,19 +1,29 @@
 package me.dreamerzero.titleannouncer.paper.commands;
 
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
 
+import me.dreamerzero.titleannouncer.paper.arguments.WorldArgument;
 import me.dreamerzero.titleannouncer.paper.utils.ToastUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.commands.arguments.item.ItemInput;
+import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public final class ToastCommands {
@@ -24,22 +34,17 @@ public final class ToastCommands {
                 .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
                         .executes(cmd -> {
-                            ItemStack item = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.DIAMOND_SWORD));
-                            Component title = MiniMessage.miniMessage().deserialize(cmd.getArgument("title", String.class));
-                            Component description = MiniMessage.miniMessage().deserialize(cmd.getArgument("description", String.class));
+                            CustomItemPackage pk = CustomItemPackage.of(cmd, defaultItem);
                             for(var player : Bukkit.getServer().getOnlinePlayers()){
-                                ToastUtils.sendToast(player, title, description, item);
+                                ToastUtils.sendToast(player, pk);
                             }
                             return 1;
                         })
                         .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
                             .executes(cmd -> {
-                                ItemInput input = ItemArgument.getItem(cmd, "item");
-                                ItemStack item = input.createItemStack(1, false);
-                                Component title = MiniMessage.miniMessage().deserialize(cmd.getArgument("title", String.class));
-                                Component description = MiniMessage.miniMessage().deserialize(cmd.getArgument("description", String.class));
+                                CustomItemPackage pk = CustomItemPackage.of(cmd);
                                 for(var player : Bukkit.getServer().getOnlinePlayers()){
-                                    ToastUtils.sendToast(player, title, description, item);
+                                    ToastUtils.sendToast(player, pk);
                                 }
                                 return 1;
                             })
@@ -48,31 +53,43 @@ public final class ToastCommands {
                 )
             )
             .then(LiteralArgumentBuilder.<CommandSourceStack>literal("send")
-                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
-                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
-                        .executes(cmd -> {
-
-                            return 1;
-                        })
-                        .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                .then(RequiredArgumentBuilder.<CommandSourceStack, EntityArgument>argument("player", EntityArgument.player())
+                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
                             .executes(cmd -> {
-
+                                CustomItemPackage pk = CustomItemPackage.of(cmd, defaultItem);
+                                ServerPlayer player = EntityArgument.getPlayer(cmd, "player");
+                                ToastUtils.sendToast(player.getBukkitEntity(), pk);
                                 return 1;
                             })
+                            .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                                .executes(cmd -> {
+                                    CustomItemPackage pk = CustomItemPackage.of(cmd);
+                                    ServerPlayer player = EntityArgument.getPlayer(cmd, "player");
+                                    ToastUtils.sendToast(player.getBukkitEntity(), pk);
+                                    return 1;
+                                })
+                            )
                         )
                     )
                 )
+                
             )
             .then(LiteralArgumentBuilder.<CommandSourceStack>literal("self")
+                .requires(src -> src.getBukkitSender() instanceof Player)
                 .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
                         .executes(cmd -> {
-
+                            CustomItemPackage pk = CustomItemPackage.of(cmd, defaultItem);
+                            CraftPlayer source = (CraftPlayer)cmd.getSource().getBukkitSender();
+                            ToastUtils.sendToast(source, pk);
                             return 1;
                         })
                         .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
                             .executes(cmd -> {
-
+                                CustomItemPackage pk = CustomItemPackage.of(cmd);
+                                CraftPlayer source = (CraftPlayer)cmd.getSource().getBukkitSender();
+                                ToastUtils.sendToast(source, pk);
                                 return 1;
                             })
                         )
@@ -80,20 +97,52 @@ public final class ToastCommands {
                 )
             )
             .then(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
-                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
-                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
-                        .executes(cmd -> {
-
-                            return 1;
-                        })
-                        .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                .then(RequiredArgumentBuilder.<CommandSourceStack, World>argument("world", WorldArgument.world())
+                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
                             .executes(cmd -> {
-
+                                CustomItemPackage pk = CustomItemPackage.of(cmd, defaultItem);
+                                World world = cmd.getArgument("world", World.class);
+                                for(var player : world.getPlayers()){
+                                    ToastUtils.sendToast(player, pk);
+                                }
                                 return 1;
                             })
+                            .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                                .executes(cmd -> {
+
+                                    return 1;
+                                })
+                            )
                         )
                     )
                 )
+                
             );
     }
+
+    public record CustomItemPackage(ItemStack item, Component title, Component description){
+        static CustomItemPackage of(CommandContext<CommandSourceStack> context){
+            ItemInput input = ItemArgument.getItem(context, "item");
+            ItemStack item;
+            try {
+                item = input.createItemStack(1, false);
+            } catch(CommandSyntaxException e){
+                item = defaultItem;
+            }
+            Component title = MiniMessage.miniMessage().deserialize(context.getArgument("title", String.class));
+            Component description = MiniMessage.miniMessage().deserialize(context.getArgument("description", String.class));
+    
+            return new CustomItemPackage(item, title, description);
+        }
+
+        static CustomItemPackage of(CommandContext<CommandSourceStack> context, ItemStack item){
+            Component title = MiniMessage.miniMessage().deserialize(context.getArgument("title", String.class));
+            Component description = MiniMessage.miniMessage().deserialize(context.getArgument("description", String.class));
+    
+            return new CustomItemPackage(item, title, description);
+        }
+    }
+
+    private static final ItemStack defaultItem = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.DIAMOND_SWORD));
 }
