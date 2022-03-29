@@ -6,9 +6,8 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import net.kyori.adventure.audience.Audience;
 
-public class BossbarCommands<A> {
+public class BossbarCommands<A> extends AnnouncerCommand<A>{
     private final CommandAdapter adapter;
-    private Function<A, Audience> fromAToAudience = a -> Audience.empty();
 
     public BossbarCommands(CommandAdapter adapter, Function<A, Audience> fromAToAudience){
         this.adapter = adapter;

@@ -7,11 +7,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.dreamerzero.titleannouncer.common.AnnouncerPlugin;
 import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
+import me.dreamerzero.titleannouncer.common.commands.ChatCommands;
 import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
+import me.dreamerzero.titleannouncer.common.commands.TitleCommands;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import me.dreamerzero.titleannouncer.paper.commands.ToastCommands;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.title.Title;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
@@ -50,7 +53,7 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
     @Override
     public void registerActionbar(CommandAdapter adapter) {
         this.getCommandDispatcher().getDispatcher().register(
-            new ActionbarCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitEntity)
+            new ActionbarCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitSender)
                 .actionbar(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("worldName", StringArgumentType.word())
                         .suggests((ctx, builder) -> {
@@ -84,13 +87,52 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
 
     @Override
     public void registerChat(CommandAdapter adapter) {
-        // TODO Auto-generated method stub
+        this.getCommandDispatcher().getDispatcher().register(
+            new ChatCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitSender)
+                .chat(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
+                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("worldName", StringArgumentType.word())
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("message", StringArgumentType.string())
+                            .executes(cmd -> {
+                                World world = this.getServer().getWorld(cmd.getArgument("worldName", String.class));
+                                if(world == null) return 0;
+
+                                world.sendMessage(MiniMessage.miniMessage().deserialize(cmd.getArgument("message", String.class)));
+                                return 1;
+                            })
+                        )
+                    )));
         
     }
 
     @Override
     public void registerTitle(CommandAdapter adapter) {
-        // TODO Auto-generated method stub
+        this.getCommandDispatcher().getDispatcher().register(
+            new TitleCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitSender)
+                .title(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
+                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("worldName", StringArgumentType.word())
+                        .suggests((ctx, builder) -> {
+                            this.getServer().getWorlds().stream().map(World::getName).forEach(builder::suggest);
+                            return builder.buildFuture();
+                        })
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
+                            .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("subtitle", StringArgumentType.string())
+                                .executes(cmd -> {
+                                    World world = this.getServer().getWorld(cmd.getArgument("worldName", String.class));
+                                    if(world == null) return 0;
+
+                                    Title title = Title.title(
+                                    MiniMessage.miniMessage().deserialize(
+                                        cmd.getArgument("title", String.class)), 
+                                    MiniMessage.miniMessage().deserialize(
+                                        cmd.getArgument("subtitle", String.class)));
+                                    world.showTitle(title);
+
+                                    return 1;
+                                })
+                            )
+                        )
+                    )
+                ));
         
     }
 }

@@ -113,7 +113,12 @@ public final class ToastCommands {
                             })
                             .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
                                 .executes(cmd -> {
-
+                                    CustomItemPackage pk = CustomItemPackage.of(cmd);
+                                    World world = Bukkit.getServer().getWorld(cmd.getArgument("world", String.class));
+                                    if(world == null) return 0;
+                                    for(var player : world.getPlayers()){
+                                        ToastUtils.sendToast(player, pk);
+                                    }
                                     return 1;
                                 })
                             )
