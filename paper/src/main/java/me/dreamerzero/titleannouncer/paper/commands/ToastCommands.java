@@ -1,6 +1,5 @@
 package me.dreamerzero.titleannouncer.paper.commands;
 
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -14,7 +13,6 @@ import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
-import me.dreamerzero.titleannouncer.paper.arguments.WorldArgument;
 import me.dreamerzero.titleannouncer.paper.utils.ToastUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -53,7 +51,7 @@ public final class ToastCommands {
                 )
             )
             .then(LiteralArgumentBuilder.<CommandSourceStack>literal("send")
-                .then(RequiredArgumentBuilder.<CommandSourceStack, EntityArgument>argument("player", EntityArgument.player())
+                .then(RequiredArgumentBuilder.<CommandSourceStack, EntitySelector>argument("player", EntityArgument.player())
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
                         .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
                             .executes(cmd -> {
@@ -97,12 +95,17 @@ public final class ToastCommands {
                 )
             )
             .then(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
-                .then(RequiredArgumentBuilder.<CommandSourceStack, World>argument("world", WorldArgument.world())
+                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("world", StringArgumentType.word())
+                    .suggests((ctx, builder) -> {
+                        Bukkit.getServer().getWorlds().stream().map(World::getName).forEach(builder::suggest);
+                        return builder.buildFuture();
+                    })
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("title", StringArgumentType.string())
                         .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("description", StringArgumentType.string())
                             .executes(cmd -> {
                                 CustomItemPackage pk = CustomItemPackage.of(cmd, defaultItem);
-                                World world = cmd.getArgument("world", World.class);
+                                World world = Bukkit.getServer().getWorld(cmd.getArgument("world", String.class));
+                                if(world == null) return 0;
                                 for(var player : world.getPlayers()){
                                     ToastUtils.sendToast(player, pk);
                                 }

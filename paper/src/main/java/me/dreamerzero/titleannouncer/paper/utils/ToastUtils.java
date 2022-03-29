@@ -2,8 +2,6 @@ package me.dreamerzero.titleannouncer.paper.utils;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -75,12 +73,12 @@ public final class ToastUtils {
 
         Map<ResourceLocation, AdvancementProgress> prg = Map.of(new ResourceLocation(pluginKey.getNamespace()), advPrg);
 
-        CraftPlayer craftPlayer = ((CraftPlayer) player);
+        CraftPlayer craftPlayer = (CraftPlayer) player;
 
-        ClientboundUpdateAdvancementsPacket packet = new ClientboundUpdateAdvancementsPacket(false, List.of(advancement), new HashSet<>(), prg);
+        ClientboundUpdateAdvancementsPacket packet = new ClientboundUpdateAdvancementsPacket(false, Set.of(advancement), Collections.emptySet(), prg);
         craftPlayer.getHandle().connection.send(packet);
 
-        packet = new ClientboundUpdateAdvancementsPacket(true, Collections.emptyList(), Set.of(new ResourceLocation(pluginKey.getNamespace())), Collections.emptyMap());
+        packet = new ClientboundUpdateAdvancementsPacket(false, Collections.emptySet(), Set.of(new ResourceLocation(pluginKey.getNamespace())), Collections.emptyMap());
         craftPlayer.getHandle().connection.send(packet);
     }
 
