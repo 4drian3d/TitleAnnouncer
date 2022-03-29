@@ -1,4 +1,4 @@
-package me.dreamerzero.titleannouncer.common.commands;
+package me.dreamerzero.titleannouncer.common.adapter;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -16,4 +16,6 @@ public interface CommandAdapter<A> {
     @Nullable Audience toAudience(@NotNull A object);
 
     @NotNull Collection<String> getSuggestions();
+
+    @NotNull BossBarTask createBossBarTask();
 }

@@ -6,9 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dreamerzero.titleannouncer.common.AnnouncerPlugin;
 import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
+import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.ChatCommands;
-import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.commands.TitleCommands;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
@@ -31,7 +31,7 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<CommandSo
             : new RegularFormatter()
         );
 
-        CommandAdapter<CommandSourceStack> adapter = new PaperAdapter();
+        CommandAdapter<CommandSourceStack> adapter = new PaperAdapter(this);
 
         registerActionbar(adapter);
         registerBossbar(adapter);

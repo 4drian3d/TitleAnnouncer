@@ -20,8 +20,8 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.dreamerzero.titleannouncer.common.AnnouncerPlugin;
 import me.dreamerzero.titleannouncer.common.Constants;
 import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
+import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
-import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -42,7 +42,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
     }
 )
 public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
-    private final ProxyServer proxy;
+    final ProxyServer proxy;
     private final CommandManager cManager;
 
     @Inject
@@ -57,7 +57,7 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
             ? new MiniPlaceholdersFormatter()
             : new RegularFormatter()
         );
-        VelocityAdapter adapter = new VelocityAdapter(proxy);
+        VelocityAdapter adapter = new VelocityAdapter(this);
 
         this.registerActionbar(adapter);
     }

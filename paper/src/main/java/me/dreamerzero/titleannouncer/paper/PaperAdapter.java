@@ -8,11 +8,16 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
+import me.dreamerzero.titleannouncer.common.adapter.BossBarTask;
+import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import net.kyori.adventure.audience.Audience;
 import net.minecraft.commands.CommandSourceStack;
 
 public final class PaperAdapter implements CommandAdapter<CommandSourceStack> {
+    private final PaperPlugin plugin;
+    PaperAdapter(PaperPlugin plugin){
+        this.plugin = plugin;
+    }
 
     @Override
     public Audience getGlobalAudience() {
@@ -32,6 +37,11 @@ public final class PaperAdapter implements CommandAdapter<CommandSourceStack> {
     @Override
     public @Nullable Audience toAudience(@NotNull CommandSourceStack object) {
         return object.getBukkitSender();
+    }
+
+    @Override
+    public @NotNull BossBarTask createBossBarTask() {
+        return new PaperBossBarTask(plugin);
     }
     
 }

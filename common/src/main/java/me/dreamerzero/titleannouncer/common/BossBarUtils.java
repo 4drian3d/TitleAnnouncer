@@ -1,12 +1,9 @@
 package me.dreamerzero.titleannouncer.common;
 
-import net.kyori.adventure.audience.Audience;
 import static net.kyori.adventure.bossbar.BossBar.*;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class BossBarUtils {
+public final class BossBarUtils {
     private BossBarUtils(){}
-    private static final MiniMessage mm = MiniMessage.miniMessage();
     /**
      * Based on the argument given in the command, 
      * it will return the color of the specified bossbar.
@@ -41,14 +38,5 @@ public class BossBarUtils {
             case "full", "progress" -> Overlay.PROGRESS;
             default -> null;
         };
-    }
-
-    public static float validBossbarNumber(String number, Audience sender){
-        try {
-            return Integer.parseInt(number);
-        } catch (Exception e){
-            sender.sendMessage(mm.deserialize("<dark_red>This is not a valid number"));
-            return 0.1f;
-        }
     }
 }
