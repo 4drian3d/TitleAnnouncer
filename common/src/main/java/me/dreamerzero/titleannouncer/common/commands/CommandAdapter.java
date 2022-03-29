@@ -3,12 +3,17 @@ package me.dreamerzero.titleannouncer.common.commands;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import net.kyori.adventure.audience.Audience;
 
-public interface CommandAdapter {
-    Audience getGlobalAudience();
+public interface CommandAdapter<A> {
+    @NotNull Audience getGlobalAudience();
 
-    Optional<Audience> stringToAudience(String string);
+    Optional<Audience> stringToAudience(@NotNull String string);
 
-    Collection<String> getSuggestions();
+    @Nullable Audience toAudience(@NotNull A object);
+
+    @NotNull Collection<String> getSuggestions();
 }

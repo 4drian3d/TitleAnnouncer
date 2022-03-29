@@ -22,7 +22,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
-public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
+public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<CommandSourceStack> {
     
     @Override
     public void onEnable(){
@@ -31,7 +31,7 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
             : new RegularFormatter()
         );
 
-        CommandAdapter adapter = new PaperAdapter();
+        CommandAdapter<CommandSourceStack> adapter = new PaperAdapter();
 
         registerActionbar(adapter);
         registerBossbar(adapter);
@@ -51,9 +51,9 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
     }
 
     @Override
-    public void registerActionbar(CommandAdapter adapter) {
+    public void registerActionbar(CommandAdapter<CommandSourceStack> adapter) {
         this.getCommandDispatcher().getDispatcher().register(
-            new ActionbarCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitSender)
+            new ActionbarCommands<CommandSourceStack>(adapter)
                 .actionbar(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("worldName", StringArgumentType.word())
                         .suggests((ctx, builder) -> {
@@ -80,15 +80,15 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
     }
 
     @Override
-    public void registerBossbar(CommandAdapter adapter) {
+    public void registerBossbar(CommandAdapter<CommandSourceStack> adapter) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void registerChat(CommandAdapter adapter) {
+    public void registerChat(CommandAdapter<CommandSourceStack> adapter) {
         this.getCommandDispatcher().getDispatcher().register(
-            new ChatCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitSender)
+            new ChatCommands<CommandSourceStack>(adapter)
                 .chat(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("worldName", StringArgumentType.word())
                         .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("message", StringArgumentType.string())
@@ -105,9 +105,9 @@ public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin {
     }
 
     @Override
-    public void registerTitle(CommandAdapter adapter) {
+    public void registerTitle(CommandAdapter<CommandSourceStack> adapter) {
         this.getCommandDispatcher().getDispatcher().register(
-            new TitleCommands<CommandSourceStack>(adapter, CommandSourceStack::getBukkitSender)
+            new TitleCommands<CommandSourceStack>(adapter)
                 .title(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("worldName", StringArgumentType.word())
                         .suggests((ctx, builder) -> {

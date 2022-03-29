@@ -1,7 +1,6 @@
 package me.dreamerzero.titleannouncer.common.commands;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -11,12 +10,11 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
 
-public class TitleCommands<A> extends AnnouncerCommand<A> {
-    private final CommandAdapter adapter;
+public class TitleCommands<A> {
+    private final CommandAdapter<A> adapter;
 
-    public TitleCommands(CommandAdapter adapter, Function<A, Audience> fromAToAudience){
+    public TitleCommands(CommandAdapter<A> adapter){
         this.adapter = adapter;
-        this.fromAToAudience = fromAToAudience;
     }
 
     public LiteralArgumentBuilder<A> title(LiteralArgumentBuilder<A> platformArgument){
@@ -60,7 +58,7 @@ public class TitleCommands<A> extends AnnouncerCommand<A> {
                 .then(RequiredArgumentBuilder.<A, String>argument("title", StringArgumentType.string())
                     .then(RequiredArgumentBuilder.<A, String>argument("subtitle", StringArgumentType.string())
                         .executes(cmd -> {
-                            Audience audience = getAudience(cmd.getSource());
+                            Audience audience = adapter.toAudience(cmd.getSource());
                             Title title = Title.title(
                                 MiniMessage.miniMessage().deserialize(
                                     cmd.getArgument("title", String.class)), 

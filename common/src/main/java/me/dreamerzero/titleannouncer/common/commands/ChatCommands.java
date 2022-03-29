@@ -1,7 +1,6 @@
 package me.dreamerzero.titleannouncer.common.commands;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -10,12 +9,11 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-public class ChatCommands<A> extends AnnouncerCommand<A> {
-    private final CommandAdapter adapter;
+public class ChatCommands<A>  {
+    private final CommandAdapter<A> adapter;
 
-    public ChatCommands(CommandAdapter adapter, Function<A, Audience> fromAToAudience){
+    public ChatCommands(CommandAdapter<A> adapter){
         this.adapter = adapter;
-        this.fromAToAudience = fromAToAudience;
     }
 
     public LiteralArgumentBuilder<A> chat(LiteralArgumentBuilder<A> platformArgument){
@@ -33,7 +31,7 @@ public class ChatCommands<A> extends AnnouncerCommand<A> {
             .then(LiteralArgumentBuilder.<A>literal("send")
                 .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                     .executes(cmd -> {
-                        getAudience(cmd.getSource()).sendMessage(
+                        adapter.toAudience(cmd.getSource()).sendMessage(
                             MiniMessage.miniMessage().deserialize(
                                 cmd.getArgument("message", String.class)));
                         return 1;

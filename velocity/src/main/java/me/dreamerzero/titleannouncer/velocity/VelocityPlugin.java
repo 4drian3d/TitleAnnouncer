@@ -41,7 +41,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
         )
     }
 )
-public final class VelocityPlugin implements AnnouncerPlugin {
+public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
     private final ProxyServer proxy;
     private final CommandManager cManager;
 
@@ -63,8 +63,8 @@ public final class VelocityPlugin implements AnnouncerPlugin {
     }
 
     @Override
-    public void registerActionbar(CommandAdapter adapter) {
-        LiteralArgumentBuilder<CommandSource> actionbarCommand = new ActionbarCommands<CommandSource>(adapter, c -> c)
+    public void registerActionbar(CommandAdapter<CommandSource> adapter) {
+        LiteralArgumentBuilder<CommandSource> actionbarCommand = new ActionbarCommands<CommandSource>(adapter)
             .actionbar(
                 LiteralArgumentBuilder.<CommandSource>literal("server")
                     .then(RequiredArgumentBuilder.<CommandSource, String>argument("serverName", StringArgumentType.word())
@@ -96,19 +96,19 @@ public final class VelocityPlugin implements AnnouncerPlugin {
     }
 
     @Override
-    public void registerBossbar(CommandAdapter adapter) {
+    public void registerBossbar(CommandAdapter<CommandSource> adapter) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void registerChat(CommandAdapter adapter) {
+    public void registerChat(CommandAdapter<CommandSource> adapter) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void registerTitle(CommandAdapter adapter) {
+    public void registerTitle(CommandAdapter<CommandSource> adapter) {
         // TODO Auto-generated method stub
         
     }

@@ -2,12 +2,12 @@ package me.dreamerzero.titleannouncer.common;
 
 import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
 
-public interface AnnouncerPlugin {
-    void registerActionbar(CommandAdapter adapter);
+public interface AnnouncerPlugin<S> {
+    void registerActionbar(CommandAdapter<S> adapter);
 
-    void registerBossbar(CommandAdapter adapter);
+    void registerBossbar(CommandAdapter<S> adapter);
 
-    void registerChat(CommandAdapter adapter);
+    void registerChat(CommandAdapter<S> adapter);
 
-    void registerTitle(CommandAdapter adapter);
+    void registerTitle(CommandAdapter<S> adapter);
 }

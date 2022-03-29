@@ -4,13 +4,17 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
+import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import me.dreamerzero.titleannouncer.common.commands.CommandAdapter;
 import net.kyori.adventure.audience.Audience;
 
-public class VelocityAdapter implements CommandAdapter {
+public class VelocityAdapter implements CommandAdapter<CommandSource> {
     private final ProxyServer proxy;
 
     public VelocityAdapter(ProxyServer proxy){
@@ -30,6 +34,11 @@ public class VelocityAdapter implements CommandAdapter {
     @Override
     public Collection<String> getSuggestions() {
         return proxy.getAllPlayers().stream().map(Player::getUsername).toList();
+    }
+
+    @Override
+    public @Nullable Audience toAudience(@NotNull CommandSource object) {
+        return object;
     }
     
 }
