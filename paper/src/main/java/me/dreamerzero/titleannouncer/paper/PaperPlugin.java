@@ -22,7 +22,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
-public class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<CommandSourceStack> {
+public final class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<CommandSourceStack> {
     
     @Override
     public void onEnable(){

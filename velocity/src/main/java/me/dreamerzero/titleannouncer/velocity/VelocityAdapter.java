@@ -6,7 +6,6 @@ import java.util.function.Function;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
-import com.velocitypowered.api.proxy.ProxyServer;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +14,7 @@ import me.dreamerzero.titleannouncer.common.adapter.BossBarTask;
 import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import net.kyori.adventure.audience.Audience;
 
-public class VelocityAdapter implements CommandAdapter<CommandSource> {
+public final class VelocityAdapter implements CommandAdapter<CommandSource> {
     private final VelocityPlugin plugin;
 
     public VelocityAdapter(VelocityPlugin plugin){
