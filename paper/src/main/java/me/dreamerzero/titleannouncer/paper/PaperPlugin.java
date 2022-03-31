@@ -1,5 +1,6 @@
 package me.dreamerzero.titleannouncer.paper;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,16 +9,20 @@ import me.dreamerzero.titleannouncer.common.AnnouncerPlugin;
 import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
+import me.dreamerzero.titleannouncer.common.commands.BossbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.ChatCommands;
 import me.dreamerzero.titleannouncer.common.commands.TitleCommands;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import me.dreamerzero.titleannouncer.paper.commands.ToastCommands;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -81,7 +86,54 @@ public final class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<Com
 
     @Override
     public void registerBossbar(CommandAdapter<CommandSourceStack> adapter) {
-        // TODO Auto-generated method stub
+        this.getCommandDispatcher().getDispatcher().register(
+            new BossbarCommands<CommandSourceStack>(adapter)
+                .bossbar(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
+                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("world", StringArgumentType.string())
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, Float>argument("time", FloatArgumentType.floatArg())
+                            .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("message", StringArgumentType.string())
+                                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("color", StringArgumentType.word())
+                                    .suggests((ctx, builder) -> {
+                                        BossBar.Color.NAMES.keys().forEach(builder::suggest);
+                                        return builder.buildFuture();
+                                    })
+                                    .executes(cmd -> {
+                                        World world = Bukkit.getServer().getWorld(cmd.getArgument("world", String.class));
+                                        if(world == null) return 0;
+                                        BossBar.Color color = BossBar.Color.NAMES.value(cmd.getArgument("color", String.class));
+                                        if(color == null) return 0;
+                                        Component msg = MiniMessage.miniMessage().deserialize(cmd.getArgument("message", String.class));
+                                        Float time = FloatArgumentType.getFloat(cmd, "time");
+
+                                        adapter.createBossBarTask()
+                                            .sendBossBar(world, time, msg, color, BossBar.Overlay.PROGRESS);
+                                        return 1;
+                                    })
+                                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("overlay", StringArgumentType.word())
+                                        .suggests((ctx, builder) -> {
+                                            BossBar.Overlay.NAMES.keys().forEach(builder::suggest);
+                                            return builder.buildFuture();
+                                        })
+                                        .executes(cmd -> {
+                                            World world = Bukkit.getServer().getWorld(cmd.getArgument("world", String.class));
+                                            if(world == null) return 0;
+                                            BossBar.Color color = BossBar.Color.NAMES.value(cmd.getArgument("color", String.class));
+                                            BossBar.Overlay overlay = BossBar.Overlay.NAMES.value(cmd.getArgument("overlay", String.class));
+                                            if(color == null || overlay == null) return 0;
+                                            Component msg = MiniMessage.miniMessage().deserialize(cmd.getArgument("message", String.class));
+                                            Float time = FloatArgumentType.getFloat(cmd, "time");
+
+                                            adapter.createBossBarTask().sendBossBar(world, time, msg, color, overlay);
+                                            return 1;
+                                        })
+
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+        );
         
     }
 
