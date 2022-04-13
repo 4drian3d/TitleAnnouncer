@@ -29,7 +29,7 @@ public class ChatCommands<A>  {
                     })
                 )
             )
-            .then(LiteralArgumentBuilder.<A>literal("send")
+            .then(LiteralArgumentBuilder.<A>literal("self")
                 .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                     .executes(cmd -> {
                         adapter.toAudience(cmd.getSource()).sendMessage(
@@ -39,7 +39,7 @@ public class ChatCommands<A>  {
                     })
                 )
             )
-            .then(LiteralArgumentBuilder.<A>literal("self")
+            .then(LiteralArgumentBuilder.<A>literal("send")
                 .then(RequiredArgumentBuilder.<A, String>argument("objetive", StringArgumentType.word())
                     .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                         .executes(cmd -> {
