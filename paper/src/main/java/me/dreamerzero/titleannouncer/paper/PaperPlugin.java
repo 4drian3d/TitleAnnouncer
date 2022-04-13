@@ -31,7 +31,7 @@ public final class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<Com
     
     @Override
     public void onEnable(){
-        TitleAnnouncer.setFormatter(this.getServer().getPluginManager().isPluginEnabled("MiniPlaceholders")
+        TitleAnnouncer.formatter(this.getServer().getPluginManager().isPluginEnabled("MiniPlaceholders")
             ? new MiniPlaceholdersFormatter()
             : new RegularFormatter()
         );
