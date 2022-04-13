@@ -2,13 +2,14 @@ package me.dreamerzero.titleannouncer.common.commands;
 
 import java.util.Optional;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
+import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
 
 public class TitleCommands<A> {
@@ -24,13 +25,18 @@ public class TitleCommands<A> {
                 .then(RequiredArgumentBuilder.<A, String>argument("title", StringArgumentType.string())
                     .then(RequiredArgumentBuilder.<A, String>argument("subtitle", StringArgumentType.string())
                         .executes(cmd -> {
-                            Title title = Title.title(
-                                MiniMessage.miniMessage().deserialize(
-                                    cmd.getArgument("title", String.class)), 
-                                MiniMessage.miniMessage().deserialize(
-                                    cmd.getArgument("subtitle", String.class)));
-                            adapter.getGlobalAudience().showTitle(title);
-                            return 1;
+                            final Audience sender = adapter.toAudience(cmd.getSource());
+                            adapter.getGlobalAudience().showTitle(Title.title(
+                                TitleAnnouncer.formatter().audienceFormat(
+                                    cmd.getArgument("title", String.class),
+                                    sender
+                                ), 
+                                TitleAnnouncer.formatter().audienceFormat(
+                                    cmd.getArgument("subtitle", String.class),
+                                    sender
+                                )
+                            ));
+                            return Command.SINGLE_SUCCESS;
                         })
                     )
                 )
@@ -40,15 +46,20 @@ public class TitleCommands<A> {
                     .then(RequiredArgumentBuilder.<A, String>argument("title", StringArgumentType.string())
                         .then(RequiredArgumentBuilder.<A, String>argument("subtitle", StringArgumentType.string())
                             .executes(cmd -> {
-                                Optional<Audience> audience = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
+                                final Optional<Audience> audience = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
                                 if(audience.isEmpty()) return 0;
-                                Title title = Title.title(
-                                    MiniMessage.miniMessage().deserialize(
-                                        cmd.getArgument("title", String.class)), 
-                                    MiniMessage.miniMessage().deserialize(
-                                        cmd.getArgument("subtitle", String.class)));
-                                audience.get().showTitle(title);
-                                return 1;
+                                final Audience aud = audience.get();
+                                aud.showTitle(Title.title(
+                                    TitleAnnouncer.formatter().audienceFormat(
+                                        cmd.getArgument("title", String.class),
+                                        aud
+                                    ), 
+                                    TitleAnnouncer.formatter().audienceFormat(
+                                        cmd.getArgument("subtitle", String.class),
+                                        aud
+                                    )
+                                ));
+                                return Command.SINGLE_SUCCESS;
                             })
                         )
                     )
@@ -59,14 +70,18 @@ public class TitleCommands<A> {
                 .then(RequiredArgumentBuilder.<A, String>argument("title", StringArgumentType.string())
                     .then(RequiredArgumentBuilder.<A, String>argument("subtitle", StringArgumentType.string())
                         .executes(cmd -> {
-                            Audience audience = adapter.toAudience(cmd.getSource());
-                            Title title = Title.title(
-                                MiniMessage.miniMessage().deserialize(
-                                    cmd.getArgument("title", String.class)), 
-                                MiniMessage.miniMessage().deserialize(
-                                    cmd.getArgument("subtitle", String.class)));
-                            audience.showTitle(title);
-                            return 1;
+                            final Audience audience = adapter.toAudience(cmd.getSource());
+                            audience.showTitle(Title.title(
+                                TitleAnnouncer.formatter().audienceFormat(
+                                    cmd.getArgument("title", String.class),
+                                    audience
+                                ), 
+                                TitleAnnouncer.formatter().audienceFormat(
+                                    cmd.getArgument("subtitle", String.class),
+                                    audience
+                                )
+                            ));
+                            return Command.SINGLE_SUCCESS;
                         })
                     )
                 )

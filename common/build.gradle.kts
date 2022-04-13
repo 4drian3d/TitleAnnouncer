@@ -18,6 +18,13 @@ dependencies {
     compileOnly("com.mojang:brigadier:1.0.18")
 
     compileOnly("com.github.4drian3d:MiniPlaceholders:1.0.0")
+
+    testImplementation(platform("org.junit:junit-bom:5.8.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("net.kyori:adventure-api:4.10.1")
+    testImplementation("net.kyori:adventure-text-minimessage:4.10.1")
+    testImplementation("net.kyori:adventure-text-serializer-plain:4.10.1")
+    testImplementation("com.mojang:brigadier:1.0.18")
 }
 
 blossom{
@@ -29,6 +36,14 @@ blossom{
 }
 
 tasks {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "failed")
+        }
+    }
+    
     compileJava {
         options.encoding = Charsets.UTF_8.name()
 
