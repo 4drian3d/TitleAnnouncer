@@ -11,15 +11,15 @@ import com.google.gson.JsonObject;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import io.papermc.paper.adventure.AdventureComponent;
+import io.papermc.paper.adventure.PaperAdventure;
 import me.dreamerzero.titleannouncer.paper.commands.ToastCommands.CustomItemPackage;
+import net.kyori.adventure.text.Component;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.SerializationContext;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -29,23 +29,19 @@ public final class ToastUtils {
 
     private static final String CRITERION_KEY = "announcer_criterion";
 
-    public static Component fromComponent(net.kyori.adventure.text.Component component){
-        return new AdventureComponent(component).deepConverted();
-    }
-
     private static final Random rm = new Random();
 
     public static String randomString(){
         return Integer.toString(rm.nextInt(5000));
     }
 
-    public static void sendToast(Player player, net.kyori.adventure.text.Component title, net.kyori.adventure.text.Component description, ItemStack item){
+    public static void sendToast(Player player, Component title, Component description, ItemStack item){
         ResourceLocation pluginKey = new ResourceLocation("announcer", randomString());
         Advancement advancement = Advancement.Builder.advancement()
             .display(
                 item,
-                fromComponent(title),
-                fromComponent(description),
+                PaperAdventure.asVanilla(title),
+                PaperAdventure.asVanilla(description),
                 null,
                 FrameType.GOAL,
                 true,
