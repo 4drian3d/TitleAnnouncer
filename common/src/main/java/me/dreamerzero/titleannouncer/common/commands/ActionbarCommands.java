@@ -6,9 +6,9 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
+import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class ActionbarCommands<A> {
     private final CommandAdapter<A> adapter;
@@ -23,8 +23,10 @@ public class ActionbarCommands<A> {
                 .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                     .executes(cmd -> {
                         adapter.getGlobalAudience().sendActionBar(
-                            MiniMessage.miniMessage().deserialize(
-                                cmd.getArgument("message", String.class)));
+                            TitleAnnouncer.formatter().audienceFormat(
+                                cmd.getArgument("message", String.class),
+                                adapter.getGlobalAudience()
+                            ));
                         return 1;
                     }).build()
                 ).build()
@@ -32,9 +34,12 @@ public class ActionbarCommands<A> {
             .then(LiteralArgumentBuilder.<A>literal("self")
                 .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                     .executes(cmd -> {
-                        adapter.toAudience(cmd.getSource()).sendActionBar(
-                            MiniMessage.miniMessage().deserialize(
-                                cmd.getArgument("message", String.class)));
+                        Audience audience = adapter.toAudience(cmd.getSource());
+                        audience.sendActionBar(
+                            TitleAnnouncer.formatter().audienceFormat(
+                                cmd.getArgument("message", String.class),
+                                audience
+                            ));
                         return 1;
                     })
                 ).build()
@@ -46,8 +51,10 @@ public class ActionbarCommands<A> {
                             Optional<Audience> aud = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
                             if(aud.isPresent()){
                                 aud.get().sendActionBar(
-                                    MiniMessage.miniMessage().deserialize(
-                                        cmd.getArgument("message", String.class)));
+                                    TitleAnnouncer.formatter().audienceFormat(
+                                        cmd.getArgument("message", String.class),
+                                        aud.get()
+                                    ));
                                 return 1;
                             } else {
                                 return 0;

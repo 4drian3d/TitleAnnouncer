@@ -13,9 +13,9 @@ import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
+import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.paper.utils.ToastUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.item.ItemArgument;
@@ -138,15 +138,17 @@ public final class ToastCommands {
             } catch(CommandSyntaxException e){
                 item = defaultItem;
             }
-            Component title = MiniMessage.miniMessage().deserialize(context.getArgument("title", String.class));
-            Component description = MiniMessage.miniMessage().deserialize(context.getArgument("description", String.class));
+            var audience = context.getSource().getBukkitSender();
+            Component title = TitleAnnouncer.formatter().audienceFormat(context.getArgument("title", String.class), audience);
+            Component description = TitleAnnouncer.formatter().audienceFormat(context.getArgument("description", String.class), audience);
     
             return new CustomItemPackage(item, title, description);
         }
 
         static CustomItemPackage of(CommandContext<CommandSourceStack> context, ItemStack item){
-            Component title = MiniMessage.miniMessage().deserialize(context.getArgument("title", String.class));
-            Component description = MiniMessage.miniMessage().deserialize(context.getArgument("description", String.class));
+            var audience = context.getSource().getBukkitSender();
+            Component title = TitleAnnouncer.formatter().audienceFormat(context.getArgument("title", String.class), audience);
+            Component description = TitleAnnouncer.formatter().audienceFormat(context.getArgument("description", String.class), audience);
     
             return new CustomItemPackage(item, title, description);
         }

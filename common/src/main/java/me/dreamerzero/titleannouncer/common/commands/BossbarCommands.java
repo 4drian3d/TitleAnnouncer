@@ -35,6 +35,7 @@ public class BossbarCommands<A> {
                                 Component msg = MiniMessage.miniMessage().deserialize(cmd.getArgument("message", String.class));
                                 Float time = FloatArgumentType.getFloat(cmd, "time");
 
+                                //TODO: Dinamic Bossbar placeholder updater
                                 adapter.createBossBarTask()
                                     .sendBossBar(adapter.getGlobalAudience(), time, msg, color, BossBar.Overlay.PROGRESS);
                                 return 1;
