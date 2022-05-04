@@ -3,6 +3,7 @@ package me.dreamerzero.titleannouncer.velocity;
 import java.util.Optional;
 
 import com.google.inject.Inject;
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -24,10 +25,12 @@ import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.BossbarCommands;
+import me.dreamerzero.titleannouncer.common.commands.ChatCommands;
+import me.dreamerzero.titleannouncer.common.commands.TitleCommands;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.title.Title;
 
 @Plugin(
     id = Constants.ID,
@@ -60,14 +63,17 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
             ? new MiniPlaceholdersFormatter()
             : new RegularFormatter()
         );
-        VelocityAdapter adapter = new VelocityAdapter(this);
+        final VelocityAdapter adapter = new VelocityAdapter(this);
 
         this.registerActionbar(adapter);
+        this.registerBossbar(adapter);
+        this.registerChat(adapter);
+        this.registerTitle(adapter);
     }
 
     @Override
     public void registerActionbar(CommandAdapter<CommandSource> adapter) {
-        LiteralArgumentBuilder<CommandSource> actionbarCommand = new ActionbarCommands<CommandSource>(adapter)
+        var actionbarCommand = new ActionbarCommands<CommandSource>(adapter)
             .actionbar(
                 LiteralArgumentBuilder.<CommandSource>literal("server")
                     .then(RequiredArgumentBuilder.<CommandSource, String>argument("serverName", StringArgumentType.word())
@@ -81,8 +87,10 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
                                 Optional<RegisteredServer> optionalSv = proxy.getServer(server);
                                 if(optionalSv.isPresent()){
                                     optionalSv.get().sendActionBar(
-                                        MiniMessage.miniMessage().deserialize(
-                                            cmd.getArgument("message", String.class)));
+                                        TitleAnnouncer.formatter().audienceFormat(
+                                            cmd.getArgument("message", String.class),
+                                            optionalSv.get()
+                                        ));
                                     return 1;
                                 } else {
                                     return 0;
@@ -100,10 +108,14 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
 
     @Override
     public void registerBossbar(CommandAdapter<CommandSource> adapter) {
-        LiteralArgumentBuilder<CommandSource> actionbarCommand = new BossbarCommands<CommandSource>(adapter)
+        var actionbarCommand = new BossbarCommands<CommandSource>(adapter)
             .bossbar(
                 LiteralArgumentBuilder.<CommandSource>literal("server")
                     .then(RequiredArgumentBuilder.<CommandSource, String>argument("server", StringArgumentType.string())
+                        .suggests((ctx, builder) -> {
+                            proxy.getAllServers().stream().map(sv -> sv.getServerInfo().getName()).forEach(builder::suggest);
+                            return builder.buildFuture();
+                        })
                         .then(RequiredArgumentBuilder.<CommandSource, Float>argument("time", FloatArgumentType.floatArg())
                             .then(RequiredArgumentBuilder.<CommandSource, String>argument("message", StringArgumentType.string())
                                 .executes(cmd -> {
@@ -169,7 +181,6 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
                                             );
                                             return 1;
                                         })
-
                                     )
                                 )
                             )
@@ -185,13 +196,73 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
 
     @Override
     public void registerChat(CommandAdapter<CommandSource> adapter) {
-        // TODO Auto-generated method stub
+        var chatCommand = new ChatCommands<>(adapter)
+            .chat(LiteralArgumentBuilder.<CommandSource>literal("server")
+                .then(RequiredArgumentBuilder.<CommandSource, String>argument("server", StringArgumentType.word())
+                    .suggests((ctx, builder) -> {
+                        proxy.getAllServers().stream().map(sv -> sv.getServerInfo().getName()).forEach(builder::suggest);
+                        return builder.buildFuture();
+                    })
+                    .then(RequiredArgumentBuilder.<CommandSource, String>argument("message", StringArgumentType.string())
+                        .executes(cmd -> {
+                            var optional = proxy.getServer(cmd.getArgument("server", String.class));
+                            if(optional.isPresent()) {
+                                optional.get().sendMessage(
+                                    TitleAnnouncer.formatter().audienceFormat(
+                                        cmd.getArgument("message", String.class),
+                                        optional.get()
+                                    ));
+                                return Command.SINGLE_SUCCESS;
+                            }
+                            return BrigadierCommand.FORWARD;
+                        })
+                    )
+                )
+            );
+
+        BrigadierCommand chat = new BrigadierCommand(chatCommand);
+        CommandMeta chatMeta = cManager.metaBuilder(chat).plugin(this).build();
+
+        cManager.register(chatMeta, chat);
         
     }
 
     @Override
     public void registerTitle(CommandAdapter<CommandSource> adapter) {
-        // TODO Auto-generated method stub
+        var titleCommand = new TitleCommands<>(adapter)
+            .title(LiteralArgumentBuilder.<CommandSource>literal("server")
+                .then(RequiredArgumentBuilder.<CommandSource, String>argument("server", StringArgumentType.word())
+                    .suggests((ctx, builder) -> {
+                        proxy.getAllServers().stream().map(sv -> sv.getServerInfo().getName()).forEach(builder::suggest);
+                        return builder.buildFuture();
+                    })
+                    .then(RequiredArgumentBuilder.<CommandSource, String>argument("title", StringArgumentType.string())
+                        .then(RequiredArgumentBuilder.<CommandSource, String>argument("subtitle", StringArgumentType.string())
+                            .executes(cmd -> {
+                                final Optional<RegisteredServer> audience = proxy.getServer(cmd.getArgument("server", String.class));
+                                if(audience.isEmpty()) return BrigadierCommand.FORWARD;
+                                final RegisteredServer aud = audience.get();
+                                aud.showTitle(Title.title(
+                                    TitleAnnouncer.formatter().audienceFormat(
+                                        cmd.getArgument("title", String.class),
+                                        aud
+                                    ), 
+                                    TitleAnnouncer.formatter().audienceFormat(
+                                        cmd.getArgument("subtitle", String.class),
+                                        aud
+                                    )
+                                ));
+                                return Command.SINGLE_SUCCESS;
+                            })
+                        )
+                    )
+                )
+            );
+
+        BrigadierCommand title = new BrigadierCommand(titleCommand);
+        CommandMeta titleMeta = cManager.metaBuilder(title).plugin(this).build();
+
+        cManager.register(titleMeta, title);
         
     }
 
