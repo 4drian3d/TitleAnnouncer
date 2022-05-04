@@ -6,12 +6,12 @@ import com.velocitypowered.api.scheduler.ScheduledTask;
 
 import org.jetbrains.annotations.NotNull;
 
+import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
 import me.dreamerzero.titleannouncer.common.adapter.BossBarTask;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.bossbar.BossBar.Color;
 import net.kyori.adventure.bossbar.BossBar.Overlay;
-import net.kyori.adventure.text.Component;
 
 public class VelocityBossBarTask implements BossBarTask {
     private final VelocityPlugin plugin;
@@ -22,10 +22,10 @@ public class VelocityBossBarTask implements BossBarTask {
     }
 
     @Override
-    public void sendBossBar(@NotNull Audience audience, float time, @NotNull Component content, @NotNull Color color, @NotNull Overlay type) {
+    public void sendBossBar(@NotNull Audience audience, float time, @NotNull String content, @NotNull Color color, @NotNull Overlay type) {
         final float finalTime = 0.1f/time;
 
-        BossBar bar = BossBar.bossBar(content, value, color, type);
+        final BossBar bar = BossBar.bossBar(TitleAnnouncer.formatter().audienceFormat(content, audience), time, color, type);
 
         audience.showBossBar(bar);
 
@@ -37,6 +37,7 @@ public class VelocityBossBarTask implements BossBarTask {
                     cancelTask();
                 }
                 try {
+                    bar.name(TitleAnnouncer.formatter().audienceFormat(content, audience));
                     bar.progress(value);
                 } catch (IllegalArgumentException e) {
                     audience.hideBossBar(bar);

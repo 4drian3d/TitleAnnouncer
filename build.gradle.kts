@@ -23,7 +23,7 @@ tasks {
         dependsOn(shadowJar)
     }
     shadowJar {
-        archiveFileName.set("MiniPlaceholders.jar")
+        archiveFileName.set("TitleAnnouncer.jar")
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         configurations = listOf(project.configurations.shadow.get())
     }

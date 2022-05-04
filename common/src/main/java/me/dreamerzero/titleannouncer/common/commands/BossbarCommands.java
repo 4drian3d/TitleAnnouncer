@@ -7,8 +7,6 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
 import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class BossbarCommands<A> {
     private final CommandAdapter<A> adapter;
@@ -16,8 +14,6 @@ public class BossbarCommands<A> {
     public BossbarCommands(CommandAdapter<A> adapter){
         this.adapter = adapter;
     }
-
-    // announcebossbar time message color overlay
 
     public LiteralArgumentBuilder<A> bossbar(LiteralArgumentBuilder<A> platformArgument){
         return LiteralArgumentBuilder.<A>literal("announcebossbar")
@@ -32,12 +28,10 @@ public class BossbarCommands<A> {
                             .executes(cmd -> {
                                 BossBar.Color color = BossBar.Color.NAMES.value(cmd.getArgument("color", String.class));
                                 if(color == null) return 0;
-                                Component msg = MiniMessage.miniMessage().deserialize(cmd.getArgument("message", String.class));
                                 Float time = FloatArgumentType.getFloat(cmd, "time");
 
-                                //TODO: Dinamic Bossbar placeholder updater
                                 adapter.createBossBarTask()
-                                    .sendBossBar(adapter.getGlobalAudience(), time, msg, color, BossBar.Overlay.PROGRESS);
+                                    .sendBossBar(adapter.getGlobalAudience(), time, cmd.getArgument("message", String.class), color, BossBar.Overlay.PROGRESS);
                                 return 1;
                             })
                             .then(RequiredArgumentBuilder.<A, String>argument("overlay", StringArgumentType.word())
@@ -49,11 +43,10 @@ public class BossbarCommands<A> {
                                     BossBar.Color color = BossBar.Color.NAMES.value(cmd.getArgument("color", String.class));
                                     BossBar.Overlay overlay = BossBar.Overlay.NAMES.value(cmd.getArgument("overlay", String.class));
                                     if(color == null || overlay == null) return 0;
-                                    Component msg = MiniMessage.miniMessage().deserialize(cmd.getArgument("message", String.class));
                                     Float time = FloatArgumentType.getFloat(cmd, "time");
 
                                     adapter.createBossBarTask()
-                                        .sendBossBar(adapter.getGlobalAudience(), time, msg, color, overlay);
+                                        .sendBossBar(adapter.getGlobalAudience(), time, cmd.getArgument("message", String.class), color, overlay);
                                     return 1;
                                 })
 

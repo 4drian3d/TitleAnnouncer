@@ -123,9 +123,7 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
                                         adapter.createBossBarTask().sendBossBar(
                                             server,
                                             FloatArgumentType.getFloat(cmd, "time"),
-                                            TitleAnnouncer.formatter().audienceFormat(
-                                                cmd.getArgument("message", String.class), server
-                                            ),
+                                            cmd.getArgument("message", String.class),
                                             BossBar.Color.PURPLE,
                                             BossBar.Overlay.PROGRESS
                                         )
@@ -140,15 +138,13 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
                                     })
                                     .executes(cmd -> {
                                         final BossBar.Color color = BossBar.Color.NAMES.value(cmd.getArgument("color", String.class));
-                                        if(color == null) return 0;
+                                        if (color == null) return 0;
                                         final float time = FloatArgumentType.getFloat(cmd, "time");
                                         proxy.getServer(cmd.getArgument("server", String.class)).ifPresent(server -> 
                                             adapter.createBossBarTask().sendBossBar(
                                                 server,
                                                 time,
-                                                TitleAnnouncer.formatter().audienceFormat(
-                                                    cmd.getArgument("message", String.class), server
-                                                ),
+                                                cmd.getArgument("message", String.class),
                                                 color,
                                                 BossBar.Overlay.PROGRESS
                                             )
@@ -172,9 +168,7 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
                                                 adapter.createBossBarTask().sendBossBar(
                                                     server,
                                                     time,
-                                                    TitleAnnouncer.formatter().audienceFormat(
-                                                        cmd.getArgument("message", String.class), server
-                                                    ),
+                                                    cmd.getArgument("message", String.class),
                                                     color,
                                                     BossBar.Overlay.PROGRESS
                                                 )

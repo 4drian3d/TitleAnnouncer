@@ -12,7 +12,6 @@ import me.dreamerzero.titleannouncer.common.adapter.CommandAdapter;
 import me.dreamerzero.titleannouncer.common.audience.TestAudience;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
 
 public class TestCommandAdapter implements CommandAdapter<TestAudience> {
 
@@ -41,9 +40,8 @@ public class TestCommandAdapter implements CommandAdapter<TestAudience> {
         return new BossBarTask() {
 
             @Override
-            public void sendBossBar(@NotNull Audience audience, float time, @NotNull Component content,
+            public void sendBossBar(@NotNull Audience audience, float time, @NotNull String content,
                     @NotNull BossBar.Color color, @NotNull BossBar.Overlay type) {
-                // TODO Auto-generated method stub
                 
             }
             

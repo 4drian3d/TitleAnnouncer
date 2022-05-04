@@ -26,16 +26,14 @@ public class MiniPlaceholdersFormatter implements Formatter {
     @Override
     public Component audienceFormat(String string, Audience audience) {
         return MiniMessage.miniMessage().deserialize(string,
-            MiniPlaceholders.getGlobalPlaceholders(),
-            MiniPlaceholders.getAudiencePlaceholders(audience)
+            MiniPlaceholders.getAudienceGlobalPlaceholders(audience)
         );
     }
 
     @Override
     public Component audienceWithExtraResolver(String string, Audience audience, TagResolver resolver) {
         return MiniMessage.miniMessage().deserialize(string,
-            MiniPlaceholders.getGlobalPlaceholders(),
-            MiniPlaceholders.getAudiencePlaceholders(audience),
+            MiniPlaceholders.getAudienceGlobalPlaceholders(audience),
             resolver
         );
     }
