@@ -50,6 +50,7 @@ public class Announcer {
         rCommands.registerProxyBossbar();
         rCommands.registerProxyTitle();
         rCommands.registerProxyActionbar();
+        rCommands.registerProxyChat();
         if(server.getPluginManager().isLoaded("protocolize")){
             SoundUtils.setActionBarSound();
             SoundUtils.setBossBarSound();
