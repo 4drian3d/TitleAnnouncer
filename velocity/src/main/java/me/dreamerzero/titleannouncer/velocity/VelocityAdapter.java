@@ -2,7 +2,6 @@ package me.dreamerzero.titleannouncer.velocity;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Function;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
@@ -23,17 +22,17 @@ public final class VelocityAdapter implements CommandAdapter<CommandSource> {
 
     @Override
     public Audience getGlobalAudience() {
-        return this.plugin.proxy;
+        return this.plugin.proxy();
     }
 
     @Override
-    public Optional<Audience> stringToAudience(String string) {
-        return this.plugin.proxy.getPlayer(string).map(Function.identity());
+    public Optional<Player> stringToAudience(String string) {
+        return this.plugin.proxy().getPlayer(string);
     }
 
     @Override
     public Collection<String> getSuggestions() {
-        return this.plugin.proxy.getAllPlayers().stream().map(Player::getUsername).toList();
+        return this.plugin.proxy().getAllPlayers().stream().map(Player::getUsername).toList();
     }
 
     @Override

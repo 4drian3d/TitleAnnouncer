@@ -13,17 +13,18 @@ repositories {
 
 dependencies {
     shadow("org.spongepowered:configurate-hocon:4.1.2")
-    compileOnly("net.kyori:adventure-api:4.10.1")
-    compileOnly("net.kyori:adventure-text-minimessage:4.10.1")
+    compileOnly("net.kyori:adventure-api:4.11.0")
+    compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
+    compileOnly("net.kyori:adventure-serializer-configurate4:4.11.0")
     compileOnly("com.mojang:brigadier:1.0.18")
 
     compileOnly("com.github.4drian3d:MiniPlaceholders:1.1.1")
 
     testImplementation(platform("org.junit:junit-bom:5.8.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("net.kyori:adventure-api:4.10.1")
-    testImplementation("net.kyori:adventure-text-minimessage:4.10.1")
-    testImplementation("net.kyori:adventure-text-serializer-plain:4.10.1")
+    testImplementation("net.kyori:adventure-api:4.11.0")
+    testImplementation("net.kyori:adventure-text-minimessage:4.11.0")
+    testImplementation("net.kyori:adventure-text-serializer-plain:4.11.0")
     testImplementation("com.mojang:brigadier:1.0.18")
 }
 

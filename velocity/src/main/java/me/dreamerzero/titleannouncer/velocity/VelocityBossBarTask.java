@@ -29,7 +29,7 @@ public class VelocityBossBarTask implements BossBarTask {
 
         audience.showBossBar(bar);
 
-        taskScheduled = plugin.proxy.getScheduler()
+        taskScheduled = plugin.proxy().getScheduler()
             .buildTask(plugin, () -> {
                 value -= finalTime;
                 if (value <= 0.02) {

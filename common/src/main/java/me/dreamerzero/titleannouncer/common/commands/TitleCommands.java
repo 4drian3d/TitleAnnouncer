@@ -46,7 +46,8 @@ public class TitleCommands<A> {
                     .then(RequiredArgumentBuilder.<A, String>argument("title", StringArgumentType.string())
                         .then(RequiredArgumentBuilder.<A, String>argument("subtitle", StringArgumentType.string())
                             .executes(cmd -> {
-                                final Optional<Audience> audience = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
+                                //TODO: Replace <Player, CommandSourceStack> ie
+                                final Optional<? extends Audience> audience = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
                                 if(audience.isEmpty()) return 0;
                                 final Audience aud = audience.get();
                                 aud.showTitle(Title.title(

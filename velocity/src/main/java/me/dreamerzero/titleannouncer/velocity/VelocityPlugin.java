@@ -1,5 +1,6 @@
 package me.dreamerzero.titleannouncer.velocity;
 
+import java.nio.file.Path;
 import java.util.Optional;
 
 import com.google.inject.Inject;
@@ -16,6 +17,7 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 
@@ -27,6 +29,8 @@ import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.BossbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.ChatCommands;
 import me.dreamerzero.titleannouncer.common.commands.TitleCommands;
+import me.dreamerzero.titleannouncer.common.configuration.Configuration;
+import me.dreamerzero.titleannouncer.common.configuration.Loader;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import net.kyori.adventure.bossbar.BossBar;
@@ -48,17 +52,24 @@ import net.kyori.adventure.title.Title;
     }
 )
 public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
-    final ProxyServer proxy;
+    private final ProxyServer proxy;
     private final CommandManager cManager;
+    private final Path path;
+    private Configuration config;
 
     @Inject
-    public VelocityPlugin(ProxyServer proxy, CommandManager cManager){
+    public VelocityPlugin(ProxyServer proxy, CommandManager cManager, @DataDirectory Path path){
         this.proxy = proxy;
         this.cManager = cManager;
+        this.path = path;
     }
 
     @Subscribe
     public void onStartup(ProxyInitializeEvent event){
+        this.config = Loader.loadConfig(path);
+        if (this.config == null) {
+            return;
+        }
         TitleAnnouncer.formatter(proxy.getPluginManager().isLoaded("miniplaceholders")
             ? new MiniPlaceholdersFormatter()
             : new RegularFormatter()
@@ -258,6 +269,15 @@ public final class VelocityPlugin implements AnnouncerPlugin<CommandSource> {
 
         cManager.register(titleMeta, title);
         
+    }
+
+    public ProxyServer proxy() {
+        return this.proxy;
+    }
+
+    @Override
+    public Configuration config() {
+        return this.config;
     }
 
 

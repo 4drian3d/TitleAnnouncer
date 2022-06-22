@@ -2,7 +2,7 @@ package me.dreamerzero.titleannouncer.paper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R1.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dreamerzero.titleannouncer.common.AnnouncerPlugin;
@@ -12,6 +12,8 @@ import me.dreamerzero.titleannouncer.common.commands.ActionbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.BossbarCommands;
 import me.dreamerzero.titleannouncer.common.commands.ChatCommands;
 import me.dreamerzero.titleannouncer.common.commands.TitleCommands;
+import me.dreamerzero.titleannouncer.common.configuration.Configuration;
+import me.dreamerzero.titleannouncer.common.configuration.Loader;
 import me.dreamerzero.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import me.dreamerzero.titleannouncer.common.format.RegularFormatter;
 import me.dreamerzero.titleannouncer.paper.commands.ToastCommands;
@@ -27,9 +29,15 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
 public final class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<CommandSourceStack> {
+    private Configuration config;
     
     @Override
     public void onEnable(){
+        this.config = Loader.loadConfig(this.getDataFolder().toPath());
+        if (this.config == null) {
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         TitleAnnouncer.formatter(this.getServer().getPluginManager().isPluginEnabled("MiniPlaceholders")
             ? new MiniPlaceholdersFormatter()
             : new RegularFormatter()
@@ -183,5 +191,10 @@ public final class PaperPlugin extends JavaPlugin implements AnnouncerPlugin<Com
                     )
                 ));
         
+    }
+
+    @Override
+    public Configuration config() {
+        return this.config;
     }
 }

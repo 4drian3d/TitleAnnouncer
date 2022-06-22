@@ -11,7 +11,7 @@ import net.kyori.adventure.audience.Audience;
 public interface CommandAdapter<A> {
     @NotNull Audience getGlobalAudience();
 
-    Optional<Audience> stringToAudience(@NotNull String string);
+    Optional<? extends Audience> stringToAudience(@NotNull String string);
 
     @Nullable Audience toAudience(@NotNull A object);
 

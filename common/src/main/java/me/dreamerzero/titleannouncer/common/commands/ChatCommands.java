@@ -46,7 +46,7 @@ public class ChatCommands<A>  {
                 .then(RequiredArgumentBuilder.<A, String>argument("objetive", StringArgumentType.word())
                     .then(RequiredArgumentBuilder.<A, String>argument("message", StringArgumentType.string())
                         .executes(cmd -> {
-                            Optional<Audience> aud = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
+                            Optional<? extends Audience> aud = adapter.stringToAudience(cmd.getArgument("objetive", String.class));
                             if(aud.isPresent()){
                                 aud.get().sendActionBar(
                                     TitleAnnouncer.formatter().audienceFormat(

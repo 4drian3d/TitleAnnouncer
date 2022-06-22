@@ -9,8 +9,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import me.dreamerzero.titleannouncer.common.TitleAnnouncer;
@@ -38,7 +38,7 @@ public final class ToastCommands {
                             }
                             return 1;
                         })
-                        .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item(null))
                             .executes(cmd -> {
                                 CustomItemPackage pk = CustomItemPackage.of(cmd);
                                 for(var player : Bukkit.getServer().getOnlinePlayers()){
@@ -60,7 +60,7 @@ public final class ToastCommands {
                                 ToastUtils.sendToast(player.getBukkitEntity(), pk);
                                 return 1;
                             })
-                            .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                            .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item(null))
                                 .executes(cmd -> {
                                     CustomItemPackage pk = CustomItemPackage.of(cmd);
                                     ServerPlayer player = EntityArgument.getPlayer(cmd, "player");
@@ -83,7 +83,7 @@ public final class ToastCommands {
                             ToastUtils.sendToast(source, pk);
                             return 1;
                         })
-                        .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item(null)) //TODO: Resolve this
                             .executes(cmd -> {
                                 CustomItemPackage pk = CustomItemPackage.of(cmd);
                                 CraftPlayer source = (CraftPlayer)cmd.getSource().getBukkitSender();
@@ -111,7 +111,7 @@ public final class ToastCommands {
                                 }
                                 return 1;
                             })
-                            .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item())
+                            .then(RequiredArgumentBuilder.<CommandSourceStack, ItemInput>argument("item", ItemArgument.item(null))
                                 .executes(cmd -> {
                                     CustomItemPackage pk = CustomItemPackage.of(cmd);
                                     World world = Bukkit.getServer().getWorld(cmd.getArgument("world", String.class));
