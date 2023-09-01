@@ -1,68 +1,23 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-
 plugins {
-    id("net.kyori.blossom") version "1.3.0"
-    id("com.github.johnrengelman.shadow")
-}
-
-repositories {
-    maven("https://libraries.minecraft.net")
-    maven("https://jitpack.io")
-    mavenCentral()
+    `java-library`
+    alias(libs.plugins.shadow)
 }
 
 dependencies {
-    shadow("org.spongepowered:configurate-hocon:4.1.2")
-    compileOnly("net.kyori:adventure-api:4.11.0")
-    compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
+    compileOnly(libs.configurate)
+    compileOnly(libs.adventure.api)
+    compileOnly(libs.adventure.minimesssage)
+    // TODO: a
     compileOnly("net.kyori:adventure-serializer-configurate4:4.11.0")
-    compileOnly("com.mojang:brigadier:1.0.18")
+    compileOnly(libs.miniplaceholders)
 
-    compileOnly("com.github.4drian3d:MiniPlaceholders:1.1.1")
-
-    testImplementation(platform("org.junit:junit-bom:5.8.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("net.kyori:adventure-api:4.11.0")
-    testImplementation("net.kyori:adventure-text-minimessage:4.11.0")
-    testImplementation("net.kyori:adventure-text-serializer-plain:4.11.0")
-    testImplementation("com.mojang:brigadier:1.0.18")
-}
-
-blossom{
-    replaceToken("{version}", version)
-    replaceToken("{id}", "titleannouncer")
-    replaceToken("{name}", name)
-    replaceToken("{url}", "TODO")
-    replaceTokenIn("src/main/java/me/dreamerzero/titleannouncer/common/Constants.java")
+    api(libs.cloud.core)
+    compileOnlyApi(libs.guice)
+    compileOnly(libs.slf4j)
 }
 
 tasks {
-
-    test {
-        useJUnitPlatform()
-        testLogging {
-            events("passed", "failed")
-        }
-    }
-    
-    compileJava {
-        options.encoding = Charsets.UTF_8.name()
-
-        options.release.set(17)
-    }
-
     build {
         dependsOn(shadowJar)
-    }
-    shadowJar {
-        dependsOn(getByName("relocateShadowJar") as ConfigureShadowRelocation)
-        minimize()
-        archiveFileName.set("TitleAnnouncer.jar")
-        configurations = listOf(project.configurations.shadow.get())
-    }
-
-    create<ConfigureShadowRelocation>("relocateShadowJar") {
-        target = shadowJar.get()
-        prefix = "me.dreamerzero.titleannouncer.libs"
     }
 }

@@ -1,33 +1,18 @@
 plugins {
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
-    id("io.papermc.paperweight.userdev") version "1.3.7"
+    alias(libs.plugins.pluginyml)
     id("xyz.jpenilla.run-paper") version "1.0.6"
 }
 
 dependencies {
-    compileOnly(project(":titleannouncer-common"))
-    paperDevBundle("1.19-R0.1-SNAPSHOT")
+    compileOnly(projects.titleannouncerCommon)
+    compileOnly(libs.paper)
+    implementation(libs.cloud.paper)
 }
 
-val pluginVersion: String = version as String
-
-bukkit {
-    main = "me.dreamerzero.titleannouncer.paper.PaperPlugin"
-    apiVersion = "1.19"
+paper {
+    main = "io.github._4drian3d.titleannouncer.paper.PaperPlugin"
+    apiVersion = "1.20"
     website = "https://github.com/4drian3d/TitleAnnouncer"
     authors = listOf("4drian3d")
-    version = pluginVersion
-}
-
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-
-tasks {
-    assemble {
-        dependsOn(reobfJar)
-    }
-    compileJava {
-        options.encoding = Charsets.UTF_8.name()
-
-        options.release.set(17)
-    }
+    version = project.version as String
 }

@@ -1,31 +1,40 @@
 plugins {
     java
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    alias(libs.plugins.shadow)
 }
 
 allprojects {
-    apply(plugin = "java")
-    group = "me.dreamerzero.titleannouncer"
-    version = "3.0.0"
-    description = "Plugin created to send titles, actionbars, bossbars and chat announces to the player and the proxy using the MiniMessage format"
+    apply<JavaPlugin>()
 }
 
 subprojects {
     repositories {
         mavenCentral()
         maven("https://papermc.io/repo/repository/maven-public/")
-        maven("https://repo.maven.apache.org/maven2/")
+    }
+
+    java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+
+    tasks.withType<JavaCompile> {
+        options.encoding = Charsets.UTF_8.name()
+        options.release.set(17)
     }
 }
 
 tasks {
+    shadowJar {
+        archiveFileName.set("TitleAnnouncer-${project.version}.jar")
+        archiveClassifier.set("")
+        doLast {
+            copy {
+                from(archiveFile)
+                into("${rootProject.projectDir}/build")
+            }
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
     build {
         dependsOn(shadowJar)
-    }
-    shadowJar {
-        archiveFileName.set("TitleAnnouncer.jar")
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        configurations = listOf(project.configurations.shadow.get())
     }
 }
 

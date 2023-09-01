@@ -1,0 +1,17 @@
+{
+  "id": "titleannouncer",
+  "name": "TitleAnnouncer",
+  "version": "{version}",
+  "description": "A lightweight Paper and Velocity plugin to send Titles, Actionbars, Bossbars and Chat announces with MiniMessage format",
+  "url": "https://modrinth.com/plugin/titleannouncer",
+  "authors": [
+    "4drian3d"
+  ],
+  "dependencies": [
+    {
+      "id": "miniplaceholders",
+      "optional": true
+    }
+  ],
+  "main": "io.github._4drian3d.titleannouncer.velocity.TitleAnnouncerVelocityBootstrap"
+}
