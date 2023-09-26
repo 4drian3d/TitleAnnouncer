@@ -1,4 +1,4 @@
-package io.github._4drian3d.titleannouncer.common;
+package io.github._4drian3d.titleannouncer.common.manager;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
