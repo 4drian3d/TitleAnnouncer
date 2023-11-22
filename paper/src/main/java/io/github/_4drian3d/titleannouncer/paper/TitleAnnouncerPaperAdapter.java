@@ -1,6 +1,6 @@
 package io.github._4drian3d.titleannouncer.paper;
 
-import io.github._4drian3d.titleannouncer.common.adapter.CommandAdapter;
+import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Singleton
-public final class TitleAnnouncerPaperAdapter implements CommandAdapter {
+public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player> {
     @Inject
     private Server server;
 
@@ -22,7 +22,7 @@ public final class TitleAnnouncerPaperAdapter implements CommandAdapter {
     }
 
     @Override
-    public @NotNull Optional<Audience> stringToAudience(@NotNull String string) {
+    public @NotNull Optional<Player> stringToAudience(@NotNull String string) {
         return Optional.ofNullable(server.getPlayer(string));
     }
 

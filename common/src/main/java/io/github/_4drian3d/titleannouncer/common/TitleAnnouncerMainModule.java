@@ -2,8 +2,12 @@ package io.github._4drian3d.titleannouncer.common;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Scopes;
 import com.google.inject.Singleton;
+import com.google.inject.multibindings.Multibinder;
 import io.github._4drian3d.titleannouncer.common.annotations.DataFolder;
+import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
+import io.github._4drian3d.titleannouncer.common.commands.TitleCommand;
 import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
 import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
 import io.github._4drian3d.titleannouncer.common.configuration.Messages;
@@ -41,5 +45,11 @@ public final class TitleAnnouncerMainModule extends AbstractModule {
         } catch (Throwable t) {
             return new Formatter();
         }
+    }
+
+    @Override
+    protected void configure() {
+        final Multibinder<AnnouncerCommand> commandBinder = Multibinder.newSetBinder(binder(), AnnouncerCommand.class);
+        commandBinder.addBinding().to(TitleCommand.class).in(Scopes.SINGLETON);
     }
 }

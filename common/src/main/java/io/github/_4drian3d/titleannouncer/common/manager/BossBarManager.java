@@ -49,7 +49,6 @@ public final class BossBarManager {
             Audience viewer,
             float toRest
     ) {
-
         void run() {
             calculateTitle();
             calculateProgress();

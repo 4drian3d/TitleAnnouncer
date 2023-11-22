@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
-import io.github._4drian3d.titleannouncer.common.adapter.CommandAdapter;
+import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import net.kyori.adventure.audience.Audience;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public final class VelocityAdapter implements CommandAdapter {
+public final class VelocityAdapter implements PlatformAdapter<Player> {
     @Inject
     private ProxyServer proxyServer;
 

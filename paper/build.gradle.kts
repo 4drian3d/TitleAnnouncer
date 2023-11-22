@@ -1,10 +1,10 @@
 plugins {
     alias(libs.plugins.pluginyml)
-    id("xyz.jpenilla.run-paper") version "1.0.6"
+    alias(libs.plugins.runpaper)
 }
 
 dependencies {
-    compileOnly(projects.titleannouncerCommon)
+    implementation(projects.titleannouncerCommon)
     compileOnly(libs.paper)
     implementation(libs.cloud.paper)
 }
