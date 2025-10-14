@@ -42,10 +42,12 @@ public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player,
       if (string.length() < 6 && sender instanceof final Player player) {
         return Optional.of(player.getWorld());
       }
-      if (string.charAt(5) == '"') {
+      if (string.charAt(5) == ':') {
         return Optional.ofNullable(this.server.getWorld(string.replace("world:", "")));
       }
     }
     return PlatformAdapter.super.destinationFromString(string, sender);
   }
+
+
 }

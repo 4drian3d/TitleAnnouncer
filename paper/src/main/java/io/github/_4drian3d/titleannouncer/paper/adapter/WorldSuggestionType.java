@@ -24,6 +24,11 @@ public record WorldSuggestionType(Server server) implements TargetSuggestionType
   }
 
   @Override
+  public void suggestSelf(SuggestionsBuilder builder) {
+    builder.suggest("world").suggest("\"world:");
+  }
+
+  @Override
   public CompletableFuture<Suggestions> provideSuggestions(String remaining, SuggestionsBuilder builder) {
     if (remaining.isBlank() || remaining.indexOf(':') == -1) {
       return builder.suggest("\"world:").suggest("world").buildFuture();

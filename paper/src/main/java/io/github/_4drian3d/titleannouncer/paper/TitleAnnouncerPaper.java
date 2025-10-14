@@ -22,7 +22,7 @@ public final class TitleAnnouncerPaper extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    this.injector = Guice.createInjector(new TitleAnnouncerPaperModule());
+    this.injector = Guice.createInjector(new TitleAnnouncerPaperModule(this.getServer(), this.getComponentLogger(), this.getDataPath()));
 
     final LiteralCommandNode<CommandSourceStack> node = this.injector
         .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSourceStack>>() {}))
