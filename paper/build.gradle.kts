@@ -10,6 +10,7 @@ dependencies {
 }
 
 paper {
+    name = "TitleAnnouncer"
     main = "io.github._4drian3d.titleannouncer.paper.TitleAnnouncerPaper"
     loader = "io.github._4drian3d.titleannouncer.paper.TitleAnnouncerPaperLoader"
     apiVersion = "1.21"

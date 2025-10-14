@@ -6,6 +6,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestions;
+import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
+import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
+import io.github._4drian3d.titleannouncer.common.configuration.Messages;
 import io.github._4drian3d.titleannouncer.common.format.Formatter;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -14,7 +17,9 @@ import java.util.Optional;
 
 public record ChatAnnounceNode<C>(
     Formatter formatter,
-    PlatformAdapter<?, C> platformAdapter
+    PlatformAdapter<?, C> platformAdapter,
+    ConfigurationContainer<Configuration> configurationContainer,
+    ConfigurationContainer<Messages> messagesContainer
 ) implements AnnounceNode<C> {
 
   @Override
@@ -29,8 +34,7 @@ public record ChatAnnounceNode<C>(
                   final Optional<? extends Audience> optionalTarget = platformAdapter
                       .destinationFromString(StringArgumentType.getString(ctx, "target"), executor);
                   if (optionalTarget.isEmpty()) {
-                    // TODO: send error message to executor
-                    executor.sendMessage(Component.text("error"));
+                    executor.sendMessage(formatter.globalFormat(messagesContainer.get().invalidTarget()));
                     return -1;
                   }
                   final Audience target = optionalTarget.get();

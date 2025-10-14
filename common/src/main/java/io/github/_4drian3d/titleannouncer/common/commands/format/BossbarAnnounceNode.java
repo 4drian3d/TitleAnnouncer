@@ -7,18 +7,22 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestions;
+import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
+import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
+import io.github._4drian3d.titleannouncer.common.configuration.Messages;
 import io.github._4drian3d.titleannouncer.common.format.Formatter;
 import io.github._4drian3d.titleannouncer.common.manager.BossBarManager;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
 
 import java.util.Optional;
 
 public record BossbarAnnounceNode<C>(
     Formatter formatter,
     PlatformAdapter<?, C> platformAdapter,
-    BossBarManager bossBarManager
+    BossBarManager bossBarManager,
+    ConfigurationContainer<Configuration> configurationContainer,
+    ConfigurationContainer<Messages> messagesContainer
 ) implements AnnounceNode<C> {
 
   @Override
@@ -44,8 +48,7 @@ public record BossbarAnnounceNode<C>(
                               final Optional<? extends Audience> optionalTarget = platformAdapter
                                   .destinationFromString(StringArgumentType.getString(ctx, "target"), executor);
                               if (optionalTarget.isEmpty()) {
-                                // TODO: send error message to executor
-                                executor.sendMessage(Component.text("error"));
+                                executor.sendMessage(formatter.globalFormat(messagesContainer.get().invalidTarget()));
                                 return -1;
                               }
                               final Audience target = optionalTarget.get();

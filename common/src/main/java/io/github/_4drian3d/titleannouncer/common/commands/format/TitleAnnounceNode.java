@@ -7,6 +7,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestions;
+import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
+import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
+import io.github._4drian3d.titleannouncer.common.configuration.Messages;
 import io.github._4drian3d.titleannouncer.common.format.Formatter;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -18,7 +21,9 @@ import java.util.Optional;
 
 public record TitleAnnounceNode<C>(
     Formatter formatter,
-    PlatformAdapter<?, C> platformAdapter
+    PlatformAdapter<?, C> platformAdapter,
+    ConfigurationContainer<Configuration> configurationContainer,
+    ConfigurationContainer<Messages> messagesContainer
 ) implements AnnounceNode<C> {
 
   @Override
@@ -34,18 +39,21 @@ public record TitleAnnounceNode<C>(
                       final Optional<? extends Audience> optionalTarget = platformAdapter
                           .destinationFromString(StringArgumentType.getString(ctx, "target"), executor);
                       if (optionalTarget.isEmpty()) {
-                        // TODO: send error message to executor
-                        executor.sendMessage(Component.text("error"));
+                        executor.sendMessage(formatter.globalFormat(messagesContainer.get().invalidTarget()));
                         return -1;
                       }
                       final Audience target = optionalTarget.get();
                       final Component title = formatter.audienceFormat(StringArgumentType.getString(ctx, "title"), target);
                       final Component subtitle = formatter.audienceFormat(StringArgumentType.getString(ctx, "subtitle"), target);
 
+                      final Configuration.Title titleConfiguration = configurationContainer.get().title();
                       target.sendTitlePart(TitlePart.TITLE, title);
                       target.sendTitlePart(TitlePart.SUBTITLE, subtitle);
-                      // TODO: Implement times
-                      target.sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofSeconds(1), Duration.ofSeconds(1), Duration.ofSeconds(1)));
+                      target.sendTitlePart(TitlePart.TIMES, Title.Times.times(
+                          Duration.ofMillis(titleConfiguration.defaultFadeIn()),
+                          Duration.ofMillis(titleConfiguration.defaultStay()),
+                          Duration.ofMillis(titleConfiguration.defaultFadeOut())
+                      ));
                       return Command.SINGLE_SUCCESS;
                     })
                     .then(RequiredArgumentBuilder.<C, Integer>argument("fadein", IntegerArgumentType.integer(1))
@@ -56,8 +64,7 @@ public record TitleAnnounceNode<C>(
                                   final Optional<? extends Audience> optionalTarget = platformAdapter
                                       .destinationFromString(StringArgumentType.getString(ctx, "target"), executor);
                                   if (optionalTarget.isEmpty()) {
-                                    // TODO: send error message to executor
-                                    executor.sendMessage(Component.text("error"));
+                                    executor.sendMessage(formatter.globalFormat(messagesContainer.get().invalidTarget()));
                                     return -1;
                                   }
                                   final Audience target = optionalTarget.get();
