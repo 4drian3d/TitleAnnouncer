@@ -21,10 +21,10 @@ public record BossbarAnnounceNode<C>(
     BossBarManager bossBarManager
 ) implements AnnounceNode<C> {
 
-  // seconds, color, overlay
   @Override
   public LiteralArgumentBuilder<C> provideNode(TargetSuggestions<C> targetSuggestions) {
     return LiteralArgumentBuilder.<C>literal("bossbar")
+        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command.bossbar"))
         .then(RequiredArgumentBuilder.<C, String>argument("target", StringArgumentType.string())
             .suggests(targetSuggestions)
             .then(RequiredArgumentBuilder.<C, Integer>argument("seconds", IntegerArgumentType.integer(1))

@@ -37,6 +37,11 @@ public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player,
   }
 
   @Override
+  public boolean hasPermission(CommandSourceStack nativeType, String permission) {
+    return nativeType.getSender().hasPermission(permission);
+  }
+
+  @Override
   public Optional<? extends Audience> destinationFromString(String string, Audience sender) {
     if (string.startsWith("world")) {
       if (string.length() < 6 && sender instanceof final Player player) {

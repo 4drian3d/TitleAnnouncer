@@ -20,6 +20,7 @@ public record ActionbarAnnounceNode<C>(
   @Override
   public LiteralArgumentBuilder<C> provideNode(TargetSuggestions<C> targetSuggestions) {
     return LiteralArgumentBuilder.<C>literal("actionbar")
+        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command.actionbar"))
         .then(RequiredArgumentBuilder.<C, String>argument("target", StringArgumentType.string())
             .suggests(targetSuggestions)
             .then(RequiredArgumentBuilder.<C, String>argument("message", StringArgumentType.greedyString())

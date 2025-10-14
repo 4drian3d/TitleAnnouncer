@@ -44,6 +44,11 @@ public final class TitleAnnouncerVelocityAdapter implements PlatformAdapter<Play
   }
 
   @Override
+  public boolean hasPermission(CommandSource nativeType, String permission) {
+    return nativeType.hasPermission(permission);
+  }
+
+  @Override
   public Optional<? extends Audience> destinationFromString(final String string, final Audience sender) {
     if (string.startsWith("server")) {
       if (string.length() < 7 && sender instanceof final Player player) {

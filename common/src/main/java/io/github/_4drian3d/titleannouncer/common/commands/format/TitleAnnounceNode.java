@@ -24,6 +24,7 @@ public record TitleAnnounceNode<C>(
   @Override
   public LiteralArgumentBuilder<C> provideNode(final TargetSuggestions<C> targetSuggestions) {
     return LiteralArgumentBuilder.<C>literal("title")
+        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command.title"))
         .then(RequiredArgumentBuilder.<C, String>argument("target", StringArgumentType.string())
             .suggests(targetSuggestions)
             .then(RequiredArgumentBuilder.<C, String>argument("title", StringArgumentType.string())

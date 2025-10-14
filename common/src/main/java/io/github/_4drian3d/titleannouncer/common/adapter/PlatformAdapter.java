@@ -14,6 +14,8 @@ public interface PlatformAdapter<P extends Audience, C> {
 
   Audience nativeToAudience(C nativeType);
 
+  boolean hasPermission(C nativeType, String permission);
+
   default Optional<? extends Audience> destinationFromString(final String string, final Audience sender) {
     if (string.equalsIgnoreCase("self")) {
       return Optional.of(sender);
