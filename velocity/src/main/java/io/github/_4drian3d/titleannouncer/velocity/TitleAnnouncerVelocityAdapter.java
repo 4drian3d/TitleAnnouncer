@@ -1,0 +1,46 @@
+package io.github._4drian3d.titleannouncer.velocity;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.velocitypowered.api.proxy.Player;
+import com.velocitypowered.api.proxy.ProxyServer;
+import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
+import net.kyori.adventure.audience.Audience;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+@Singleton
+public final class TitleAnnouncerVelocityAdapter implements PlatformAdapter<Player> {
+  @Inject
+  private ProxyServer proxyServer;
+
+  @Override
+  public Audience getGlobalAudience() {
+    return proxyServer;
+  }
+
+  @Override
+  public Optional<Player> stringToAudience(String string) {
+    return this.proxyServer.getPlayer(string);
+  }
+
+  @Override
+  public Collection<String> playerSuggestions() {
+    final List<String> names = new ArrayList<>();
+    for (final Player player : this.proxyServer.getAllPlayers()) {
+      names.add(player.getUsername());
+    }
+    return names;
+  }
+
+  @Override
+  public Optional<? extends Audience> destinationFromString(String string, Audience sender) {
+    if (string.startsWith("server:")) {
+      return this.proxyServer.getServer(string.replace("server:", ""));
+    }
+    return PlatformAdapter.super.destinationFromString(string, sender);
+  }
+}

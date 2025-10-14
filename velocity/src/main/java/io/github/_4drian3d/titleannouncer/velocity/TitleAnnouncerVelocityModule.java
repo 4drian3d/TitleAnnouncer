@@ -20,8 +20,8 @@ public final class TitleAnnouncerVelocityModule extends AbstractModule {
   protected void configure() {
     this.bind(Path.class).annotatedWith(DataFolder.class).toInstance(path);
     this.install(new TitleAnnouncerMainModule());
-    this.bind(PlatformAdapter.class).to(VelocityAdapter.class);
+    this.bind(PlatformAdapter.class).to(TitleAnnouncerVelocityAdapter.class);
     this.bind(Key.get(new TypeLiteral<PlatformAdapter<?>>() {
-    })).to(VelocityAdapter.class);
+    })).to(TitleAnnouncerVelocityAdapter.class);
   }
 }
