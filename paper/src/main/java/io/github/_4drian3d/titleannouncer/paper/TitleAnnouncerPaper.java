@@ -6,6 +6,7 @@ import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
+import io.github._4drian3d.titleannouncer.common.commands.TitleAnnouncerCommand;
 import io.github._4drian3d.titleannouncer.paper.adapter.WorldSuggestionType;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -24,14 +25,20 @@ public final class TitleAnnouncerPaper extends JavaPlugin {
   public void onEnable() {
     this.injector = Guice.createInjector(new TitleAnnouncerPaperModule(this.getServer(), this.getComponentLogger(), this.getDataPath()));
 
-    final LiteralCommandNode<CommandSourceStack> node = this.injector
-        .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSourceStack>>() {}))
+    final LiteralCommandNode<CommandSourceStack> announcerNode = this.injector
+        .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSourceStack>>() {
+        }))
         .buildCommand("", new WorldSuggestionType(this.getServer()));
+    final LiteralCommandNode<CommandSourceStack> mainCommandNode = this.injector
+        .getInstance(Key.get(new TypeLiteral<TitleAnnouncerCommand<Player, CommandSourceStack>>() {
+        }))
+        .buildCommand("");
 
     this.getLifecycleManager()
-        .registerEventHandler(LifecycleEvents.COMMANDS, event ->
-          event.registrar().register(this.getPluginMeta(), node, "TitleAnnouncer command", List.of())
-        );
+        .registerEventHandler(LifecycleEvents.COMMANDS, event -> {
+          event.registrar().register(this.getPluginMeta(), announcerNode, "Announce commands", List.of());
+          event.registrar().register(this.getPluginMeta(), mainCommandNode, "TitleAnnouncer main command", List.of());
+        });
   }
 
   @Override

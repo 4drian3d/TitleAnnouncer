@@ -17,7 +17,9 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
+import io.github._4drian3d.titleannouncer.common.Constants;
 import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
+import io.github._4drian3d.titleannouncer.common.commands.TitleAnnouncerCommand;
 import io.github._4drian3d.titleannouncer.velocity.adapter.ServerSuggestionType;
 
 import java.nio.file.Path;
@@ -25,7 +27,7 @@ import java.nio.file.Path;
 @Plugin(
     id = "titleannouncer",
     name = "TitleAnnouncer",
-    version = "3.0.0-SNAPSHOT",
+    version = Constants.VERSION,
     authors = {"4drian3d"},
     url = "https://modrinth.com/plugin/titleannouncer",
     description = "A lightweight Paper and Velocity plugin to send Titles, Actionbars, Bossbars and Chat announces",
@@ -48,15 +50,24 @@ public final class TitleAnnouncerVelocity {
     public void onStartup(final ProxyInitializeEvent event) {
         this.injector = injector.createChildInjector(new TitleAnnouncerVelocityModule(path));
 
-        final LiteralCommandNode<CommandSource> node = this.injector
+        final LiteralCommandNode<CommandSource> announceNode = this.injector
             .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSource>>() {}))
             .buildCommand("v", new ServerSuggestionType(proxyServer));
+      final LiteralCommandNode<CommandSource> mainCommandNode = this.injector
+          .getInstance(Key.get(new TypeLiteral<TitleAnnouncerCommand<Player, CommandSource>>() {}))
+          .buildCommand("v");
 
-        final BrigadierCommand command = new BrigadierCommand(node);
-        final CommandMeta commandMeta = commandManager.metaBuilder(command)
+        final BrigadierCommand announceCommand = new BrigadierCommand(announceNode);
+        final CommandMeta announceCommandMeta = commandManager.metaBuilder(announceCommand)
             .plugin(this)
             .build();
-        commandManager.register(commandMeta, command);
+        commandManager.register(announceCommandMeta, announceCommand);
+
+      final BrigadierCommand mainCommand = new BrigadierCommand(mainCommandNode);
+      final CommandMeta mainCommandMeta = commandManager.metaBuilder(mainCommand)
+          .plugin(this)
+          .build();
+      commandManager.register(mainCommandMeta, mainCommand);
     }
 
     @Subscribe

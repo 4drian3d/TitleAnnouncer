@@ -8,6 +8,7 @@ paper = "1.21.10-R0.1-SNAPSHOT"
 runtask = "2.1.0"
 pluginyml = "0.6.0"
 shadow = "9.2.2"
+blossom = "2.2.0"
 
 brigadier = "1.0.500"
 adventure = "4.25.0"
@@ -35,6 +36,7 @@ brigadier = { module = "com.mojang:brigadier", version.ref = "brigadier" }
 
 guice = { group = "com.google.inject", name = "guice", version.ref = "guice" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+desertwell = { group = "net.william278", name = "DesertWell", version.ref = "desertwell" }
 
 plugin-shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
 
@@ -44,3 +46,5 @@ pluginyml = { id = "net.minecrell.plugin-yml.paper", version.ref = "pluginyml" }
 runpaper = { id = "xyz.jpenilla.run-paper", version.ref = "runtask" }
 runvelocity = { id = "xyz.jpenilla.run-velocity", version.ref = "runtask" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
+idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.3" }
