@@ -30,5 +30,4 @@ public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player>
     public @NotNull Collection<String> playerSuggestions() {
         return server.getOnlinePlayers().stream().map(Player::getName).toList();
     }
-    
 }

@@ -8,10 +8,9 @@ dependencies {
     compileOnly(libs.adventure.api)
     compileOnly(libs.adventure.minimesssage)
     // TODO: a
-    compileOnly("net.kyori:adventure-serializer-configurate4:4.11.0")
+    compileOnly(libs.adventure.configurate)
     compileOnly(libs.miniplaceholders)
 
-    api(libs.cloud.core)
     compileOnlyApi(libs.guice)
     compileOnly(libs.slf4j)
 }
@@ -19,5 +18,8 @@ dependencies {
 tasks {
     build {
         dependsOn(shadowJar)
+    }
+    compileJava {
+        options.compilerArgs.add("-parameters")
     }
 }

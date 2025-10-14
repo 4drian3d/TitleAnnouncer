@@ -6,6 +6,7 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
 import java.nio.file.Path;
 
@@ -16,6 +17,7 @@ public final class TitleAnnouncerVelocityBootstrap {
     @DataDirectory
     private Path path;
 
+    @MonotonicNonNull
     private TitleAnnouncerVelocity plugin;
 
     @Subscribe

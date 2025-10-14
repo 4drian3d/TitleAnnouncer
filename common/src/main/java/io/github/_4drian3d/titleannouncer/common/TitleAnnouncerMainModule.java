@@ -12,7 +12,6 @@ import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
 import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
 import io.github._4drian3d.titleannouncer.common.configuration.Messages;
 import io.github._4drian3d.titleannouncer.common.format.Formatter;
-import io.github._4drian3d.titleannouncer.common.format.MiniPlaceholdersFormatter;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
@@ -41,9 +40,9 @@ public final class TitleAnnouncerMainModule extends AbstractModule {
     public Formatter formatter() {
         try {
             Class.forName("io.github.miniplaceholders.api.MiniPlaceholders");
-            return new MiniPlaceholdersFormatter();
+            return Formatter.miniPlaceholders();
         } catch (Throwable t) {
-            return new Formatter();
+            return Formatter.basic();
         }
     }
 

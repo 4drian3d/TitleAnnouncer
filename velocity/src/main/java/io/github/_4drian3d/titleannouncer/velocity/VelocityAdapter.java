@@ -6,7 +6,6 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import net.kyori.adventure.audience.Audience;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,22 +18,21 @@ public final class VelocityAdapter implements PlatformAdapter<Player> {
     private ProxyServer proxyServer;
 
     @Override
-    public @NotNull Audience getGlobalAudience() {
+    public Audience getGlobalAudience() {
         return proxyServer;
     }
 
     @Override
-    public @NotNull Optional<Player> stringToAudience(@NotNull String string) {
+    public Optional<Player> stringToAudience(String string) {
         return this.proxyServer.getPlayer(string);
     }
 
     @Override
-    public @NotNull Collection<String> playerSuggestions() {
+    public Collection<String> playerSuggestions() {
         final List<String> names = new ArrayList<>();
         for (final Player player : this.proxyServer.getAllPlayers()) {
             names.add(player.getUsername());
         }
         return names;
     }
-    
 }

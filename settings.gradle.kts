@@ -1,13 +1,30 @@
 @file:Suppress("UnstableApiUsage")
-
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "titleannouncer-parent"
 
-include("titleannouncer-common")
-include("titleannouncer-paper")
-include("titleannouncer-velocity")
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
 
-project(":titleannouncer-common").projectDir = file("common")
-project(":titleannouncer-velocity").projectDir = file("velocity")
-project(":titleannouncer-paper").projectDir = file("paper")
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven("https://repo.papermc.io/repository/maven-public/")
+    }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
+arrayOf("common", "paper", "velocity").forEach {
+    include("titleannouncer-$it")
+    project(":titleannouncer-$it").projectDir = file(it)
+}
+
+

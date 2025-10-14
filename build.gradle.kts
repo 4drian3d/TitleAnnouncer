@@ -13,16 +13,12 @@ subprojects {
 
     val projectName = project.name.replace("titleannouncer-", "").uppercaseFirstChar()
 
-    repositories {
-        maven("https://papermc.io/repo/repository/maven-public/")
-    }
-
-    java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 
     tasks {
         withType<JavaCompile> {
             options.encoding = Charsets.UTF_8.name()
-            options.release.set(17)
+            options.release.set(21)
         }
         if (projectName != "Common") {
             withType<ShadowJar> {
