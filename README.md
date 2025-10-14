@@ -1,29 +1,25 @@
-# TitleAnnouncer [![WorkFlow Status](https://img.shields.io/github/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncer%20Maven%20Build?&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/actions/workflows/TitleAnnouncerBuild.yml) [![Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?color=FFF0&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/releases)
+# TitleAnnouncer
 
-A lightweight plugin to send Titles, Actionbars, Bossbars and Chat Announces with the MiniMessage format to Paper 1.17.1+ servers and Velocity 3.0.2+ networks.
+[![GitHub WorkFlow](https://img.shields.io/github/actions/workflow/status/4drian3d/TitleAnnouncer/TitleAnnouncerBuild.yml?logo=GitHub&style=flat-square)](https://github.com/4drian3d/TitleAnnouncer/actions)
+![Latest Version](https://img.shields.io/github/v/release/4drian3d/TitleAnnouncer?style=flat-square)
+[![Discord](https://img.shields.io/discord/899740810956910683?color=7289da&logo=Discord&label=Discord&style=flat-square)](https://discord.gg/5NMMzK5mAn)
+![Modrinth Downloads](https://img.shields.io/modrinth/dt/d769vI4q?logo=Modrinth&style=flat-square)
+![GitHub Downloads](https://img.shields.io/github/downloads/4drian3d/TitleAnnouncer/total?logo=GitHub&style=flat-square)
 
-[![Banner](https://i.imgur.com/BhFqg82.jpg)](https://polymart.org/resource/titleannouncer.1350)
-
+A lightweight plugin to send Titles, Actionbars, Bossbars and Chat Announces to Paper servers and Velocity networks.
 
 ## Features
 - Ability to send announcements by using titles, actionbars, bossbars, and chat messages.
-- Send announcements to users in the same world you are in.
+- Send announcements to users in the same world or server you are in.
 - Send announcements to a specific user.
-- Test the announcement to be sent or simply send the announcement to yourself.
-- Send announcements to a server on your network.
 - Use of the [MiniMessage format](https://docs.adventure.kyori.net/minimessage.html#format) throughout the plugin, allowing the maximum possible customization.
-- The plugin makes use of the Adventure library, allowing a native sending of messages with the best possible performance.
-- Announcements with [PlaceholderAPI support](https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders) on Paper and forks
-- [Velocity](https://github.com/VelocityPowered/Velocity) proxy support
-- Own useful [placeholders](https://github.com/4drian3d/TitleAnnouncer/wiki/Placeholders) in Paper and Velocity
-- Send sounds along with titles, actionbars and bossbars in Paper and Velocity. In order to use sounds in Velocity, you must install [Protocolize](https://www.spigotmc.org/resources/protocolize-protocollib-for-bungeecord-waterfall-velocity.63778/).
-
+- [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) support
 
 ## Commands
 
-To use the commands in Velocity, just add a "v" at the beginning of the command, for example: "/vannouncebossbar".
+To use the commands in Velocity, just add a "v" at the beginning of the command, for example: "/vannounce" or "/vtitleannouncer".
 
-### Main Command
+### Announce Command
 
 <table>
     <thead>
@@ -36,15 +32,20 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
     </thead>
     <tbody>
         <tr>
-            <td><code>/announcer</code></td>
-            <td>[help|reload]</td>
+            <td><code>/announce</code></td>
+            <td>[title|bossbar|chat|actionbar] (Target Argument) (Format Arguments)</td>
             <td>announcer.command</td>
-            <td>Main Command.</td>
+            <td>TitleAnnouncer Announce Command.</td>
         </tr>
     </tbody>
 </table>
 
-### Title
+#### Target Argument
+
+
+
+### Title Format
+
 <table>
     <thead>
     <tr>
@@ -87,144 +88,3 @@ To use the commands in Velocity, just add a "v" at the beginning of the command,
         </tr>
     </tbody>
 </table>
-
-
-### Actionbar
-<table>
-    <thead>
-    <tr>
-        <th>Command</th>
-        <th>Argument</th>
-        <th>Permission</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>/announceactionbar</code></td>
-            <td>(Message)</td>
-            <td>titleannouncer.actionbar.global</td>
-            <td>Announce an Actionbar to the entire server.</td>
-        </tr>
-        <tr>
-            <td><code>/selfactionbar</code></td>
-            <td>(Message)</td>
-            <td>titleannouncer.actionbar.self</td>
-            <td>Send an ActionBar only to the player who has sent it.</td>
-        </tr>
-        <tr>
-            <td><code>/worldactionbar</code></td>
-            <td>(Message)</td>
-            <td>titleannouncer.actionbar.world</td>
-            <td>Sends an actionbar to the world in which the command was executed in Paper.</td>
-        </tr>
-        <tr>
-            <td><code>/sendactionbar</code></td>
-            <td>(Player) (Message)</td>
-            <td>titleannouncer.actionbar.send</td>
-            <td>Sends an actionbar to a specific player.</td>
-        </tr>
-        <tr>
-            <td><code>/serveractionbar</code></td>
-            <td>(Server) (Message)</td>
-            <td>titleannouncer.actionbar.server</td>
-            <td>Sends an actionbar to a server on Velocity.</td>
-        </tr>
-    </tbody>
-</table>
-
-### Bossbar
-<table>
-    <thead>
-    <tr>
-        <th>Command</th>
-        <th>Argument</th>
-        <th>Permission</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>/announcebossbar</code></td>
-            <td>(Time) (Color) (Type) (Message)</td>
-            <td>titleannouncer.bossbar.global</td>
-            <td>Announce a Bossbar to the entire server.</td>
-        </tr>
-        <tr>
-            <td><code>/selfbossbar</code></td>
-            <td>(Time) (Color) (Type) (Message)</td>
-            <td>titleannouncer.bossbar.self</td>
-            <td>Send a Bossbar only to the player who has sent it.</td>
-        </tr>
-        <tr>
-            <td><code>/worldbossbar</code></td>
-            <td>(Time) (Color) (Type) (Message)</td>
-            <td>titleannouncer.bossbar.world</td>
-            <td>Sends a Bossbar to the world in which the command was executed in Paper.</td>
-        </tr>
-        <tr>
-            <td><code>/sendbossbar</code></td>
-            <td>(Player) (Time) (Color) (Type) (Message)</td>
-            <td>titleannouncer.bossbar.send</td>
-            <td>Sends an Bossbar to a specific player.</td>
-        </tr>
-        <tr>
-            <td><code>/serverbossbar</code></td>
-            <td>(Server) (Time) (Color) (Type) (Message)</td>
-            <td>titleannouncer.bossbar.server</td>
-            <td>Sends an Bossbar to a server on Velocity.</td>
-        </tr>
-    </tbody>
-</table>
-
-### Chat
-<table>
-    <thead>
-    <tr>
-        <th>Command</th>
-        <th>Argument</th>
-        <th>Permission</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><code>/announcechat</code></td>
-            <td>(Message)</td>
-            <td>titleannouncer.chat.global</td>
-            <td>Announce a Chat Message to the entire server.</td>
-        </tr>
-        <tr>
-            <td><code>/selfchat</code></td>
-            <td>(Message)</td>
-            <td>titleannouncer.chat.self</td>
-            <td>Send a Chat Message only to the player who has sent it.</td>
-        </tr>
-        <tr>
-            <td><code>/worldchat</code></td>
-            <td>(Message)</td>
-            <td>titleannouncer.chat.world</td>
-            <td>Sends a Chat Message to the world in which the command was executed in Paper.</td>
-        </tr>
-        <tr>
-            <td><code>/sendchat</code></td>
-            <td>(Player) (Message)</td>
-            <td>titleannouncer.chat.send</td>
-            <td>Sends an Chat Message to a specific player.</td>
-        </tr>
-        <tr>
-            <td><code>/serverchat</code></td>
-            <td>(Server) (Message)</td>
-            <td>titleannouncer.chat.server</td>
-            <td>Sends a Chat Message to a server on Velocity.</td>
-        </tr>
-    </tbody>
-</table>
-
-
-## Compatibility
-The plugin works in [Paper](https://papermc.io/), [Airplane](https://github.com/TECHNOVE/Airplane), [Purpur](https://purpur.pl3x.net/) 1.17.1+ and [VelocityPowered](https://github.com/VelocityPowered/Velocity) 3.0.2+
-
-It does not and will not work in Spigot or CraftBukkit. It will not work in Paper or fork versions 1.16.4 or lower.
-
-For Paper and forks 1.16.5, use plugin version 1.16.0
