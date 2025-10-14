@@ -16,6 +16,17 @@ public interface TargetSuggestionType {
 
   CompletableFuture<Suggestions> provideSuggestions(final String remaining, final SuggestionsBuilder builder);
 
+  /**
+   * Generates suggestions to complete an argument based on two sub-arguments.
+   * <br>
+   * This allows valid suggestions to be generated for use in conjunction with {@link com.mojang.brigadier.arguments.StringArgumentType#string()}
+   * and a suggestion format: {@code “argument:suggestion” } where the argument is defined in {@link #targetPrefix()}
+   *
+   * @param remaining the actual argument provided by the player
+   * @param builder the suggestion builder
+   * @param argumentsSupplier the suggestions provider
+   * @return the suggestions to provide to the user
+   */
   default CompletableFuture<Suggestions> provideListSuggestions(
       final String remaining,
       SuggestionsBuilder builder,
@@ -26,10 +37,12 @@ public interface TargetSuggestionType {
     final SuggestionsBuilder offsetBuilder = builder.createOffset(indexOfQuote + builder.getStart() + 1);
 
     if (remaining.charAt(remainingLength - 1) != '"') {
-      argumentsSupplier.get().forEach(offsetBuilder::suggest);
-      if (remainingLength > 9) {
-        offsetBuilder.suggest(remaining.substring(8) + "\"");
+      if (remainingLength > targetPrefix().length() + 2) {
+        return offsetBuilder.createOffset(builder.getStart() + remainingLength)
+            .suggest("\"")
+            .buildFuture();
       }
+      argumentsSupplier.get().forEach(offsetBuilder::suggest);
     }
 
     return offsetBuilder.buildFuture();
