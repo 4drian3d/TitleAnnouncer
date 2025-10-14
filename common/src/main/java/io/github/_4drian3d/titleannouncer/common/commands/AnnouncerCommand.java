@@ -1,10 +1,11 @@
 package io.github._4drian3d.titleannouncer.common.commands;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
+import io.github._4drian3d.titleannouncer.common.commands.format.ActionbarAnnounceNode;
+import io.github._4drian3d.titleannouncer.common.commands.format.ChatAnnounceNode;
 import io.github._4drian3d.titleannouncer.common.commands.format.TitleAnnounceNode;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.PlayerSuggestionType;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestionType;
@@ -21,8 +22,6 @@ public final class AnnouncerCommand<P extends Audience, C> {
   private ConfigurationContainer<Configuration> configurationContainer;
   @Inject
   private PlatformAdapter<P, C> platformAdapter;
-  @Inject
-  private Injector injector;
 
   public LiteralCommandNode<C> buildCommand(final String prefix, TargetSuggestionType nativeTargetSuggestions) {
     final LiteralArgumentBuilder<C> announceBuilder = LiteralArgumentBuilder.literal(prefix + "announce");
@@ -30,6 +29,8 @@ public final class AnnouncerCommand<P extends Audience, C> {
     final TargetSuggestions<C> targetSuggestions = new TargetSuggestions<>(playerSuggestionType, nativeTargetSuggestions);
 
     announceBuilder.then(new TitleAnnounceNode<>(formatter, platformAdapter).provideNode(targetSuggestions));
+    announceBuilder.then(new ActionbarAnnounceNode<>(formatter, platformAdapter).provideNode(targetSuggestions));
+    announceBuilder.then(new ChatAnnounceNode<>(formatter, platformAdapter).provideNode(targetSuggestions));
 
     return announceBuilder.build();
   }

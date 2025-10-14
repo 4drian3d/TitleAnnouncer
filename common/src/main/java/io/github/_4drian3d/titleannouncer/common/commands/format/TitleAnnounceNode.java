@@ -16,8 +16,10 @@ import net.kyori.adventure.title.TitlePart;
 import java.time.Duration;
 import java.util.Optional;
 
-public record TitleAnnounceNode<C>(Formatter formatter,
-                                   PlatformAdapter<?, C> platformAdapter) implements AnnounceNode<C> {
+public record TitleAnnounceNode<C>(
+    Formatter formatter,
+    PlatformAdapter<?, C> platformAdapter
+) implements AnnounceNode<C> {
 
   @Override
   public LiteralArgumentBuilder<C> provideNode(final TargetSuggestions<C> targetSuggestions) {
