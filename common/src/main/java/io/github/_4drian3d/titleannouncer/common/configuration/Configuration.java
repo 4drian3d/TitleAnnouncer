@@ -7,6 +7,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
+@SuppressWarnings("FieldMayBeFinal")
 @ConfigSerializable
 public class Configuration implements Section {
     private BossBar bossbar = new BossBar();
@@ -34,21 +35,22 @@ public class Configuration implements Section {
         }
     }
 
+    @SuppressWarnings("FieldCanBeLocal")
     @ConfigSerializable
     public static class Title {
-        private Duration defaultFadeIn = Duration.of(1, ChronoUnit.SECONDS);
-        private Duration defaultStay = Duration.of(2, ChronoUnit.SECONDS);
-        private Duration defaultFadeOut = Duration.of(1, ChronoUnit.SECONDS);
+        private int defaultFadeIn = 1;
+        private int defaultStay = 2;
+        private int defaultFadeOut = 1;
 
-        public Duration defaultFadeIn() {
+        public int defaultFadeIn() {
             return defaultFadeIn;
         }
 
-        public Duration defaultStay() {
+        public int defaultStay() {
             return defaultStay;
         }
 
-        public Duration defaultFadeOut() {
+        public int defaultFadeOut() {
             return defaultFadeOut;
         }
     }

@@ -1,7 +1,8 @@
-package io.github._4drian3d.titleannouncer.velocity;
+package io.github._4drian3d.titleannouncer.velocity.adapter;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public final class TitleAnnouncerVelocityAdapter implements PlatformAdapter<Player> {
+public final class TitleAnnouncerVelocityAdapter implements PlatformAdapter<Player, CommandSource> {
   @Inject
   private ProxyServer proxyServer;
 
@@ -34,6 +35,11 @@ public final class TitleAnnouncerVelocityAdapter implements PlatformAdapter<Play
       names.add(player.getUsername());
     }
     return names;
+  }
+
+  @Override
+  public Audience nativeToAudience(CommandSource nativeType) {
+    return nativeType;
   }
 
   @Override

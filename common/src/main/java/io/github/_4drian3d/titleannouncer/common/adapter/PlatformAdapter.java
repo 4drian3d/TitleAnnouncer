@@ -5,12 +5,14 @@ import net.kyori.adventure.audience.Audience;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PlatformAdapter<P extends Audience> {
+public interface PlatformAdapter<P extends Audience, C> {
   Audience getGlobalAudience();
 
   Optional<P> stringToAudience(final String string);
 
   Collection<String> playerSuggestions();
+
+  Audience nativeToAudience(C nativeType);
 
   default Optional<? extends Audience> destinationFromString(final String string, final Audience sender) {
     if (string.equalsIgnoreCase("self")) {

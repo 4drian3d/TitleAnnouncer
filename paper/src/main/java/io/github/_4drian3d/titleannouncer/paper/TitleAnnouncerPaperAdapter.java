@@ -3,6 +3,7 @@ package io.github._4drian3d.titleannouncer.paper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -11,7 +12,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Singleton
-public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player> {
+public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player, CommandSourceStack> {
   @Inject
   private Server server;
 
@@ -28,6 +29,11 @@ public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player>
   @Override
   public Collection<String> playerSuggestions() {
     return server.getOnlinePlayers().stream().map(Player::getName).toList();
+  }
+
+  @Override
+  public Audience nativeToAudience(CommandSourceStack nativeType) {
+    return nativeType.getSender();
   }
 
   @Override
