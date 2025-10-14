@@ -1,6 +1,6 @@
-//plugins {
-//    id("titleannouncer.shadow")
-//}
+plugins {
+    id("titleannouncer.shadow")
+}
 
 dependencies {
     compileOnly(libs.velocity)

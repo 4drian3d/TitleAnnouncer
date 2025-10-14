@@ -36,6 +36,8 @@ brigadier = { module = "com.mojang:brigadier", version.ref = "brigadier" }
 guice = { group = "com.google.inject", name = "guice", version.ref = "guice" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
+plugin-shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+
 [plugins]
 
 pluginyml = { id = "net.minecrell.plugin-yml.paper", version.ref = "pluginyml" }

@@ -4,11 +4,6 @@ plugins {
 
 dependencies {
     implementation(libs.plugin.shadow)
-  //  implementation(libs.plugin.kotlin)
-}
-
-repositories {
-    gradlePluginPortal()
 }
 
 kotlin {

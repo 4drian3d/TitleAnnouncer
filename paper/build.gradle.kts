@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.pluginyml)
     alias(libs.plugins.runpaper)
-//    id("titleannouncer.shadow")
+    id("titleannouncer.shadow")
 }
 
 dependencies {
