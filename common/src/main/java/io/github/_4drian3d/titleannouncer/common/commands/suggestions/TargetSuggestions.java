@@ -12,22 +12,14 @@ public record TargetSuggestions<C>(TargetSuggestionType... targetSuggestionTypes
   @Override
   public CompletableFuture<Suggestions> getSuggestions(final CommandContext<C> context, final SuggestionsBuilder builder) {
     final String originalInput = builder.getRemaining();
-    if (originalInput.isBlank() || originalInput.indexOf(':') != -1) {
-      return allSuggestions(builder);
-    }
     final String inputLowercased = originalInput.toLowerCase(Locale.ROOT);
     for (final TargetSuggestionType targetSuggestionType : this.targetSuggestionTypes) {
       if (targetSuggestionType.canSuggest(inputLowercased)) {
         return targetSuggestionType.provideSuggestions(originalInput, builder);
       }
-      builder.suggest(targetSuggestionType.targetPrefix());
     }
-    return builder.suggest("self").suggest("all").buildFuture();
-  }
-
-  private CompletableFuture<Suggestions> allSuggestions(final SuggestionsBuilder builder) {
     for (final TargetSuggestionType targetSuggestionType : this.targetSuggestionTypes) {
-      builder.suggest("\"" + targetSuggestionType.targetPrefix() + "\"");
+      targetSuggestionType.suggestSelf(builder);
     }
     return builder.suggest("self").suggest("all").buildFuture();
   }

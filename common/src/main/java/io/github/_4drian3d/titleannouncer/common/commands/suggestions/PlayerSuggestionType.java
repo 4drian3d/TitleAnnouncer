@@ -13,9 +13,12 @@ public record PlayerSuggestionType(PlatformAdapter<?, ?> platformAdapter) implem
   }
 
   @Override
-  public CompletableFuture<Suggestions> provideSuggestions(final String argument, SuggestionsBuilder builder) {
-    builder = builder.createOffset(argument.indexOf(':') + builder.getStart() + 1);
-    this.platformAdapter.playerSuggestions().forEach(builder::suggest);
-    return builder.buildFuture();
+  public boolean canSuggest(String lowerCasedArgument) {
+    return lowerCasedArgument.startsWith("\"" + targetPrefix());
+  }
+
+  @Override
+  public CompletableFuture<Suggestions> provideSuggestions(final String remaining, SuggestionsBuilder builder) {
+    return this.provideListSuggestions(remaining, builder, platformAdapter::playerSuggestions);
   }
 }
