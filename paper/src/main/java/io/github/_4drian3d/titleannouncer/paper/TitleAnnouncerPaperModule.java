@@ -3,6 +3,7 @@ package io.github._4drian3d.titleannouncer.paper;
 import com.google.inject.AbstractModule;
 import io.github._4drian3d.titleannouncer.common.TitleAnnouncerMainModule;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
+import io.github._4drian3d.titleannouncer.paper.adapter.TitleAnnouncerPaperAdapter;
 
 public final class TitleAnnouncerPaperModule extends AbstractModule {
     @Override

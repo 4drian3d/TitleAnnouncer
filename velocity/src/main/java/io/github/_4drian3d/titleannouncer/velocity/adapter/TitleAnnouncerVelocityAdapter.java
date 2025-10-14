@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.ServerConnection;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import net.kyori.adventure.audience.Audience;
 
@@ -43,9 +44,15 @@ public final class TitleAnnouncerVelocityAdapter implements PlatformAdapter<Play
   }
 
   @Override
-  public Optional<? extends Audience> destinationFromString(String string, Audience sender) {
-    if (string.startsWith("server:")) {
-      return this.proxyServer.getServer(string.replace("server:", ""));
+  public Optional<? extends Audience> destinationFromString(final String string, final Audience sender) {
+    if (string.startsWith("server")) {
+      if (string.length() < 7 && sender instanceof final Player player) {
+        return player.getCurrentServer()
+            .map(ServerConnection::getServer);
+      }
+      if (string.charAt(6) == ':') {
+        return this.proxyServer.getServer(string.replace("server:", ""));
+      }
     }
     return PlatformAdapter.super.destinationFromString(string, sender);
   }

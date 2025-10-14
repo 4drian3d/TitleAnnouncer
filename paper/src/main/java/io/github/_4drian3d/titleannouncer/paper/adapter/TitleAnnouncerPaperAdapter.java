@@ -1,4 +1,4 @@
-package io.github._4drian3d.titleannouncer.paper;
+package io.github._4drian3d.titleannouncer.paper.adapter;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -38,8 +38,13 @@ public final class TitleAnnouncerPaperAdapter implements PlatformAdapter<Player,
 
   @Override
   public Optional<? extends Audience> destinationFromString(String string, Audience sender) {
-    if (string.startsWith("world:")) {
-      return Optional.ofNullable(this.server.getWorld(string.replace("world:", "")));
+    if (string.startsWith("world")) {
+      if (string.length() < 6 && sender instanceof final Player player) {
+        return Optional.of(player.getWorld());
+      }
+      if (string.charAt(5) == '"') {
+        return Optional.ofNullable(this.server.getWorld(string.replace("world:", "")));
+      }
     }
     return PlatformAdapter.super.destinationFromString(string, sender);
   }
