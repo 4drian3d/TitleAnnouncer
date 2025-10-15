@@ -38,7 +38,8 @@ public final class AnnouncerCommand<P extends Audience, C> {
         new TitleAnnounceNode<>(formatter, platformAdapter, configurationContainer, messagesContainer),
         new ActionbarAnnounceNode<>(formatter, platformAdapter, configurationContainer, messagesContainer),
         new ChatAnnounceNode<>(formatter, platformAdapter, configurationContainer, messagesContainer),
-        new BossbarAnnounceNode<>(formatter, platformAdapter, bossBarManager, configurationContainer, messagesContainer)
+        new BossbarAnnounceNode<>(formatter, platformAdapter, bossBarManager, configurationContainer, messagesContainer),
+        new SoundAnnounceNode<>(formatter, platformAdapter, configurationContainer, messagesContainer)
     );
     for (final AnnounceNode<C> node : nodes) {
       announceBuilder.then(node.provideNode(targetSuggestions));

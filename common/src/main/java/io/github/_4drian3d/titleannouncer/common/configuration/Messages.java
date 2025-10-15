@@ -6,20 +6,48 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal"})
 @ConfigSerializable
 public class Messages implements Section {
+  private Reload reload = new Reload();
+  private Sound sound = new Sound();
   @Comment("Error sending if no valid target is detected to send the announcement to")
   private String invalidTarget = "<red>You have provided an invalid target";
-  private String errorWhileReloadingConfiguration = "<red>An error occurred while reloading the configuration. Check the console for more information";
-  private String successfullyReloaded = "<green>Successful configuration reload";
 
   public String invalidTarget() {
     return invalidTarget;
   }
 
-  public String errorWhileReloadingConfiguration() {
-    return errorWhileReloadingConfiguration;
+  public Reload reload() {
+    return reload;
   }
 
-  public String successfullyReloaded() {
-    return successfullyReloaded;
+  public Sound sound() {
+    return sound;
+  }
+
+  @ConfigSerializable
+  public static class Reload {
+    private String errorWhileReloadingConfiguration = "<red>An error occurred while reloading the configuration. Check the console for more information";
+    private String successfullyReloaded = "<green>Successful configuration reload";
+
+    public String errorWhileReloadingConfiguration() {
+      return errorWhileReloadingConfiguration;
+    }
+
+    public String successfullyReloaded() {
+      return successfullyReloaded;
+    }
+  }
+
+  @ConfigSerializable
+  public static class Sound {
+    private String invalidSoundProvided = "<dark_red><sound> <red>is not a valid sound";
+    private String playingSound = "<aqua>Playing the sound <gold><sound>";
+
+    public String invalidSoundProvided() {
+      return invalidSoundProvided;
+    }
+
+    public String playingSound() {
+      return playingSound;
+    }
   }
 }

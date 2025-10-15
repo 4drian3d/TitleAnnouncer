@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
+@SuppressWarnings("unused")
 public final class TitleAnnouncerMainModule extends AbstractModule {
   @Singleton
   @Provides
@@ -35,7 +36,7 @@ public final class TitleAnnouncerMainModule extends AbstractModule {
   @Provides
   public Formatter formatter() {
     try {
-      Class.forName("io.github.miniplaceholders.api.MiniPlaceholders");
+      Class.forName("io.github.miniplaceholders.api.utils.Resolvers");
       return Formatter.miniPlaceholders();
     } catch (Throwable t) {
       return Formatter.basic();

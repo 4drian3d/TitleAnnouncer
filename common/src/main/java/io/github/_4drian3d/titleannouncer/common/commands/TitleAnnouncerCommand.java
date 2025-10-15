@@ -52,10 +52,11 @@ public class TitleAnnouncerCommand<P extends Audience, C> {
               final Audience audience = platformAdapter.nativeToAudience(ctx.getSource());
               configurationContainer.reload()
                   .thenCombine(messagesContainer.reload(), (configurationReloaded, messagesReloaded) -> {
+                    final Messages.Reload reloadMessages = messagesContainer.get().reload();
                     if (configurationReloaded && messagesReloaded) {
-                      audience.sendMessage(formatter.globalFormat(messagesContainer.get().successfullyReloaded()));
+                      audience.sendMessage(formatter.globalFormat(reloadMessages.successfullyReloaded()));
                     } else {
-                      audience.sendMessage(formatter.globalFormat(messagesContainer.get().errorWhileReloadingConfiguration()));
+                      audience.sendMessage(formatter.globalFormat(reloadMessages.errorWhileReloadingConfiguration()));
                     }
                     return null;
                   });
