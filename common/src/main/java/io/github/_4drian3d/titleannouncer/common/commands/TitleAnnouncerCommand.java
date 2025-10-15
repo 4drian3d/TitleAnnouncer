@@ -9,6 +9,7 @@ import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
 import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
 import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
 import io.github._4drian3d.titleannouncer.common.configuration.Messages;
+import io.github._4drian3d.titleannouncer.common.format.Formatter;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -36,6 +37,8 @@ public class TitleAnnouncerCommand<P extends Audience, C> {
   private ConfigurationContainer<Configuration> configurationContainer;
   @Inject
   private ConfigurationContainer<Messages> messagesContainer;
+  @Inject
+  private Formatter formatter;
 
   public LiteralCommandNode<C> buildCommand(final String prefix) {
     return LiteralArgumentBuilder.<C>literal(prefix + "titleannouncer")
@@ -46,11 +49,14 @@ public class TitleAnnouncerCommand<P extends Audience, C> {
         })
         .then(LiteralArgumentBuilder.<C>literal("reload")
             .executes(ctx -> {
-              // TODO: Reload messages
-              platformAdapter.nativeToAudience(ctx.getSource()).sendMessage(Component.text("Reloading"));
+              final Audience audience = platformAdapter.nativeToAudience(ctx.getSource());
               configurationContainer.reload()
                   .thenCombine(messagesContainer.reload(), (configurationReloaded, messagesReloaded) -> {
-
+                    if (configurationReloaded && messagesReloaded) {
+                      audience.sendMessage(formatter.globalFormat(messagesContainer.get().successfullyReloaded()));
+                    } else {
+                      audience.sendMessage(formatter.globalFormat(messagesContainer.get().errorWhileReloadingConfiguration()));
+                    }
                     return null;
                   });
               return Command.SINGLE_SUCCESS;
