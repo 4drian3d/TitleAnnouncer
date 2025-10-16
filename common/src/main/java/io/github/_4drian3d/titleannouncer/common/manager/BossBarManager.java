@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.github._4drian3d.titleannouncer.common.format.Formatter;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.audience.ForwardingAudience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.identity.Identity;
 import org.jetbrains.annotations.Range;
@@ -28,18 +29,28 @@ public final class BossBarManager {
       final BossBar.Color color,
       final BossBar.Overlay type
   ) {
+    if (audience instanceof ForwardingAudience forwardingAudience) {
+      //noinspection OverrideOnly
+      for (final Audience singleAudience : forwardingAudience.audiences()) {
+        this.sendBossBar(singleAudience, seconds, content, color, type);
+      }
+      return;
+    }
     final BossBar bar = BossBar.bossBar(formatter.audienceFormat(content, audience), 1, color, type);
     audience.showBossBar(bar);
 
-    BOSSBAR_TASKS.compute(audience.get(Identity.UUID).orElseThrow(), (a, b) -> {
-      if (b == null) {
-        b = new HashMap<>();
-      }
-      final float finalTime = 1f / seconds;
-      var task = new BossBarTask(formatter, content, bar, audience, finalTime);
-      b.put(task, BOSSBAR_EXECUTOR.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS));
-      return b;
-    });
+    audience.get(Identity.UUID).ifPresent(id ->
+      BOSSBAR_TASKS.compute(id, (a, b) -> {
+        if (b == null) {
+          b = new HashMap<>();
+        }
+        final float finalTime = 1f / seconds;
+        var task = new BossBarTask(formatter, content, bar, audience, finalTime);
+        b.put(task, BOSSBAR_EXECUTOR.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS));
+        return b;
+      })
+    );
+
   }
 
   private record BossBarTask(
