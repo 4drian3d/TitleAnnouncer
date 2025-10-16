@@ -30,7 +30,8 @@ public final class AnnouncerCommand<P extends Audience, C> {
   private BossBarManager bossBarManager;
 
   public LiteralCommandNode<C> buildCommand(final String prefix, TargetSuggestionType nativeTargetSuggestions) {
-    final LiteralArgumentBuilder<C> announceBuilder = LiteralArgumentBuilder.literal(prefix + "announce");
+    final LiteralArgumentBuilder<C> announceBuilder = LiteralArgumentBuilder.<C>literal(prefix + "announce")
+        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command"));
     final PlayerSuggestionType playerSuggestionType = new PlayerSuggestionType(platformAdapter);
     final TargetSuggestions<C> targetSuggestions = new TargetSuggestions<>(playerSuggestionType, nativeTargetSuggestions);
 

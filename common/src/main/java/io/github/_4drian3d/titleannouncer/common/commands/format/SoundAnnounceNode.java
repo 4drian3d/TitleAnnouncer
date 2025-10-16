@@ -30,6 +30,7 @@ public record SoundAnnounceNode<C>(
   @Override
   public LiteralArgumentBuilder<C> provideNode(TargetSuggestions<C> targetSuggestions) {
     return LiteralArgumentBuilder.<C>literal("sound")
+        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command.sound"))
         .then(RequiredArgumentBuilder.<C, String>argument("target", StringArgumentType.string())
             .suggests(targetSuggestions)
             .then(RequiredArgumentBuilder.<C, String>argument("sound", StringArgumentType.string())

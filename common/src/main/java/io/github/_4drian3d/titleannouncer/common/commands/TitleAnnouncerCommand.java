@@ -42,7 +42,7 @@ public class TitleAnnouncerCommand<P extends Audience, C> {
 
   public LiteralCommandNode<C> buildCommand(final String prefix) {
     return LiteralArgumentBuilder.<C>literal(prefix + "titleannouncer")
-        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command"))
+        .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command.admin"))
         .executes(ctx -> {
           platformAdapter.nativeToAudience(ctx.getSource()).sendMessage(INFO);
           return Command.SINGLE_SUCCESS;
