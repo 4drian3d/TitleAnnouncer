@@ -152,5 +152,4 @@ Like the player argument, when requiring `:`, it must be enclosed in quotation m
 |----------------------------------------------|------------------------------|
 | \[Sound Key\] (Source Type) (Volume) (Pitch) | titleannouncer.command.sound |
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7NP3ibtHDp8?si=jRL3mo1NY2kz42VV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![](https://img.youtube.com/vi/7NP3ibtHDp8/maxresdefault.jpg)](https://www.youtube.com/watch?v=7NP3ibtHDp8)
