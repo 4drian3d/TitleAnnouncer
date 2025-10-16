@@ -9,6 +9,7 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 public class Configuration implements Section {
   @Comment("Title announcements default values configuration")
   private Title title = new Title();
+  @Comment("Sound announcements default values configuration")
   private Sound sound = new Sound();
 
   public Title title() {

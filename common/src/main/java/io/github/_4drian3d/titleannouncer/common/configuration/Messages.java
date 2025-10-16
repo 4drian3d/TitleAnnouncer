@@ -6,7 +6,9 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal"})
 @ConfigSerializable
 public class Messages implements Section {
+  @Comment("Reload Messages")
   private Reload reload = new Reload();
+  @Comment("Sound Messages")
   private Sound sound = new Sound();
   @Comment("Error sending if no valid target is detected to send the announcement to")
   private String invalidTarget = "<red>You have provided an invalid target";
@@ -40,7 +42,7 @@ public class Messages implements Section {
   @ConfigSerializable
   public static class Sound {
     private String invalidSoundProvided = "<dark_red><sound> <red>is not a valid sound";
-    private String playingSound = "<aqua>Playing the sound <gold><sound>";
+    private String playingSound = "<aqua>Playing '<gold><sound>' sound";
 
     public String invalidSoundProvided() {
       return invalidSoundProvided;
