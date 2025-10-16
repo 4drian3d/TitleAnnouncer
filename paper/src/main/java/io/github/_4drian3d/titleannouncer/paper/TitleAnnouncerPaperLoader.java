@@ -15,14 +15,10 @@ public final class TitleAnnouncerPaperLoader implements PluginLoader {
     final MavenLibraryResolver resolver = new MavenLibraryResolver();
 
     final RemoteRepository mavenCentral = new RemoteRepository
-        .Builder("central-mirror", "default", "https://repo.papermc.io/repository/maven-public/")
+        .Builder("paper-repo", "default", "https://repo.papermc.io/repository/maven-public/")
         .build();
     final Dependency configurateHocon = new Dependency(
         new DefaultArtifact("org.spongepowered:configurate-hocon:4.2.0"),
-        null
-    );
-    final Dependency configurateAdventure = new Dependency(
-        new DefaultArtifact("net.kyori:adventure-serializer-configurate4:4.25.0"),
         null
     );
     final Dependency guice = new Dependency(
@@ -32,7 +28,6 @@ public final class TitleAnnouncerPaperLoader implements PluginLoader {
 
     resolver.addRepository(mavenCentral);
     resolver.addDependency(configurateHocon);
-    resolver.addDependency(configurateAdventure);
     resolver.addDependency(guice);
 
     classpathBuilder.addLibrary(resolver);

@@ -9,8 +9,6 @@ dependencies {
     compileOnly(libs.configurate)
     compileOnly(libs.adventure.api)
     compileOnly(libs.adventure.minimesssage)
-    // TODO: a
-    compileOnly(libs.adventure.configurate)
     compileOnly(libs.miniplaceholders)
 
     compileOnlyApi(libs.guice)
