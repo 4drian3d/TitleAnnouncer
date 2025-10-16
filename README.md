@@ -44,9 +44,6 @@ it will only be able to receive chat announcements
 
 `/(v)announce chat self <rainbow>Some announcement`
 
-![Self Chat Announcement](img/ChatAnnouncementSelf.png)
-
-
 #### Player Target
 
 This target allows you to send an announcement to a specific player.
@@ -62,8 +59,6 @@ If executed in-game, online player names will be suggested.
 
 `/(v)announce title "player:4drian3d" "<gradient:green:aqua>TitleAnnouncer" "<aqua>by <gold>4drian3d"`
 
-![Player Title Announcement](img/PlayerAnnouncementTitle.png)
-
 #### All Target
 
 This target allows you to send an announcement to all players on the server or proxy.
@@ -74,8 +69,6 @@ If you run it from TitleAnnouncer installed in Paper, the announcement will be s
 **Example Usage**
 
 `/(v)announce actionbar all <gradient:green:aqua>TitleAnnouncer <dark_gray>| <white><platforminfo_version>`
-
-![All Actionbar Announcement](img/AllAnnouncementActionbar.png)
 
 #### Server Target
 
@@ -92,9 +85,8 @@ Like the player argument, when requiring `:`, it must be enclosed in quotation m
 **Example Usage**
 
 `/vannounce bossbar server 30 blue notched_12 <gradient:gold:aqua>A big announcement!!!`
-`/vannounce bossbar "server:lobby" 30 blue notched_12 <gradient:gold:aqua>A big announcement!!!`
 
-![Server BossBar Announcement](img/ServerAnnouncementBossbar.png)
+`/vannounce bossbar "server:lobby" 30 blue notched_12 <gradient:gold:aqua>A big announcement!!!`
 
 #### World Target
 
@@ -111,6 +103,7 @@ Like the player argument, when requiring `:`, it must be enclosed in quotation m
 **Example Usage**
 
 `/announce bossbar world 30 blue notched_12 <gradient:gold:aqua>A big announcement!!!`
+
 `/announce bossbar "world:lobby" 30 blue notched_12 <gradient:gold:aqua>A big announcement!!!`
 
 ![World Actionbar ANnouncement](img/WorldAnnouncementActionbar.png)
@@ -123,11 +116,15 @@ Like the player argument, when requiring `:`, it must be enclosed in quotation m
 |-------------|-----------------------------|
 | \[Message\] | titleannouncer.command.chat |
 
+![Self Chat Announcement](img/ChatAnnouncementSelf.png)
+
 #### Actionbar Format
 
 | Arguments   | Permission                       |
 |-------------|----------------------------------|
 | \[Message\] | titleannouncer.command.actionbar |
+
+![All Actionbar Announcement](img/AllAnnouncementActionbar.png)
 
 #### Title Format
 
@@ -135,11 +132,15 @@ Like the player argument, when requiring `:`, it must be enclosed in quotation m
 |-----------------------------------------------------------------|------------------------------|
 | \[Title\] \[SubTitle\] (FadeIn Time) (Stay Time) (FadeOut Time) | titleannouncer.command.title |
 
+![Player Title Announcement](img/PlayerAnnouncementTitle.png)
+
 #### BossBar Format
 
-| Arguments                                                       | Permission                     |
-|-----------------------------------------------------------------|--------------------------------|
-| \[Time to Display in seconds\] \[Color\] \[Overlay] \[Content\] | titleannouncer.command.bossbar |
+| Arguments                                         | Permission                     |
+|---------------------------------------------------|--------------------------------|
+| \[Display Time\] \[Color\] \[Overlay] \[Content\] | titleannouncer.command.bossbar |
+
+![Server BossBar Announcement](img/ServerAnnouncementBossbar.png)
 
 #### Sound Format
 
@@ -150,3 +151,6 @@ Like the player argument, when requiring `:`, it must be enclosed in quotation m
 | Arguments                                    | Permission                   |
 |----------------------------------------------|------------------------------|
 | \[Sound Key\] (Source Type) (Volume) (Pitch) | titleannouncer.command.sound |
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7NP3ibtHDp8?si=jRL3mo1NY2kz42VV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
