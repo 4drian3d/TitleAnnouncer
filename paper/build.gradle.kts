@@ -1,3 +1,5 @@
+import net.minecrell.pluginyml.paper.PaperPluginDescription
+
 plugins {
     alias(libs.plugins.pluginyml)
     alias(libs.plugins.runpaper)
@@ -14,7 +16,13 @@ paper {
     main = "io.github._4drian3d.titleannouncer.paper.TitleAnnouncerPaper"
     loader = "io.github._4drian3d.titleannouncer.paper.TitleAnnouncerPaperLoader"
     apiVersion = "1.21"
-    website = "https://github.com/4drian3d/TitleAnnouncer"
+    website = "https://modrinth.com/plugin/titleannouncer"
     authors = listOf("4drian3d")
     version = project.version as String
+    serverDependencies {
+        register("MiniPlaceholders") {
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+            required = false
+        }
+    }
 }
