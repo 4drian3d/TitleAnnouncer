@@ -10,9 +10,7 @@ import java.util.function.Supplier;
 public interface TargetSuggestionType {
   String targetPrefix();
 
-  default boolean canSuggest(String lowerCasedArgument) {
-    return lowerCasedArgument.startsWith(targetPrefix());
-  }
+  boolean canSuggest(String lowerCasedArgument);
 
   CompletableFuture<Suggestions> provideSuggestions(final String remaining, final SuggestionsBuilder builder);
 

@@ -26,9 +26,9 @@ public record ServerSuggestionType(ProxyServer proxyServer) implements TargetSug
   @Override
   public CompletableFuture<Suggestions> provideSuggestions(final String remaining, final SuggestionsBuilder builder) {
     if (remaining.isBlank() || remaining.indexOf(':') == -1) {
-      return builder.suggest("\"server:").suggest("server").buildFuture();
+      return builder.restart().suggest("\"server:").suggest("server").buildFuture();
     }
-    return this.provideListSuggestions(remaining, builder, this::serverNames);
+    return this.provideListSuggestions(remaining, builder.restart(), this::serverNames);
   }
 
   @Override

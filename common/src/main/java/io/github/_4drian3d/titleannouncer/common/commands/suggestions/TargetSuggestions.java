@@ -17,8 +17,6 @@ public record TargetSuggestions<C>(TargetSuggestionType... targetSuggestionTypes
       if (targetSuggestionType.canSuggest(inputLowercased)) {
         return targetSuggestionType.provideSuggestions(originalInput, builder);
       }
-    }
-    for (final TargetSuggestionType targetSuggestionType : this.targetSuggestionTypes) {
       targetSuggestionType.suggestSelf(builder);
     }
     return builder.suggest("self").suggest("all").buildFuture();

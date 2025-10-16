@@ -31,7 +31,7 @@ public record WorldSuggestionType(Server server) implements TargetSuggestionType
   @Override
   public CompletableFuture<Suggestions> provideSuggestions(String remaining, SuggestionsBuilder builder) {
     if (remaining.isBlank() || remaining.indexOf(':') == -1) {
-      return builder.suggest("\"world:").suggest("world").buildFuture();
+      return builder.restart().suggest("\"world:").suggest("world").buildFuture();
     }
     return this.provideListSuggestions(remaining, builder, this::worldNames);
   }

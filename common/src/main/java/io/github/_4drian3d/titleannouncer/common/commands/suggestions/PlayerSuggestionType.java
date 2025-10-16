@@ -19,6 +19,6 @@ public record PlayerSuggestionType(PlatformAdapter<?, ?> platformAdapter) implem
 
   @Override
   public CompletableFuture<Suggestions> provideSuggestions(final String remaining, SuggestionsBuilder builder) {
-    return this.provideListSuggestions(remaining, builder, platformAdapter::playerSuggestions);
+    return this.provideListSuggestions(remaining, builder.restart(), platformAdapter::playerSuggestions);
   }
 }
