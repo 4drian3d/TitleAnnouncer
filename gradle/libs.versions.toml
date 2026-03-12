@@ -2,8 +2,8 @@ metadata.format.version = "1.1"
 
 [versions]
 
-velocity = "3.4.0-SNAPSHOT"
-paper = "1.21.10-R0.1-SNAPSHOT"
+velocity = "3.5.0-SNAPSHOT"
+paper = "1.21.11-R0.1-SNAPSHOT"
 
 runtask = "2.1.0"
 pluginyml = "0.6.0"
