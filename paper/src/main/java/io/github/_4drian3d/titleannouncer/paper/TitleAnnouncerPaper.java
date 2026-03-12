@@ -7,6 +7,7 @@ import com.google.inject.TypeLiteral;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
 import io.github._4drian3d.titleannouncer.common.commands.TitleAnnouncerCommand;
+import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestionType;
 import io.github._4drian3d.titleannouncer.paper.adapter.WorldSuggestionType;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -20,14 +21,15 @@ public final class TitleAnnouncerPaper extends JavaPlugin {
   public void onEnable() {
     final Injector injector = Guice.createInjector(new TitleAnnouncerPaperModule(this.getServer(), this.getComponentLogger(), this.getDataPath()));
 
+    final TargetSuggestionType nativeSuggestionsType = new WorldSuggestionType(this.getServer());
     final LiteralCommandNode<CommandSourceStack> announcerNode = injector
         .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSourceStack>>() {
         }))
-        .buildCommand("", new WorldSuggestionType(this.getServer()));
+        .buildCommand("", nativeSuggestionsType);
     final LiteralCommandNode<CommandSourceStack> mainCommandNode = injector
         .getInstance(Key.get(new TypeLiteral<TitleAnnouncerCommand<Player, CommandSourceStack>>() {
         }))
-        .buildCommand("");
+        .buildCommand("", nativeSuggestionsType);
 
     this.getLifecycleManager()
         .registerEventHandler(LifecycleEvents.COMMANDS, event -> {

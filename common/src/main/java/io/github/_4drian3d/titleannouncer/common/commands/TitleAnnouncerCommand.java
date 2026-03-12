@@ -2,19 +2,29 @@ package io.github._4drian3d.titleannouncer.common.commands;
 
 import com.google.inject.Inject;
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github._4drian3d.titleannouncer.common.Constants;
 import io.github._4drian3d.titleannouncer.common.adapter.PlatformAdapter;
+import io.github._4drian3d.titleannouncer.common.commands.suggestions.PlayerSuggestionType;
+import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestionType;
+import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestions;
 import io.github._4drian3d.titleannouncer.common.configuration.Configuration;
 import io.github._4drian3d.titleannouncer.common.configuration.ConfigurationContainer;
 import io.github._4drian3d.titleannouncer.common.configuration.Messages;
 import io.github._4drian3d.titleannouncer.common.format.Formatter;
+import io.github._4drian3d.titleannouncer.common.manager.BossBarManager;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.audience.ForwardingAudience;
+import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.william278.desertwell.about.AboutMenu;
 import net.william278.desertwell.util.Version;
+
+import java.util.Optional;
 
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
@@ -39,8 +49,13 @@ public class TitleAnnouncerCommand<P extends Audience, C> {
   private ConfigurationContainer<Messages> messagesContainer;
   @Inject
   private Formatter formatter;
+  @Inject
+  private BossBarManager bossBarManager;
 
-  public LiteralCommandNode<C> buildCommand(final String prefix) {
+  public LiteralCommandNode<C> buildCommand(final String prefix, TargetSuggestionType nativeTargetSuggestions) {
+    final PlayerSuggestionType playerSuggestionType = new PlayerSuggestionType(platformAdapter);
+    final TargetSuggestions<C> targetSuggestions = new TargetSuggestions<>(playerSuggestionType, nativeTargetSuggestions);
+
     return LiteralArgumentBuilder.<C>literal(prefix + "titleannouncer")
         .requires(src -> platformAdapter.hasPermission(src, "titleannouncer.command.admin"))
         .executes(ctx -> {
@@ -62,6 +77,46 @@ public class TitleAnnouncerCommand<P extends Audience, C> {
                   });
               return Command.SINGLE_SUCCESS;
             })
+        )
+        .then(LiteralArgumentBuilder.<C>literal("clear")
+            .then(RequiredArgumentBuilder.<C, String>argument("target", StringArgumentType.string())
+                .suggests(targetSuggestions)
+                .then(LiteralArgumentBuilder.<C>literal("bossbar")
+                    .executes(ctx -> {
+                      final Audience audience = platformAdapter.nativeToAudience(ctx.getSource());
+                      final Optional<? extends Audience> optionalTarget = platformAdapter
+                          .destinationFromString(StringArgumentType.getString(ctx, "target"), audience);
+                      if (optionalTarget.isEmpty()) {
+                        audience.sendMessage(formatter.globalFormat(messagesContainer.get().invalidTarget()));
+                        return -1;
+                      }
+                      final Audience target = optionalTarget.get();
+                      if (target instanceof ForwardingAudience forwardingAudience) {
+                        //noinspection OverrideOnly
+                        forwardingAudience.audiences()
+                            .forEach(single -> single.get(Identity.UUID)
+                                .ifPresent(bossBarManager::cancelTasksByUUID));
+                      } else {
+                        target.get(Identity.UUID)
+                            .ifPresent(bossBarManager::cancelTasksByUUID);
+                      }
+                      return Command.SINGLE_SUCCESS;
+                    })
+                )
+                .then(LiteralArgumentBuilder.<C>literal("title")
+                    .executes(ctx -> {
+                      final Audience audience = platformAdapter.nativeToAudience(ctx.getSource());
+                      final Optional<? extends Audience> optionalTarget = platformAdapter
+                          .destinationFromString(StringArgumentType.getString(ctx, "target"), audience);
+                      if (optionalTarget.isEmpty()) {
+                        audience.sendMessage(formatter.globalFormat(messagesContainer.get().invalidTarget()));
+                        return -1;
+                      }
+                      optionalTarget.get().clearTitle();
+                      return Command.SINGLE_SUCCESS;
+                    })
+                )
+            )
         )
         .build();
   }

@@ -20,6 +20,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import io.github._4drian3d.titleannouncer.common.Constants;
 import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
 import io.github._4drian3d.titleannouncer.common.commands.TitleAnnouncerCommand;
+import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestionType;
 import io.github._4drian3d.titleannouncer.velocity.adapter.ServerSuggestionType;
 
 import java.nio.file.Path;
@@ -36,42 +37,45 @@ import java.nio.file.Path;
     }
 )
 public final class TitleAnnouncerVelocity {
-    @Inject
-    private Injector injector;
-    @Inject
-    @DataDirectory
-    private Path path;
-    @Inject
-    private ProxyServer proxyServer;
-    @Inject
-    private CommandManager commandManager;
+  @Inject
+  private Injector injector;
+  @Inject
+  @DataDirectory
+  private Path path;
+  @Inject
+  private ProxyServer proxyServer;
+  @Inject
+  private CommandManager commandManager;
 
-    @Subscribe
-    public void onStartup(final ProxyInitializeEvent event) {
-        this.injector = injector.createChildInjector(new TitleAnnouncerVelocityModule(path));
+  @Subscribe
+  public void onStartup(final ProxyInitializeEvent event) {
+    this.injector = injector.createChildInjector(new TitleAnnouncerVelocityModule(path));
 
-        final LiteralCommandNode<CommandSource> announceNode = this.injector
-            .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSource>>() {}))
-            .buildCommand("v", new ServerSuggestionType(proxyServer));
-      final LiteralCommandNode<CommandSource> mainCommandNode = this.injector
-          .getInstance(Key.get(new TypeLiteral<TitleAnnouncerCommand<Player, CommandSource>>() {}))
-          .buildCommand("v");
+    final TargetSuggestionType nativeSuggestionType = new ServerSuggestionType(proxyServer);
+    final LiteralCommandNode<CommandSource> announceNode = this.injector
+        .getInstance(Key.get(new TypeLiteral<AnnouncerCommand<Player, CommandSource>>() {
+        }))
+        .buildCommand("v", nativeSuggestionType);
+    final LiteralCommandNode<CommandSource> mainCommandNode = this.injector
+        .getInstance(Key.get(new TypeLiteral<TitleAnnouncerCommand<Player, CommandSource>>() {
+        }))
+        .buildCommand("v", nativeSuggestionType);
 
-        final BrigadierCommand announceCommand = new BrigadierCommand(announceNode);
-        final CommandMeta announceCommandMeta = commandManager.metaBuilder(announceCommand)
-            .plugin(this)
-            .build();
-        commandManager.register(announceCommandMeta, announceCommand);
+    final BrigadierCommand announceCommand = new BrigadierCommand(announceNode);
+    final CommandMeta announceCommandMeta = commandManager.metaBuilder(announceCommand)
+        .plugin(this)
+        .build();
+    commandManager.register(announceCommandMeta, announceCommand);
 
-      final BrigadierCommand mainCommand = new BrigadierCommand(mainCommandNode);
-      final CommandMeta mainCommandMeta = commandManager.metaBuilder(mainCommand)
-          .plugin(this)
-          .build();
-      commandManager.register(mainCommandMeta, mainCommand);
-    }
+    final BrigadierCommand mainCommand = new BrigadierCommand(mainCommandNode);
+    final CommandMeta mainCommandMeta = commandManager.metaBuilder(mainCommand)
+        .plugin(this)
+        .build();
+    commandManager.register(mainCommandMeta, mainCommand);
+  }
 
-    @Subscribe
-    public void onShutdown(final ProxyShutdownEvent event) {
+  @Subscribe
+  public void onShutdown(final ProxyShutdownEvent event) {
 
-    }
+  }
 }

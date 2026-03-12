@@ -10,6 +10,7 @@ import net.kyori.adventure.identity.Identity;
 import org.jetbrains.annotations.Range;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.*;
@@ -50,7 +51,16 @@ public final class BossBarManager {
         return b;
       })
     );
+  }
 
+  public void cancelTasksByUUID(UUID uuid) {
+    final Iterator<Map.Entry<BossBarTask, ScheduledFuture<?>>> iterator = BOSSBAR_TASKS.get(uuid).entrySet().iterator();
+    while (iterator.hasNext()) {
+      final Map.Entry<BossBarTask, ScheduledFuture<?>> entry = iterator.next();
+      final BossBarTask bossBarTask = entry.getKey();
+      bossBarTask.viewer.hideBossBar(bossBarTask.bossBar);
+      iterator.remove();
+    }
   }
 
   private record BossBarTask(
