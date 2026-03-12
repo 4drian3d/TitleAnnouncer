@@ -40,6 +40,7 @@ public record ChatAnnounceNode<C>(
                   final Audience target = optionalTarget.get();
                   final Component message = formatter.audienceFormat(StringArgumentType.getString(ctx, "message"), target);
                   target.sendMessage(message);
+                  executor.sendMessage(formatter.audienceFormat(messagesContainer.get().chat().announceSent(), executor));
 
                   return Command.SINGLE_SUCCESS;
                 })

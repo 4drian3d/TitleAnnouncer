@@ -54,6 +54,7 @@ public record TitleAnnounceNode<C>(
                           Duration.ofMillis(titleConfiguration.defaultStay()),
                           Duration.ofMillis(titleConfiguration.defaultFadeOut())
                       ));
+                      executor.sendMessage(formatter.audienceFormat(messagesContainer.get().title().announceSent(), executor));
                       return Command.SINGLE_SUCCESS;
                     })
                     .then(RequiredArgumentBuilder.<C, Integer>argument("fadein", IntegerArgumentType.integer(1))
@@ -81,6 +82,7 @@ public record TitleAnnounceNode<C>(
                                       Duration.ofMillis(stay),
                                       Duration.ofMillis(fadeout)
                                   ));
+                                  executor.sendMessage(formatter.audienceFormat(messagesContainer.get().title().announceSent(), executor));
                                   return Command.SINGLE_SUCCESS;
                                 })
                             )

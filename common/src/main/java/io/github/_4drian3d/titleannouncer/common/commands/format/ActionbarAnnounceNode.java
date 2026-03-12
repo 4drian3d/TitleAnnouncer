@@ -40,6 +40,7 @@ public record ActionbarAnnounceNode<C>(
                   final Audience target = optionalTarget.get();
                   final Component message = formatter.audienceFormat(StringArgumentType.getString(ctx, "message"), target);
                   target.sendActionBar(message);
+                  executor.sendMessage(formatter.audienceFormat(messagesContainer.get().actionbar().announceSent(), executor));
 
                   return Command.SINGLE_SUCCESS;
                 })

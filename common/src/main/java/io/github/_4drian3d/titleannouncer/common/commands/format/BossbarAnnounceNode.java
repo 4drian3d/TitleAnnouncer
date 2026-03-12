@@ -58,6 +58,7 @@ public record BossbarAnnounceNode<C>(
                               final String content = StringArgumentType.getString(ctx, "content");
 
                               bossBarManager.sendBossBar(target, seconds, content, color, overlay);
+                              executor.sendMessage(formatter.audienceFormat(messagesContainer.get().bossbar().announceSent(), executor));
 
                               return Command.SINGLE_SUCCESS;
                             })
