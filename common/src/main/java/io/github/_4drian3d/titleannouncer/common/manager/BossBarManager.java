@@ -53,8 +53,12 @@ public final class BossBarManager {
     );
   }
 
-  public void cancelTasksByUUID(UUID uuid) {
-    final Iterator<Map.Entry<BossBarTask, ScheduledFuture<?>>> iterator = BOSSBAR_TASKS.get(uuid).entrySet().iterator();
+  public void cancelTasksByUUID(final UUID uuid) {
+    final Map<BossBarTask, ScheduledFuture<?>> bossBarsByID = BOSSBAR_TASKS.get(uuid);
+    if (bossBarsByID == null) {
+      return;
+    }
+    final Iterator<Map.Entry<BossBarTask, ScheduledFuture<?>>> iterator = bossBarsByID.entrySet().iterator();
     while (iterator.hasNext()) {
       final Map.Entry<BossBarTask, ScheduledFuture<?>> entry = iterator.next();
       final BossBarTask bossBarTask = entry.getKey();

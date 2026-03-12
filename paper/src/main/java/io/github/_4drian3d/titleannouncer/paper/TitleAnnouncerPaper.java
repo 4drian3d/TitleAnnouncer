@@ -9,9 +9,12 @@ import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
 import io.github._4drian3d.titleannouncer.common.commands.TitleAnnouncerCommand;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestionType;
 import io.github._4drian3d.titleannouncer.paper.adapter.WorldSuggestionType;
+import io.github._4drian3d.titleannouncer.paper.listener.LeaveListener;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -36,5 +39,9 @@ public final class TitleAnnouncerPaper extends JavaPlugin {
           event.registrar().register(this.getPluginMeta(), announcerNode, "Announce commands", List.of());
           event.registrar().register(this.getPluginMeta(), mainCommandNode, "TitleAnnouncer main command", List.of());
         });
+
+    final LeaveListener listener = injector.getInstance(LeaveListener.class);
+    this.getServer().getPluginManager()
+        .registerEvent(PlayerQuitEvent.class, listener, EventPriority.NORMAL, listener, this, true);
   }
 }

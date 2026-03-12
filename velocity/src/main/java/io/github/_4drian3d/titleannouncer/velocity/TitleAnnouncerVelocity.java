@@ -10,6 +10,7 @@ import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Dependency;
@@ -22,6 +23,7 @@ import io.github._4drian3d.titleannouncer.common.commands.AnnouncerCommand;
 import io.github._4drian3d.titleannouncer.common.commands.TitleAnnouncerCommand;
 import io.github._4drian3d.titleannouncer.common.commands.suggestions.TargetSuggestionType;
 import io.github._4drian3d.titleannouncer.velocity.adapter.ServerSuggestionType;
+import io.github._4drian3d.titleannouncer.velocity.listener.LeaveListener;
 
 import java.nio.file.Path;
 
@@ -62,16 +64,19 @@ public final class TitleAnnouncerVelocity {
         .buildCommand("v", nativeSuggestionType);
 
     final BrigadierCommand announceCommand = new BrigadierCommand(announceNode);
-    final CommandMeta announceCommandMeta = commandManager.metaBuilder(announceCommand)
+    final CommandMeta announceCommandMeta = this.commandManager.metaBuilder(announceCommand)
         .plugin(this)
         .build();
-    commandManager.register(announceCommandMeta, announceCommand);
+    this.commandManager.register(announceCommandMeta, announceCommand);
 
     final BrigadierCommand mainCommand = new BrigadierCommand(mainCommandNode);
-    final CommandMeta mainCommandMeta = commandManager.metaBuilder(mainCommand)
+    final CommandMeta mainCommandMeta = this.commandManager.metaBuilder(mainCommand)
         .plugin(this)
         .build();
-    commandManager.register(mainCommandMeta, mainCommand);
+    this.commandManager.register(mainCommandMeta, mainCommand);
+
+    this.proxyServer.getEventManager()
+        .register(this, DisconnectEvent.class, this.injector.getInstance(LeaveListener.class));
   }
 
   @Subscribe
