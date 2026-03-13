@@ -11,7 +11,7 @@ shadow = "9.3.2"
 blossom = "2.2.0"
 
 brigadier = "1.0.500"
-adventure = "4.25.0"
+adventure = "4.26.1"
 configurate = "4.2.0"
 miniplaceholders = "3.1.0"
 
