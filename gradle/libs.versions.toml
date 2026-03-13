@@ -5,7 +5,7 @@ metadata.format.version = "1.1"
 velocity = "3.5.0-SNAPSHOT"
 paper = "1.21.11-R0.1-SNAPSHOT"
 
-runtask = "2.1.0"
+runtask = "3.0.2"
 pluginyml = "0.6.0"
 shadow = "9.2.2"
 blossom = "2.2.0"
