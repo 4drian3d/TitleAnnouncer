@@ -47,4 +47,4 @@ runpaper = { id = "xyz.jpenilla.run-paper", version.ref = "runtask" }
 runvelocity = { id = "xyz.jpenilla.run-velocity", version.ref = "runtask" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
-idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.3" }
+idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.4.1" }
