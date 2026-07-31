@@ -7,7 +7,7 @@ paper = "1.21.11-R0.1-SNAPSHOT"
 
 runtask = "3.0.2"
 pluginyml = "0.6.0"
-shadow = "9.5.1"
+shadow = "9.6.1"
 blossom = "2.2.0"
 
 brigadier = "1.0.500"
