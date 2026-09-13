@@ -19,6 +19,7 @@ paper {
     website = "https://modrinth.com/plugin/titleannouncer"
     authors = listOf("4drian3d")
     version = project.version as String
+    foliaSupported = true
     serverDependencies {
         register("MiniPlaceholders") {
             load = PaperPluginDescription.RelativeLoadOrder.BEFORE
